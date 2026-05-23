@@ -1,0 +1,11 @@
+{
+  "name": "equipment-management",
+  "private": true,
+  "scripts": {
+    "dev:api": "pnpm --filter @equipment-mgmt/api dev",
+    "dev:web": "pnpm --filter @equipment-mgmt/web dev",
+    "dev": "pnpm --parallel dev:api dev:web",
+    "build": "pnpm --recursive build",
+    "lint": "pnpm --recursive lint"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules
+**/node_modules
+**/.git
+**/.gitignore
+**/dist
+**/.env
+**/*.log
+**/tsconfig.tsbuildinfo
+.github
+chat.json
+README.md
+BOILERPLATE_STATUS.md

@@ -1,0 +1,77 @@
+services:
+  # ─── PostgreSQL Database ───────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: equipment_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: equipment_mgmt
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      # Auto-run migration on first start
+      - ./apps/api/src/infrastructure/database/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d equipment_mgmt"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  # ─── Express API ───────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: equipment_api
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      NODE_ENV: production
+      # Database
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: equipment_mgmt
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      # JWT – CHANGE THIS IN PRODUCTION!
+      JWT_SECRET: super_secret_jwt_key_change_me_in_production
+      JWT_EXPIRES_IN: 8h
+      # CORS – allow web container
+      CORS_ORIGIN: http://localhost:8000
+      # Email (optional – leave blank to disable)
+      SMTP_HOST: ""
+      SMTP_PORT: 587
+      SMTP_USER: ""
+      SMTP_PASS: ""
+      SMTP_FROM: ""
+      # Uploads
+      UPLOAD_DIR: /app/uploads
+    volumes:
+      - api_uploads:/app/uploads
+    ports:
+      - "4000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # ─── UmiJS / React Frontend (nginx) ───────────────────────────
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: equipment_web
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+    driver: local
+  api_uploads:
+    driver: local

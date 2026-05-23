@@ -1,0 +1,25 @@
+{
+  "name": "@equipment-mgmt/web",
+  "scripts": {
+    "dev": "max dev",
+    "build": "umi build",
+    "lint": "umi lint"
+  },
+  "dependencies": {
+    "@equipment-mgmt/shared": "workspace:*",
+    "@umijs/max": "^4.6.55",
+    "antd": "^5.19.0",
+    "axios": "^1.7.2",
+    "dayjs": "^1.11.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.23.8",
+    "zustand": "^4.5.4"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@umijs/plugins": "^4.6.55",
+    "typescript": "^5.5.3"
+  }
+}

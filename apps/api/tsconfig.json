@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "NodeNext",
+    "jsx": "preserve",
+    "baseUrl": "./",
+    "paths": {
+      "@equipment-mgmt/shared": ["../../packages/shared/src"]
+    }
+  },
+  "include": ["src"],
+  "references": []
+}

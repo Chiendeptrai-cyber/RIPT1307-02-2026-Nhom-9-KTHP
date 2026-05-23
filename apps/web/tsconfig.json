@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "module": "NodeNext",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@equipment-mgmt/shared": ["../../packages/shared/src"]
+    }
+  },
+  "include": ["src"],
+  "references": []
+}

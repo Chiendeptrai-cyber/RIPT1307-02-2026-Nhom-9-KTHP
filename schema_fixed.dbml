@@ -1,0 +1,318 @@
+// ══════════════════════════════════════════════
+// USERS
+// ══════════════════════════════════════════════
+Table users {
+  id            int          [pk, increment]
+  full_name     varchar(100) [not null]
+  email         varchar(100) [unique, not null]
+  password_hash varchar(255) [not null]
+  role          enum('student','admin') [not null, default: 'student']
+
+  // active         = hoạt động bình thường
+  // borrow_blocked = đang có phiếu quá hạn, tự động set/clear bởi cron
+  // locked         = admin khóa thủ công khi vi phạm nghiêm trọng
+  status enum('active','borrow_blocked','locked') [not null, default: 'active']
+
+  // [FIX-2] Tùy chọn nhận email — false = chỉ nhận in-app
+  // Không áp dụng cho overdue_alert (luôn gửi dù tắt)
+  email_notifications_enabled boolean [not null, default: true]
+
+  student_code  varchar(20)  [unique, note: 'Nullable']
+  phone         varchar(15)
+  club_name     varchar(100) [note: 'Nullable']
+  created_at    timestamp    [default: `now()`]
+  updated_at    timestamp    [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// PASSWORD RESET TOKENS [FIX-1]
+// ══════════════════════════════════════════════
+Table password_reset_tokens {
+  id         int          [pk, increment]
+  user_id    int          [ref: > users.id, not null]
+  token      varchar(255) [unique, not null]
+  expires_at timestamp    [not null, note: 'now() + 30 phút']
+  used_at    timestamp    [note: 'Nullable — set khi token đã được dùng']
+  created_at timestamp    [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// CATEGORIES
+// ══════════════════════════════════════════════
+Table categories {
+  id          int          [pk, increment]
+  name        varchar(100) [not null]
+  description text
+  created_at  timestamp    [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// EQUIPMENT
+// ══════════════════════════════════════════════
+Table equipment {
+  id          int          [pk, increment]
+  category_id int          [ref: > categories.id]
+  name        varchar(150) [not null]
+  description text
+
+  // active            = hiển thị & cho mượn bình thường
+  // under_maintenance = hiển thị với sinh viên nhưng không mượn được
+  // deleted           = ẩn hoàn toàn (soft delete)
+  status enum('active','under_maintenance','deleted') [not null, default: 'active']
+
+  is_tracked_by_instance boolean [not null, default: false,
+    note: 'true = quản lý theo serial. false = quản lý theo số lượng']
+
+  total_quantity     int [not null, default: 0,
+    note: 'Tổng nhập vào kho. Chỉ giảm khi mất vĩnh viễn']
+  available_quantity int [not null, default: 0,
+    note: 'Sẵn sàng cho mượn. Giảm khi duyệt, tăng khi trả tốt']
+  damaged_quantity   int [not null, default: 0,
+    note: 'Đang hỏng chờ sửa/thanh lý']
+  lost_quantity      int [not null, default: 0,
+    note: 'Đã mất vĩnh viễn']
+
+  image_url  varchar(255)
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+
+  deleted_at timestamp [note: 'Nullable — set khi xóa mềm']
+  deleted_by int       [ref: > users.id, note: 'Nullable — admin thực hiện xóa']
+}
+
+// ══════════════════════════════════════════════
+// EQUIPMENT INSTANCES (serial tracking)
+// ══════════════════════════════════════════════
+Table equipment_instances {
+  id            int          [pk, increment]
+  equipment_id  int          [ref: > equipment.id, not null]
+  serial_number varchar(100) [unique, note: 'Nullable nếu không có serial']
+
+  // good         = có sẵn trong kho, tốt
+  // reserved     = đã giữ cho phiếu được duyệt, chờ bàn giao vật lý
+  // borrowed     = đã bàn giao, đang ở tay sinh viên
+  // damaged      = hỏng, chờ sửa chữa hoặc thanh lý
+  // lost         = mất vĩnh viễn
+  // under_repair = đang được sửa chữa
+  condition enum('good','reserved','borrowed','damaged','lost','under_repair')
+    [not null, default: 'good']
+
+  // Chỉ set khi condition = 'reserved'
+  // Cleared về NULL sau khi: bàn giao thực tế, phiếu bị hủy/từ chối
+  reserved_for_item_id int [ref: > borrow_request_items.id,
+    note: 'Nullable — FK tới item đang giữ serial này khi condition=reserved']
+
+  note       text
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// BORROW REQUESTS
+// ══════════════════════════════════════════════
+Table borrow_requests {
+  id          int [pk, increment]
+  user_id     int [ref: > users.id, not null]
+  reviewed_by int [ref: > users.id, note: 'Nullable — admin duyệt hoặc từ chối']
+  checkout_by int [ref: > users.id, note: 'Nullable — admin bàn giao vật lý']
+
+  // pending      = chờ admin xét duyệt
+  // approved     = đã duyệt, kho đã trừ, chờ sinh viên đến nhận
+  // rejected     = bị từ chối kèm lý do
+  // cancelled    = sinh viên hoặc admin hủy
+  // borrowing    = đã bàn giao vật lý, đang mượn
+  // overdue      = vượt expected_return_date, cron tự cập nhật lúc 09:00
+  // under_review = admin đang kiểm tra thiết bị trả về trước khi xác nhận
+  // returned     = phiếu đã đóng hoàn toàn
+  status enum('pending','approved','rejected','cancelled',
+              'borrowing','overdue','under_review','returned')
+    [not null, default: 'pending']
+
+  borrow_date          timestamp [not null,
+    note: 'Ngày sinh viên đăng ký nhận']
+  expected_return_date timestamp [not null,
+    note: 'Ngày trả dự kiến. Dùng giá trị này (hoặc extended_return_date) để tính quá hạn']
+  actual_checkout_date timestamp [note: 'Nullable — set tại FLOW-05 khi bàn giao thực tế']
+
+  is_extended          boolean   [not null, default: false,
+    note: 'Chỉ được gia hạn 1 lần']
+  extended_return_date timestamp [note: 'Nullable — ngày trả mới sau khi gia hạn']
+
+  note        text  [note: 'Ghi chú của sinh viên']
+  admin_note  text  [note: 'Nullable — lý do từ chối hoặc ghi chú admin']
+  reviewed_at timestamp
+  created_at  timestamp [default: `now()`]
+  updated_at  timestamp [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// BORROW REQUEST ITEMS
+// ══════════════════════════════════════════════
+Table borrow_request_items {
+  id           int [pk, increment]
+  request_id   int [ref: > borrow_requests.id, not null]
+  equipment_id int [ref: > equipment.id, not null]
+  quantity     int [not null, default: 1]
+}
+
+// ══════════════════════════════════════════════
+// BORROW RECORDS (tạo khi bàn giao vật lý)
+// ══════════════════════════════════════════════
+Table borrow_records {
+  id              int [pk, increment]
+  request_item_id int [ref: - borrow_request_items.id, not null]
+
+  actual_borrow_date timestamp [note: 'Nullable — set khi admin xuất kho']
+  actual_return_date timestamp [note: 'Nullable — set khi trả xong']
+
+  returned_quantity int [not null, default: 0, note: 'Trả về nguyên vẹn']
+  damaged_quantity  int [not null, default: 0, note: 'Trả về nhưng bị hỏng']
+  lost_quantity     int [not null, default: 0, note: 'Báo mất']
+
+  // borrowed         = đang mượn
+  // partial_returned = trả một phần (hỏng hoặc mất một phần)
+  // returned         = trả đủ toàn bộ
+  // overdue          = vượt hạn
+  status enum('borrowed','partial_returned','returned','overdue')
+    [not null, default: 'borrowed']
+
+  condition_note text
+  received_by    int [ref: > users.id,
+    note: 'Nullable — admin ghi nhận trả. Dùng để check window hoàn tác 5 phút']
+
+  created_at timestamp [default: `now()`]
+  updated_at timestamp [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// BORROW RECORD INSTANCES (serial tracking khi trả)
+// ══════════════════════════════════════════════
+Table borrow_record_instances {
+  id               int [pk, increment]
+  borrow_record_id int [ref: > borrow_records.id, not null]
+  instance_id      int [ref: > equipment_instances.id, not null]
+
+  // borrowed = đang ở tay sinh viên
+  // returned = trả về tốt
+  // damaged  = trả về hỏng
+  // lost     = báo mất
+  status enum('borrowed','returned','damaged','lost') [not null, default: 'borrowed']
+
+  condition_note   text
+  return_image_url varchar(255) [note: 'Nullable — ảnh chụp tình trạng khi trả']
+  returned_at      timestamp    [note: 'Nullable — thời điểm trả serial này']
+}
+
+// ══════════════════════════════════════════════
+// VIOLATIONS
+// ══════════════════════════════════════════════
+Table violations {
+  id           int [pk, increment]
+  user_id      int [ref: > users.id, not null]
+  request_id   int [ref: > borrow_requests.id, not null]
+  equipment_id int [ref: > equipment.id, not null]
+
+  // late_return = trả muộn
+  // damaged     = làm hỏng thiết bị
+  // lost        = làm mất thiết bị
+  type enum('late_return','damaged','lost') [not null]
+
+  description text [note: 'Mô tả chi tiết vi phạm, bắt buộc với damaged/lost']
+  days_late   int  [note: 'Nullable — số ngày trễ, chỉ dùng khi type=late_return']
+
+  created_at timestamp [default: `now()`]
+  created_by int [ref: > users.id, not null, note: 'Admin ghi nhận vi phạm']
+}
+
+// ══════════════════════════════════════════════
+// EQUIPMENT STOCK LOGS
+// ══════════════════════════════════════════════
+Table equipment_stock_logs {
+  id           int [pk, increment]
+  equipment_id int [ref: > equipment.id, not null]
+
+  // import         = nhập thêm từ nguồn mới
+  // mark_damaged   = ghi nhận hỏng trực tiếp (không qua phiếu)
+  // mark_lost      = ghi nhận mất trực tiếp (không qua phiếu)
+  // repaired       = sửa xong, hoàn về kho
+  // adjustment     = điều chỉnh trực tiếp (bắt buộc nhập lý do)
+  // borrow_approve = trừ kho khi admin duyệt phiếu
+  // borrow_return  = cộng/trừ kho khi sinh viên trả
+  // borrow_cancel  = hoàn kho khi phiếu bị hủy
+  action_type enum('import','mark_damaged','mark_lost','repaired',
+                   'adjustment','borrow_approve','borrow_return','borrow_cancel')
+    [not null]
+
+  quantity_changed int [not null,
+    note: 'Dương = tăng, Âm = giảm. Áp dụng cho available_quantity']
+
+  available_before int [not null, note: 'available_quantity trước thao tác']
+  available_after  int [not null, note: 'available_quantity sau thao tác']
+
+  total_before int [note: 'Nullable — total_quantity trước (chỉ set khi total thay đổi)']
+  total_after  int [note: 'Nullable — total_quantity sau']
+
+  // [FIX-3] Audit đầy đủ damaged_quantity và lost_quantity
+  // Set khi action_type IN (mark_damaged, repaired, borrow_return)
+  damaged_before int [note: 'Nullable — damaged_quantity trước thao tác']
+  damaged_after  int [note: 'Nullable — damaged_quantity sau thao tác']
+
+  // Set khi action_type IN (mark_lost, borrow_return)
+  lost_before int [note: 'Nullable — lost_quantity trước thao tác']
+  lost_after  int [note: 'Nullable — lost_quantity sau thao tác']
+
+  note       text [note: 'Lý do bắt buộc khi action_type = adjustment']
+  request_id int  [ref: > borrow_requests.id,
+    note: 'Nullable — liên kết phiếu nếu thay đổi do approve/return/cancel']
+  created_by int  [ref: > users.id, not null]
+  created_at timestamp [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════════════════
+Table notifications {
+  id      int [pk, increment]
+  user_id int [ref: > users.id, not null]
+
+  // new_request        = admin nhận khi sinh viên tạo phiếu
+  // approved           = sinh viên nhận khi phiếu được duyệt
+  // rejected           = sinh viên nhận khi phiếu bị từ chối
+  // checkout_confirmed = sinh viên nhận khi admin bàn giao vật lý
+  // return_confirmed   = sinh viên nhận khi admin xác nhận trả thành công
+  // due_reminder       = sinh viên nhận khi sắp đến hạn (cron 08:00)
+  // overdue_alert      = sinh viên + admin nhận khi quá hạn (cron 09:00)
+  type enum('new_request','approved','rejected','checkout_confirmed',
+            'return_confirmed','due_reminder','overdue_alert')
+    [not null]
+
+  title      varchar(200) [not null]
+  message    text         [not null]
+  is_read    boolean      [default: false]
+  created_at timestamp    [default: `now()`]
+}
+
+// ══════════════════════════════════════════════
+// EMAIL LOGS
+// ══════════════════════════════════════════════
+Table email_logs {
+  id         int [pk, increment]
+  user_id    int [ref: > users.id, not null]
+  request_id int [ref: > borrow_requests.id, note: 'Nullable']
+
+  // approved           = thông báo phiếu được duyệt
+  // rejected           = thông báo phiếu bị từ chối
+  // checkout_confirmed = thông báo bàn giao vật lý
+  // due_reminder       = nhắc sắp đến hạn (cron 08:00)
+  // overdue_alert      = cảnh báo quá hạn (cron 09:00)
+  type enum('approved','rejected','checkout_confirmed','due_reminder','overdue_alert')
+    [not null]
+
+  subject     varchar(255) [not null]
+  send_status enum('pending','sent','failed') [not null, default: 'pending']
+
+  retry_count int       [not null, default: 0,
+    note: 'Tối đa 3 lần retry, mỗi lần cách nhau 5 phút']
+  sent_at     timestamp [note: 'Nullable — set khi gửi thành công']
+  created_at  timestamp [default: `now()`]
+}

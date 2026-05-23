@@ -1,0 +1,16 @@
+export const ROUTES = {
+  LOGIN: '/login',
+  REGISTER: '/register',
+  FORGOT_PASSWORD: '/forgot-password',
+  EQUIPMENT: '/equipment',
+  EQUIPMENT_DETAIL: (id: number | string) => `/equipment/${id}`,
+  BORROW_CREATE: '/borrow-request/create',
+  BORROW_HISTORY: '/borrow-request',
+  NOTIFICATIONS: '/notifications',
+  ADMIN_DASHBOARD: '/admin/dashboard',
+  ADMIN_REQUESTS: '/admin/requests',
+  ADMIN_REQUEST: (id: number | string) => `/admin/requests/${id}`,
+  ADMIN_EQUIPMENT: '/admin/equipment',
+  ADMIN_USERS: '/admin/users',
+  ADMIN_REPORTS: '/admin/reports',
+} as const;
