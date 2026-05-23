@@ -1,31 +1,20 @@
-import type { ReactNode } from 'react';
-import { Layout, Menu } from 'antd';
+import { Outlet } from '@umijs/max';
+import { Layout } from 'antd';
+import AppHeader from '@/components/layout/AppHeader';
+import AppSidebar from '@/components/layout/AppSidebar';
+import { adminMenuItems } from '@/config/menu.config';
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
-interface Props {
-  children: ReactNode;
-}
-
-export default function AdminLayout({ children }: Props) {
+export default function AdminLayout() {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider>
-        <Menu
-          theme="dark"
-          mode="inline"
-          items={[
-            { key: '1', label: <a href="/admin/dashboard">Dashboard</a> },
-            { key: '2', label: <a href="/admin/requests">Yêu cầu</a> },
-            { key: '3', label: <a href="/admin/equipment">Thiết bị</a> },
-            { key: '4', label: <a href="/admin/users">Người dùng</a> },
-            { key: '5', label: <a href="/admin/reports">Báo cáo</a> },
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#fff', padding: 0 }}>Admin Portal</Header>
-        <Content style={{ margin: 24, background: '#fff', padding: 24 }}>{children}</Content>
+    <Layout style={{ minHeight: '100vh', background: '#F2F2F2' }}>
+      <AppSidebar items={adminMenuItems} title="Quản trị hệ thống" />
+      <Layout style={{ background: '#F2F2F2' }}>
+        <AppHeader title="Cổng quản trị" />
+        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2' }}>
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );

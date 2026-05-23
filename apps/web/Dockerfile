@@ -11,7 +11,7 @@ COPY .npmrc package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY packages/shared/package.json ./packages/shared/
 COPY apps/web/package.json ./apps/web/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # ─────────────────────────────────────────────
 # Stage 2: Build UmiJS → static files in dist/

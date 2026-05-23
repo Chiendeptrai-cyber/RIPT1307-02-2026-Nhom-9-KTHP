@@ -1,29 +1,20 @@
-import type { ReactNode } from 'react';
-import { Layout, Menu } from 'antd';
+import { Outlet } from '@umijs/max';
+import { Layout } from 'antd';
+import AppHeader from '@/components/layout/AppHeader';
+import AppSidebar from '@/components/layout/AppSidebar';
+import { studentMenuItems } from '@/config/menu.config';
 
-const { Header, Content, Sider } = Layout;
+const { Content } = Layout;
 
-interface Props {
-  children: ReactNode;
-}
-
-export default function StudentLayout({ children }: Props) {
+export default function StudentLayout() {
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider>
-        <Menu
-          theme="dark"
-          mode="inline"
-          items={[
-            { key: '1', label: <a href="/equipment">Thiết bị</a> },
-            { key: '2', label: <a href="/borrow-request">Yêu cầu</a> },
-            { key: '3', label: <a href="/notifications">Thông báo</a> },
-          ]}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ background: '#fff', padding: 0 }}>Student Portal</Header>
-        <Content style={{ margin: 24, background: '#fff', padding: 24 }}>{children}</Content>
+    <Layout style={{ minHeight: '100vh', background: '#F2F2F2' }}>
+      <AppSidebar items={studentMenuItems} title="Quản lý thiết bị" />
+      <Layout style={{ background: '#F2F2F2' }}>
+        <AppHeader title="Cổng sinh viên" />
+        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2' }}>
+          <Outlet />
+        </Content>
       </Layout>
     </Layout>
   );

@@ -8,6 +8,7 @@
   "dependencies": {
     "@equipment-mgmt/shared": "workspace:*",
     "@umijs/max": "^4.6.55",
+    "@ant-design/icons": "^5.3.7",
     "antd": "^5.19.0",
     "axios": "^1.7.2",
     "dayjs": "^1.11.12",

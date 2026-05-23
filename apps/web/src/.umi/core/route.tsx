@@ -4,27 +4,31 @@
 import React from 'react';
 
 export async function getRoutes() {
-  const routes = {"1":{"path":"/login","id":"1"},"2":{"path":"/register","id":"2"},"3":{"path":"/forgot-password","id":"3"},"4":{"path":"/","id":"4"},"5":{"path":"equipment","parentId":"4","id":"5"},"6":{"path":"equipment/:id","parentId":"4","id":"6"},"7":{"path":"borrow-request","parentId":"4","id":"7"},"8":{"path":"borrow-request/create","parentId":"4","id":"8"},"9":{"path":"notifications","parentId":"4","id":"9"},"10":{"path":"/admin","id":"10"},"11":{"path":"dashboard","parentId":"10","id":"11"},"12":{"path":"requests","parentId":"10","id":"12"},"13":{"path":"requests/:id","parentId":"10","id":"13"},"14":{"path":"equipment","parentId":"10","id":"14"},"15":{"path":"users","parentId":"10","id":"15"},"16":{"path":"reports","parentId":"10","id":"16"},"17":{"path":"/","redirect":"/equipment","id":"17"}} as const;
+  const routes = {"1":{"path":"/login","id":"1"},"2":{"path":"/login","parentId":"1","id":"2"},"3":{"path":"/register","id":"3"},"4":{"path":"/register","parentId":"3","id":"4"},"5":{"path":"/forgot-password","id":"5"},"6":{"path":"/forgot-password","parentId":"5","id":"6"},"7":{"path":"/","id":"7"},"8":{"path":"","redirect":"/equipment","parentId":"7","id":"8"},"9":{"path":"equipment","parentId":"7","id":"9"},"10":{"path":"equipment/:id","parentId":"7","id":"10"},"11":{"path":"borrow-request","parentId":"7","id":"11"},"12":{"path":"borrow-request/create","parentId":"7","id":"12"},"13":{"path":"notifications","parentId":"7","id":"13"},"14":{"path":"/admin","id":"14"},"15":{"path":"","redirect":"/admin/dashboard","parentId":"14","id":"15"},"16":{"path":"dashboard","parentId":"14","id":"16"},"17":{"path":"requests","parentId":"14","id":"17"},"18":{"path":"requests/:id","parentId":"14","id":"18"},"19":{"path":"equipment","parentId":"14","id":"19"},"20":{"path":"users","parentId":"14","id":"20"},"21":{"path":"reports","parentId":"14","id":"21"}} as const;
   return {
     routes,
     routeComponents: {
-'1': React.lazy(() => import(/* webpackChunkName: "p__login__index" */'@/pages/login/index.tsx')),
-'2': React.lazy(() => import(/* webpackChunkName: "p__register__index" */'@/pages/register/index.tsx')),
-'3': React.lazy(() => import(/* webpackChunkName: "p__forgot-password__index" */'@/pages/forgot-password/index.tsx')),
-'4': React.lazy(() => import(/* webpackChunkName: "layouts__StudentLayout" */'@/layouts/StudentLayout.tsx')),
-'5': React.lazy(() => import(/* webpackChunkName: "p__equipment__index" */'@/pages/equipment/index.tsx')),
-'6': React.lazy(() => import(/* webpackChunkName: "p__equipment__id" */'@/pages/equipment/[id].tsx')),
-'7': React.lazy(() => import(/* webpackChunkName: "p__borrow-request__index" */'@/pages/borrow-request/index.tsx')),
-'8': React.lazy(() => import(/* webpackChunkName: "p__borrow-request__create" */'@/pages/borrow-request/create.tsx')),
-'9': React.lazy(() => import(/* webpackChunkName: "p__notifications__index" */'@/pages/notifications/index.tsx')),
-'10': React.lazy(() => import(/* webpackChunkName: "layouts__AdminLayout" */'@/layouts/AdminLayout.tsx')),
-'11': React.lazy(() => import(/* webpackChunkName: "p__admin__dashboard__index" */'@/pages/admin/dashboard/index.tsx')),
-'12': React.lazy(() => import(/* webpackChunkName: "p__admin__requests__index" */'@/pages/admin/requests/index.tsx')),
-'13': React.lazy(() => import(/* webpackChunkName: "p__admin__requests__id" */'@/pages/admin/requests/[id].tsx')),
-'14': React.lazy(() => import(/* webpackChunkName: "p__admin__equipment__index" */'@/pages/admin/equipment/index.tsx')),
-'15': React.lazy(() => import(/* webpackChunkName: "p__admin__users__index" */'@/pages/admin/users/index.tsx')),
-'16': React.lazy(() => import(/* webpackChunkName: "p__admin__reports__index" */'@/pages/admin/reports/index.tsx')),
-'17': React.lazy(() => import('./EmptyRoute')),
+'1': React.lazy(() => import(/* webpackChunkName: "layouts__AuthLayout" */'@/layouts/AuthLayout.tsx')),
+'2': React.lazy(() => import(/* webpackChunkName: "p__login__index" */'@/pages/login/index.tsx')),
+'3': React.lazy(() => import(/* webpackChunkName: "layouts__AuthLayout" */'@/layouts/AuthLayout.tsx')),
+'4': React.lazy(() => import(/* webpackChunkName: "p__register__index" */'@/pages/register/index.tsx')),
+'5': React.lazy(() => import(/* webpackChunkName: "layouts__AuthLayout" */'@/layouts/AuthLayout.tsx')),
+'6': React.lazy(() => import(/* webpackChunkName: "p__forgot-password__index" */'@/pages/forgot-password/index.tsx')),
+'7': React.lazy(() => import(/* webpackChunkName: "layouts__StudentLayout" */'@/layouts/StudentLayout.tsx')),
+'8': React.lazy(() => import('./EmptyRoute')),
+'9': React.lazy(() => import(/* webpackChunkName: "p__equipment__index" */'@/pages/equipment/index.tsx')),
+'10': React.lazy(() => import(/* webpackChunkName: "p__equipment__id" */'@/pages/equipment/[id].tsx')),
+'11': React.lazy(() => import(/* webpackChunkName: "p__borrow-request__index" */'@/pages/borrow-request/index.tsx')),
+'12': React.lazy(() => import(/* webpackChunkName: "p__borrow-request__create" */'@/pages/borrow-request/create.tsx')),
+'13': React.lazy(() => import(/* webpackChunkName: "p__notifications__index" */'@/pages/notifications/index.tsx')),
+'14': React.lazy(() => import(/* webpackChunkName: "layouts__AdminLayout" */'@/layouts/AdminLayout.tsx')),
+'15': React.lazy(() => import('./EmptyRoute')),
+'16': React.lazy(() => import(/* webpackChunkName: "p__admin__dashboard__index" */'@/pages/admin/dashboard/index.tsx')),
+'17': React.lazy(() => import(/* webpackChunkName: "p__admin__requests__index" */'@/pages/admin/requests/index.tsx')),
+'18': React.lazy(() => import(/* webpackChunkName: "p__admin__requests__id" */'@/pages/admin/requests/[id].tsx')),
+'19': React.lazy(() => import(/* webpackChunkName: "p__admin__equipment__index" */'@/pages/admin/equipment/index.tsx')),
+'20': React.lazy(() => import(/* webpackChunkName: "p__admin__users__index" */'@/pages/admin/users/index.tsx')),
+'21': React.lazy(() => import(/* webpackChunkName: "p__admin__reports__index" */'@/pages/admin/reports/index.tsx')),
 },
   };
 }
