@@ -37,7 +37,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 39
       },
       "enableBy": "register"
     },
@@ -50,7 +50,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 12
+        "register": 117
       },
       "enableBy": "register"
     },
@@ -63,7 +63,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 8
+        "register": 68
       },
       "enableBy": "register"
     },
@@ -77,10 +77,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            0
+            5
           ]
         },
-        "register": 4
+        "register": 103
       },
       "enableBy": "register"
     },
@@ -97,7 +97,7 @@
             3
           ]
         },
-        "register": 4
+        "register": 190
       },
       "enableBy": "register"
     },
@@ -112,10 +112,17 @@
         "hooks": {
           "modifyRoutes": [
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
-        "register": 1
+        "register": 38
       },
       "enableBy": "register"
     },
@@ -129,15 +136,20 @@
       "time": {
         "hooks": {
           "onDevCompileDone": [
-            214,
-            98,
-            77,
-            125,
-            55,
-            28
+            182,
+            50,
+            60,
+            84,
+            38,
+            89,
+            28,
+            71,
+            34,
+            23,
+            86
           ]
         },
-        "register": 1
+        "register": 52
       },
       "enableBy": "register"
     },
@@ -151,14 +163,21 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            163
+            91
           ],
           "onGenerateFiles": [
-            5,
-            25
+            4,
+            25,
+            8,
+            11,
+            14,
+            19,
+            6,
+            10,
+            7
           ]
         },
-        "register": 24
+        "register": 475
       },
       "enableBy": "register"
     },
@@ -172,11 +191,18 @@
       "time": {
         "hooks": {
           "addEntryCode": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0
           ]
         },
-        "register": 0
+        "register": 32
       },
       "enableBy": "register"
     },
@@ -202,18 +228,15 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "onCheckCode": [
-            0,
-            0,
             1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
             0,
             0,
             0,
@@ -222,31 +245,7 @@
             0,
             0,
             0,
-            0,
-            0,
             1,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
             0,
             0,
             0,
@@ -302,12 +301,79 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
             0,
             0,
             0
           ]
         },
-        "register": 2
+        "register": 39
       },
       "enableBy": "register"
     },
@@ -324,7 +390,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 41
       },
       "enableBy": "register"
     },
@@ -337,7 +403,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 45
       },
       "enableBy": "config"
     },
@@ -354,7 +420,7 @@
             0
           ]
         },
-        "register": 13
+        "register": 264
       },
       "enableBy": "register"
     },
@@ -1206,7 +1272,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 16
       },
       "enableBy": "config"
     },
@@ -1223,7 +1289,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 52
       },
       "enableBy": "register"
     },
@@ -1237,10 +1303,10 @@
       "time": {
         "hooks": {
           "addBeforeMiddlewares": [
-            18
+            62
           ]
         },
-        "register": 1
+        "register": 47
       },
       "enableBy": "register"
     },
@@ -1253,7 +1319,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 84
+        "register": 1022
       },
       "enableBy": "register"
     },
@@ -1266,7 +1332,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 75
+        "register": 2409
       },
       "enableBy": "config"
     },
@@ -1279,7 +1345,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 30
+        "register": 587
       },
       "enableBy": "config"
     },
@@ -1301,19 +1367,10 @@
           "modifyHTMLFavicon": [
             0,
             0,
-            0,
-            3,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
             0
           ]
         },
-        "register": 1
+        "register": 43
       },
       "enableBy": "register"
     },
@@ -1328,14 +1385,28 @@
         "hooks": {
           "onGenerateFiles": [
             3,
-            1
+            0,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0,
+            0
           ],
           "addRuntimePlugin": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
             0,
             0
           ]
         },
-        "register": 1
+        "register": 45
       },
       "enableBy": "register"
     },
@@ -1348,7 +1419,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 54
       },
       "enableBy": "config"
     },
@@ -1362,13 +1433,13 @@
       "time": {
         "hooks": {
           "onStart": [
-            1
+            2
           ],
           "addBeforeMiddlewares": [
             1
           ]
         },
-        "register": 38
+        "register": 723
       }
     },
     "@umijs/preset-umi/dist/features/mpa/mpa": {
@@ -1380,7 +1451,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 36
       },
       "enableBy": "config"
     },
@@ -1393,7 +1464,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 39
       }
     },
     "@umijs/preset-umi/dist/features/overrides/overrides": {
@@ -1407,9 +1478,30 @@
         "hooks": {
           "onGenerateFiles": [
             0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addEntryImports": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
             0,
             0,
             0,
@@ -1429,7 +1521,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 51
       },
       "enableBy": "config"
     },
@@ -1443,20 +1535,41 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            2
+            14
           ],
           "onGenerateFiles": [
-            108,
-            62
+            273,
+            30,
+            29,
+            16,
+            28,
+            27,
+            26,
+            24,
+            16
           ],
           "addPolyfillImports": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0,
             0,
             0
           ]
         },
-        "register": 2
+        "register": 84
       }
     },
     "@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill": {
@@ -1472,10 +1585,24 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
-        "register": 1
+        "register": 34
       },
       "enableBy": "register"
     },
@@ -1489,11 +1616,18 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            155,
+            496,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
-        "register": 4
+        "register": 49
       },
       "enableBy": "register"
     },
@@ -1506,7 +1640,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 28
       },
       "enableBy": "config"
     },
@@ -1519,7 +1653,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 36
       },
       "enableBy": "config"
     },
@@ -1533,14 +1667,21 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            2,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             1
           ],
           "addBeforeMiddlewares": [
             0
           ]
         },
-        "register": 1
+        "register": 47
       },
       "enableBy": "register"
     },
@@ -1554,13 +1695,27 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            30,
-            30,
-            143,
-            72
+            122,
+            58,
+            125,
+            50,
+            32,
+            13,
+            28,
+            11,
+            19,
+            10,
+            26,
+            13,
+            16,
+            7,
+            19,
+            10,
+            13,
+            6
           ]
         },
-        "register": 7
+        "register": 198
       },
       "enableBy": "register"
     },
@@ -1573,7 +1728,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 106
       },
       "enableBy": "config"
     },
@@ -1586,7 +1741,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 45
       }
     },
     "@umijs/preset-umi/dist/features/ssr/ssr": {
@@ -1598,7 +1753,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 89
       },
       "enableBy": "config"
     },
@@ -1612,11 +1767,18 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            445,
-            58
+            1622,
+            20,
+            14,
+            15,
+            11,
+            22,
+            16,
+            8,
+            8
           ]
         },
-        "register": 5
+        "register": 121
       },
       "enableBy": "register"
     },
@@ -1633,7 +1795,7 @@
             0
           ]
         },
-        "register": 4
+        "register": 128
       },
       "enableBy": "register"
     },
@@ -1646,7 +1808,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 7
+        "register": 116
       },
       "enableBy": "config"
     },
@@ -1659,7 +1821,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 33
       },
       "enableBy": "config"
     },
@@ -1672,7 +1834,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 9
+        "register": 228
       }
     },
     "@umijs/preset-umi/dist/features/monorepo/redirect": {
@@ -1684,7 +1846,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 25
+        "register": 991
       },
       "enableBy": "config"
     },
@@ -1698,11 +1860,18 @@
       "time": {
         "hooks": {
           "onGenerateFiles": [
-            6,
-            3
+            24,
+            15,
+            1,
+            1,
+            1,
+            2,
+            1,
+            1,
+            1
           ]
         },
-        "register": 2
+        "register": 44
       }
     },
     "@umijs/preset-umi/dist/features/clickToComponent/clickToComponent": {
@@ -1714,7 +1883,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 44
       },
       "enableBy": "config"
     },
@@ -1727,7 +1896,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 50
       },
       "enableBy": "config"
     },
@@ -1740,7 +1909,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 38
       },
       "enableBy": "config"
     },
@@ -1753,7 +1922,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 78
       }
     },
     "@umijs/preset-umi/dist/features/swc/swc": {
@@ -1769,7 +1938,7 @@
             0
           ]
         },
-        "register": 0
+        "register": 38
       },
       "enableBy": "register"
     },
@@ -1782,7 +1951,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 147
       }
     },
     "@umijs/preset-umi/dist/features/mako/mako": {
@@ -1794,7 +1963,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 51
       },
       "enableBy": "config"
     },
@@ -1807,7 +1976,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 51
       }
     },
     "@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian": {
@@ -1819,7 +1988,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 94
       }
     },
     "@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad": {
@@ -1832,21 +2001,12 @@
       "time": {
         "hooks": {
           "addHTMLHeadScripts": [
-            201,
-            87,
-            0,
-            6,
-            0,
-            0,
-            0,
-            0,
-            0,
-            0,
+            173,
             0,
             0
           ]
         },
-        "register": 31
+        "register": 451
       }
     },
     "@umijs/preset-umi/dist/features/forget/forget": {
@@ -1858,7 +2018,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 47
       },
       "enableBy": "config"
     },
@@ -1872,10 +2032,10 @@
       "time": {
         "hooks": {
           "modifyUniBundler": [
-            1008
+            17245
           ]
         },
-        "register": 2
+        "register": 74
       },
       "enableBy": "register"
     },
@@ -1888,7 +2048,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 17
+        "register": 205
       },
       "enableBy": "register"
     },
@@ -1901,7 +2061,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 62
+        "register": 550
       },
       "enableBy": "register"
     },
@@ -1915,10 +2075,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            16
+            15
           ]
         },
-        "register": 83
+        "register": 2041
       }
     },
     "@umijs/preset-umi/dist/commands/help": {
@@ -1930,7 +2090,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 44
       },
       "enableBy": "register"
     },
@@ -1943,7 +2103,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 42
       },
       "enableBy": "register"
     },
@@ -1956,7 +2116,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 43
       },
       "enableBy": "register"
     },
@@ -1969,7 +2129,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 53
       },
       "enableBy": "register"
     },
@@ -1982,7 +2142,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 36
       },
       "enableBy": "register"
     },
@@ -1995,7 +2155,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 102
       },
       "enableBy": "register"
     },
@@ -2008,7 +2168,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 46
       },
       "enableBy": "register"
     },
@@ -2021,7 +2181,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 41
       },
       "enableBy": "register"
     },
@@ -2034,7 +2194,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 4
+        "register": 49
       },
       "enableBy": "register"
     },
@@ -2047,7 +2207,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 42
       },
       "enableBy": "register"
     },
@@ -2060,7 +2220,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 38
       },
       "enableBy": "register"
     },
@@ -2073,7 +2233,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 47
       },
       "enableBy": "register"
     },
@@ -2086,7 +2246,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 0
+        "register": 39
       },
       "enableBy": "register"
     },
@@ -2099,7 +2259,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 43
       },
       "enableBy": "register"
     },
@@ -2112,7 +2272,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 42
       },
       "enableBy": "register"
     },
@@ -2125,7 +2285,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 43
       },
       "enableBy": "register"
     },
@@ -2138,7 +2298,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 40
       },
       "enableBy": "register"
     },
@@ -2151,7 +2311,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 81
       },
       "enableBy": "register"
     },
@@ -2164,7 +2324,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 26
+        "register": 309
       },
       "enableBy": "register"
     },
@@ -2177,7 +2337,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 46
       },
       "enableBy": "register"
     },
@@ -2190,7 +2350,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 106
       },
       "enableBy": "register"
     },
@@ -2205,17 +2365,31 @@
         "hooks": {
           "addRuntimePlugin": [
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
             0
           ],
           "onGenerateFiles": [
-            2,
-            21
+            3,
+            1,
+            1,
+            0,
+            1,
+            1,
+            1,
+            1,
+            0
           ],
           "addTmpGenerateWatcherPaths": [
-            1
+            0
           ]
         },
-        "register": 3
+        "register": 70
       },
       "enableBy": "config"
     },
@@ -2230,7 +2404,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 50
       }
     },
     "@umijs/plugins/dist/antd": {
@@ -2243,7 +2417,7 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            5
+            39
           ],
           "modifyAppData": [
             0
@@ -2255,19 +2429,54 @@
             0,
             0,
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addRuntimePlugin": [
             0,
-            1
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
           ],
           "addRuntimePluginKey": [
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0
           ],
           "onGenerateFiles": [
-            17,
-            47
+            51,
+            19,
+            2,
+            2,
+            2,
+            4,
+            2,
+            1,
+            1
           ],
           "addExtraBabelPlugins": [
             0
@@ -2276,7 +2485,7 @@
             0
           ]
         },
-        "register": 13
+        "register": 155
       }
     },
     "@umijs/plugins/dist/dva": {
@@ -2288,7 +2497,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 9
+        "register": 109
       },
       "enableBy": "config"
     },
@@ -2303,22 +2512,50 @@
         "hooks": {
           "addRuntimePlugin": [
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "addRuntimePluginKey": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0
           ],
           "onGenerateFiles": [
             3,
-            19
+            0,
+            0,
+            1,
+            0,
+            0,
+            2,
+            1,
+            1
           ],
           "addExtraModels": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0,
             0
           ]
         },
-        "register": 1
+        "register": 48
       },
       "enableBy": "config"
     },
@@ -2333,7 +2570,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 9
+        "register": 128
       },
       "enableBy": "config"
     },
@@ -2346,7 +2583,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 8
+        "register": 120
       },
       "enableBy": "config"
     },
@@ -2359,7 +2596,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 6
+        "register": 130
       },
       "enableBy": "config"
     },
@@ -2374,17 +2611,31 @@
         "hooks": {
           "addRuntimePlugin": [
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
             0
           ],
           "onGenerateFiles": [
-            30,
-            54
+            65,
+            40,
+            22,
+            21,
+            20,
+            26,
+            20,
+            22,
+            26
           ],
           "addTmpGenerateWatcherPaths": [
             0
           ]
         },
-        "register": 2
+        "register": 34
       },
       "enableBy": "config"
     },
@@ -2397,7 +2648,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 18
       },
       "enableBy": "config"
     },
@@ -2412,10 +2663,17 @@
         "hooks": {
           "addRuntimePluginKey": [
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ]
         },
-        "register": 2
+        "register": 39
       },
       "enableBy": "register"
     },
@@ -2428,7 +2686,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 87
       }
     },
     "@umijs/plugins/dist/qiankun/slave": {
@@ -2440,7 +2698,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3
+        "register": 46
       }
     },
     "@umijs/plugins/dist/react-query": {
@@ -2452,7 +2710,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 35
       },
       "enableBy": "config"
     },
@@ -2467,14 +2725,28 @@
         "hooks": {
           "addRuntimePluginKey": [
             0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
             0
           ],
           "onGenerateFiles": [
             8,
-            38
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
           ]
         },
-        "register": 1
+        "register": 38
       },
       "enableBy": "config"
     },
@@ -2487,7 +2759,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 64
       },
       "enableBy": "config"
     },
@@ -2500,7 +2772,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 19
       },
       "enableBy": "config"
     },
@@ -2513,7 +2785,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2
+        "register": 26
       },
       "enableBy": "config"
     },
@@ -2530,7 +2802,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 35
       },
       "enableBy": "register"
     },
@@ -2547,7 +2819,7 @@
             0
           ]
         },
-        "register": 1
+        "register": 38
       },
       "enableBy": "register"
     },
@@ -2561,10 +2833,10 @@
       "time": {
         "hooks": {
           "onCheckPkgJSON": [
-            0
+            1
           ]
         },
-        "register": 0
+        "register": 37
       },
       "enableBy": "register"
     },
@@ -2577,7 +2849,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 46
       },
       "enableBy": "register"
     }
@@ -3903,7 +4175,7 @@
       "file": "@/layouts/AuthLayout.tsx",
       "id": "1",
       "absPath": "/login",
-      "__content": "import { Outlet } from 'umi';\nimport { Card } from 'antd';\n\nexport default function AuthLayout() {\n  return (\n    <div\n      style={{\n        minHeight: '100vh',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        padding: 24,\n        background: 'linear-gradient(135deg, #F2F2F2 0%, #e8e8e8 100%)',\n      }}\n    >\n      <Card\n        style={{\n          width: 440,\n          borderRadius: 12,\n          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',\n          border: 'none',\n        }}\n        styles={{ body: { padding: '40px 36px' } }}\n      >\n        <Outlet />\n      </Card>\n    </div>\n  );\n}\n",
+      "__content": "import { Outlet } from '@umijs/max';\nimport { Card } from 'antd';\n\nexport default function AuthLayout() {\n  return (\n    <div\n      style={{\n        minHeight: '100vh',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        padding: 24,\n        background: 'linear-gradient(135deg, #F2F2F2 0%, #e8e8e8 100%)',\n      }}\n    >\n      <Card\n        style={{\n          width: 440,\n          borderRadius: 12,\n          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',\n          border: 'none',\n        }}\n        styles={{ body: { padding: '40px 36px' } }}\n      >\n        <Outlet />\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/AuthLayout.tsx"
     },
@@ -3922,7 +4194,7 @@
       "file": "@/layouts/AuthLayout.tsx",
       "id": "3",
       "absPath": "/register",
-      "__content": "import { Outlet } from 'umi';\nimport { Card } from 'antd';\n\nexport default function AuthLayout() {\n  return (\n    <div\n      style={{\n        minHeight: '100vh',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        padding: 24,\n        background: 'linear-gradient(135deg, #F2F2F2 0%, #e8e8e8 100%)',\n      }}\n    >\n      <Card\n        style={{\n          width: 440,\n          borderRadius: 12,\n          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',\n          border: 'none',\n        }}\n        styles={{ body: { padding: '40px 36px' } }}\n      >\n        <Outlet />\n      </Card>\n    </div>\n  );\n}\n",
+      "__content": "import { Outlet } from '@umijs/max';\nimport { Card } from 'antd';\n\nexport default function AuthLayout() {\n  return (\n    <div\n      style={{\n        minHeight: '100vh',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        padding: 24,\n        background: 'linear-gradient(135deg, #F2F2F2 0%, #e8e8e8 100%)',\n      }}\n    >\n      <Card\n        style={{\n          width: 440,\n          borderRadius: 12,\n          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',\n          border: 'none',\n        }}\n        styles={{ body: { padding: '40px 36px' } }}\n      >\n        <Outlet />\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/AuthLayout.tsx"
     },
@@ -3941,7 +4213,7 @@
       "file": "@/layouts/AuthLayout.tsx",
       "id": "5",
       "absPath": "/forgot-password",
-      "__content": "import { Outlet } from 'umi';\nimport { Card } from 'antd';\n\nexport default function AuthLayout() {\n  return (\n    <div\n      style={{\n        minHeight: '100vh',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        padding: 24,\n        background: 'linear-gradient(135deg, #F2F2F2 0%, #e8e8e8 100%)',\n      }}\n    >\n      <Card\n        style={{\n          width: 440,\n          borderRadius: 12,\n          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',\n          border: 'none',\n        }}\n        styles={{ body: { padding: '40px 36px' } }}\n      >\n        <Outlet />\n      </Card>\n    </div>\n  );\n}\n",
+      "__content": "import { Outlet } from '@umijs/max';\nimport { Card } from 'antd';\n\nexport default function AuthLayout() {\n  return (\n    <div\n      style={{\n        minHeight: '100vh',\n        display: 'flex',\n        alignItems: 'center',\n        justifyContent: 'center',\n        padding: 24,\n        background: 'linear-gradient(135deg, #F2F2F2 0%, #e8e8e8 100%)',\n      }}\n    >\n      <Card\n        style={{\n          width: 440,\n          borderRadius: 12,\n          boxShadow: '0 8px 32px rgba(0,0,0,0.12)',\n          border: 'none',\n        }}\n        styles={{ body: { padding: '40px 36px' } }}\n      >\n        <Outlet />\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/AuthLayout.tsx"
     },
@@ -3960,7 +4232,7 @@
       "file": "@/layouts/StudentLayout.tsx",
       "id": "7",
       "absPath": "/",
-      "__content": "import { Outlet } from 'umi';\nimport { Layout } from 'antd';\nimport AppHeader from '@/components/layout/AppHeader';\nimport AppSidebar from '@/components/layout/AppSidebar';\nimport { studentMenuItems } from '@/config/menu.config';\n\nconst { Content } = Layout;\n\nexport default function StudentLayout() {\n  return (\n    <Layout style={{ minHeight: '100vh', background: '#F2F2F2' }}>\n      <AppSidebar items={studentMenuItems} title=\"Quản lý thiết bị\" />\n      <Layout style={{ background: '#F2F2F2' }}>\n        <AppHeader title=\"Cổng sinh viên\" />\n        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2' }}>\n          <Outlet />\n        </Content>\n      </Layout>\n    </Layout>\n  );\n}\n",
+      "__content": "import { Outlet } from '@umijs/max';\nimport { Layout } from 'antd';\nimport AppHeader from '@/components/layout/AppHeader';\nimport AppSidebar from '@/components/layout/AppSidebar';\nimport { studentMenuItems } from '@/config/menu.config';\n\nconst { Content } = Layout;\n\nexport default function StudentLayout() {\n  return (\n    <Layout style={{ minHeight: '100vh', background: '#F2F2F2' }}>\n      <AppSidebar items={studentMenuItems} title=\"Quản lý thiết bị\" />\n      <Layout style={{ background: '#F2F2F2' }}>\n        <AppHeader title=\"Cổng sinh viên\" />\n        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2' }}>\n          <Outlet />\n        </Content>\n      </Layout>\n    </Layout>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/StudentLayout.tsx"
     },
@@ -3977,7 +4249,7 @@
       "parentId": "7",
       "id": "9",
       "absPath": "/equipment",
-      "__content": "import { PlusOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';\nimport { Button, Card, Col, Empty, Input, Row, Tag, Typography } from 'antd';\nimport { useState } from 'react';\nimport EquipmentCard from '../../components/equipment/EquipmentCard';\nimport { useEquipmentList } from '../../hooks/useEquipmentList';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nexport default function EquipmentListPage() {\n  const { items } = useEquipmentList();\n  const [search, setSearch] = useState('');\n\n  const filtered = items.filter((item) =>\n    item.name.toLowerCase().includes(search.toLowerCase()),\n  );\n\n  return (\n    <div style={{ padding: 24 }}>\n      {/* Page Header */}\n      <Card\n        style={{\n          borderRadius: 8,\n          border: `1px solid ${SLINK_COLORS.border}`,\n          boxShadow: SLINK_COLORS.shadow,\n          marginBottom: 16,\n        }}\n        styles={{ body: { padding: '16px 20px' } }}\n      >\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n            <div\n              style={{\n                width: 40,\n                height: 40,\n                borderRadius: 8,\n                background: 'rgba(191, 4, 4, 0.08)',\n                display: 'flex',\n                alignItems: 'center',\n                justifyContent: 'center',\n              }}\n            >\n              <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            </div>\n            <div>\n              <Title level={5} style={{ marginBottom: 0, color: SLINK_COLORS.textBase }}>\n                Danh sách thiết bị\n              </Title>\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>\n                Tìm kiếm và đăng ký mượn thiết bị\n              </Text>\n            </div>\n          </div>\n          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\n            <Input\n              placeholder=\"Tìm kiếm thiết bị...\"\n              prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n              value={search}\n              onChange={(e) => setSearch(e.target.value)}\n              style={{ width: 240, borderRadius: 6 }}\n            />\n            <Button\n              type=\"primary\"\n              icon={<PlusOutlined />}\n              href=\"/borrow-request/create\"\n              style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\n            >\n              Tạo yêu cầu\n            </Button>\n          </div>\n        </div>\n      </Card>\n\n      {/* Equipment Grid */}\n      {filtered.length === 0 ? (\n        <Card\n          style={{\n            borderRadius: 8,\n            border: `1px solid ${SLINK_COLORS.border}`,\n            boxShadow: SLINK_COLORS.shadow,\n          }}\n        >\n          <Empty\n            description={\n              <span>\n                {search ? (\n                  <>Không tìm thấy thiết bị phù hợp với <Tag color=\"red\">{search}</Tag></>\n                ) : (\n                  'Chưa có thiết bị nào trong hệ thống'\n                )}\n              </span>\n            }\n          />\n        </Card>\n      ) : (\n        <Row gutter={[16, 16]}>\n          {filtered.map((item) => (\n            <Col key={item.id} xs={24} sm={12} lg={8} xl={6}>\n              <EquipmentCard name={item.name} available={0} />\n            </Col>\n          ))}\n        </Row>\n      )}\n    </div>\n  );\n}\n",
+      "__content": "import {\n  PlusOutlined,\n  SearchOutlined,\n  ToolOutlined,\n  ReloadOutlined,\n} from '@ant-design/icons';\nimport {\n  Alert,\n  Button,\n  Card,\n  Col,\n  Empty,\n  Input,\n  Pagination,\n  Row,\n  Skeleton,\n  Tag,\n  Typography,\n} from 'antd';\nimport { useState } from 'react';\nimport { useNavigate } from '@umijs/max';\nimport { useEquipmentList } from '../../hooks/useEquipmentList';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nfunction EquipmentCard({ item }: { item: any }) {\n  const navigate = useNavigate();\n  const isAvailable = item.availableQuantity > 0;\n\n  return (\n    <Card\n      hoverable\n      onClick={() => navigate(`/equipment/${item.id}`)}\n      style={{\n        borderRadius: 8,\n        border: `1px solid ${SLINK_COLORS.border}`,\n        boxShadow: SLINK_COLORS.shadow,\n        height: '100%',\n      }}\n      styles={{ body: { padding: 16 } }}\n    >\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n        <div\n          style={{\n            width: 40,\n            height: 40,\n            borderRadius: 8,\n            background: 'rgba(191, 4, 4, 0.08)',\n            display: 'flex',\n            alignItems: 'center',\n            justifyContent: 'center',\n            marginBottom: 4,\n          }}\n        >\n          <ToolOutlined style={{ fontSize: 20, color: SLINK_COLORS.primary }} />\n        </div>\n        <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>\n          {item.name}\n        </Text>\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\n          <Text type=\"secondary\" style={{ fontSize: 12 }}>\n            Còn lại: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\n              {item.availableQuantity}/{item.totalQuantity}\n            </strong>\n          </Text>\n          <Tag color={isAvailable ? 'green' : 'red'} style={{ margin: 0, fontSize: 11 }}>\n            {isAvailable ? 'Có sẵn' : 'Hết'}\n          </Tag>\n        </div>\n      </div>\n    </Card>\n  );\n}\n\nexport default function EquipmentListPage() {\n  const [search, setSearch] = useState('');\n  const [debouncedSearch, setDebouncedSearch] = useState('');\n  const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();\n\n  const { items, total, page, loading, error, refetch } = useEquipmentList({\n    search: debouncedSearch,\n    pageSize: 20,\n  });\n\n  const handleSearchChange = (val: string) => {\n    setSearch(val);\n    if (searchTimer) clearTimeout(searchTimer);\n    const t = setTimeout(() => setDebouncedSearch(val), 400);\n    setSearchTimer(t);\n  };\n\n  return (\n    <div style={{ padding: 24 }}>\n      {/* Header Card */}\n      <Card\n        style={{\n          borderRadius: 8,\n          border: `1px solid ${SLINK_COLORS.border}`,\n          boxShadow: SLINK_COLORS.shadow,\n          marginBottom: 16,\n        }}\n        styles={{ body: { padding: '16px 20px' } }}\n      >\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n            <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(191, 4, 4, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\n              <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            </div>\n            <div>\n              <Title level={5} style={{ marginBottom: 0, color: SLINK_COLORS.textBase }}>\n                Danh sách thiết bị\n              </Title>\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>\n                Tìm kiếm và đăng ký mượn thiết bị\n              </Text>\n            </div>\n          </div>\n          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\n            <Input\n              placeholder=\"Tìm kiếm thiết bị...\"\n              prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n              value={search}\n              onChange={(e) => handleSearchChange(e.target.value)}\n              style={{ width: 240, borderRadius: 6 }}\n              allowClear\n            />\n            <Button\n              icon={<ReloadOutlined />}\n              onClick={() => refetch(page)}\n              style={{ borderRadius: 6 }}\n            />\n            <Button\n              type=\"primary\"\n              icon={<PlusOutlined />}\n              href=\"/borrow-request/create\"\n              style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\n            >\n              Tạo yêu cầu\n            </Button>\n          </div>\n        </div>\n      </Card>\n\n      {/* Error */}\n      {error && (\n        <Alert\n          type=\"error\"\n          message={error}\n          closable\n          style={{ marginBottom: 16, borderRadius: 8 }}\n        />\n      )}\n\n      {/* Content */}\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 20 } }}\n      >\n        {loading ? (\n          <Row gutter={[16, 16]}>\n            {Array.from({ length: 8 }).map((_, i) => (\n              <Col key={i} xs={24} sm={12} lg={8} xl={6}>\n                <Skeleton.Button active block style={{ height: 100, borderRadius: 8 }} />\n              </Col>\n            ))}\n          </Row>\n        ) : items.length === 0 ? (\n          <Empty\n            description={\n              debouncedSearch\n                ? `Không tìm thấy thiết bị nào khớp với \"${debouncedSearch}\"`\n                : 'Chưa có thiết bị nào trong hệ thống'\n            }\n          />\n        ) : (\n          <>\n            <Row gutter={[16, 16]}>\n              {items.map((item) => (\n                <Col key={item.id} xs={24} sm={12} lg={8} xl={6}>\n                  <EquipmentCard item={item} />\n                </Col>\n              ))}\n            </Row>\n            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>\n              <Pagination\n                current={page}\n                total={total}\n                pageSize={20}\n                onChange={(p) => refetch(p)}\n                showTotal={(t) => `${t} thiết bị`}\n                showSizeChanger={false}\n              />\n            </div>\n          </>\n        )}\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/equipment/index.tsx"
     },
@@ -3987,7 +4259,7 @@
       "parentId": "7",
       "id": "10",
       "absPath": "/equipment/:id",
-      "__content": "export default function EquipmentDetailPage() {\r\n  const id = window.location.pathname.split('/').pop();\r\n\r\n  return (\r\n    <div>\r\n      <h2>Chi tiết thiết bị #{id}</h2>\r\n      <p>Thông tin chi tiết sẽ được hiển thị tại đây.</p>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport { useParams, useNavigate } from '@umijs/max';\nimport {\n  Alert, Badge, Button, Card, Descriptions, Result, Skeleton, Tag, Typography,\n} from 'antd';\nimport { ArrowLeftOutlined, ToolOutlined } from '@ant-design/icons';\nimport { equipmentService, type Equipment } from '../../services/equipment.service';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst statusConfig: Record<string, { label: string; color: string }> = {\n  active:            { label: 'Đang hoạt động', color: 'green' },\n  under_maintenance: { label: 'Đang bảo trì',   color: 'orange' },\n  deleted:           { label: 'Đã xóa',          color: 'red' },\n};\n\nexport default function EquipmentDetailPage() {\n  const { id } = useParams<{ id: string }>();\n  const navigate = useNavigate();\n  const [equipment, setEquipment] = useState<Equipment | null>(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n\n  const load = useCallback(async () => {\n    if (!id) return;\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await equipmentService.getDetail(Number(id));\n      if (res.success && res.data) setEquipment(res.data);\n      else setError('Không thể tải thông tin thiết bị');\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Thiết bị không tồn tại hoặc đã bị xóa');\n    } finally {\n      setLoading(false);\n    }\n  }, [id]);\n\n  useEffect(() => { load(); }, [load]);\n\n  if (loading) {\n    return (\n      <div style={{ padding: 24 }}>\n        <Skeleton active paragraph={{ rows: 6 }} />\n      </div>\n    );\n  }\n\n  if (error || !equipment) {\n    return (\n      <div style={{ padding: 24 }}>\n        <Result\n          status=\"404\"\n          title=\"Không tìm thấy thiết bị\"\n          subTitle={error ?? 'Thiết bị này không tồn tại hoặc đã bị xóa'}\n          extra={<Button onClick={() => navigate('/equipment')}>Quay lại danh sách</Button>}\n        />\n      </div>\n    );\n  }\n\n  const isAvailable = equipment.availableQuantity > 0;\n  const cfg = statusConfig[equipment.status] ?? { label: equipment.status, color: 'default' };\n\n  return (\n    <div style={{ padding: 24 }}>\n      {/* Back */}\n      <Button\n        icon={<ArrowLeftOutlined />}\n        type=\"text\"\n        onClick={() => navigate('/equipment')}\n        style={{ marginBottom: 16, padding: 0, color: SLINK_COLORS.textSecondary }}\n      >\n        Quay lại danh sách\n      </Button>\n\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n      >\n        {/* Header */}\n        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 24 }}>\n          <div style={{ width: 56, height: 56, borderRadius: 10, background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>\n            <ToolOutlined style={{ fontSize: 28, color: SLINK_COLORS.primary }} />\n          </div>\n          <div style={{ flex: 1 }}>\n            <Title level={4} style={{ marginBottom: 4 }}>{equipment.name}</Title>\n            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n              <Tag color={cfg.color}>{cfg.label}</Tag>\n              <Badge\n                count={equipment.availableQuantity}\n                style={{ backgroundColor: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}\n                overflowCount={999}\n              />\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>chiếc còn sẵn</Text>\n            </div>\n          </div>\n        </div>\n\n        {/* Details */}\n        <Descriptions column={{ xs: 1, sm: 2 }} bordered size=\"small\">\n          <Descriptions.Item label=\"Tổng số lượng\">{equipment.totalQuantity} chiếc</Descriptions.Item>\n          <Descriptions.Item label=\"Còn có thể mượn\">\n            <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\n              {equipment.availableQuantity} chiếc\n            </Text>\n          </Descriptions.Item>\n          <Descriptions.Item label=\"Trạng thái\">\n            <Tag color={cfg.color}>{cfg.label}</Tag>\n          </Descriptions.Item>\n          {equipment.description && (\n            <Descriptions.Item label=\"Mô tả\" span={2}>{equipment.description}</Descriptions.Item>\n          )}\n        </Descriptions>\n\n        {/* Action */}\n        <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>\n          <Button\n            type=\"primary\"\n            size=\"large\"\n            disabled={!isAvailable || equipment.status !== 'active'}\n            onClick={() => navigate(`/borrow-request/create?equipmentId=${equipment.id}`)}\n            style={{\n              background: isAvailable ? SLINK_COLORS.primary : undefined,\n              borderColor: isAvailable ? SLINK_COLORS.primary : undefined,\n              borderRadius: 6,\n            }}\n          >\n            {isAvailable ? 'Đăng ký mượn thiết bị này' : 'Thiết bị hiện không có sẵn'}\n          </Button>\n        </div>\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/equipment/[id].tsx"
     },
@@ -3997,7 +4269,7 @@
       "parentId": "7",
       "id": "11",
       "absPath": "/borrow-request",
-      "__content": "export default function BorrowRequestHistoryPage() {\r\n  return (\r\n    <div>\r\n      <h2>Lịch sử yêu cầu mượn</h2>\r\n      <p>Danh sách yêu cầu mượn sẽ hiển thị ở đây.</p>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Button, Card, Empty, message, Modal, Pagination,\n  Skeleton, Space, Table, Tag, Typography,\n} from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport { ExclamationCircleOutlined, FileTextOutlined } from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { borrowRequestService, type BorrowRequest } from '../../services/borrow-request.service';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst STATUS_CONFIG: Record<string, { label: string; color: string }> = {\n  pending:   { label: 'Chờ duyệt',   color: 'orange' },\n  approved:  { label: 'Đã duyệt',    color: 'blue' },\n  rejected:  { label: 'Bị từ chối',  color: 'red' },\n  cancelled: { label: 'Đã hủy',      color: 'default' },\n  borrowing: { label: 'Đang mượn',   color: 'geekblue' },\n  overdue:   { label: 'Quá hạn',     color: 'volcano' },\n  returned:  { label: 'Đã trả',      color: 'green' },\n};\n\nexport default function BorrowRequestHistoryPage() {\n  const [items,   setItems]   = useState<BorrowRequest[]>([]);\n  const [total,   setTotal]   = useState(0);\n  const [page,    setPage]    = useState(1);\n  const [loading, setLoading] = useState(false);\n  const [error,   setError]   = useState<string | null>(null);\n\n  const load = useCallback(async (p = 1) => {\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await borrowRequestService.listMy({ page: p, pageSize: 10 });\n      if (res.success && res.data) {\n        setItems(res.data.items);\n        setTotal(res.data.total);\n        setPage(p);\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Không thể tải lịch sử yêu cầu');\n    } finally {\n      setLoading(false);\n    }\n  }, []);\n\n  useEffect(() => { load(); }, [load]);\n\n  const handleCancel = (record: BorrowRequest) => {\n    Modal.confirm({\n      title: 'Hủy yêu cầu mượn',\n      icon: <ExclamationCircleOutlined />,\n      content: `Bạn có chắc chắn muốn hủy yêu cầu mượn #${record.id}?`,\n      okText: 'Hủy yêu cầu',\n      okButtonProps: { danger: true },\n      cancelText: 'Không',\n      onOk: async () => {\n        try {\n          await borrowRequestService.cancel(record.id);\n          message.success('Đã hủy yêu cầu mượn');\n          load(page);\n        } catch (err: any) {\n          message.error(err?.response?.data?.message ?? 'Không thể hủy yêu cầu');\n        }\n      },\n    });\n  };\n\n  const columns: ColumnsType<BorrowRequest> = [\n    { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n    {\n      title: 'Ngày gửi',\n      dataIndex: 'createdAt',\n      key: 'createdAt',\n      render: (v) => dayjs(v).format('DD/MM/YYYY HH:mm'),\n    },\n    {\n      title: 'Ngày trả dự kiến',\n      dataIndex: 'expectedReturnDate',\n      key: 'expectedReturnDate',\n      render: (v) => dayjs(v).format('DD/MM/YYYY'),\n    },\n    {\n      title: 'Ghi chú',\n      dataIndex: 'note',\n      key: 'note',\n      render: (v) => v ?? <Text type=\"secondary\">—</Text>,\n    },\n    {\n      title: 'Trạng thái',\n      dataIndex: 'status',\n      key: 'status',\n      render: (status: string) => {\n        const cfg = STATUS_CONFIG[status] ?? { label: status, color: 'default' };\n        return <Tag color={cfg.color}>{cfg.label}</Tag>;\n      },\n    },\n    {\n      title: 'Thao tác',\n      key: 'actions',\n      render: (_, record) => (\n        <Space>\n          {record.status === 'pending' && (\n            <Button\n              size=\"small\"\n              danger\n              onClick={() => handleCancel(record)}\n              style={{ borderRadius: 4 }}\n            >\n              Hủy\n            </Button>\n          )}\n        </Space>\n      ),\n    },\n  ];\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', gap: 10 }}>\n          <FileTextOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n          <div>\n            <Title level={5} style={{ marginBottom: 0 }}>Lịch sử yêu cầu mượn</Title>\n            <Text type=\"secondary\" style={{ fontSize: 12 }}>Danh sách các yêu cầu mượn thiết bị của bạn</Text>\n          </div>\n        </div>\n\n        {error && (\n          <Alert type=\"error\" message={error} style={{ margin: 16, borderRadius: 6 }} />\n        )}\n\n        {loading ? (\n          <div style={{ padding: 20 }}>\n            <Skeleton active paragraph={{ rows: 5 }} />\n          </div>\n        ) : items.length === 0 ? (\n          <div style={{ padding: 40 }}>\n            <Empty description=\"Bạn chưa có yêu cầu mượn nào\" />\n            <div style={{ textAlign: 'center', marginTop: 16 }}>\n              <Button type=\"primary\" href=\"/borrow-request/create\" style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}>\n                Tạo yêu cầu đầu tiên\n              </Button>\n            </div>\n          </div>\n        ) : (\n          <>\n            <Table\n              dataSource={items}\n              columns={columns}\n              rowKey=\"id\"\n              pagination={false}\n              style={{ borderRadius: '0 0 8px 8px' }}\n            />\n            <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\n              <Pagination\n                current={page}\n                total={total}\n                pageSize={10}\n                onChange={load}\n                showTotal={(t) => `${t} yêu cầu`}\n                showSizeChanger={false}\n              />\n            </div>\n          </>\n        )}\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/borrow-request/index.tsx"
     },
@@ -4007,7 +4279,7 @@
       "parentId": "7",
       "id": "12",
       "absPath": "/borrow-request/create",
-      "__content": "import { Button, Form, Input } from 'antd';\r\n\r\nexport default function BorrowRequestCreatePage() {\r\n  const onFinish = () => {\r\n    window.location.href = '/borrow-request';\r\n  };\r\n\r\n  return (\r\n    <div>\r\n      <h2>Tạo yêu cầu mượn</h2>\r\n      <Form name=\"borrow-request\" onFinish={onFinish} layout=\"vertical\">\r\n        <Form.Item name=\"equipmentIds\" label=\"Mã thiết bị\" rules={[{ required: true }]}> \r\n          <Input />\r\n        </Form.Item>\r\n        <Form.Item name=\"expectedReturnDate\" label=\"Ngày trả dự kiến\" rules={[{ required: true }]}> \r\n          <Input type=\"date\" />\r\n        </Form.Item>\r\n        <Form.Item>\r\n          <Button type=\"primary\" htmlType=\"submit\">\r\n            Gửi yêu cầu\r\n          </Button>\r\n        </Form.Item>\r\n      </Form>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport { useLocation, useNavigate } from '@umijs/max';\nimport {\n  Alert, Button, Card, DatePicker, Form, Input, InputNumber,\n  message, Select, Skeleton, Typography,\n} from 'antd';\nimport { ArrowLeftOutlined, SendOutlined } from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { equipmentService, type Equipment } from '../../services/equipment.service';\nimport { borrowRequestService } from '../../services/borrow-request.service';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nexport default function BorrowRequestCreatePage() {\n  const navigate   = useNavigate();\n  const location   = useLocation();\n  const [form]     = Form.useForm();\n  const [submitting, setSubmitting] = useState(false);\n  const [error,      setError]      = useState<string | null>(null);\n  const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);\n  const [loadingEquipment, setLoadingEquipment] = useState(true);\n\n  // Pre-fill equipmentId from URL query string\n  const searchParams = new URLSearchParams(location.search);\n  const prefilledId  = searchParams.get('equipmentId');\n\n  // Load available equipment list\n  const loadEquipment = useCallback(async () => {\n    setLoadingEquipment(true);\n    try {\n      const res = await equipmentService.list({ status: 'active', pageSize: 100 });\n      if (res.success && res.data) {\n        setEquipmentList(res.data.items.filter((e) => e.availableQuantity > 0));\n      }\n    } catch {\n      // Silent\n    } finally {\n      setLoadingEquipment(false);\n    }\n  }, []);\n\n  useEffect(() => {\n    loadEquipment();\n    if (prefilledId) form.setFieldValue('equipmentId', Number(prefilledId));\n  }, [loadEquipment, prefilledId, form]);\n\n  const onFinish = async (values: {\n    equipmentId: number;\n    quantity: number;\n    expectedReturnDate: dayjs.Dayjs;\n    note?: string;\n  }) => {\n    setSubmitting(true);\n    setError(null);\n    try {\n      const res = await borrowRequestService.create({\n        equipmentId: values.equipmentId,\n        quantity: values.quantity ?? 1,\n        expectedReturnDate: values.expectedReturnDate.format('YYYY-MM-DD'),\n        note: values.note,\n      });\n\n      if (res.success) {\n        message.success('Đã gửi yêu cầu mượn thiết bị thành công!');\n        navigate('/borrow-request');\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Có lỗi xảy ra khi gửi yêu cầu');\n    } finally {\n      setSubmitting(false);\n    }\n  };\n\n  const selectedEquipmentId = Form.useWatch('equipmentId', form);\n  const selectedEquipment   = equipmentList.find((e) => e.id === selectedEquipmentId);\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Button\n        icon={<ArrowLeftOutlined />}\n        type=\"text\"\n        onClick={() => navigate('/borrow-request')}\n        style={{ marginBottom: 16, padding: 0, color: SLINK_COLORS.textSecondary }}\n      >\n        Quay lại lịch sử\n      </Button>\n\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow, maxWidth: 600 }}\n        styles={{ body: { padding: 24 } }}\n      >\n        <Title level={5} style={{ marginBottom: 4 }}>Tạo yêu cầu mượn thiết bị</Title>\n        <Text type=\"secondary\" style={{ fontSize: 13, display: 'block', marginBottom: 20 }}>\n          Điền thông tin để gửi yêu cầu mượn đến quản trị viên\n        </Text>\n\n        {error && (\n          <Alert type=\"error\" message={error} closable onClose={() => setError(null)} style={{ marginBottom: 16, borderRadius: 6 }} />\n        )}\n\n        {loadingEquipment ? (\n          <Skeleton active paragraph={{ rows: 4 }} />\n        ) : (\n          <Form form={form} layout=\"vertical\" onFinish={onFinish} requiredMark=\"optional\">\n            <Form.Item\n              name=\"equipmentId\"\n              label=\"Thiết bị muốn mượn\"\n              rules={[{ required: true, message: 'Vui lòng chọn thiết bị' }]}\n            >\n              <Select\n                placeholder=\"Chọn thiết bị...\"\n                showSearch\n                optionFilterProp=\"label\"\n                options={equipmentList.map((e) => ({\n                  value: e.id,\n                  label: `${e.name} (còn ${e.availableQuantity} chiếc)`,\n                }))}\n              />\n            </Form.Item>\n\n            {selectedEquipment && (\n              <Alert\n                type=\"info\"\n                message={`Số lượng có thể mượn: ${selectedEquipment.availableQuantity} chiếc`}\n                style={{ marginBottom: 16, borderRadius: 6 }}\n              />\n            )}\n\n            <Form.Item\n              name=\"quantity\"\n              label=\"Số lượng\"\n              initialValue={1}\n              rules={[\n                { required: true, message: 'Vui lòng nhập số lượng' },\n                {\n                  validator: (_, val) => {\n                    if (!selectedEquipment) return Promise.resolve();\n                    if (val > selectedEquipment.availableQuantity) {\n                      return Promise.reject(`Chỉ còn ${selectedEquipment.availableQuantity} chiếc`);\n                    }\n                    return Promise.resolve();\n                  },\n                },\n              ]}\n            >\n              <InputNumber min={1} max={selectedEquipment?.availableQuantity ?? 99} style={{ width: '100%' }} />\n            </Form.Item>\n\n            <Form.Item\n              name=\"expectedReturnDate\"\n              label=\"Ngày trả dự kiến\"\n              rules={[\n                { required: true, message: 'Vui lòng chọn ngày trả' },\n                {\n                  validator: (_, val: dayjs.Dayjs) => {\n                    if (!val) return Promise.resolve();\n                    const today = dayjs().startOf('day');\n                    const maxDate = today.add(14, 'day');\n                    if (val.isBefore(today.add(1, 'day'))) {\n                      return Promise.reject('Ngày trả phải từ ngày mai trở đi');\n                    }\n                    if (val.isAfter(maxDate)) {\n                      return Promise.reject('Ngày trả không được quá 14 ngày kể từ hôm nay');\n                    }\n                    return Promise.resolve();\n                  },\n                },\n              ]}\n            >\n              <DatePicker\n                style={{ width: '100%' }}\n                format=\"DD/MM/YYYY\"\n                disabledDate={(d) => d.isBefore(dayjs().add(1, 'day').startOf('day'))}\n                placeholder=\"Chọn ngày trả\"\n              />\n            </Form.Item>\n\n            <Form.Item name=\"note\" label=\"Ghi chú (tùy chọn)\">\n              <Input.TextArea rows={3} placeholder=\"Mô tả mục đích sử dụng...\" maxLength={200} showCount />\n            </Form.Item>\n\n            <Form.Item style={{ marginBottom: 0 }}>\n              <Button\n                type=\"primary\"\n                htmlType=\"submit\"\n                size=\"large\"\n                icon={<SendOutlined />}\n                loading={submitting}\n                block\n                style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\n              >\n                Gửi yêu cầu mượn\n              </Button>\n            </Form.Item>\n          </Form>\n        )}\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/borrow-request/create.tsx"
     },
@@ -4017,7 +4289,7 @@
       "parentId": "7",
       "id": "13",
       "absPath": "/notifications",
-      "__content": "export default function NotificationsPage() {\r\n  return (\r\n    <div>\r\n      <h2>Thông báo</h2>\r\n      <p>Danh sách thông báo sẽ được hiển thị tại đây.</p>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Badge, Button, Card, Empty, List, message,\n  Skeleton, Tabs, Tag, Typography,\n} from 'antd';\nimport { BellOutlined, CheckOutlined } from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { useNotifications } from '../../hooks/useNotifications';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst TYPE_CONFIG: Record<string, { label: string; color: string }> = {\n  new_request:        { label: 'Yêu cầu mới',   color: 'blue' },\n  approved:           { label: 'Đã duyệt',       color: 'green' },\n  rejected:           { label: 'Từ chối',        color: 'red' },\n  checkout_confirmed: { label: 'Bàn giao',       color: 'purple' },\n  return_confirmed:   { label: 'Đã trả',         color: 'cyan' },\n  due_reminder:       { label: 'Nhắc nhở',       color: 'orange' },\n  overdue_alert:      { label: 'Quá hạn',        color: 'volcano' },\n};\n\nexport default function NotificationsPage() {\n  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications();\n  const [activeTab, setActiveTab] = useState('all');\n\n  const displayed = activeTab === 'unread' ? items.filter((n) => !n.isRead) : items;\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        {/* Header */}\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\n            <BellOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            <div>\n              <Title level={5} style={{ marginBottom: 0 }}>\n                Thông báo{' '}\n                {unreadCount > 0 && (\n                  <Badge count={unreadCount} style={{ marginLeft: 4 }} />\n                )}\n              </Title>\n              <Text type=\"secondary\" style={{ fontSize: 12 }}>Các thông báo liên quan đến yêu cầu mượn của bạn</Text>\n            </div>\n          </div>\n          {unreadCount > 0 && (\n            <Button\n              icon={<CheckOutlined />}\n              size=\"small\"\n              onClick={async () => {\n                await markAllRead();\n                message.success('Đã đánh dấu tất cả là đã đọc');\n              }}\n              style={{ borderRadius: 6 }}\n            >\n              Đánh dấu tất cả đã đọc\n            </Button>\n          )}\n        </div>\n\n        {/* Tabs */}\n        <div style={{ padding: '0 20px' }}>\n          <Tabs\n            activeKey={activeTab}\n            onChange={setActiveTab}\n            items={[\n              { key: 'all', label: `Tất cả (${items.length})` },\n              { key: 'unread', label: `Chưa đọc (${unreadCount})` },\n            ]}\n            style={{ borderBottom: 'none' }}\n          />\n        </div>\n\n        {/* Content */}\n        {loading ? (\n          <div style={{ padding: 20 }}>\n            <Skeleton active paragraph={{ rows: 4 }} />\n          </div>\n        ) : displayed.length === 0 ? (\n          <div style={{ padding: 40 }}>\n            <Empty description={activeTab === 'unread' ? 'Không có thông báo chưa đọc' : 'Chưa có thông báo nào'} />\n          </div>\n        ) : (\n          <List\n            dataSource={displayed}\n            renderItem={(notif) => {\n              const cfg = TYPE_CONFIG[notif.type] ?? { label: notif.type, color: 'default' };\n              return (\n                <List.Item\n                  onClick={() => !notif.isRead && markRead(notif.id)}\n                  style={{\n                    padding: '14px 20px',\n                    cursor: notif.isRead ? 'default' : 'pointer',\n                    background: notif.isRead ? 'transparent' : 'rgba(191, 4, 4, 0.03)',\n                    borderBottom: `1px solid ${SLINK_COLORS.border}`,\n                    transition: 'background 0.2s',\n                  }}\n                  actions={[\n                    !notif.isRead && (\n                      <Button\n                        type=\"link\"\n                        size=\"small\"\n                        onClick={(e) => { e.stopPropagation(); markRead(notif.id); }}\n                        style={{ color: SLINK_COLORS.info, padding: 0 }}\n                      >\n                        Đánh dấu đã đọc\n                      </Button>\n                    ),\n                  ].filter(Boolean)}\n                >\n                  <List.Item.Meta\n                    avatar={\n                      <div style={{ position: 'relative' }}>\n                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\n                          <BellOutlined style={{ color: SLINK_COLORS.primary }} />\n                        </div>\n                        {!notif.isRead && (\n                          <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: SLINK_COLORS.primary }} />\n                        )}\n                      </div>\n                    }\n                    title={\n                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                        <Text strong style={{ fontSize: 14 }}>{notif.title}</Text>\n                        <Tag color={cfg.color} style={{ margin: 0, fontSize: 11 }}>{cfg.label}</Tag>\n                      </div>\n                    }\n                    description={\n                      <div>\n                        <Text type=\"secondary\" style={{ fontSize: 13 }}>{notif.message}</Text>\n                        <br />\n                        <Text type=\"secondary\" style={{ fontSize: 11 }}>\n                          {dayjs(notif.createdAt).format('HH:mm DD/MM/YYYY')}\n                        </Text>\n                      </div>\n                    }\n                  />\n                </List.Item>\n              );\n            }}\n          />\n        )}\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/notifications/index.tsx"
     },
@@ -4053,7 +4325,7 @@
       "parentId": "14",
       "id": "17",
       "absPath": "/admin/requests",
-      "__content": "import { CheckOutlined, ClockCircleOutlined, CloseOutlined, FileTextOutlined, SearchOutlined } from '@ant-design/icons';\nimport { Button, Card, Input, Space, Table, Tag, Typography } from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport { SLINK_COLORS } from '../../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\ninterface RequestRow {\n  id: number;\n  studentName: string;\n  equipment: string;\n  requestDate: string;\n  status: 'pending' | 'approved' | 'rejected' | 'returned';\n}\n\nconst demoData: RequestRow[] = [\n  { id: 1, studentName: 'Nguyễn Văn A', equipment: 'Máy chiếu Epson', requestDate: '2026-05-20', status: 'pending' },\n  { id: 2, studentName: 'Trần Thị B', equipment: 'Laptop Dell', requestDate: '2026-05-19', status: 'approved' },\n  { id: 3, studentName: 'Lê Văn C', equipment: 'Camera Sony', requestDate: '2026-05-18', status: 'returned' },\n  { id: 4, studentName: 'Phạm Thị D', equipment: 'Micro không dây', requestDate: '2026-05-17', status: 'rejected' },\n];\n\nconst statusConfig = {\n  pending: { color: 'orange', label: 'Chờ duyệt', icon: <ClockCircleOutlined /> },\n  approved: { color: 'blue', label: 'Đã duyệt', icon: <CheckOutlined /> },\n  rejected: { color: 'red', label: 'Từ chối', icon: <CloseOutlined /> },\n  returned: { color: 'green', label: 'Đã trả', icon: <CheckOutlined /> },\n};\n\nconst columns: ColumnsType<RequestRow> = [\n  { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n  { title: 'Sinh viên', dataIndex: 'studentName', key: 'studentName' },\n  { title: 'Thiết bị', dataIndex: 'equipment', key: 'equipment' },\n  { title: 'Ngày yêu cầu', dataIndex: 'requestDate', key: 'requestDate' },\n  {\n    title: 'Trạng thái',\n    dataIndex: 'status',\n    key: 'status',\n    render: (status: RequestRow['status']) => {\n      const cfg = statusConfig[status];\n      return <Tag color={cfg.color} icon={cfg.icon}>{cfg.label}</Tag>;\n    },\n  },\n  {\n    title: 'Thao tác',\n    key: 'actions',\n    render: (_, record) => (\n      <Space>\n        <Button size=\"small\" href={`/admin/requests/${record.id}`} style={{ borderRadius: 4 }}>Chi tiết</Button>\n        {record.status === 'pending' && (\n          <>\n            <Button size=\"small\" type=\"primary\" style={{ background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success, borderRadius: 4 }}>Duyệt</Button>\n            <Button size=\"small\" danger style={{ borderRadius: 4 }}>Từ chối</Button>\n          </>\n        )}\n      </Space>\n    ),\n  },\n];\n\nexport default function AdminRequestsPage() {\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{\n          borderRadius: 8,\n          border: `1px solid ${SLINK_COLORS.border}`,\n          boxShadow: SLINK_COLORS.shadow,\n        }}\n        styles={{ body: { padding: 0 } }}\n      >\n        {/* Card Header */}\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\n            <FileTextOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            <Title level={5} style={{ marginBottom: 0 }}>Danh sách yêu cầu mượn</Title>\n          </div>\n          <Input\n            placeholder=\"Tìm theo tên sinh viên...\"\n            prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n            style={{ width: 240, borderRadius: 6 }}\n          />\n        </div>\n\n        {/* Table */}\n        <Table\n          dataSource={demoData}\n          columns={columns}\n          rowKey=\"id\"\n          pagination={{ pageSize: 10, showSizeChanger: false }}\n          style={{ borderRadius: '0 0 8px 8px' }}\n        />\n      </Card>\n    </div>\n  );\n}\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Button, Card, Input, message, Modal, Pagination,\n  Select, Skeleton, Space, Table, Tag, Textarea, Typography,\n} from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport {\n  CheckOutlined, CloseOutlined, FileTextOutlined, SearchOutlined,\n} from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';\nimport { SLINK_COLORS } from '../../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst STATUS_CONFIG: Record<string, { label: string; color: string }> = {\n  pending:   { label: 'Chờ duyệt',  color: 'orange' },\n  approved:  { label: 'Đã duyệt',   color: 'blue' },\n  rejected:  { label: 'Từ chối',    color: 'red' },\n  cancelled: { label: 'Đã hủy',     color: 'default' },\n  borrowing: { label: 'Đang mượn',  color: 'geekblue' },\n  overdue:   { label: 'Quá hạn',    color: 'volcano' },\n  returned:  { label: 'Đã trả',     color: 'green' },\n};\n\nexport default function AdminRequestsPage() {\n  const [items,   setItems]   = useState<BorrowRequest[]>([]);\n  const [total,   setTotal]   = useState(0);\n  const [page,    setPage]    = useState(1);\n  const [loading, setLoading] = useState(false);\n  const [error,   setError]   = useState<string | null>(null);\n  const [search,  setSearch]  = useState('');\n  const [status,  setStatus]  = useState<string | undefined>();\n  const [rejectReason, setRejectReason] = useState('');\n  const [rejectingId,  setRejectingId]  = useState<number | null>(null);\n\n  const load = useCallback(async (p = 1) => {\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await borrowRequestService.listAll({\n        page: p, pageSize: 15, status, search: search || undefined,\n      });\n      if (res.success && res.data) {\n        setItems(res.data.items);\n        setTotal(res.data.total);\n        setPage(p);\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Không thể tải danh sách yêu cầu');\n    } finally {\n      setLoading(false);\n    }\n  }, [search, status]);\n\n  useEffect(() => { load(1); }, [load]);\n\n  const handleApprove = async (id: number) => {\n    try {\n      await borrowRequestService.approve(id);\n      message.success('Đã duyệt yêu cầu mượn');\n      load(page);\n    } catch (err: any) {\n      message.error(err?.response?.data?.message ?? 'Không thể duyệt yêu cầu');\n    }\n  };\n\n  const handleReject = async () => {\n    if (!rejectingId) return;\n    try {\n      await borrowRequestService.reject(rejectingId, rejectReason || 'Không đáp ứng yêu cầu');\n      message.success('Đã từ chối yêu cầu mượn');\n      setRejectingId(null);\n      setRejectReason('');\n      load(page);\n    } catch (err: any) {\n      message.error(err?.response?.data?.message ?? 'Không thể từ chối yêu cầu');\n    }\n  };\n\n  const columns: ColumnsType<BorrowRequest> = [\n    { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n    {\n      title: 'Sinh viên',\n      key: 'student',\n      render: (_, r) => (\n        <div>\n          <Text strong style={{ fontSize: 13 }}>{r.userFullName ?? '—'}</Text>\n          <br />\n          <Text type=\"secondary\" style={{ fontSize: 12 }}>{r.userEmail ?? '—'}</Text>\n        </div>\n      ),\n    },\n    {\n      title: 'Ngày gửi',\n      dataIndex: 'createdAt',\n      render: (v) => dayjs(v).format('DD/MM/YYYY'),\n    },\n    {\n      title: 'Ngày trả dự kiến',\n      dataIndex: 'expectedReturnDate',\n      render: (v) => dayjs(v).format('DD/MM/YYYY'),\n    },\n    {\n      title: 'Trạng thái',\n      dataIndex: 'status',\n      render: (s: string) => {\n        const cfg = STATUS_CONFIG[s] ?? { label: s, color: 'default' };\n        return <Tag color={cfg.color}>{cfg.label}</Tag>;\n      },\n    },\n    {\n      title: 'Thao tác',\n      key: 'actions',\n      render: (_, record) => (\n        <Space size={4}>\n          {record.status === 'pending' && (\n            <>\n              <Button\n                size=\"small\"\n                type=\"primary\"\n                icon={<CheckOutlined />}\n                onClick={() => handleApprove(record.id)}\n                style={{ background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success, borderRadius: 4 }}\n              >\n                Duyệt\n              </Button>\n              <Button\n                size=\"small\"\n                danger\n                icon={<CloseOutlined />}\n                onClick={() => setRejectingId(record.id)}\n                style={{ borderRadius: 4 }}\n              >\n                Từ chối\n              </Button>\n            </>\n          )}\n        </Space>\n      ),\n    },\n  ];\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        {/* Header */}\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\n            <FileTextOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            <Title level={5} style={{ marginBottom: 0 }}>Danh sách yêu cầu mượn</Title>\n          </div>\n          <Space wrap>\n            <Select\n              placeholder=\"Lọc theo trạng thái\"\n              allowClear\n              style={{ width: 180 }}\n              onChange={(v) => setStatus(v)}\n              options={Object.entries(STATUS_CONFIG).map(([k, v]) => ({ value: k, label: v.label }))}\n            />\n            <Input\n              placeholder=\"Tìm theo tên sinh viên...\"\n              prefix={<SearchOutlined />}\n              value={search}\n              onChange={(e) => setSearch(e.target.value)}\n              style={{ width: 220, borderRadius: 6 }}\n              allowClear\n            />\n          </Space>\n        </div>\n\n        {error && <Alert type=\"error\" message={error} style={{ margin: 16, borderRadius: 6 }} />}\n\n        {loading ? (\n          <div style={{ padding: 20 }}><Skeleton active paragraph={{ rows: 6 }} /></div>\n        ) : (\n          <Table\n            dataSource={items}\n            columns={columns}\n            rowKey=\"id\"\n            pagination={false}\n          />\n        )}\n\n        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\n          <Pagination current={page} total={total} pageSize={15} onChange={load} showTotal={(t) => `${t} yêu cầu`} showSizeChanger={false} />\n        </div>\n      </Card>\n\n      {/* Reject Modal */}\n      <Modal\n        open={!!rejectingId}\n        title=\"Từ chối yêu cầu mượn\"\n        okText=\"Xác nhận từ chối\"\n        okButtonProps={{ danger: true }}\n        cancelText=\"Hủy\"\n        onOk={handleReject}\n        onCancel={() => { setRejectingId(null); setRejectReason(''); }}\n      >\n        <Text type=\"secondary\" style={{ display: 'block', marginBottom: 8 }}>Nhập lý do từ chối (sẽ được gửi đến sinh viên qua thông báo):</Text>\n        <Input.TextArea\n          rows={3}\n          value={rejectReason}\n          onChange={(e) => setRejectReason(e.target.value)}\n          placeholder=\"Ví dụ: Số lượng thiết bị không đủ, thông tin không hợp lệ...\"\n          maxLength={200}\n          showCount\n        />\n      </Modal>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/requests/index.tsx"
     },
@@ -4073,7 +4345,7 @@
       "parentId": "14",
       "id": "19",
       "absPath": "/admin/equipment",
-      "__content": "import { PlusOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';\nimport { Button, Card, Input, Space, Table, Tag, Typography } from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport { SLINK_COLORS } from '../../../theme/tokens';\n\nconst { Title } = Typography;\n\ninterface EquipmentRow {\n  id: number;\n  name: string;\n  category: string;\n  total: number;\n  available: number;\n  status: 'active' | 'maintenance';\n}\n\nconst demoData: EquipmentRow[] = [\n  { id: 1, name: 'Máy chiếu Epson EB-X41', category: 'Trình chiếu', total: 8, available: 5, status: 'active' },\n  { id: 2, name: 'Laptop Dell Inspiron 15', category: 'Máy tính', total: 12, available: 8, status: 'active' },\n  { id: 3, name: 'Camera Sony Alpha A6400', category: 'Nhiếp ảnh', total: 4, available: 2, status: 'active' },\n  { id: 4, name: 'Micro không dây Shure', category: 'Âm thanh', total: 6, available: 0, status: 'maintenance' },\n];\n\nconst columns: ColumnsType<EquipmentRow> = [\n  { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n  { title: 'Tên thiết bị', dataIndex: 'name', key: 'name' },\n  {\n    title: 'Danh mục',\n    dataIndex: 'category',\n    key: 'category',\n    render: (cat: string) => <Tag color=\"blue\">{cat}</Tag>,\n  },\n  {\n    title: 'Tổng / Sẵn có',\n    key: 'quantity',\n    render: (_, record) => (\n      <span>\n        <strong style={{ color: SLINK_COLORS.textBase }}>{record.available}</strong>\n        <span style={{ color: SLINK_COLORS.textSecondary }}> / {record.total}</span>\n      </span>\n    ),\n  },\n  {\n    title: 'Trạng thái',\n    dataIndex: 'status',\n    key: 'status',\n    render: (status: EquipmentRow['status']) =>\n      status === 'active' ? (\n        <Tag color=\"green\">Hoạt động</Tag>\n      ) : (\n        <Tag color=\"orange\">Bảo trì</Tag>\n      ),\n  },\n  {\n    title: 'Thao tác',\n    key: 'actions',\n    render: (_, record) => (\n      <Space>\n        <Button size=\"small\" style={{ borderRadius: 4 }}>Sửa</Button>\n        <Button size=\"small\" href={`/admin/equipment/${record.id}/stock`} style={{ borderRadius: 4 }}>\n          Tồn kho\n        </Button>\n      </Space>\n    ),\n  },\n];\n\nexport default function AdminEquipmentPage() {\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{\n          borderRadius: 8,\n          border: `1px solid ${SLINK_COLORS.border}`,\n          boxShadow: SLINK_COLORS.shadow,\n        }}\n        styles={{ body: { padding: 0 } }}\n      >\n        {/* Card Header */}\n        <div\n          style={{\n            padding: '16px 20px',\n            borderBottom: `1px solid ${SLINK_COLORS.border}`,\n            display: 'flex',\n            alignItems: 'center',\n            justifyContent: 'space-between',\n            flexWrap: 'wrap',\n            gap: 12,\n          }}\n        >\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\n            <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            <Title level={5} style={{ marginBottom: 0 }}>Quản lý thiết bị</Title>\n          </div>\n          <div style={{ display: 'flex', gap: 8 }}>\n            <Input\n              placeholder=\"Tìm kiếm thiết bị...\"\n              prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n              style={{ width: 220, borderRadius: 6 }}\n            />\n            <Button\n              type=\"primary\"\n              icon={<PlusOutlined />}\n              style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\n            >\n              Thêm thiết bị\n            </Button>\n          </div>\n        </div>\n\n        <Table\n          dataSource={demoData}\n          columns={columns}\n          rowKey=\"id\"\n          pagination={{ pageSize: 10, showSizeChanger: false }}\n        />\n      </Card>\n    </div>\n  );\n}\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Button, Card, Form, Input, InputNumber, message,\n  Modal, Pagination, Skeleton, Space, Table, Tag, Typography,\n} from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport { EditOutlined, PlusOutlined, SearchOutlined, ToolOutlined } from '@ant-design/icons';\nimport { equipmentService, type Equipment } from '../../../services/equipment.service';\nimport { http } from '../../../services/http';\nimport { SLINK_COLORS } from '../../../theme/tokens';\nimport type { ApiResponse } from '@equipment-mgmt/shared';\n\nconst { Title } = Typography;\n\nexport default function AdminEquipmentPage() {\n  const [items,   setItems]   = useState<Equipment[]>([]);\n  const [total,   setTotal]   = useState(0);\n  const [page,    setPage]    = useState(1);\n  const [loading, setLoading] = useState(false);\n  const [error,   setError]   = useState<string | null>(null);\n  const [search,  setSearch]  = useState('');\n  const [modalOpen,   setModalOpen]   = useState(false);\n  const [editRecord,  setEditRecord]  = useState<Equipment | null>(null);\n  const [submitting,  setSubmitting]  = useState(false);\n  const [form] = Form.useForm();\n\n  const load = useCallback(async (p = 1) => {\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await equipmentService.list({ page: p, pageSize: 15, search: search || undefined });\n      if (res.success && res.data) {\n        setItems(res.data.items);\n        setTotal(res.data.total);\n        setPage(p);\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Không thể tải danh sách thiết bị');\n    } finally {\n      setLoading(false);\n    }\n  }, [search]);\n\n  useEffect(() => { load(1); }, [load]);\n\n  const openCreate = () => {\n    setEditRecord(null);\n    form.resetFields();\n    setModalOpen(true);\n  };\n\n  const openEdit = (record: Equipment) => {\n    setEditRecord(record);\n    form.setFieldsValue({ name: record.name, totalQuantity: record.totalQuantity, status: record.status });\n    setModalOpen(true);\n  };\n\n  const handleSubmit = async (values: { name: string; totalQuantity: number; status?: string }) => {\n    setSubmitting(true);\n    try {\n      if (editRecord) {\n        await http.put<ApiResponse<Equipment>>(`/equipment/${editRecord.id}`, values);\n        message.success('Cập nhật thiết bị thành công');\n      } else {\n        await http.post<ApiResponse<Equipment>>('/equipment', {\n          ...values,\n          categoryId: 1,\n          status: 'active',\n        });\n        message.success('Thêm thiết bị thành công');\n      }\n      setModalOpen(false);\n      load(page);\n    } catch (err: any) {\n      message.error(err?.response?.data?.message ?? 'Có lỗi xảy ra');\n    } finally {\n      setSubmitting(false);\n    }\n  };\n\n  const columns: ColumnsType<Equipment> = [\n    { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n    { title: 'Tên thiết bị', dataIndex: 'name', key: 'name' },\n    {\n      title: 'Tổng / Sẵn có',\n      key: 'qty',\n      render: (_, r) => (\n        <span>\n          <strong style={{ color: SLINK_COLORS.textBase }}>{r.availableQuantity}</strong>\n          <span style={{ color: SLINK_COLORS.textSecondary }}> / {r.totalQuantity}</span>\n        </span>\n      ),\n    },\n    {\n      title: 'Trạng thái',\n      dataIndex: 'status',\n      render: (s: string) =>\n        s === 'active'\n          ? <Tag color=\"green\">Hoạt động</Tag>\n          : <Tag color=\"orange\">Bảo trì</Tag>,\n    },\n    {\n      title: 'Thao tác',\n      key: 'actions',\n      render: (_, record) => (\n        <Space>\n          <Button\n            size=\"small\"\n            icon={<EditOutlined />}\n            onClick={() => openEdit(record)}\n            style={{ borderRadius: 4 }}\n          >\n            Sửa\n          </Button>\n        </Space>\n      ),\n    },\n  ];\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\n            <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            <Title level={5} style={{ marginBottom: 0 }}>Quản lý thiết bị</Title>\n          </div>\n          <Space>\n            <Input\n              placeholder=\"Tìm kiếm...\"\n              prefix={<SearchOutlined />}\n              value={search}\n              onChange={(e) => setSearch(e.target.value)}\n              style={{ width: 220, borderRadius: 6 }}\n              allowClear\n            />\n            <Button\n              type=\"primary\"\n              icon={<PlusOutlined />}\n              onClick={openCreate}\n              style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}\n            >\n              Thêm thiết bị\n            </Button>\n          </Space>\n        </div>\n\n        {error && <Alert type=\"error\" message={error} style={{ margin: 16 }} />}\n\n        {loading ? (\n          <div style={{ padding: 20 }}><Skeleton active paragraph={{ rows: 6 }} /></div>\n        ) : (\n          <Table dataSource={items} columns={columns} rowKey=\"id\" pagination={false} />\n        )}\n\n        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\n          <Pagination current={page} total={total} pageSize={15} onChange={load} showTotal={(t) => `${t} thiết bị`} showSizeChanger={false} />\n        </div>\n      </Card>\n\n      {/* Add / Edit Modal */}\n      <Modal\n        open={modalOpen}\n        title={editRecord ? 'Cập nhật thiết bị' : 'Thêm thiết bị mới'}\n        okText={editRecord ? 'Lưu thay đổi' : 'Thêm mới'}\n        cancelText=\"Hủy\"\n        onOk={() => form.submit()}\n        onCancel={() => setModalOpen(false)}\n        confirmLoading={submitting}\n      >\n        <Form form={form} layout=\"vertical\" onFinish={handleSubmit}>\n          <Form.Item name=\"name\" label=\"Tên thiết bị\" rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị' }]}>\n            <Input placeholder=\"Ví dụ: Máy chiếu Epson EB-X41\" />\n          </Form.Item>\n          <Form.Item name=\"totalQuantity\" label=\"Tổng số lượng\" rules={[{ required: true, message: 'Nhập số lượng' }]}>\n            <InputNumber min={1} style={{ width: '100%' }} />\n          </Form.Item>\n          {editRecord && (\n            <Form.Item name=\"status\" label=\"Trạng thái\">\n              <Input placeholder=\"active / under_maintenance\" />\n            </Form.Item>\n          )}\n        </Form>\n      </Modal>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/equipment/index.tsx"
     },
@@ -4083,7 +4355,7 @@
       "parentId": "14",
       "id": "20",
       "absPath": "/admin/users",
-      "__content": "export default function AdminUsersPage() {\r\n  return (\r\n    <div>\r\n      <h2>Quản lý người dùng</h2>\r\n      <p>Danh sách người dùng và quyền hạn sẽ hiển thị tại đây.</p>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Button, Card, message, Pagination, Skeleton,\n  Space, Table, Tag, Typography,\n} from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport { LockOutlined, TeamOutlined, UnlockOutlined } from '@ant-design/icons';\nimport { http } from '../../../services/http';\nimport { SLINK_COLORS } from '../../../theme/tokens';\nimport type { ApiResponse } from '@equipment-mgmt/shared';\n\nconst { Title, Text } = Typography;\n\ninterface UserRow {\n  id: number;\n  fullName: string;\n  email: string;\n  role: string;\n  status: string;\n  createdAt: string;\n}\n\nconst STATUS_CONFIG: Record<string, { label: string; color: string }> = {\n  active:         { label: 'Hoạt động',    color: 'green' },\n  borrow_blocked: { label: 'Cấm mượn',     color: 'orange' },\n  locked:         { label: 'Bị khóa',      color: 'red' },\n};\n\nexport default function AdminUsersPage() {\n  const [items,   setItems]   = useState<UserRow[]>([]);\n  const [total,   setTotal]   = useState(0);\n  const [page,    setPage]    = useState(1);\n  const [loading, setLoading] = useState(false);\n  const [error,   setError]   = useState<string | null>(null);\n\n  const load = useCallback(async (p = 1) => {\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await http.get<ApiResponse<{ items: UserRow[]; total: number }>>(\n        '/users',\n        { params: { page: p, pageSize: 15, role: 'student' } },\n      );\n      if (res.data.success && res.data.data) {\n        setItems(res.data.data.items);\n        setTotal(res.data.data.total);\n        setPage(p);\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Không thể tải danh sách người dùng');\n    } finally {\n      setLoading(false);\n    }\n  }, []);\n\n  useEffect(() => { load(); }, [load]);\n\n  const handleToggleLock = async (user: UserRow) => {\n    const newStatus = user.status === 'locked' ? 'active' : 'locked';\n    try {\n      await http.patch(`/users/${user.id}/status`, { status: newStatus });\n      message.success(newStatus === 'locked' ? 'Đã khóa tài khoản' : 'Đã mở khóa tài khoản');\n      load(page);\n    } catch (err: any) {\n      message.error(err?.response?.data?.message ?? 'Không thể cập nhật trạng thái');\n    }\n  };\n\n  const columns: ColumnsType<UserRow> = [\n    { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n    {\n      title: 'Sinh viên',\n      key: 'student',\n      render: (_, r) => (\n        <div>\n          <Text strong style={{ fontSize: 13 }}>{r.fullName}</Text>\n          <br />\n          <Text type=\"secondary\" style={{ fontSize: 12 }}>{r.email}</Text>\n        </div>\n      ),\n    },\n    {\n      title: 'Trạng thái',\n      dataIndex: 'status',\n      render: (s: string) => {\n        const cfg = STATUS_CONFIG[s] ?? { label: s, color: 'default' };\n        return <Tag color={cfg.color}>{cfg.label}</Tag>;\n      },\n    },\n    {\n      title: 'Thao tác',\n      key: 'actions',\n      render: (_, record) => (\n        <Space>\n          <Button\n            size=\"small\"\n            icon={record.status === 'locked' ? <UnlockOutlined /> : <LockOutlined />}\n            danger={record.status !== 'locked'}\n            onClick={() => handleToggleLock(record)}\n            style={{ borderRadius: 4 }}\n          >\n            {record.status === 'locked' ? 'Mở khóa' : 'Khóa TK'}\n          </Button>\n        </Space>\n      ),\n    },\n  ];\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', gap: 10 }}>\n          <TeamOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n          <Title level={5} style={{ marginBottom: 0 }}>Quản lý sinh viên</Title>\n        </div>\n\n        {error && <Alert type=\"error\" message={error} style={{ margin: 16 }} />}\n\n        {loading ? (\n          <div style={{ padding: 20 }}><Skeleton active paragraph={{ rows: 6 }} /></div>\n        ) : (\n          <Table dataSource={items} columns={columns} rowKey=\"id\" pagination={false} />\n        )}\n\n        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\n          <Pagination current={page} total={total} pageSize={15} onChange={load} showTotal={(t) => `${t} sinh viên`} showSizeChanger={false} />\n        </div>\n      </Card>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/users/index.tsx"
     },
@@ -5935,37 +6207,16 @@
             ],
             "format": "esm"
           },
-          "src/components/equipment/EquipmentCard.tsx": {
-            "bytes": 2233,
-            "imports": [
-              {
-                "path": "@ant-design/icons",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
-                "path": "antd",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
-                "path": "src/theme/tokens.ts",
-                "kind": "import-statement",
-                "original": "../../theme/tokens"
-              },
-              {
-                "path": "react/jsx-runtime",
-                "kind": "import-statement",
-                "external": true
-              }
-            ],
-            "format": "esm"
-          },
           "src/hooks/useEquipmentList.ts": {
-            "bytes": 245,
+            "bytes": 1408,
             "imports": [
               {
                 "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../services/equipment.service",
                 "kind": "import-statement",
                 "external": true
               }
@@ -5973,7 +6224,7 @@
             "format": "esm"
           },
           "src/pages/equipment/index.tsx": {
-            "bytes": 3606,
+            "bytes": 6470,
             "imports": [
               {
                 "path": "@ant-design/icons",
@@ -5991,9 +6242,9 @@
                 "external": true
               },
               {
-                "path": "src/components/equipment/EquipmentCard.tsx",
+                "path": "src/.umi/exports.ts",
                 "kind": "import-statement",
-                "original": "../../components/equipment/EquipmentCard"
+                "original": "@umijs/max"
               },
               {
                 "path": "src/hooks/useEquipmentList.ts",
@@ -6014,34 +6265,37 @@
             "format": "esm"
           },
           "src/pages/equipment/[id].tsx": {
-            "bytes": 274,
+            "bytes": 5246,
             "imports": [
               {
-                "path": "react/jsx-runtime",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
-              }
-            ],
-            "format": "esm"
-          },
-          "src/pages/borrow-request/index.tsx": {
-            "bytes": 218,
-            "imports": [
+              },
               {
-                "path": "react/jsx-runtime",
+                "path": "src/.umi/exports.ts",
                 "kind": "import-statement",
-                "external": true
-              }
-            ],
-            "format": "esm"
-          },
-          "src/pages/borrow-request/create.tsx": {
-            "bytes": 807,
-            "imports": [
+                "original": "@umijs/max"
+              },
               {
                 "path": "antd",
                 "kind": "import-statement",
                 "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/equipment.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/theme/tokens.ts",
+                "kind": "import-statement",
+                "original": "../../theme/tokens"
               },
               {
                 "path": "react/jsx-runtime",
@@ -6051,9 +6305,147 @@
             ],
             "format": "esm"
           },
-          "src/pages/notifications/index.tsx": {
-            "bytes": 196,
+          "src/pages/borrow-request/index.tsx": {
+            "bytes": 5915,
             "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/borrow-request.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/theme/tokens.ts",
+                "kind": "import-statement",
+                "original": "../../theme/tokens"
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              }
+            ],
+            "format": "esm"
+          },
+          "src/pages/borrow-request/create.tsx": {
+            "bytes": 7487,
+            "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/.umi/exports.ts",
+                "kind": "import-statement",
+                "original": "@umijs/max"
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/equipment.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/borrow-request.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/theme/tokens.ts",
+                "kind": "import-statement",
+                "original": "../../theme/tokens"
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              }
+            ],
+            "format": "esm"
+          },
+          "src/hooks/useNotifications.ts": {
+            "bytes": 1264,
+            "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../services/notification.service",
+                "kind": "import-statement",
+                "external": true
+              }
+            ],
+            "format": "esm"
+          },
+          "src/pages/notifications/index.tsx": {
+            "bytes": 6302,
+            "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/hooks/useNotifications.ts",
+                "kind": "import-statement",
+                "original": "../../hooks/useNotifications"
+              },
+              {
+                "path": "src/theme/tokens.ts",
+                "kind": "import-statement",
+                "original": "../../theme/tokens"
+              },
               {
                 "path": "react/jsx-runtime",
                 "kind": "import-statement",
@@ -6098,9 +6490,25 @@
             ],
             "format": "esm"
           },
-          "src/pages/admin/dashboard/index.tsx": {
-            "bytes": 4274,
+          "src/services/http.ts": {
+            "bytes": 835,
             "imports": [
+              {
+                "path": "axios",
+                "kind": "import-statement",
+                "external": true
+              }
+            ],
+            "format": "esm"
+          },
+          "src/pages/admin/dashboard/index.tsx": {
+            "bytes": 6133,
+            "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
               {
                 "path": "@ant-design/icons",
                 "kind": "import-statement",
@@ -6110,6 +6518,16 @@
                 "path": "antd",
                 "kind": "import-statement",
                 "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/services/http.ts",
+                "kind": "import-statement",
+                "original": "../../../services/http"
               },
               {
                 "path": "src/theme/tokens.ts",
@@ -6125,15 +6543,30 @@
             "format": "esm"
           },
           "src/pages/admin/requests/index.tsx": {
-            "bytes": 3822,
+            "bytes": 7584,
             "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
               {
                 "path": "@ant-design/icons",
                 "kind": "import-statement",
                 "external": true
               },
               {
-                "path": "antd",
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../../services/borrow-request.service",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6162,10 +6595,10 @@
             "format": "esm"
           },
           "src/pages/admin/equipment/index.tsx": {
-            "bytes": 3853,
+            "bytes": 6853,
             "imports": [
               {
-                "path": "@ant-design/icons",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6173,6 +6606,21 @@
                 "path": "antd",
                 "kind": "import-statement",
                 "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../../services/equipment.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/services/http.ts",
+                "kind": "import-statement",
+                "original": "../../../services/http"
               },
               {
                 "path": "src/theme/tokens.ts",
@@ -6188,8 +6636,33 @@
             "format": "esm"
           },
           "src/pages/admin/users/index.tsx": {
-            "bytes": 219,
+            "bytes": 4589,
             "imports": [
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "src/services/http.ts",
+                "kind": "import-statement",
+                "original": "../../../services/http"
+              },
+              {
+                "path": "src/theme/tokens.ts",
+                "kind": "import-statement",
+                "original": "../../../theme/tokens"
+              },
               {
                 "path": "react/jsx-runtime",
                 "kind": "import-statement",
@@ -6651,22 +7124,12 @@
                 "external": true
               },
               {
-                "path": "@ant-design/icons",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
-                "path": "antd",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
-                "path": "react/jsx-runtime",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
                 "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../services/equipment.service",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6691,12 +7154,7 @@
                 "external": true
               },
               {
-                "path": "react/jsx-runtime",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
-                "path": "react/jsx-runtime",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6706,7 +7164,112 @@
                 "external": true
               },
               {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/equipment.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
                 "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/borrow-request.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/equipment.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../services/borrow-request.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../services/notification.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6731,17 +7294,12 @@
                 "external": true
               },
               {
-                "path": "@ant-design/icons",
+                "path": "axios",
                 "kind": "import-statement",
                 "external": true
               },
               {
-                "path": "antd",
-                "kind": "import-statement",
-                "external": true
-              },
-              {
-                "path": "react/jsx-runtime",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6756,7 +7314,7 @@
                 "external": true
               },
               {
-                "path": "react/jsx-runtime",
+                "path": "dayjs",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6766,7 +7324,7 @@
                 "external": true
               },
               {
-                "path": "@ant-design/icons",
+                "path": "react",
                 "kind": "import-statement",
                 "external": true
               },
@@ -6776,7 +7334,67 @@
                 "external": true
               },
               {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "dayjs",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../../services/borrow-request.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
                 "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "../../../services/equipment.service",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react/jsx-runtime",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "react",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "antd",
+                "kind": "import-statement",
+                "external": true
+              },
+              {
+                "path": "@ant-design/icons",
                 "kind": "import-statement",
                 "external": true
               },
@@ -7947,7 +8565,7 @@
                 "bytesInOutput": 1387
               },
               "src/.umi/core/terminal.ts": {
-                "bytesInOutput": 1527
+                "bytesInOutput": 1530
               },
               "src/.umi/testBrowser.tsx": {
                 "bytesInOutput": 2405
@@ -7982,44 +8600,47 @@
               "src/.umi/core/EmptyRoute.tsx": {
                 "bytesInOutput": 383
               },
-              "src/components/equipment/EquipmentCard.tsx": {
-                "bytesInOutput": 2739
-              },
               "src/hooks/useEquipmentList.ts": {
-                "bytesInOutput": 316
+                "bytesInOutput": 1351
               },
               "src/pages/equipment/index.tsx": {
-                "bytesInOutput": 4484
+                "bytesInOutput": 7658
               },
               "src/pages/equipment/[id].tsx": {
-                "bytesInOutput": 642
+                "bytesInOutput": 6458
               },
               "src/pages/borrow-request/index.tsx": {
-                "bytesInOutput": 622
+                "bytesInOutput": 6914
               },
               "src/pages/borrow-request/create.tsx": {
-                "bytesInOutput": 1259
+                "bytesInOutput": 8847
+              },
+              "src/hooks/useNotifications.ts": {
+                "bytesInOutput": 1320
               },
               "src/pages/notifications/index.tsx": {
-                "bytesInOutput": 578
+                "bytesInOutput": 7391
               },
               "src/layouts/AdminLayout.tsx": {
                 "bytesInOutput": 1048
               },
+              "src/services/http.ts": {
+                "bytesInOutput": 819
+              },
               "src/pages/admin/dashboard/index.tsx": {
-                "bytesInOutput": 5515
+                "bytesInOutput": 7035
               },
               "src/pages/admin/requests/index.tsx": {
-                "bytesInOutput": 4747
+                "bytesInOutput": 9338
               },
               "src/pages/admin/requests/[id].tsx": {
                 "bytesInOutput": 623
               },
               "src/pages/admin/equipment/index.tsx": {
-                "bytesInOutput": 5038
+                "bytesInOutput": 8161
               },
               "src/pages/admin/users/index.tsx": {
-                "bytesInOutput": 584
+                "bytesInOutput": 5140
               },
               "src/pages/admin/reports/index.tsx": {
                 "bytesInOutput": 570
@@ -8034,7 +8655,7 @@
                 "bytesInOutput": 2005
               }
             },
-            "bytes": 114776
+            "bytes": 158699
           }
         }
       }
@@ -11255,75 +11876,6 @@
           "type": "ImportDeclaration"
         }
       ],
-      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\components\\equipment\\EquipmentCard.tsx": [
-        {
-          "end": 70,
-          "importKind": "value",
-          "source": "@ant-design/icons",
-          "specifiers": [
-            {
-              "imported": "PlusSquareOutlined",
-              "local": "PlusSquareOutlined",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "ToolOutlined",
-              "local": "ToolOutlined",
-              "type": "ImportSpecifier"
-            }
-          ],
-          "start": 1,
-          "type": "ImportDeclaration"
-        },
-        {
-          "end": 131,
-          "importKind": "value",
-          "source": "antd",
-          "specifiers": [
-            {
-              "imported": "Badge",
-              "local": "Badge",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "Button",
-              "local": "Button",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "Card",
-              "local": "Card",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "Tag",
-              "local": "Tag",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "Typography",
-              "local": "Typography",
-              "type": "ImportSpecifier"
-            }
-          ],
-          "start": 71,
-          "type": "ImportDeclaration"
-        },
-        {
-          "end": 182,
-          "importKind": "value",
-          "source": "../../theme/tokens",
-          "specifiers": [
-            {
-              "imported": "SLINK_COLORS",
-              "local": "SLINK_COLORS",
-              "type": "ImportSpecifier"
-            }
-          ],
-          "start": 132,
-          "type": "ImportDeclaration"
-        }
-      ],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\components\\layout\\AppHeader.tsx": [
         {
           "end": 80,
@@ -11548,10 +12100,15 @@
       ],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\hooks\\useEquipmentList.ts": [
         {
-          "end": 45,
+          "end": 58,
           "importKind": "value",
           "source": "react",
           "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
             {
               "imported": "useEffect",
               "local": "useEffect",
@@ -11564,6 +12121,70 @@
             }
           ],
           "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 140,
+          "importKind": "value",
+          "source": "../services/equipment.service",
+          "specifiers": [
+            {
+              "imported": "equipmentService",
+              "local": "equipmentService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Equipment",
+              "local": "Equipment",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
+          "type": "ImportDeclaration"
+        }
+      ],
+      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\hooks\\useNotifications.ts": [
+        {
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 149,
+          "importKind": "value",
+          "source": "../services/notification.service",
+          "specifiers": [
+            {
+              "imported": "notificationService",
+              "local": "notificationService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Notification",
+              "local": "Notification",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
           "type": "ImportDeclaration"
         }
       ],
@@ -11739,7 +12360,31 @@
       ],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\admin\\dashboard\\index.tsx": [
         {
-          "end": 139,
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 234,
           "importKind": "value",
           "source": "@ant-design/icons",
           "specifiers": [
@@ -11764,19 +12409,34 @@
               "type": "ImportSpecifier"
             },
             {
+              "imported": "ReloadOutlined",
+              "local": "ReloadOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
               "imported": "TeamOutlined",
               "local": "TeamOutlined",
               "type": "ImportSpecifier"
+            },
+            {
+              "imported": "WarningOutlined",
+              "local": "WarningOutlined",
+              "type": "ImportSpecifier"
             }
           ],
-          "start": 1,
+          "start": 59,
           "type": "ImportDeclaration"
         },
         {
-          "end": 201,
+          "end": 326,
           "importKind": "value",
           "source": "antd",
           "specifiers": [
+            {
+              "imported": "Button",
+              "local": "Button",
+              "type": "ImportSpecifier"
+            },
             {
               "imported": "Card",
               "local": "Card",
@@ -11793,8 +12453,23 @@
               "type": "ImportSpecifier"
             },
             {
+              "imported": "Skeleton",
+              "local": "Skeleton",
+              "type": "ImportSpecifier"
+            },
+            {
               "imported": "Statistic",
               "local": "Statistic",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Table",
+              "local": "Table",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Tag",
+              "local": "Tag",
               "type": "ImportSpecifier"
             },
             {
@@ -11803,11 +12478,38 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 140,
+          "start": 235,
           "type": "ImportDeclaration"
         },
         {
-          "end": 255,
+          "end": 353,
+          "importKind": "value",
+          "source": "dayjs",
+          "specifiers": [
+            {
+              "local": "dayjs",
+              "type": "ImportDefaultSpecifier"
+            }
+          ],
+          "start": 327,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 400,
+          "importKind": "value",
+          "source": "../../../services/http",
+          "specifiers": [
+            {
+              "imported": "http",
+              "local": "http",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 354,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 454,
           "importKind": "value",
           "source": "../../../theme/tokens",
           "specifiers": [
@@ -11817,29 +12519,43 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 202,
+          "start": 401,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 513,
+          "importKind": "type",
+          "source": "@equipment-mgmt/shared",
+          "specifiers": [
+            {
+              "imported": "ApiResponse",
+              "local": "ApiResponse",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 455,
           "type": "ImportDeclaration"
         }
       ],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\admin\\equipment\\index.tsx": [
         {
-          "end": 80,
+          "end": 58,
           "importKind": "value",
-          "source": "@ant-design/icons",
+          "source": "react",
           "specifiers": [
             {
-              "imported": "PlusOutlined",
-              "local": "PlusOutlined",
+              "imported": "useCallback",
+              "local": "useCallback",
               "type": "ImportSpecifier"
             },
             {
-              "imported": "SearchOutlined",
-              "local": "SearchOutlined",
+              "imported": "useEffect",
+              "local": "useEffect",
               "type": "ImportSpecifier"
             },
             {
-              "imported": "ToolOutlined",
-              "local": "ToolOutlined",
+              "imported": "useState",
+              "local": "useState",
               "type": "ImportSpecifier"
             }
           ],
@@ -11847,10 +12563,15 @@
           "type": "ImportDeclaration"
         },
         {
-          "end": 155,
+          "end": 202,
           "importKind": "value",
           "source": "antd",
           "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
             {
               "imported": "Button",
               "local": "Button",
@@ -11862,8 +12583,38 @@
               "type": "ImportSpecifier"
             },
             {
+              "imported": "Form",
+              "local": "Form",
+              "type": "ImportSpecifier"
+            },
+            {
               "imported": "Input",
               "local": "Input",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "InputNumber",
+              "local": "InputNumber",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Modal",
+              "local": "Modal",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Pagination",
+              "local": "Pagination",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
               "type": "ImportSpecifier"
             },
             {
@@ -11887,11 +12638,11 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 81,
+          "start": 59,
           "type": "ImportDeclaration"
         },
         {
-          "end": 205,
+          "end": 252,
           "importKind": "type",
           "source": "antd/es/table",
           "specifiers": [
@@ -11901,11 +12652,73 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 156,
+          "start": 203,
           "type": "ImportDeclaration"
         },
         {
-          "end": 259,
+          "end": 346,
+          "importKind": "value",
+          "source": "@ant-design/icons",
+          "specifiers": [
+            {
+              "imported": "EditOutlined",
+              "local": "EditOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "PlusOutlined",
+              "local": "PlusOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "SearchOutlined",
+              "local": "SearchOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "ToolOutlined",
+              "local": "ToolOutlined",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 253,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 434,
+          "importKind": "value",
+          "source": "../../../services/equipment.service",
+          "specifiers": [
+            {
+              "imported": "equipmentService",
+              "local": "equipmentService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Equipment",
+              "local": "Equipment",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 347,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 481,
+          "importKind": "value",
+          "source": "../../../services/http",
+          "specifiers": [
+            {
+              "imported": "http",
+              "local": "http",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 435,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 535,
           "importKind": "value",
           "source": "../../../theme/tokens",
           "specifiers": [
@@ -11915,7 +12728,21 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 206,
+          "start": 482,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 594,
+          "importKind": "type",
+          "source": "@equipment-mgmt/shared",
+          "specifiers": [
+            {
+              "imported": "ApiResponse",
+              "local": "ApiResponse",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 536,
           "type": "ImportDeclaration"
         }
       ],
@@ -11923,18 +12750,130 @@
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\admin\\requests\\[id].tsx": [],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\admin\\requests\\index.tsx": [
         {
-          "end": 121,
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 201,
+          "importKind": "value",
+          "source": "antd",
+          "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Button",
+              "local": "Button",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Card",
+              "local": "Card",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Input",
+              "local": "Input",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Modal",
+              "local": "Modal",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Pagination",
+              "local": "Pagination",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Select",
+              "local": "Select",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Space",
+              "local": "Space",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Table",
+              "local": "Table",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Tag",
+              "local": "Tag",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Textarea",
+              "local": "Textarea",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Typography",
+              "local": "Typography",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 251,
+          "importKind": "type",
+          "source": "antd/es/table",
+          "specifiers": [
+            {
+              "imported": "ColumnsType",
+              "local": "ColumnsType",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 202,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 354,
           "importKind": "value",
           "source": "@ant-design/icons",
           "specifiers": [
             {
               "imported": "CheckOutlined",
               "local": "CheckOutlined",
-              "type": "ImportSpecifier"
-            },
-            {
-              "imported": "ClockCircleOutlined",
-              "local": "ClockCircleOutlined",
               "type": "ImportSpecifier"
             },
             {
@@ -11953,14 +12892,91 @@
               "type": "ImportSpecifier"
             }
           ],
+          "start": 252,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 381,
+          "importKind": "value",
+          "source": "dayjs",
+          "specifiers": [
+            {
+              "local": "dayjs",
+              "type": "ImportDefaultSpecifier"
+            }
+          ],
+          "start": 355,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 482,
+          "importKind": "value",
+          "source": "../../../services/borrow-request.service",
+          "specifiers": [
+            {
+              "imported": "borrowRequestService",
+              "local": "borrowRequestService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "BorrowRequest",
+              "local": "BorrowRequest",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 382,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 536,
+          "importKind": "value",
+          "source": "../../../theme/tokens",
+          "specifiers": [
+            {
+              "imported": "SLINK_COLORS",
+              "local": "SLINK_COLORS",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 483,
+          "type": "ImportDeclaration"
+        }
+      ],
+      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\admin\\users\\index.tsx": [
+        {
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
           "start": 1,
           "type": "ImportDeclaration"
         },
         {
-          "end": 196,
+          "end": 169,
           "importKind": "value",
           "source": "antd",
           "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
             {
               "imported": "Button",
               "local": "Button",
@@ -11972,8 +12988,18 @@
               "type": "ImportSpecifier"
             },
             {
-              "imported": "Input",
-              "local": "Input",
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Pagination",
+              "local": "Pagination",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
               "type": "ImportSpecifier"
             },
             {
@@ -11997,11 +13023,11 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 122,
+          "start": 59,
           "type": "ImportDeclaration"
         },
         {
-          "end": 246,
+          "end": 219,
           "importKind": "type",
           "source": "antd/es/table",
           "specifiers": [
@@ -12011,11 +13037,49 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 197,
+          "start": 170,
           "type": "ImportDeclaration"
         },
         {
-          "end": 300,
+          "end": 299,
+          "importKind": "value",
+          "source": "@ant-design/icons",
+          "specifiers": [
+            {
+              "imported": "LockOutlined",
+              "local": "LockOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "TeamOutlined",
+              "local": "TeamOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "UnlockOutlined",
+              "local": "UnlockOutlined",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 220,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 346,
+          "importKind": "value",
+          "source": "../../../services/http",
+          "specifiers": [
+            {
+              "imported": "http",
+              "local": "http",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 300,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 400,
           "importKind": "value",
           "source": "../../../theme/tokens",
           "specifiers": [
@@ -12025,20 +13089,91 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 247,
+          "start": 347,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 459,
+          "importKind": "type",
+          "source": "@equipment-mgmt/shared",
+          "specifiers": [
+            {
+              "imported": "ApiResponse",
+              "local": "ApiResponse",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 401,
           "type": "ImportDeclaration"
         }
       ],
-      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\admin\\users\\index.tsx": [],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\borrow-request\\create.tsx": [
         {
-          "end": 44,
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 113,
+          "importKind": "value",
+          "source": "@umijs/max",
+          "specifiers": [
+            {
+              "imported": "useLocation",
+              "local": "useLocation",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useNavigate",
+              "local": "useNavigate",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 239,
           "importKind": "value",
           "source": "antd",
           "specifiers": [
             {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
+            {
               "imported": "Button",
               "local": "Button",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Card",
+              "local": "Card",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "DatePicker",
+              "local": "DatePicker",
               "type": "ImportSpecifier"
             },
             {
@@ -12050,17 +13185,444 @@
               "imported": "Input",
               "local": "Input",
               "type": "ImportSpecifier"
+            },
+            {
+              "imported": "InputNumber",
+              "local": "InputNumber",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Select",
+              "local": "Select",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Typography",
+              "local": "Typography",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 114,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 308,
+          "importKind": "value",
+          "source": "@ant-design/icons",
+          "specifiers": [
+            {
+              "imported": "ArrowLeftOutlined",
+              "local": "ArrowLeftOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "SendOutlined",
+              "local": "SendOutlined",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 240,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 335,
+          "importKind": "value",
+          "source": "dayjs",
+          "specifiers": [
+            {
+              "local": "dayjs",
+              "type": "ImportDefaultSpecifier"
+            }
+          ],
+          "start": 309,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 420,
+          "importKind": "value",
+          "source": "../../services/equipment.service",
+          "specifiers": [
+            {
+              "imported": "equipmentService",
+              "local": "equipmentService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Equipment",
+              "local": "Equipment",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 336,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 498,
+          "importKind": "value",
+          "source": "../../services/borrow-request.service",
+          "specifiers": [
+            {
+              "imported": "borrowRequestService",
+              "local": "borrowRequestService",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 421,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 549,
+          "importKind": "value",
+          "source": "../../theme/tokens",
+          "specifiers": [
+            {
+              "imported": "SLINK_COLORS",
+              "local": "SLINK_COLORS",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 499,
+          "type": "ImportDeclaration"
+        }
+      ],
+      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\borrow-request\\index.tsx": [
+        {
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
             }
           ],
           "start": 1,
           "type": "ImportDeclaration"
+        },
+        {
+          "end": 183,
+          "importKind": "value",
+          "source": "antd",
+          "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Button",
+              "local": "Button",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Card",
+              "local": "Card",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Empty",
+              "local": "Empty",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Modal",
+              "local": "Modal",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Pagination",
+              "local": "Pagination",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Space",
+              "local": "Space",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Table",
+              "local": "Table",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Tag",
+              "local": "Tag",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Typography",
+              "local": "Typography",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 233,
+          "importKind": "type",
+          "source": "antd/es/table",
+          "specifiers": [
+            {
+              "imported": "ColumnsType",
+              "local": "ColumnsType",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 184,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 314,
+          "importKind": "value",
+          "source": "@ant-design/icons",
+          "specifiers": [
+            {
+              "imported": "ExclamationCircleOutlined",
+              "local": "ExclamationCircleOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "FileTextOutlined",
+              "local": "FileTextOutlined",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 234,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 341,
+          "importKind": "value",
+          "source": "dayjs",
+          "specifiers": [
+            {
+              "local": "dayjs",
+              "type": "ImportDefaultSpecifier"
+            }
+          ],
+          "start": 315,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 439,
+          "importKind": "value",
+          "source": "../../services/borrow-request.service",
+          "specifiers": [
+            {
+              "imported": "borrowRequestService",
+              "local": "borrowRequestService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "BorrowRequest",
+              "local": "BorrowRequest",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 342,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 490,
+          "importKind": "value",
+          "source": "../../theme/tokens",
+          "specifiers": [
+            {
+              "imported": "SLINK_COLORS",
+              "local": "SLINK_COLORS",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 440,
+          "type": "ImportDeclaration"
         }
       ],
-      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\borrow-request\\index.tsx": [],
-      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\equipment\\[id].tsx": [],
+      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\equipment\\[id].tsx": [
+        {
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 111,
+          "importKind": "value",
+          "source": "@umijs/max",
+          "specifiers": [
+            {
+              "imported": "useParams",
+              "local": "useParams",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useNavigate",
+              "local": "useNavigate",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 214,
+          "importKind": "value",
+          "source": "antd",
+          "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Badge",
+              "local": "Badge",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Button",
+              "local": "Button",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Card",
+              "local": "Card",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Descriptions",
+              "local": "Descriptions",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Result",
+              "local": "Result",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Tag",
+              "local": "Tag",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Typography",
+              "local": "Typography",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 112,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 283,
+          "importKind": "value",
+          "source": "@ant-design/icons",
+          "specifiers": [
+            {
+              "imported": "ArrowLeftOutlined",
+              "local": "ArrowLeftOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "ToolOutlined",
+              "local": "ToolOutlined",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 215,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 368,
+          "importKind": "value",
+          "source": "../../services/equipment.service",
+          "specifiers": [
+            {
+              "imported": "equipmentService",
+              "local": "equipmentService",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Equipment",
+              "local": "Equipment",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 284,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 419,
+          "importKind": "value",
+          "source": "../../theme/tokens",
+          "specifiers": [
+            {
+              "imported": "SLINK_COLORS",
+              "local": "SLINK_COLORS",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 369,
+          "type": "ImportDeclaration"
+        }
+      ],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\equipment\\index.tsx": [
         {
-          "end": 80,
+          "end": 105,
           "importKind": "value",
           "source": "@ant-design/icons",
           "specifiers": [
@@ -12078,16 +13640,26 @@
               "imported": "ToolOutlined",
               "local": "ToolOutlined",
               "type": "ImportSpecifier"
+            },
+            {
+              "imported": "ReloadOutlined",
+              "local": "ReloadOutlined",
+              "type": "ImportSpecifier"
             }
           ],
           "start": 1,
           "type": "ImportDeclaration"
         },
         {
-          "end": 158,
+          "end": 235,
           "importKind": "value",
           "source": "antd",
           "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
             {
               "imported": "Button",
               "local": "Button",
@@ -12114,8 +13686,18 @@
               "type": "ImportSpecifier"
             },
             {
+              "imported": "Pagination",
+              "local": "Pagination",
+              "type": "ImportSpecifier"
+            },
+            {
               "imported": "Row",
               "local": "Row",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
               "type": "ImportSpecifier"
             },
             {
@@ -12129,11 +13711,11 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 81,
+          "start": 106,
           "type": "ImportDeclaration"
         },
         {
-          "end": 192,
+          "end": 269,
           "importKind": "value",
           "source": "react",
           "specifiers": [
@@ -12143,24 +13725,25 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 159,
+          "start": 236,
           "type": "ImportDeclaration"
         },
         {
-          "end": 262,
+          "end": 311,
           "importKind": "value",
-          "source": "../../components/equipment/EquipmentCard",
+          "source": "@umijs/max",
           "specifiers": [
             {
-              "local": "EquipmentCard",
-              "type": "ImportDefaultSpecifier"
+              "imported": "useNavigate",
+              "local": "useNavigate",
+              "type": "ImportSpecifier"
             }
           ],
-          "start": 193,
+          "start": 270,
           "type": "ImportDeclaration"
         },
         {
-          "end": 327,
+          "end": 376,
           "importKind": "value",
           "source": "../../hooks/useEquipmentList",
           "specifiers": [
@@ -12170,11 +13753,11 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 263,
+          "start": 312,
           "type": "ImportDeclaration"
         },
         {
-          "end": 378,
+          "end": 427,
           "importKind": "value",
           "source": "../../theme/tokens",
           "specifiers": [
@@ -12184,7 +13767,7 @@
               "type": "ImportSpecifier"
             }
           ],
-          "start": 328,
+          "start": 377,
           "type": "ImportDeclaration"
         }
       ],
@@ -12340,7 +13923,156 @@
           "type": "ImportDeclaration"
         }
       ],
-      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\notifications\\index.tsx": [],
+      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\notifications\\index.tsx": [
+        {
+          "end": 58,
+          "importKind": "value",
+          "source": "react",
+          "specifiers": [
+            {
+              "imported": "useCallback",
+              "local": "useCallback",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useEffect",
+              "local": "useEffect",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "useState",
+              "local": "useState",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 169,
+          "importKind": "value",
+          "source": "antd",
+          "specifiers": [
+            {
+              "imported": "Alert",
+              "local": "Alert",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Badge",
+              "local": "Badge",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Button",
+              "local": "Button",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Card",
+              "local": "Card",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Empty",
+              "local": "Empty",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "List",
+              "local": "List",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "message",
+              "local": "message",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Skeleton",
+              "local": "Skeleton",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Tabs",
+              "local": "Tabs",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Tag",
+              "local": "Tag",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "Typography",
+              "local": "Typography",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 59,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 234,
+          "importKind": "value",
+          "source": "@ant-design/icons",
+          "specifiers": [
+            {
+              "imported": "BellOutlined",
+              "local": "BellOutlined",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "CheckOutlined",
+              "local": "CheckOutlined",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 170,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 261,
+          "importKind": "value",
+          "source": "dayjs",
+          "specifiers": [
+            {
+              "local": "dayjs",
+              "type": "ImportDefaultSpecifier"
+            }
+          ],
+          "start": 235,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 326,
+          "importKind": "value",
+          "source": "../../hooks/useNotifications",
+          "specifiers": [
+            {
+              "imported": "useNotifications",
+              "local": "useNotifications",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 262,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 377,
+          "importKind": "value",
+          "source": "../../theme/tokens",
+          "specifiers": [
+            {
+              "imported": "SLINK_COLORS",
+              "local": "SLINK_COLORS",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 327,
+          "type": "ImportDeclaration"
+        }
+      ],
       "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\pages\\register\\index.tsx": [
         {
           "end": 56,
@@ -12369,6 +14101,45 @@
             }
           ],
           "start": 1,
+          "type": "ImportDeclaration"
+        }
+      ],
+      "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\src\\services\\http.ts": [
+        {
+          "end": 68,
+          "importKind": "value",
+          "source": "axios",
+          "specifiers": [
+            {
+              "local": "axios",
+              "type": "ImportDefaultSpecifier"
+            },
+            {
+              "imported": "AxiosResponse",
+              "local": "AxiosResponse",
+              "type": "ImportSpecifier"
+            },
+            {
+              "imported": "AxiosError",
+              "local": "AxiosError",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 1,
+          "type": "ImportDeclaration"
+        },
+        {
+          "end": 128,
+          "importKind": "type",
+          "source": "@equipment-mgmt/shared",
+          "specifiers": [
+            {
+              "imported": "ApiResponse",
+              "local": "ApiResponse",
+              "type": "ImportSpecifier"
+            }
+          ],
+          "start": 70,
           "type": "ImportDeclaration"
         }
       ],
