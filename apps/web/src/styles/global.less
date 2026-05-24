@@ -106,6 +106,49 @@ body {
   min-height: calc(100vh - 64px);
 }
 
+/* === Admin Dashboard === */
+.admin-dashboard-stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.admin-request-approve-btn,
+.admin-request-approve-btn span,
+.admin-request-approve-btn .anticon {
+  color: var(--slink-success) !important;
+}
+
+.admin-request-approve-btn {
+  border-color: var(--slink-success) !important;
+  background: #fff !important;
+}
+
+.admin-request-approve-btn:hover,
+.admin-request-approve-btn:focus,
+.admin-request-approve-btn:hover span,
+.admin-request-approve-btn:focus span,
+.admin-request-approve-btn:hover .anticon,
+.admin-request-approve-btn:focus .anticon {
+  color: var(--slink-success) !important;
+}
+
+.admin-request-approve-btn:hover,
+.admin-request-approve-btn:focus {
+  border-color: var(--slink-success) !important;
+  background: rgba(102, 191, 38, 0.08) !important;
+}
+
+@media (max-width: 1100px) {
+  .admin-dashboard-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-dashboard-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* === Smooth Scrollbar === */
 ::-webkit-scrollbar {
   width: 6px;
