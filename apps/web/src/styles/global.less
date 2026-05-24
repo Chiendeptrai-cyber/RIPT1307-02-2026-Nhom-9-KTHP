@@ -81,16 +81,6 @@ body {
   background: var(--slink-surface);
 }
 
-.ant-menu-light .ant-menu-item:hover .anticon,
-.ant-menu-light .ant-menu-item-selected .anticon {
-  color: var(--slink-primary) !important;
-}
-
-.ant-menu-light .ant-menu-item:hover .ant-menu-item-icon,
-.ant-menu-light .ant-menu-item-selected .ant-menu-item-icon {
-  color: var(--slink-primary) !important;
-}
-
 /* === Slink Card Container === */
 .slink-page-card {
   background: var(--slink-bg);
@@ -168,10 +158,14 @@ body {
   background: var(--slink-primary);
 }
 
-/* === Ant Sider Trigger Button === */
-.ant-layout-sider-trigger {
-  background: var(--slink-primary) !important;
-  color: #fff !important;
+/* === Fix Ant Design Sider children layout === */
+/* Ép ant-layout-sider-children thành flex column
+   để trigger tự làm có thể nằm dưới cùng */
+.slink-sider>.ant-layout-sider-children {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  overflow: hidden !important;
 }
 
 /* === Transition toàn bộ interactive elements === */

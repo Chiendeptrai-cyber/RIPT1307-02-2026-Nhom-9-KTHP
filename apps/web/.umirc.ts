@@ -39,6 +39,7 @@ export default defineConfig({
         { path: 'borrow-request', component: 'borrow-request/index' },
         { path: 'borrow-request/create', component: 'borrow-request/create' },
         { path: 'notifications', component: 'notifications/index' },
+        { path: 'profile', component: 'profile/index' },
       ],
     },
     // Admin routes
@@ -53,6 +54,7 @@ export default defineConfig({
         { path: 'equipment', component: 'admin/equipment/index' },
         { path: 'users', component: 'admin/users/index' },
         { path: 'reports', component: 'admin/reports/index' },
+        { path: 'profile', component: 'admin/profile/index' },
       ],
     },
   ],

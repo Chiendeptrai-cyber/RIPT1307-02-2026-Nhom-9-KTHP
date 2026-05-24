@@ -36,7 +36,9 @@ export default function AppHeader({ title }: Props) {
   ];
 
   const handleUserMenu: MenuProps['onClick'] = ({ key }) => {
-    if (key === 'logout') {
+    if (key === 'profile') {
+      navigate(user?.role === 'admin' ? '/admin/profile' : '/profile');
+    } else if (key === 'logout') {
       logout();
       navigate('/login');
     }
@@ -65,7 +67,7 @@ export default function AppHeader({ title }: Props) {
       </Text>
 
       {/* Right Actions */}
-      <Space size={8} align="center">
+      <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
         {/* Notification Bell */}
         <Badge count={0} showZero={false}>
           <div
@@ -85,23 +87,23 @@ export default function AppHeader({ title }: Props) {
           placement="bottomRight"
           arrow
         >
-          <div className="slink-user-btn">
+          <div className="slink-user-btn" style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
             <Avatar
               size={32}
               icon={<UserOutlined />}
-              style={{ backgroundColor: SLINK_COLORS.primary }}
+              style={{ backgroundColor: SLINK_COLORS.primary, flexShrink: 0 }}
             />
-            <div style={{ lineHeight: 1.3 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: SLINK_COLORS.textBase }}>
+            <div style={{ lineHeight: 1.3, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: SLINK_COLORS.textBase, whiteSpace: 'nowrap' }}>
                 {displayName}
               </div>
-              <div style={{ fontSize: 11, color: SLINK_COLORS.textSecondary }}>
+              <div style={{ fontSize: 11, color: SLINK_COLORS.textSecondary, whiteSpace: 'nowrap' }}>
                 {roleLabel}
               </div>
             </div>
           </div>
         </Dropdown>
-      </Space>
+      </div>
     </Header>
   );
 }
