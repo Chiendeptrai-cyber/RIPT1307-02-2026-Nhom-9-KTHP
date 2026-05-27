@@ -13,7 +13,7 @@ COPY .npmrc package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY packages/shared/package.json ./packages/shared/
 COPY apps/api/package.json ./apps/api/
 
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 # ─────────────────────────────────────────────
 # Stage 2: Production image (run via tsx)

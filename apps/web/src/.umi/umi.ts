@@ -3,7 +3,7 @@
 // DO NOT CHANGE IT MANUALLY!
 import './core/polyfill';
 import 'antd/dist/reset.css';
-import { renderClient } from '/home/minhchien/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.55_react-dom@18.3.1_react@18.3.1__react@18.3.1/node_modules/@umijs/renderer-react';
+import { renderClient } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.55_react-dom@18.3.1_react@18.3.1/node_modules/@umijs/renderer-react';
 import { getRoutes } from './core/route';
 import { createPluginManager } from './core/plugin';
 import { createHistory } from './core/history';

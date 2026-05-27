@@ -1,14 +1,15 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./src/.umi/tsconfig.json",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "module": "NodeNext",
-    "baseUrl": "./",
+    "baseUrl": ".",
+    "allowImportingTsExtensions": true,
+    "skipLibCheck": true,
     "paths": {
       "@/*": ["src/*"],
+      "@@/*": ["src/.umi/*"],
       "@equipment-mgmt/shared": ["../../packages/shared/src"]
     }
   },
-  "include": ["src"],
-  "references": []
+  "include": ["src"]
 }
+

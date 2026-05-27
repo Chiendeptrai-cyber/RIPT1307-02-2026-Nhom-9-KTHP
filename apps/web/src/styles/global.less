@@ -1,0 +1,177 @@
+/* === SLINK PTIT Global Design Tokens === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --slink-primary: #BF0404;
+  --slink-primary-hover: #a00303;
+  --slink-info: #0F88F2;
+  --slink-success: #66BF26;
+  --slink-success-light: #A4D97E;
+  --slink-surface: #F2F2F2;
+  --slink-bg: #FFFFFF;
+  --slink-text: #262626;
+  --slink-text-secondary: rgba(38, 38, 38, 0.65);
+  --slink-border: #E8E8E8;
+  --slink-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* === Base Reset === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--slink-surface);
+  color: var(--slink-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === Slink Menu Override - Hover & Active với màu đỏ === */
+.ant-menu-light .ant-menu-item:hover,
+.ant-menu-light .ant-menu-item-selected {
+  color: var(--slink-primary) !important;
+}
+
+.ant-menu-light .ant-menu-item:hover .anticon,
+.ant-menu-light .ant-menu-item-selected .anticon {
+  color: var(--slink-primary) !important;
+}
+
+.ant-menu-light .ant-menu-item:hover .ant-menu-item-icon,
+.ant-menu-light .ant-menu-item-selected .ant-menu-item-icon {
+  color: var(--slink-primary) !important;
+}
+
+/* === Header Icon Button === */
+.slink-icon-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--slink-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.slink-icon-btn:hover {
+  background: rgba(191, 4, 4, 0.08);
+}
+
+/* === Header User Dropdown Button === */
+.slink-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.slink-user-btn:hover {
+  background: var(--slink-surface);
+}
+
+/* === Slink Card Container === */
+.slink-page-card {
+  background: var(--slink-bg);
+  border-radius: 8px;
+  box-shadow: var(--slink-shadow);
+  border: 1px solid var(--slink-border);
+}
+
+/* === Page Content Wrapper === */
+.slink-content {
+  padding: 0;
+  background: var(--slink-surface);
+  min-height: calc(100vh - 64px);
+}
+
+/* === Admin Dashboard === */
+.admin-dashboard-stats-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.admin-request-approve-btn,
+.admin-request-approve-btn span,
+.admin-request-approve-btn .anticon {
+  color: var(--slink-success) !important;
+}
+
+.admin-request-approve-btn {
+  border-color: var(--slink-success) !important;
+  background: #fff !important;
+}
+
+.admin-request-approve-btn:hover,
+.admin-request-approve-btn:focus,
+.admin-request-approve-btn:hover span,
+.admin-request-approve-btn:focus span,
+.admin-request-approve-btn:hover .anticon,
+.admin-request-approve-btn:focus .anticon {
+  color: var(--slink-success) !important;
+}
+
+.admin-request-approve-btn:hover,
+.admin-request-approve-btn:focus {
+  border-color: var(--slink-success) !important;
+  background: rgba(102, 191, 38, 0.08) !important;
+}
+
+@media (max-width: 1100px) {
+  .admin-dashboard-stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-dashboard-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* === Smooth Scrollbar === */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--slink-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(191, 4, 4, 0.25);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--slink-primary);
+}
+
+/* === Fix Ant Design Sider children layout === */
+/* Ép ant-layout-sider-children thành flex column
+   để trigger tự làm có thể nằm dưới cùng */
+.slink-sider>.ant-layout-sider-children {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+/* === Transition toàn bộ interactive elements === */
+.ant-btn,
+.ant-menu-item,
+.ant-card,
+.ant-tag {
+  transition: all 0.2s ease !important;
+}

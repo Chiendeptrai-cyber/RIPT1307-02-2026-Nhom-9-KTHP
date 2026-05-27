@@ -1,9 +1,287 @@
+import { useCallback, useEffect, useState } from 'react';
+import {
+  Alert,
+  Button,
+  Card,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Pagination,
+  Select,
+  Skeleton,
+  Space,
+  Table,
+  Tag,
+  Typography,
+} from 'antd';
+import type { ColumnsType } from 'antd/es/table';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  SearchOutlined,
+  ToolOutlined,
+} from '@ant-design/icons';
+import { equipmentService, type Equipment } from '../../../services/equipment.service';
+import { SLINK_COLORS } from '../../../theme/tokens';
+
+const { Title } = Typography;
+
+interface EquipmentFormValues {
+  name: string;
+  totalQuantity: number;
+  status?: string;
+  description?: string;
+}
+
 export default function AdminEquipmentPage() {
+  const [items, setItems] = useState<Equipment[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editRecord, setEditRecord] = useState<Equipment | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [form] = Form.useForm<EquipmentFormValues>();
+
+  const load = useCallback(async (p = 1) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const res = await equipmentService.list({
+        page: p,
+        pageSize: 15,
+        search: search || undefined,
+      });
+
+      if (res.success && res.data) {
+        setItems(res.data.items);
+        setTotal(res.data.total);
+        setPage(p);
+      }
+    } catch (err: any) {
+      setError(err?.message ?? 'Không thể tải danh sách thiết bị');
+    } finally {
+      setLoading(false);
+    }
+  }, [search]);
+
+  useEffect(() => {
+    load(1);
+  }, [load]);
+
+  const openCreate = () => {
+    setEditRecord(null);
+    form.resetFields();
+    setModalOpen(true);
+  };
+
+  const openEdit = (record: Equipment) => {
+    setEditRecord(record);
+    form.setFieldsValue({
+      name: record.name,
+      totalQuantity: record.totalQuantity,
+      status: record.status,
+      description: record.description,
+    });
+    setModalOpen(true);
+  };
+
+  const handleSubmit = async (values: EquipmentFormValues) => {
+    setSubmitting(true);
+    try {
+      if (editRecord) {
+        await equipmentService.update(editRecord.id, values);
+        message.success('Cập nhật thiết bị thành công');
+      } else {
+        await equipmentService.create({
+          ...values,
+          categoryId: 1,
+          status: values.status ?? 'active',
+        });
+        message.success('Thêm thiết bị thành công');
+      }
+
+      setModalOpen(false);
+      load(page);
+    } catch (err: any) {
+      message.error(err?.message ?? 'Có lỗi xảy ra');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDelete = (record: Equipment) => {
+    Modal.confirm({
+      title: 'Xóa thiết bị',
+      content: `Bạn có chắc chắn muốn xóa "${record.name}"?`,
+      okText: 'Xóa',
+      okButtonProps: { danger: true },
+      cancelText: 'Hủy',
+      onOk: async () => {
+        await equipmentService.remove(record.id);
+        message.success('Xóa thiết bị thành công');
+        load(page);
+      },
+    });
+  };
+
+  const columns: ColumnsType<Equipment> = [
+    { title: '#', dataIndex: 'id', key: 'id', width: 60 },
+    { title: 'Tên thiết bị', dataIndex: 'name', key: 'name' },
+    {
+      title: 'Tổng / Sẵn có',
+      key: 'qty',
+      render: (_, record) => (
+        <span>
+          <strong style={{ color: SLINK_COLORS.textBase }}>{record.availableQuantity}</strong>
+          <span style={{ color: SLINK_COLORS.textSecondary }}> / {record.totalQuantity}</span>
+        </span>
+      ),
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      render: (status: string) => (
+        status === 'active'
+          ? <Tag color="green">Hoạt động</Tag>
+          : <Tag color="orange">Bảo trì</Tag>
+      ),
+    },
+    {
+      title: 'Thao tác',
+      key: 'actions',
+      render: (_, record) => (
+        <Space>
+          <Button
+            size="small"
+            icon={<EditOutlined />}
+            onClick={() => openEdit(record)}
+            style={{ borderRadius: 4 }}
+          >
+            Sửa
+          </Button>
+          <Button
+            size="small"
+            danger
+            icon={<DeleteOutlined />}
+            onClick={() => handleDelete(record)}
+            style={{ borderRadius: 4 }}
+          >
+            Xóa
+          </Button>
+        </Space>
+      ),
+    },
+  ];
+
   return (
-    <div>
-      <h2>Quản lý thiết bị</h2>
-      <p>Danh sách thiết bị admin có thể quản lý.</p>
-      <a href="/admin/equipment/1/stock">Quản lý tồn kho mẫu</a>
+    <div style={{ padding: 24 }}>
+      <Card
+        style={{
+          borderRadius: 8,
+          border: `1px solid ${SLINK_COLORS.border}`,
+          boxShadow: SLINK_COLORS.shadow,
+        }}
+        styles={{ body: { padding: 0 } }}
+      >
+        <div
+          style={{
+            padding: '16px 20px',
+            borderBottom: `1px solid ${SLINK_COLORS.border}`,
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: 12,
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />
+            <Title level={5} style={{ marginBottom: 0 }}>Quản lý thiết bị</Title>
+          </div>
+          <Space>
+            <Input
+              placeholder="Tìm kiếm..."
+              prefix={<SearchOutlined />}
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+              style={{ width: 220, borderRadius: 6 }}
+              allowClear
+            />
+            <Button
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={openCreate}
+              style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}
+            >
+              Thêm thiết bị
+            </Button>
+          </Space>
+        </div>
+
+        {error && <Alert type="error" message={error} style={{ margin: 16 }} />}
+
+        {loading ? (
+          <div style={{ padding: 20 }}>
+            <Skeleton active paragraph={{ rows: 6 }} />
+          </div>
+        ) : (
+          <Table dataSource={items} columns={columns} rowKey="id" pagination={false} />
+        )}
+
+        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>
+          <Pagination
+            current={page}
+            total={total}
+            pageSize={15}
+            onChange={load}
+            showTotal={(count) => `${count} thiết bị`}
+            showSizeChanger={false}
+          />
+        </div>
+      </Card>
+
+      <Modal
+        open={modalOpen}
+        title={editRecord ? 'Cập nhật thiết bị' : 'Thêm thiết bị mới'}
+        okText={editRecord ? 'Lưu thay đổi' : 'Thêm mới'}
+        cancelText="Hủy"
+        onOk={() => form.submit()}
+        onCancel={() => setModalOpen(false)}
+        confirmLoading={submitting}
+      >
+        <Form form={form} layout="vertical" onFinish={handleSubmit}>
+          <Form.Item
+            name="name"
+            label="Tên thiết bị"
+            rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị' }]}
+          >
+            <Input placeholder="Ví dụ: Máy chiếu Epson EB-X41" />
+          </Form.Item>
+          <Form.Item
+            name="totalQuantity"
+            label="Tổng số lượng"
+            rules={[{ required: true, message: 'Nhập số lượng' }]}
+          >
+            <InputNumber min={1} style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item name="status" label="Trạng thái" initialValue="active">
+            <Select
+              options={[
+                { value: 'active', label: 'Hoạt động' },
+                { value: 'under_maintenance', label: 'Bảo trì' },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item name="description" label="Mô tả">
+            <Input.TextArea rows={3} maxLength={200} showCount />
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   );
 }

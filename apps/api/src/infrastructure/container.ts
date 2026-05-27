@@ -1,37 +1,49 @@
 import { getPool } from './database/connection';
-import { PgUserRepository } from './database/repositories/pg-user.repository';
-import { PgEquipmentRepository } from './database/repositories/pg-equipment.repository';
-import { PgBorrowRequestRepository } from './database/repositories/pg-borrow-request.repository';
-import { PgNotificationRepository } from './database/repositories/pg-notification.repository';
-import { PgBorrowRecordRepository } from './database/repositories/pg-borrow-record.repository';
-import { PgViolationRepository } from './database/repositories/pg-violation.repository';
-import { PgStockLogRepository } from './database/repositories/pg-stock-log.repository';
-import { PgEmailLogRepository } from './database/repositories/pg-email-log.repository';
-import { JwtTokenService } from './services/jwt-token.service';
-import { NodemailerEmailService } from './services/nodemailer-email.service';
+import { PgUserRepository }           from './database/repositories/pg-user.repository';
+import { PgEquipmentRepository }      from './database/repositories/pg-equipment.repository';
+import { PgBorrowRequestRepository }  from './database/repositories/pg-borrow-request.repository';
+import { PgNotificationRepository }   from './database/repositories/pg-notification.repository';
+import { JwtTokenService }            from './services/jwt-token.service';
 
-import { LoginUseCase } from '../application/use-cases/auth/login.use-case';
-import { RegisterUseCase } from '../application/use-cases/auth/register.use-case';
-import { CreateBorrowRequestUseCase } from '../application/use-cases/borrow-request/create-borrow-request.use-case';
+import { LoginUseCase }                  from '../application/use-cases/auth/login.use-case';
+import { RegisterUseCase }               from '../application/use-cases/auth/register.use-case';
+import { ListEquipmentUseCase }          from '../application/use-cases/equipment/list-equipment.use-case';
+import { GetEquipmentDetailUseCase }     from '../application/use-cases/equipment/get-equipment-detail.use-case';
+import { CreateBorrowRequestUseCase }    from '../application/use-cases/borrow-request/create-borrow-request.use-case';
+import { ApproveBorrowRequestUseCase }   from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
+import { RejectBorrowRequestUseCase }    from '../application/use-cases/borrow-request/reject-borrow-request.use-case';
+import { CancelBorrowRequestUseCase }    from '../application/use-cases/borrow-request/cancel-borrow-request.use-case';
+import { ListNotificationsUseCase }      from '../application/use-cases/notification/list-notifications.use-case';
+import { MarkNotificationReadUseCase }   from '../application/use-cases/notification/mark-notification-read.use-case';
 
 const pool = getPool();
 
-const userRepo = new PgUserRepository(pool);
-const equipmentRepo = new PgEquipmentRepository(pool);
-const borrowRequestRepo = new PgBorrowRequestRepository(pool);
-const notificationRepo = new PgNotificationRepository(pool);
-const borrowRecordRepo = new PgBorrowRecordRepository(pool);
-const violationRepo = new PgViolationRepository(pool);
-const stockLogRepo = new PgStockLogRepository(pool);
-const emailLogRepo = new PgEmailLogRepository(pool);
+// Repositories
+const userRepo           = new PgUserRepository(pool);
+const equipmentRepo      = new PgEquipmentRepository(pool);
+const borrowRequestRepo  = new PgBorrowRequestRepository(pool);
+const notificationRepo   = new PgNotificationRepository(pool);
 
+// Services
 const tokenService = new JwtTokenService();
-const emailService = new NodemailerEmailService();
 
-export const loginUseCase = new LoginUseCase(userRepo, tokenService);
+// Auth use cases
+export const loginUseCase    = new LoginUseCase(userRepo, tokenService);
 export const registerUseCase = new RegisterUseCase(userRepo);
-export const createBorrowRequestUseCase = new CreateBorrowRequestUseCase(
-  borrowRequestRepo,
-  equipmentRepo,
-  notificationRepo,
-);
+
+// Equipment use cases
+export const listEquipmentUseCase      = new ListEquipmentUseCase(equipmentRepo);
+export const getEquipmentDetailUseCase = new GetEquipmentDetailUseCase(equipmentRepo);
+
+// Borrow request use cases
+export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo);
+export const approveBorrowRequestUseCase = new ApproveBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
+export const rejectBorrowRequestUseCase  = new RejectBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
+export const cancelBorrowRequestUseCase  = new CancelBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
+
+// Notification use cases
+export const listNotificationsUseCase    = new ListNotificationsUseCase(notificationRepo);
+export const markNotificationReadUseCase = new MarkNotificationReadUseCase(notificationRepo);
+
+// Expose repos for controllers that need direct listAll
+export { borrowRequestRepo, userRepo, equipmentRepo };

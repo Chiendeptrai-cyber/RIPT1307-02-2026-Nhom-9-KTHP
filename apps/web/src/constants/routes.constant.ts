@@ -2,6 +2,7 @@ export const ROUTES = {
   LOGIN: '/login',
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',
+  PROFILE: '/profile',
   EQUIPMENT: '/equipment',
   EQUIPMENT_DETAIL: (id: number | string) => `/equipment/${id}`,
   BORROW_CREATE: '/borrow-request/create',
@@ -13,4 +14,5 @@ export const ROUTES = {
   ADMIN_EQUIPMENT: '/admin/equipment',
   ADMIN_USERS: '/admin/users',
   ADMIN_REPORTS: '/admin/reports',
+  ADMIN_PROFILE: '/admin/profile',
 } as const;
