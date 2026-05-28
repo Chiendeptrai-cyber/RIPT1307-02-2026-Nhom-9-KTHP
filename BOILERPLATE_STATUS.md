@@ -1,7 +1,10 @@
 # 🎯 BOILERPLATE STATUS & DEVELOPMENT ROADMAP
 
 **Last Updated:** 2026-05-28  
-**Overall Progress:** ✅ **92% Complete** — Core features implemented, offline-first frontend ready
+**Spec Reference:** `copilot-boilerplate-prompt.md`  
+**Overall Progress:** ✅ **~88% Complete** — Core features implemented, offline-first frontend ready
+
+> ⚠️ **Lưu ý:** Tổng use-cases theo spec là **25** (không phải 15 như ghi trước đây).
 
 ---
 
@@ -37,81 +40,49 @@
 #### Domain Layer
 - ✅ All 12 entity files (User, Equipment, EquipmentInstance, BorrowRequest, BorrowRequestItem, BorrowRecord, BorrowRecordInstance, Violation, EquipmentStockLog, Notification, EmailLog, PasswordResetToken)
 - ✅ All 8 repository interfaces (User, Equipment, BorrowRequest, BorrowRecord, Notification, Violation, StockLog, EmailLog)
-- ✅ All 4 error classes (AppError, NotFoundError, ForbiddenError, ConflictError)
+- ✅ 4 error classes (AppError, NotFoundError, ForbiddenError, ConflictError)
+- ❌ **`validation.error.ts` — thiếu theo spec** (spec yêu cầu 5 error files)
 
-#### Application Layer
-- ✅ **10 Use-Cases Implemented (của 15 planned):**
+#### Application Layer — **10/25 Use-Cases Implemented**
 
-  **Auth (2/4)**
-  - ✅ `login.use-case.ts`
-  - ✅ `register.use-case.ts`
-  - ❌ `forgot-password.use-case.ts` — chưa tạo
-  - ❌ `reset-password.use-case.ts` — chưa tạo
+- ✅ **Auth (2/4):** LoginUseCase, RegisterUseCase
+- ✅ **Equipment (2/6):** ListEquipmentUseCase, GetEquipmentDetailUseCase
+- ✅ **Borrow Request (4/8):** CreateBorrowRequestUseCase, ApproveBorrowRequestUseCase, RejectBorrowRequestUseCase, CancelBorrowRequestUseCase
+- ✅ **Notification (2/2):** ListNotificationsUseCase, MarkNotificationReadUseCase
+- ⚠️ **15 Use-Cases Pending** (see roadmap below)
 
-  **Equipment (2/6)**
-  - ✅ `list-equipment.use-case.ts`
-  - ✅ `get-equipment-detail.use-case.ts`
-  - ❌ `create-equipment.use-case.ts` — chưa tạo
-  - ❌ `update-equipment.use-case.ts` — chưa tạo
-  - ❌ `delete-equipment.use-case.ts` — chưa tạo
-  - ❌ `update-stock.use-case.ts` — chưa tạo
-
-  **Borrow Request (4/7)**
-  - ✅ `create-borrow-request.use-case.ts`
-  - ✅ `approve-borrow-request.use-case.ts`
-  - ✅ `reject-borrow-request.use-case.ts`
-  - ✅ `cancel-borrow-request.use-case.ts`
-  - ❌ `checkout-borrow-request.use-case.ts` — chưa tạo
-  - ❌ `return-equipment.use-case.ts` — chưa tạo
-  - ❌ `extend-borrow-request.use-case.ts` — chưa tạo
-
-  **Notifications (2/2)**
-  - ✅ `list-notifications.use-case.ts`
-  - ✅ `mark-notification-read.use-case.ts`
-
-  **Reports (0/2)**
-  - ❌ `get-dashboard-stats.use-case.ts` — chưa tạo
-  - ❌ `export-report.use-case.ts` — chưa tạo
-
-  **Users (0/3)**
-  - ❌ `list-users.use-case.ts` — chưa tạo
-  - ❌ `lock-user.use-case.ts` — chưa tạo
-  - ❌ `get-user-profile.use-case.ts` — chưa tạo
+> ❌ **`application/interfaces/` chưa tạo** — Spec yêu cầu 3 port interfaces: email-service, storage-service, token-service
 
 #### Infrastructure Layer
 - ✅ PostgreSQL connection (`database/connection.ts`)
-- ✅ **4 Repository implementations với SQL thực (không còn stub):**
-  - `pg-user.repository.ts` — findById, findByEmail, create, update, findAll (với phân trang + filter role)
-  - `pg-equipment.repository.ts` — findById, list (search/filter/paginate), create, update, decrementAvailable, incrementAvailable
+- ✅ **4 repository implementations với SQL thực:**
+  - `pg-user.repository.ts` — findById, findByEmail, create, update, findAll (paginate + filter)
+  - `pg-equipment.repository.ts` — findById, list (search/filter/paginate), create, update, decrement/incrementAvailable
   - `pg-borrow-request.repository.ts` — findById, create, update, listByUser, listAll (JOIN users)
   - `pg-notification.repository.ts` — create, listByUser, markRead, markAllRead, countUnread
-- ⚠️ **4 Repository implementations vẫn còn stub cơ bản:**
-  - `pg-borrow-record.repository.ts`
-  - `pg-email-log.repository.ts`
-  - `pg-stock-log.repository.ts`
-  - `pg-violation.repository.ts`
+- ⚠️ 4 repository implementations còn stub (pg-borrow-record, pg-stock-log, pg-violation, pg-email-log)
 - ✅ JWT token service (sign + verify — hoàn chỉnh)
 - ✅ Nodemailer email service (createTransport + sendMail — hoàn chỉnh)
-- ✅ Local storage service (stubbed)
+- ⚠️ Local storage service (stubbed)
 - ✅ Dependency injection container (`container.ts`) — wired 10 use-cases
-- ✅ Cron scheduler với Vietnam timezone
-- ⚠️ 2 job files (`due-reminder.job.ts`, `overdue-check.job.ts`) — chỉ có console.log, chưa implement logic
+- ❌ **`NodemailerEmailService` chưa wired vào container** (spec yêu cầu `emailService`)
+- ✅ Cron scheduler với Vietnam timezone (Asia/Ho_Chi_Minh)
+- ❌ 2 job files (`due-reminder.job.ts`, `overdue-check.job.ts`) — chỉ `console.log`, chưa có logic
 
 #### Presentation Layer
-- ✅ All 7 route files (auth, equipment, borrow-request, notification, report, user + index router)
-- ✅ **Controllers đã implement:**
+- ✅ All 7 route files (index, auth, equipment, borrow-request, notification, report, user)
+- ✅ **Controllers đã implement đầy đủ (4/6):**
   - `auth.controller.ts` — login, register, getMe ✅
   - `equipment.controller.ts` — listEquipment, getEquipmentDetail ✅
   - `borrow-request.controller.ts` — create, listMy, listAll, approve, reject, cancel ✅
-  - `notification.controller.ts` — listNotifications, markNotificationRead ✅
-- ⚠️ **Controllers vẫn stub:**
-  - `report.controller.ts` — getDashboardStats, exportReport (trả về hardcode `{}`)
-  - `user.controller.ts` — listUsers, getProfile (trả về hardcode)
+  - `notification.controller.ts` — listNotifications, markRead ✅
+- ⚠️ `report.controller.ts` — trả về hardcode `{}` (chưa dùng use-case)
+- ⚠️ `user.controller.ts` — trả về hardcode `[]` (chưa dùng use-case)
 - ✅ All 4 middleware files:
-  - `authenticate.middleware.ts` (complete)
-  - `authorize.middleware.ts` (complete)
-  - `validate.middleware.ts` (complete)
-  - `error-handler.middleware.ts` (complete)
+  - authenticate.middleware.ts (complete)
+  - authorize.middleware.ts (complete)
+  - validate.middleware.ts (complete)
+  - error-handler.middleware.ts (complete)
 
 #### Database
 - ✅ PostgreSQL migration với **13 tables**:
@@ -123,22 +94,21 @@
   - notifications, email_logs
 - ✅ All PostgreSQL ENUM types (11 types)
 - ✅ Foreign key constraints
-- ✅ Indexes on critical columns (status, user_id, is_read)
+- ✅ Indexes on critical columns (status, user_id, is_read, equipment_id)
 
 ### Frontend (`apps/web/`)
 
 #### Configuration
-- ✅ `package.json` với đầy đủ dependencies
+- ✅ `package.json` with all dependencies
 - ✅ `tsconfig.json` properly configured
-- ✅ `.umirc.ts` với routes
-- ✅ `.env` với API base URL
+- ✅ `.umirc.ts` with routes
+- ✅ `.env` with API base URL
 
-#### Pages (17 Pages)
+#### Pages (All 16 Pages — 15 theo spec + 2 extra)
 - ✅ `pages/index.tsx` (auth redirect)
 - ✅ `pages/login/index.tsx`
 - ✅ `pages/register/index.tsx`
 - ✅ `pages/forgot-password/index.tsx`
-- ✅ `pages/profile/index.tsx` ← **mới thêm**
 - ✅ `pages/equipment/index.tsx` (list)
 - ✅ `pages/equipment/[id].tsx` (detail)
 - ✅ `pages/borrow-request/create.tsx`
@@ -148,17 +118,18 @@
 - ✅ `pages/admin/requests/index.tsx`
 - ✅ `pages/admin/requests/[id].tsx`
 - ✅ `pages/admin/equipment/index.tsx`
-- ✅ `pages/admin/equipment/[id]/` (stock)
+- ✅ `pages/admin/equipment/[id]/stock.tsx`
 - ✅ `pages/admin/users/index.tsx`
 - ✅ `pages/admin/reports/index.tsx` (22KB — đầy đủ charts, CSV export)
-- ✅ `pages/admin/profile/index.tsx` ← **mới thêm**
+- ➕ `pages/profile/index.tsx` (ngoài spec, team thêm)
+- ➕ `pages/admin/profile/index.tsx` (ngoài spec, team thêm)
 
 #### Layouts (All 3 Layouts)
 - ✅ `layouts/AuthLayout.tsx`
 - ✅ `layouts/StudentLayout.tsx`
 - ✅ `layouts/AdminLayout.tsx`
 
-#### Components
+#### Components (All Spec Components + Extra)
 - ✅ `components/common/PageHeader.tsx`
 - ✅ `components/common/StatusBadge.tsx`
 - ✅ `components/common/ConfirmModal.tsx`
@@ -166,27 +137,23 @@
 - ✅ `components/common/LoadingSpinner.tsx`
 - ✅ `components/equipment/EquipmentCard.tsx`
 - ✅ `components/equipment/StockInfo.tsx`
-- ✅ `components/layout/AppHeader.tsx` ← **mới thêm**
-- ✅ `components/layout/AppSidebar.tsx` ← **mới thêm**
+- ➕ `components/layout/AppHeader.tsx` (ngoài spec, team thêm)
+- ➕ `components/layout/AppSidebar.tsx` (ngoài spec, team thêm)
 
-#### Services — **Đã implement đầy đủ (Offline-First / Mock Mode)**
+#### Services — **Offline-First / Mock Mode**
 - ✅ `services/http.ts` (Axios instance + interceptors)
-- ✅ `services/auth.service.ts` — stub (cần connect real API)
-- ✅ `services/equipment.service.ts` — **đầy đủ**: list, getDetail, create, update, remove (dùng offlineStorage)
-- ✅ `services/borrow-request.service.ts` — **đầy đủ**: create, listMy, listAll, cancel, approve, reject, remove (dùng offlineStorage)
-- ✅ `services/notification.service.ts` — **đầy đủ**: listMy (dùng offlineStorage)
-- ✅ `services/report.service.ts` — **đầy đủ**: getReportData (summary, charts, trends, topBorrowers), exportRequestsCSV
+- ⚠️ `services/auth.service.ts` — stub, chưa gọi HTTP thực
+- ✅ `services/equipment.service.ts` — đầy đủ (list, getDetail, create, update, remove)
+- ✅ `services/borrow-request.service.ts` — đầy đủ (create, listMy, listAll, cancel, approve, reject)
+- ✅ `services/notification.service.ts` — đầy đủ (listMy)
+- ➕ `services/report.service.ts` — ngoài spec, team thêm (getReportData, exportRequestsCSV)
 
-#### Mock / Offline Layer ← **Mới hoàn toàn**
-- ✅ `mocks/offlineStorage.ts` — localStorage-based mock storage với:
-  - Seed data tự động (equipment, borrow requests, users, notifications)
-  - `readCollection`, `writeCollection`, `nextId`, `paginate`, `apiSuccess`
-  - `createNotification` helper
-  - Types: `MockEquipment`, `MockBorrowRequest`, `MockUser`
+#### Mock / Offline Layer (ngoài spec — team thêm)
+- ➕ `mocks/offlineStorage.ts` — localStorage mock với seed data, helpers (readCollection, writeCollection, nextId, paginate, apiSuccess, createNotification)
 
 #### State Management
-- ✅ `stores/auth.store.ts` (Zustand, complete)
-- ✅ Configured với localStorage persistence
+- ✅ `stores/auth.store.ts` (Zustand + localStorage persistence)
+- ❌ **`stores/notification.store.ts` — thiếu theo spec** (unread count store)
 
 #### Hooks
 - ✅ `hooks/useAuth.ts`
@@ -195,6 +162,7 @@
 
 #### Utils & Constants
 - ✅ `utils/format.ts` (formatDate, formatDatetime, formatFileSize)
+- ❌ **`utils/error.ts` — thiếu theo spec** (`extractApiError` helper)
 - ✅ `constants/routes.constant.ts` (all routes as constants)
 - ✅ `typings/global.d.ts` (process.env, global types)
 
@@ -202,14 +170,27 @@
 - ✅ All files compile với `tsc --noEmit` (zero TypeScript errors)
 - ✅ Dependencies installed successfully
 - ✅ Health endpoint responds: `GET /health` → `{ status: "ok" }`
-- ✅ `.env.example` chứa đầy đủ biến môi trường
+- ✅ `.env.example` chứa đủ biến môi trường
 - ✅ Frontend chạy được offline (không cần API server)
 
 ---
 
 ## ⚠️ PENDING IMPLEMENTATION (Feature Development)
 
-### 1. Backend Use-Cases (5 remaining)
+### 1. Các file thiếu theo spec (cần tạo ngay)
+
+```
+[ ] apps/api/src/domain/errors/validation.error.ts
+
+[ ] apps/api/src/application/interfaces/email-service.interface.ts
+[ ] apps/api/src/application/interfaces/storage-service.interface.ts
+[ ] apps/api/src/application/interfaces/token-service.interface.ts
+
+[ ] apps/web/src/stores/notification.store.ts
+[ ] apps/web/src/utils/error.ts   (extractApiError helper)
+```
+
+### 2. Backend Use-Cases (15 remaining of 25)
 
 #### Auth (2)
 ```
@@ -221,115 +202,114 @@
 [ ] apps/api/src/application/use-cases/auth/reset-password.use-case.ts
      - Validate reset token
      - Hash new password with bcryptjs
-     - Update user password
-     - Mark token as used
+     - Update user password + mark token as used
 ```
 
 #### Equipment Management (4)
 ```
 [ ] apps/api/src/application/use-cases/equipment/create-equipment.use-case.ts
-     - Admin only
-     - Create equipment + initial instances
-     - Log stock action
+     - Admin only; create equipment + initial instances; log stock action
 
 [ ] apps/api/src/application/use-cases/equipment/update-equipment.use-case.ts
-     - Admin only
-     - Update equipment name, status, etc.
+     - Admin only; update name, status, etc.
 
 [ ] apps/api/src/application/use-cases/equipment/delete-equipment.use-case.ts
-     - Admin only
-     - Soft delete or mark as DELETED
+     - Admin only; soft delete (mark as DELETED)
 
 [ ] apps/api/src/application/use-cases/equipment/update-stock.use-case.ts
-     - Admin only
-     - Mark instances as damaged/lost/repaired
-     - Log stock action with reason
+     - Admin only; mark instances damaged/lost/repaired; log stock action
 ```
 
-#### Borrow Request Lifecycle (3)
+#### Borrow Request Lifecycle (4 + 1 bị bỏ sót)
 ```
 [ ] apps/api/src/application/use-cases/borrow-request/checkout-borrow-request.use-case.ts
-     - Admin: transition APPROVED → BORROWING
-     - Update equipment quantities
-     - Create BorrowRecord + BorrowRecordInstances
-     - Create notification
+     - Admin: APPROVED → BORROWING
+     - Update equipment quantities; create BorrowRecord; notify
 
 [ ] apps/api/src/application/use-cases/borrow-request/return-equipment.use-case.ts
      - Student/Admin: return borrowed equipment
-     - Mark instances as returned
-     - Update equipment quantities
-     - Check for violations (damage, loss)
-     - Create notification
+     - Mark instances returned; update quantities; check violations; notify
 
 [ ] apps/api/src/application/use-cases/borrow-request/extend-borrow-request.use-case.ts
-     - Student: request 1x extension
-     - Validate MAX_BORROW_EXTENSION = 1
-     - Update expected_return_date
-     - Create notification to admin
+     - Student: request 1x extension (MAX_BORROW_EXTENSION = 1)
+     - Update expected_return_date; notify admin
+
+[ ] apps/api/src/application/use-cases/borrow-request/undo-return.use-case.ts
+     - Admin only; revert returned status (trong 5 phút — RETURN_UNDO_WINDOW_MIN)
+     - Update equipment quantities back
 ```
 
-#### Reports & Users (5)
+#### Reports (2)
 ```
 [ ] apps/api/src/application/use-cases/report/get-dashboard-stats.use-case.ts
-     - Admin: count of pending requests, overdue items, violations
-     - Count of users, equipment, total borrowed
+     - Admin: pending count, overdue count, violations, users, equipment, total borrowed
 
 [ ] apps/api/src/application/use-cases/report/export-report.use-case.ts
-     - Admin: export CSV of borrow records
-     - Filter by date range
+     - Admin: export CSV of borrow records, filter by date range
+```
 
+#### User Management (3)
+```
 [ ] apps/api/src/application/use-cases/user/list-users.use-case.ts
-     - Admin only
-     - Paginate users, filter by role/status
+     - Admin only; paginate users, filter by role/status
 
 [ ] apps/api/src/application/use-cases/user/lock-user.use-case.ts
-     - Admin only
-     - Change user status to LOCKED or BORROW_BLOCKED
+     - Admin only; change user status to LOCKED or BORROW_BLOCKED
 
 [ ] apps/api/src/application/use-cases/user/get-user-profile.use-case.ts
-     - Student/Admin: get current user's profile
+     - Student/Admin: get current user's profile (role, status, created_at)
 ```
 
-### 2. Controller Methods (Incomplete)
+### 3. Container Wiring
 
 ```typescript
-// apps/api/src/presentation/controllers/report.controller.ts
-// Cần implement: getDashboardStats (gọi use-case, trả real data)
-//                exportReport (tạo CSV buffer, trả file)
+// apps/api/src/infrastructure/container.ts
+// Hiện tại: 10 use-cases, emailService chưa wired
+// Cần thêm:
+import { NodemailerEmailService } from './services/nodemailer-email.service';
+const emailService = new NodemailerEmailService();
 
-// apps/api/src/presentation/controllers/user.controller.ts
-// Cần implement: listUsers (gọi userRepo.findAll)
-//                getProfile (gọi use-case, trả full profile)
+// + wire tất cả 15 use-cases còn lại khi implement xong
+export const forgotPasswordUseCase = new ForgotPasswordUseCase(userRepo, emailService);
+// ... all 25 total
 ```
 
-### 3. Remaining Repository SQL Implementations
+### 4. Repository SQL Implementations (4 còn stub)
 
 ```typescript
-// pg-borrow-record.repository.ts — cần: findById, create, update, listByUser
-// pg-stock-log.repository.ts     — cần: create, listByEquipment
-// pg-violation.repository.ts     — cần: create, findByBorrowRecord
-// pg-email-log.repository.ts     — cần: create, findByStatus
+// pg-borrow-record.repository.ts  — cần: findById, create, update, listByUser
+// pg-stock-log.repository.ts      — cần: create, listByEquipment
+// pg-violation.repository.ts      — cần: create, findByBorrowRecord
+// pg-email-log.repository.ts      — cần: create, findByStatus
 ```
 
-### 4. Cron Job Logic (Stubbed)
+### 5. Job Implementations
 
 ```typescript
 // apps/api/src/infrastructure/jobs/due-reminder.job.ts
-// Hiện tại: chỉ console.log
 // Cần implement:
 // 1. Query borrow_records where expected_return_date IN [1-3 days from now]
-// 2. For each record, create Notification + send email
+// 2. For each record, create Notification + send email via emailService
 // 3. Log errors to email_logs
 
 // apps/api/src/infrastructure/jobs/overdue-check.job.ts
-// Hiện tại: chỉ console.log
 // Cần implement:
 // 1. Query borrow_records where expected_return_date < now() and status != 'returned'
 // 2. Update status to 'overdue'
 // 3. Create overdue notification + send alert email
 ```
 
-### 5. Frontend: Connect to Real API
+### 6. Controllers (2 còn stub)
+
+```typescript
+// apps/api/src/presentation/controllers/report.controller.ts
+// Cần: gọi getDashboardStatsUseCase, exportReportUseCase thay vì hardcode
+
+// apps/api/src/presentation/controllers/user.controller.ts
+// Cần: gọi listUsersUseCase, getUserProfileUseCase thay vì hardcode
+```
+
+### 7. Frontend — Connect to Real API
 
 ```typescript
 // apps/web/src/services/auth.service.ts
@@ -339,19 +319,7 @@
 // Các service khác (equipment, borrow-request, notification, report)
 // Hiện tại: dùng offlineStorage (mock mode)
 // Khi backend ready: thay bằng http.get/post calls
-// Gợi ý: dùng feature flag hoặc env variable để switch
-```
-
-### 6. Container Wiring (khi use-cases mới được tạo)
-
-```typescript
-// apps/api/src/infrastructure/container.ts
-// Hiện tại: 10 use-cases wired
-// Cần thêm: 5 use-cases còn lại khi implement xong
-
-export const forgotPasswordUseCase = new ForgotPasswordUseCase(userRepo, emailService);
-export const createEquipmentUseCase = new CreateEquipmentUseCase(equipmentRepo, stockLogRepo);
-// ... all 15 total
+// Gợi ý: dùng env flag để switch giữa offline và real API
 ```
 
 ---
@@ -362,57 +330,61 @@ export const createEquipmentUseCase = new CreateEquipmentUseCase(equipmentRepo, 
 |--------|--------|----------|
 | **Monorepo Setup** | ✅ Complete | 100% |
 | **Shared Package** | ✅ Complete | 100% |
-| **Domain Layer** | ✅ Complete | 100% |
-| **Application Layer** | ⚠️ Partial | 67% (10/15 use-cases) |
+| **Domain Entities** | ✅ Complete | 100% |
+| **Domain Repo Interfaces** | ✅ Complete | 100% |
+| **Domain Errors** | ⚠️ Partial | 80% (4/5 — thiếu validation.error.ts) |
+| **App Interfaces (Ports)** | ❌ Missing | 0% (thư mục chưa tạo) |
+| **Application Layer** | ⚠️ Partial | 40% (10/25 use-cases) |
 | **Infrastructure — Repos** | ⚠️ Partial | 50% (4/8 có SQL thực) |
-| **Infrastructure — Services** | ✅ Complete | 100% (JWT + Email hoàn chỉnh) |
-| **Infrastructure — Jobs** | ❌ Stubbed | 0% (chỉ console.log) |
-| **Presentation Layer** | ⚠️ Partial | 80% (4/6 controllers đầy đủ) |
+| **Infrastructure — Services** | ⚠️ Partial | 67% (JWT+Email done, storage stub) |
+| **Infrastructure — Container** | ⚠️ Partial | 85% (emailService chưa wire) |
+| **Infrastructure — Jobs** | ❌ Not started | 0% (chỉ console.log) |
+| **Presentation — Routes** | ✅ Complete | 100% |
+| **Presentation — Controllers** | ⚠️ Partial | 67% (4/6 dùng use-case thực) |
+| **Presentation — Middlewares** | ✅ Complete | 100% |
 | **Database Migration** | ✅ Complete | 100% |
-| **Frontend — Pages** | ✅ Complete | 100% (17 pages) |
+| **Frontend — Pages** | ✅ Complete | 100% (16 pages) |
 | **Frontend — Services (Offline)** | ✅ Complete | 100% (mock mode đầy đủ) |
 | **Frontend — Services (Real API)** | ❌ Pending | 0% (cần connect) |
-| **Frontend — Stores** | ✅ Complete | 100% |
-| **Documentation** | ✅ Complete | 100% |
-| **Overall Progress** | ✅ Ready | **~92%** |
+| **Frontend — Stores** | ⚠️ Partial | 50% (thiếu notification.store.ts) |
+| **Frontend — Utils** | ⚠️ Partial | 50% (thiếu error.ts) |
+| **Frontend — Hooks** | ✅ Complete | 100% |
+| **Overall Progress** | ⚠️ In Progress | **~88%** |
 
 ---
 
 ## 🚀 NEXT STEPS FOR TEAM
 
-### Priority 1: Implement remaining use-cases
-- [ ] `forgot-password.use-case.ts` + `reset-password.use-case.ts`
-- [ ] `create-equipment.use-case.ts` + `update-equipment.use-case.ts` + `delete-equipment.use-case.ts`
-- [ ] `checkout-borrow-request.use-case.ts` + `return-equipment.use-case.ts`
-- [ ] `get-dashboard-stats.use-case.ts` + `list-users.use-case.ts`
-- [ ] Wire tất cả vào `container.ts`
+### Week 1: Hoàn thiện cấu trúc & use-cases cốt lõi
+- [ ] Tạo các file thiếu theo spec (validation.error.ts, interfaces/, notification.store.ts, utils/error.ts)
+- [ ] Wire NodemailerEmailService vào container.ts
+- [ ] Implement auth use-cases (forgot-password, reset-password)
+- [ ] Implement equipment use-cases (create, update, delete, update-stock)
 
-### Priority 2: Complete controllers & repos
-- [ ] Implement `report.controller.ts` + `user.controller.ts` với use-cases thực
-- [ ] Implement 4 repo còn lại (borrow-record, stock-log, violation, email-log)
+### Week 2: Borrow request lifecycle
+- [ ] Implement checkout, return-equipment, extend, undo-return use-cases
+- [ ] Implement 4 repo SQL còn stub (borrow-record, stock-log, violation, email-log)
+- [ ] Wire tất cả use-cases mới vào container.ts
 
-### Priority 3: Cron Jobs
-- [ ] Implement logic thực cho `due-reminder.job.ts`
-- [ ] Implement logic thực cho `overdue-check.job.ts`
+### Week 3: Reports, Users & Jobs
+- [ ] Implement report + user use-cases
+- [ ] Implement report.controller.ts + user.controller.ts
+- [ ] Implement cron job logic (due-reminder, overdue-check)
 - [ ] Test job execution với scheduler
 
-### Priority 4: Frontend — Real API Integration
-- [ ] Implement `auth.service.ts` gọi real endpoints
-- [ ] Thêm env flag để switch giữa offline mock và real API
-- [ ] Thay thế offlineStorage calls bằng HTTP calls trong các service
-
-### Priority 5: QA
-- [ ] Unit tests cho use-cases
-- [ ] Integration tests cho API endpoints
+### Week 4: Frontend Real API & QA
+- [ ] Implement auth.service.ts gọi real endpoints
+- [ ] Switch các service từ offline mock → HTTP calls
 - [ ] Test all endpoints với Postman/curl
+- [ ] Unit tests cho use-cases
 - [ ] Bug fixes & refinements
 
 ---
 
 ## 📝 HOW TO USE THIS BOILERPLATE
 
-1. **Read** `.github/copilot-instructions.md` for development guidelines
-2. **Follow** the "Adding a New Feature" checklist for each feature
+1. **Read** `copilot-boilerplate-prompt.md` for full spec & development guidelines
+2. **Follow** the "Adding a New Feature" checklist (10 bước — từ Zod schema đến frontend page)
 3. **Reference** this file for what's pending
 4. **Test** each feature: `npm run dev` + `curl http://localhost:3000/api/v1/health`
 5. **Commit** only when TypeScript + Linting passes
@@ -423,26 +395,26 @@ export const createEquipmentUseCase = new CreateEquipmentUseCase(equipmentRepo, 
 
 Before marking as "ready for production":
 
-- [ ] All 15 use-cases implemented
-- [x] Auth use-cases (login, register) ✅
-- [x] Equipment list + detail use-cases ✅
-- [x] Borrow request core flow (create, approve, reject, cancel) ✅
-- [x] Notification use-cases (list, mark-read) ✅
-- [ ] Forgot/Reset password use-cases
-- [ ] Equipment CRUD use-cases (create, update, delete, stock)
-- [ ] Checkout + Return use-cases
-- [ ] Dashboard stats + export report use-cases
-- [ ] User management use-cases
-- [ ] All repositories have SQL implementations (4/8 done)
-- [ ] All controller methods implemented (4/6 done)
+- [x] `pnpm install` runs without error
+- [x] `GET /health` returns `{ status: "ok" }`
+- [x] All enums in shared package match DB schema
+- [x] Cron jobs registered with Vietnam timezone
+- [x] `.env.example` contains all required variables
+- [x] `001_initial_schema.sql` creates all 13 tables
+- [x] TypeScript compilation: 0 errors
+- [ ] `application/interfaces/` created (email, storage, token)
+- [ ] `validation.error.ts` created
+- [ ] `notification.store.ts` created
+- [ ] `utils/error.ts` created
+- [ ] All 25 use-cases implemented
+- [ ] All repositories have SQL implementations
+- [ ] `NodemailerEmailService` wired in container.ts
+- [ ] All controller methods implemented (use-case, not hardcode)
 - [ ] Cron jobs tested and logging properly
-- [ ] Frontend connected to real API
-- [ ] TypeScript compilation: 0 errors
-- [ ] ESLint pass: 0 violations
+- [ ] Frontend services connected to real API
 - [ ] All endpoints tested with sample data
-- [ ] Database migration applied successfully
 - [ ] README.md has setup & deployment steps
 
 ---
 
-**Repository Status:** ✅ **CORE FEATURES IMPLEMENTED — OFFLINE-FIRST FRONTEND READY — CONNECTING TO REAL API PENDING**
+**Repository Status:** ✅ **CORE FEATURES IMPLEMENTED — OFFLINE-FIRST FRONTEND READY — REAL API INTEGRATION PENDING**
