@@ -34,7 +34,7 @@ COPY apps/web ./apps/web
 
 ENV UMI_APP_API_URL=http://localhost:3000/api/v1
 
-RUN cd apps/web && node_modules/.bin/max build
+RUN cd apps/web && pnpm build
 
 # ─────────────────────────────────────────────
 # Stage 3: Serve with nginx (~25MB final image)
