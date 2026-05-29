@@ -252,19 +252,7 @@
      - Filter by date range
 ```
 
-#### User Management (3)
-```
-[ ] apps/api/src/application/use-cases/user/list-users.use-case.ts
-     - Admin only
-     - Paginate users, filter by role/status
 
-[ ] apps/api/src/application/use-cases/user/lock-user.use-case.ts
-     - Admin only
-     - Change user status to LOCKED or BORROW_BLOCKED
-
-[ ] apps/api/src/application/use-cases/user/get-user-profile.use-case.ts
-     - Student/Admin: get current user's profile
-     - Include role, status, created_at
 ```
 
 ### 2. Controller Methods (Implement All)
