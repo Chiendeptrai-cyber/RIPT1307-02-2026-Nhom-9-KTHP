@@ -248,16 +248,7 @@
      - Admin: export CSV of borrow records, filter by date range
 ```
 
-#### User Management (3)
-```
-[ ] apps/api/src/application/use-cases/user/list-users.use-case.ts
-     - Admin only; paginate users, filter by role/status
 
-[ ] apps/api/src/application/use-cases/user/lock-user.use-case.ts
-     - Admin only; change user status to LOCKED or BORROW_BLOCKED
-
-[ ] apps/api/src/application/use-cases/user/get-user-profile.use-case.ts
-     - Student/Admin: get current user's profile (role, status, created_at)
 ```
 
 ### 3. Container Wiring

@@ -15,6 +15,9 @@ import { RejectBorrowRequestUseCase }    from '../application/use-cases/borrow-r
 import { CancelBorrowRequestUseCase }    from '../application/use-cases/borrow-request/cancel-borrow-request.use-case';
 import { ListNotificationsUseCase }      from '../application/use-cases/notification/list-notifications.use-case';
 import { MarkNotificationReadUseCase }   from '../application/use-cases/notification/mark-notification-read.use-case';
+import { ListUsersUseCase }              from '../application/use-cases/user/list-users.use-case';
+import { LockUserUseCase }               from '../application/use-cases/user/lock-user.use-case';
+import { GetUserProfileUseCase }         from '../application/use-cases/user/get-user-profile.use-case';
 
 const pool = getPool();
 
@@ -44,6 +47,11 @@ export const cancelBorrowRequestUseCase  = new CancelBorrowRequestUseCase(borrow
 // Notification use cases
 export const listNotificationsUseCase    = new ListNotificationsUseCase(notificationRepo);
 export const markNotificationReadUseCase = new MarkNotificationReadUseCase(notificationRepo);
+
+// User use cases
+export const listUsersUseCase     = new ListUsersUseCase(userRepo);
+export const lockUserUseCase      = new LockUserUseCase(userRepo);
+export const getUserProfileUseCase = new GetUserProfileUseCase(userRepo);
 
 // Expose repos for controllers that need direct listAll
 export { borrowRequestRepo, userRepo, equipmentRepo };
