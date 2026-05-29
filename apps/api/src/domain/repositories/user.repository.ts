@@ -5,5 +5,5 @@ export interface IUserRepository {
   findByEmail(email: string): Promise<UserEntity | null>;
   create(data: Omit<UserEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<UserEntity>;
   update(id: number, data: Partial<UserEntity>): Promise<UserEntity>;
-  findAll(options: { page: number; pageSize: number; role?: string }): Promise<{ items: UserEntity[]; total: number }>;
+  findAll(options: { page: number; pageSize: number; role?: string; status?: string }): Promise<{ items: UserEntity[]; total: number }>;
 }

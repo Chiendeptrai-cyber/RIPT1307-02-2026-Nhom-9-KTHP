@@ -68,6 +68,7 @@ export class PgUserRepository implements IUserRepository {
     page: number;
     pageSize: number;
     role?: string;
+    status?: string;
   }): Promise<{ items: UserEntity[]; total: number }> {
     const offset = (options.page - 1) * options.pageSize;
     const conditions: string[] = [];
@@ -77,6 +78,11 @@ export class PgUserRepository implements IUserRepository {
     if (options.role) {
       conditions.push(`role = $${idx++}`);
       values.push(options.role);
+    }
+
+    if (options.status) {
+      conditions.push(`status = $${idx++}`);
+      values.push(options.status);
     }
 
     const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
