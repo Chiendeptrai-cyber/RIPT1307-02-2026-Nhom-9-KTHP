@@ -4,7 +4,8 @@ import { IEquipmentRepository } from '../../../domain/repositories/equipment.rep
 import { INotificationRepository } from '../../../domain/repositories/notification.repository';
 import { AppError } from '../../../domain/errors/app.error';
 import { NotFoundError } from '../../../domain/errors/not-found.error';
-import { BorrowRequestStatus, NotificationType } from '@equipment-mgmt/shared';
+import { BorrowRequestStatus, NotificationType, BorrowRecordStatus } from '@equipment-mgmt/shared';
+
 
 export interface ReturnEquipmentInput {
   borrowRequestId: number; // Đổi thành number vì DB dùng ID kiểu int
@@ -39,27 +40,36 @@ export class ReturnEquipmentUseCase {
     }
 
     // 3. Chuyển trạng thái phiếu sang RETURNED (Đã trả)
-    request.status = BorrowRequestStatus.RETURNED;
-    request.updatedAt = new Date();
-    await this.borrowRequestRepo.update(request);
+    const requestUpdateData = {
+      status: BorrowRequestStatus.RETURNED,
+      updatedAt: new Date().toISOString()
+    };
+    await this.borrowRequestRepo.update(borrowRequestId, requestUpdateData);
 
+    // 4. Cập nhật thông tin trả đồ vào bản ghi mượn trả (Borrow Record)
     // 4. Cập nhật thông tin trả đồ vào bản ghi mượn trả (Borrow Record)
     const borrowRecord = await this.borrowRecordRepo.findByBorrowRequestId(borrowRequestId);
     if (borrowRecord) {
-      borrowRecord.returnedTo = adminId;
-      borrowRecord.returnedAt = new Date();
-      borrowRecord.status = BorrowRequestStatus.RETURNED;
-      borrowRecord.updatedAt = new Date();
-      await this.borrowRecordRepo.update(borrowRecord);
+      const recordUpdateData = {
+        // Đã xóa dòng returnedTo: adminId
+        returnedAt: new Date().toISOString(),
+        status: BorrowRecordStatus.RETURNED, // <--- Đổi thành BorrowRecordStatus
+        updatedAt: new Date().toISOString()
+      };
+      await this.borrowRecordRepo.update(borrowRecord.id, recordUpdateData);
     }
 
     // 5. Hoàn trả số lượng thiết bị vào kho tổng (Inventory)
-    for (const item of request.items) {
-      const equipment = await this.equipmentRepo.findById(item.equipmentId);
-      if (equipment) {
-        equipment.inventoryQuantity += item.quantity; // Cộng lại số lượng vào kho
-        equipment.updatedAt = new Date();
-        await this.equipmentRepo.update(equipment);
+    if (request.items && request.items.length > 0) {
+      for (const item of request.items) {
+        const equipment = await this.equipmentRepo.findById(item.equipmentId);
+        if (equipment) {
+          const equiUpdateData = {
+            availableQuantity: equipment.availableQuantity + item.quantity,
+            updatedAt: new Date().toISOString()
+          };
+          await this.equipmentRepo.update(equipment.id, equiUpdateData);
+        }
       }
     }
 

@@ -32,4 +32,28 @@ export class PgBorrowRecordRepository implements IBorrowRecordRepository {
       updatedAt: new Date().toISOString(),
     } as BorrowRecordEntity;
   }
+  async findByBorrowRequestId(borrowRequestId: number): Promise<any | null> {
+    const query = 'SELECT * FROM borrow_records WHERE borrow_request_id = $1 LIMIT 1';
+    // Lưu ý: Tùy vào cách nhóm bạn gọi biến kết nối DB, có thể là this.pool hoặc pool
+    const result = await this.pool.query(query, [borrowRequestId]);
+    
+    if (result.rows.length === 0) {
+      return null;
+    }
+
+    // Lấy dòng dữ liệu đầu tiên tìm được
+    const row = result.rows[0];
+    
+    // Map dữ liệu từ DB (thường viết kiểu snake_case) sang chuẩn Entity của nhóm bạn
+    return {
+      id: row.id,
+      borrowRequestId: row.borrow_request_id,
+      status: row.status,
+      borrowedAt: row.borrowed_at,
+      expectedReturnDate: row.expected_return_date,
+      returnedAt: row.returned_at,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at
+    };
+  }
 }
