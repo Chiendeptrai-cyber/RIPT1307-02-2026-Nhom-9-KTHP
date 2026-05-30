@@ -1,4 +1,4 @@
-import type { Request, Response } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import {
   createBorrowRequestUseCase,
   approveBorrowRequestUseCase,
@@ -98,49 +98,48 @@ export async function cancelBorrowRequest(req: Request, res: Response): Promise<
     message: 'Đã hủy yêu cầu mượn',
   } satisfies ApiResponse);
 }
-export class BorrowRequestController {
-  constructor(
-    private handoverUseCase: HandoverEquipmentUseCase,
-    private returnUseCase: ReturnEquipmentUseCase
-  ) {}
+export async function handover(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { id } = req.params;
+    // ĐỒNG BỘ: Sử dụng .userId giống các hàm phía trên
+    const adminId = req.user!.userId; 
 
-  // API Bàn giao thiết bị (Xuất kho)
-  async handover(req: Request, res: Response, next: NextFunction): Promise<void> {
-    try {
-      const { id } = req.params;
-      const adminId = req.user?.id; // Lấy từ auth middleware phục vụ ghi nhận lịch sử
+    // Gọi UseCase (Giả sử bạn đã khởi tạo nó trong container)
+    // Lưu ý: Cần thêm handoverEquipmentUseCase vào file container.ts của nhóm
+    const { handoverEquipmentUseCase } = require('../../infrastructure/container'); 
+    
+    await handoverEquipmentUseCase.execute({
+      borrowRequestId: Number(id),
+      adminId: Number(adminId) // Ép kiểu nếu UseCase yêu cầu string
+    });
 
-      await this.handoverUseCase.execute({
-        borrowRequestId: id,
-        adminId: adminId!
-      });
-
-      res.status(200).json({
-        success: true,
-        message: 'Bàn giao và xuất kho thiết bị thành công.'
-      });
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).json({
+      success: true,
+      message: 'Bàn giao và xuất kho thiết bị thành công.'
+    } as ApiResponse);
+  } catch (error) {
+    next(error);
   }
+}
 
-  // API Ghi nhận trả thiết bị (Hoàn kho)
-  async returnEquipment(req: Request, res: Response, next: NextFunction): Promise<void> {
-    try {
-      const { id } = req.params;
-      const adminId = req.user?.id;
+export async function returnEquipment(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const { id } = req.params;
+    const adminId = req.user!.userId; // ĐỒNG BỘ logic ID
 
-      await this.returnUseCase.execute({
-        borrowRequestId: id,
-        adminId: adminId!
-      });
+    // Gọi UseCase
+    const { returnEquipmentUseCase } = require('../../infrastructure/container');
 
-      res.status(200).json({
-        success: true,
-        message: 'Ghi nhận hoàn trả và cập nhật tồn kho thành công.'
-      });
-    } catch (error) {
-      next(error);
-    }
+    await returnEquipmentUseCase.execute({
+      borrowRequestId: id,
+      adminId: String(adminId)
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Ghi nhận hoàn trả và cập nhật tồn kho thành công.'
+    } as ApiResponse);
+  } catch (error) {
+    next(error);
   }
 }

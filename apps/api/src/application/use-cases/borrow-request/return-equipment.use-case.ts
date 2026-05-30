@@ -4,10 +4,11 @@ import { IEquipmentRepository } from '../../../domain/repositories/equipment.rep
 import { INotificationRepository } from '../../../domain/repositories/notification.repository';
 import { AppError } from '../../../domain/errors/app.error';
 import { NotFoundError } from '../../../domain/errors/not-found.error';
+import { BorrowRequestStatus, NotificationType } from '@equipment-mgmt/shared';
 
 export interface ReturnEquipmentInput {
-  borrowRequestId: string;
-  adminId: string;
+  borrowRequestId: number; // Đổi thành number vì DB dùng ID kiểu int
+  adminId: number;
 }
 
 export class ReturnEquipmentUseCase {
@@ -28,12 +29,17 @@ export class ReturnEquipmentUseCase {
     }
 
     // 2. Ràng buộc: Chỉ hoàn kho nếu trạng thái hiện tại là BORROWING
-    if (request.status !== 'BORROWING') {
-      throw new AppError('Phiếu yêu cầu không ở trạng thái đang mượn thiết bị.');
+    // Thay thế dòng throw mới:
+    if (request.status !== BorrowRequestStatus.BORROWING) {
+      throw new AppError(
+        'Phiếu yêu cầu không ở trạng thái đang mượn thiết bị.',
+        400,
+        'INVALID_STATUS'
+      );
     }
 
     // 3. Chuyển trạng thái phiếu sang RETURNED (Đã trả)
-    request.status = 'RETURNED';
+    request.status = BorrowRequestStatus.RETURNED;
     request.updatedAt = new Date();
     await this.borrowRequestRepo.update(request);
 
@@ -42,7 +48,7 @@ export class ReturnEquipmentUseCase {
     if (borrowRecord) {
       borrowRecord.returnedTo = adminId;
       borrowRecord.returnedAt = new Date();
-      borrowRecord.status = 'RETURNED';
+      borrowRecord.status = BorrowRequestStatus.RETURNED;
       borrowRecord.updatedAt = new Date();
       await this.borrowRecordRepo.update(borrowRecord);
     }
@@ -62,9 +68,8 @@ export class ReturnEquipmentUseCase {
       userId: request.userId,
       title: 'Trả thiết bị thành công',
       message: `Hệ thống đã ghi nhận bạn hoàn trả đầy đủ thiết bị thuộc mã yêu cầu ${borrowRequestId}.`,
-      type: 'SUCCESS',
+      type: NotificationType.RETURN_CONFIRMED,
       isRead: false,
-      createdAt: new Date()
     });
   }
 }
