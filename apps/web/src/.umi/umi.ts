@@ -3,7 +3,7 @@
 // DO NOT CHANGE IT MANUALLY!
 import './core/polyfill';
 import 'antd/dist/reset.css';
-import { renderClient } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.55_react-dom@18.3.1_react@18.3.1/node_modules/@umijs/renderer-react';
+import { renderClient } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.5_f2fca9a5cd3512e852cbce0e41e328ee/node_modules/@umijs/renderer-react';
 import { getRoutes } from './core/route';
 import { createPluginManager } from './core/plugin';
 import { createHistory } from './core/history';
@@ -76,6 +76,6 @@ render();
 
     if (typeof window !== 'undefined') {
       window.g_umi = {
-        version: '4.6.55',
+        version: '4.6.57',
       };
     }

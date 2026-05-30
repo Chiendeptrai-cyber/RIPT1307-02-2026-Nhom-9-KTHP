@@ -5,19 +5,19 @@
 export { defineApp } from './core/defineApp'
 export type { RuntimeConfig } from './core/defineApp'
 // plugins
-export { Access, useAccess, useAccessMarkedRoutes } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-access';
-export { useAntdConfig, useAntdConfigSetter } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-antd';
-export { Provider, useModel } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-model';
-export { useRequest, UseRequestProvider, request, getRequestInstance } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-request';
+export { Access, useAccess, useAccessMarkedRoutes } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-access';
+export { useAntdConfig, useAntdConfigSetter } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-antd';
+export { Provider, useModel } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-model';
+export { useRequest, UseRequestProvider, request, getRequestInstance } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-request';
 // plugins types.d.ts
-export * from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-access/types.d';
-export * from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-antd/types.d';
-export * from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-request/types.d';
+export * from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-access/types.d';
+export * from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-antd/types.d';
+export * from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/.umi/plugin-request/types.d';
 // @umijs/renderer-*
-export { createBrowserHistory, createHashHistory, createMemoryHistory, Helmet, HelmetProvider, createSearchParams, generatePath, matchPath, matchRoutes, Navigate, NavLink, Outlet, resolvePath, useLocation, useMatch, useNavigate, useOutlet, useOutletContext, useParams, useResolvedPath, useRoutes, useSearchParams, useAppData, useClientLoaderData, useLoaderData, useRouteProps, useSelectedRoutes, useServerLoaderData, renderClient, __getRoot, Link, useRouteData, __useFetcher, withRouter } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.55_react-dom@18.3.1_react@18.3.1/node_modules/@umijs/renderer-react';
-export type { History, ClientLoader } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.55_react-dom@18.3.1_react@18.3.1/node_modules/@umijs/renderer-react'
+export { createBrowserHistory, createHashHistory, createMemoryHistory, Helmet, HelmetProvider, createSearchParams, generatePath, matchPath, matchRoutes, Navigate, NavLink, Outlet, resolvePath, useLocation, useMatch, useNavigate, useOutlet, useOutletContext, useParams, useResolvedPath, useRoutes, useSearchParams, useAppData, useClientLoaderData, useLoaderData, useRouteProps, useSelectedRoutes, useServerLoaderData, renderClient, __getRoot, Link, useRouteData, __useFetcher, withRouter } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.5_f2fca9a5cd3512e852cbce0e41e328ee/node_modules/@umijs/renderer-react';
+export type { History, ClientLoader } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@umijs+renderer-react@4.6.5_f2fca9a5cd3512e852cbce0e41e328ee/node_modules/@umijs/renderer-react'
 // umi/client/client/plugin
-export { ApplyPluginsType, PluginManager } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/umi@4.6.55_@babel+core@7.29.0_@types+react@18.3.29_eslint@8.35.0_prettier@3.8.3_react-dom@18._eohetwdrgal4maumiuvoe5cgtq/node_modules/umi/client/client/plugin.js';
+export { ApplyPluginsType, PluginManager } from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/umi@4.6.57_@babel+core@7.29_532d03627fa9f2368197babf7052b7de/node_modules/umi/client/client/plugin.js';
 export { history, createHistory } from './core/history';
 export { terminal } from './core/terminal';
 // react ssr

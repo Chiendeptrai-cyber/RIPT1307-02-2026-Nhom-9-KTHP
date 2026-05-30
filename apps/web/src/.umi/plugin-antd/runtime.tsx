@@ -8,7 +8,7 @@ import {
 import { ApplyPluginsType } from 'umi';
 import { getPluginManager } from '../core/plugin';
 import { AntdConfigContext, AntdConfigContextSetter } from './context';
-import merge from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/lodash@4.18.1/node_modules/lodash/merge'
+import merge from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/lodash@4.18.1/node_modules/lodash/merge'
 
 let cacheAntdConfig = null;
 

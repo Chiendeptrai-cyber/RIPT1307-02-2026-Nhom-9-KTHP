@@ -7,6 +7,8 @@ import {
   borrowRequestRepo,
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
+import { HandoverEquipmentUseCase } from '../../application/use-cases/borrow-request/handover-equipment.use-case';
+import { ReturnEquipmentUseCase } from '../../application/use-cases/borrow-request/return-equipment.use-case';
 
 export async function createBorrowRequest(req: Request, res: Response): Promise<void> {
   const userId = req.user!.userId;
@@ -95,4 +97,50 @@ export async function cancelBorrowRequest(req: Request, res: Response): Promise<
     data: result,
     message: 'Đã hủy yêu cầu mượn',
   } satisfies ApiResponse);
+}
+export class BorrowRequestController {
+  constructor(
+    private handoverUseCase: HandoverEquipmentUseCase,
+    private returnUseCase: ReturnEquipmentUseCase
+  ) {}
+
+  // API Bàn giao thiết bị (Xuất kho)
+  async handover(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const adminId = req.user?.id; // Lấy từ auth middleware phục vụ ghi nhận lịch sử
+
+      await this.handoverUseCase.execute({
+        borrowRequestId: id,
+        adminId: adminId!
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Bàn giao và xuất kho thiết bị thành công.'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  // API Ghi nhận trả thiết bị (Hoàn kho)
+  async returnEquipment(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const { id } = req.params;
+      const adminId = req.user?.id;
+
+      await this.returnUseCase.execute({
+        borrowRequestId: id,
+        adminId: adminId!
+      });
+
+      res.status(200).json({
+        success: true,
+        message: 'Ghi nhận hoàn trả và cập nhật tồn kho thành công.'
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

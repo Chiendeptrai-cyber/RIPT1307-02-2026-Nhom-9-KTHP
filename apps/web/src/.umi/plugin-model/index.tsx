@@ -3,7 +3,7 @@
 // DO NOT CHANGE IT MANUALLY!
 // @ts-ignore
 import type { models as rawModels } from '@@/plugin-model/model';
-import isEqual from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/fast-deep-equal@3.1.3/node_modules/fast-deep-equal/index.js';
+import isEqual from 'C:/Users/ADMIN/OneDrive/Documents/Bài tập lớn môn thực hành Ltw/Dự án thực hành ltw/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/fast-deep-equal@3.1.3/node_modules/fast-deep-equal/index.js';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 
 type Models = typeof rawModels;
