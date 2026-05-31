@@ -4,7 +4,7 @@
 import React from 'react';
 
 export async function getRoutes() {
-  const routes = {"1":{"path":"/login","id":"1"},"2":{"path":"/login","parentId":"1","id":"2"},"3":{"path":"/register","id":"3"},"4":{"path":"/register","parentId":"3","id":"4"},"5":{"path":"/forgot-password","id":"5"},"6":{"path":"/forgot-password","parentId":"5","id":"6"},"7":{"path":"/","id":"7"},"8":{"path":"","redirect":"/equipment","parentId":"7","id":"8"},"9":{"path":"equipment","parentId":"7","id":"9"},"10":{"path":"equipment/:id","parentId":"7","id":"10"},"11":{"path":"borrow-request","parentId":"7","id":"11"},"12":{"path":"borrow-request/create","parentId":"7","id":"12"},"13":{"path":"notifications","parentId":"7","id":"13"},"14":{"path":"profile","parentId":"7","id":"14"},"15":{"path":"/admin","id":"15"},"16":{"path":"","redirect":"/admin/dashboard","parentId":"15","id":"16"},"17":{"path":"dashboard","parentId":"15","id":"17"},"18":{"path":"requests","parentId":"15","id":"18"},"19":{"path":"requests/:id","parentId":"15","id":"19"},"20":{"path":"equipment","parentId":"15","id":"20"},"21":{"path":"users","parentId":"15","id":"21"},"22":{"path":"reports","parentId":"15","id":"22"},"23":{"path":"profile","parentId":"15","id":"23"}} as const;
+  const routes = {"1":{"path":"/login","id":"1"},"2":{"path":"/login","parentId":"1","id":"2"},"3":{"path":"/register","id":"3"},"4":{"path":"/register","parentId":"3","id":"4"},"5":{"path":"/forgot-password","id":"5"},"6":{"path":"/forgot-password","parentId":"5","id":"6"},"7":{"path":"/","id":"7"},"8":{"path":"","redirect":"/equipment","parentId":"7","id":"8"},"9":{"path":"equipment","parentId":"7","id":"9"},"10":{"path":"equipment/:id","parentId":"7","id":"10"},"11":{"path":"borrow-request","parentId":"7","id":"11"},"12":{"path":"borrow-request/create","parentId":"7","id":"12"},"13":{"path":"notifications","parentId":"7","id":"13"},"14":{"path":"profile","parentId":"7","id":"14"},"15":{"path":"/admin","id":"15"},"16":{"path":"","redirect":"/admin/dashboard","parentId":"15","id":"16"},"17":{"path":"dashboard","parentId":"15","id":"17"},"18":{"path":"requests","parentId":"15","id":"18"},"19":{"path":"requests/:id","parentId":"15","id":"19"},"20":{"path":"equipment","parentId":"15","id":"20"},"21":{"path":"users","parentId":"15","id":"21"},"22":{"path":"reports","parentId":"15","id":"22"},"23":{"path":"notifications","parentId":"15","id":"23"},"24":{"path":"profile","parentId":"15","id":"24"}} as const;
   return {
     routes,
     routeComponents: {
@@ -30,7 +30,8 @@ export async function getRoutes() {
 '20': React.lazy(() => import(/* webpackChunkName: "p__admin__equipment__index" */'@/pages/admin/equipment/index.tsx')),
 '21': React.lazy(() => import(/* webpackChunkName: "p__admin__users__index" */'@/pages/admin/users/index.tsx')),
 '22': React.lazy(() => import(/* webpackChunkName: "p__admin__reports__index" */'@/pages/admin/reports/index.tsx')),
-'23': React.lazy(() => import(/* webpackChunkName: "p__admin__profile__index" */'@/pages/admin/profile/index.tsx')),
+'23': React.lazy(() => import(/* webpackChunkName: "p__admin__notifications__index" */'@/pages/admin/notifications/index.tsx')),
+'24': React.lazy(() => import(/* webpackChunkName: "p__admin__profile__index" */'@/pages/admin/profile/index.tsx')),
 },
   };
 }

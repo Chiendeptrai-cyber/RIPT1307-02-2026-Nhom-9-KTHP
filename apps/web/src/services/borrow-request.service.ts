@@ -68,8 +68,17 @@ export const borrowRequestService = {
     createNotification({
       userId: request.userId,
       type: 'new_request',
-      title: 'Yeu cau moi da duoc tao',
-      message: `Yeu cau muon ${request.equipmentName} cua ban dang cho duyet.`,
+      title: 'Yêu cầu mới đã được tạo',
+      message: `Yêu cầu mượn ${request.equipmentName} của bạn đang chờ duyệt.`,
+      targetRole: 'student',
+    });
+    // Also notify admin about the new request
+    createNotification({
+      userId: 0,
+      type: 'new_request',
+      title: 'Yêu cầu mượn mới',
+      message: `Sinh viên ${request.userFullName} đã gửi yêu cầu mượn ${request.equipmentName} (SL: ${request.quantity}).`,
+      targetRole: 'admin',
     });
 
     return apiSuccess(request, 'Tao yeu cau thanh cong');
@@ -122,8 +131,9 @@ export const borrowRequestService = {
       createNotification({
         userId: updated.userId,
         type: 'rejected',
-        title: 'Yeu cau da huy',
-        message: `Yeu cau muon ${updated.equipmentName} da duoc huy.`,
+        title: 'Yêu cầu đã hủy',
+        message: `Yêu cầu mượn ${updated.equipmentName} đã được hủy.`,
+        targetRole: 'student',
       });
     }
 
@@ -153,8 +163,9 @@ export const borrowRequestService = {
       createNotification({
         userId: updated.userId,
         type: 'approved',
-        title: 'Yeu cau da duoc duyet',
-        message: `Yeu cau muon ${updated.equipmentName} da duoc quan tri vien duyet.`,
+        title: 'Yêu cầu đã được duyệt',
+        message: `Yêu cầu mượn ${updated.equipmentName} đã được quản trị viên duyệt.`,
+        targetRole: 'student',
       });
     }
 
@@ -175,8 +186,9 @@ export const borrowRequestService = {
       createNotification({
         userId: updated.userId,
         type: 'rejected',
-        title: 'Yeu cau bi tu choi',
-        message: `Yeu cau muon ${updated.equipmentName} bi tu choi. Ly do: ${reason}`,
+        title: 'Yêu cầu bị từ chối',
+        message: `Yêu cầu mượn ${updated.equipmentName} bị từ chối. Lý do: ${reason}`,
+        targetRole: 'student',
       });
     }
 

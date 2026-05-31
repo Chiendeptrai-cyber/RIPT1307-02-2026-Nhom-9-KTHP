@@ -1,27 +1,31 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import {
-  Alert, Badge, Button, Card, Empty, List, message,
+  Badge, Button, Card, Empty, List, message,
   Skeleton, Tabs, Tag, Typography,
 } from 'antd';
-import { BellOutlined, CheckOutlined } from '@ant-design/icons';
+import {
+  BellOutlined, CheckOutlined, ExclamationCircleOutlined,
+  FileTextOutlined, SwapOutlined,
+} from '@ant-design/icons';
 import dayjs from 'dayjs';
-import { useNotifications } from '../../hooks/useNotifications';
-import { SLINK_COLORS } from '../../theme/tokens';
+import { useNotifications } from '../../../hooks/useNotifications';
+import { SLINK_COLORS } from '../../../theme/tokens';
 
 const { Title, Text } = Typography;
 
-const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
-  new_request:        { label: 'Yêu cầu mới',   color: 'blue' },
-  approved:           { label: 'Đã duyệt',       color: 'green' },
-  rejected:           { label: 'Từ chối',        color: 'red' },
-  checkout_confirmed: { label: 'Bàn giao',       color: 'purple' },
-  return_confirmed:   { label: 'Đã trả',         color: 'cyan' },
-  due_reminder:       { label: 'Nhắc nhở',       color: 'orange' },
-  overdue_alert:      { label: 'Quá hạn',        color: 'volcano' },
+/** Admin-facing notification type display config */
+const ADMIN_TYPE_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
+  new_request:        { label: 'Yêu cầu mới',       color: 'blue',    icon: <FileTextOutlined /> },
+  overdue_alert:      { label: 'Quá hạn',            color: 'volcano', icon: <ExclamationCircleOutlined /> },
+  return_confirmed:   { label: 'Đã trả',             color: 'green',   icon: <SwapOutlined /> },
+  checkout_confirmed: { label: 'Bàn giao',           color: 'purple',  icon: <SwapOutlined /> },
+  due_reminder:       { label: 'Nhắc nhở',           color: 'orange',  icon: <BellOutlined /> },
+  approved:           { label: 'Đã duyệt',           color: 'green',   icon: <CheckOutlined /> },
+  rejected:           { label: 'Từ chối',            color: 'red',     icon: <ExclamationCircleOutlined /> },
 };
 
-export default function NotificationsPage() {
-  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications('student');
+export default function AdminNotificationsPage() {
+  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications('admin');
   const [activeTab, setActiveTab] = useState('all');
 
   const displayed = activeTab === 'unread' ? items.filter((n) => !n.isRead) : items;
@@ -38,12 +42,12 @@ export default function NotificationsPage() {
             <BellOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />
             <div>
               <Title level={5} style={{ marginBottom: 0 }}>
-                Thông báo{' '}
+                Thông báo hệ thống{' '}
                 {unreadCount > 0 && (
                   <Badge count={unreadCount} style={{ marginLeft: 4 }} />
                 )}
               </Title>
-              <Text type="secondary" style={{ fontSize: 12 }}>Các thông báo liên quan đến yêu cầu mượn của bạn</Text>
+              <Text type="secondary" style={{ fontSize: 12 }}>Thông báo dành cho quản trị viên</Text>
             </div>
           </div>
           {unreadCount > 0 && (
@@ -87,7 +91,7 @@ export default function NotificationsPage() {
           <List
             dataSource={displayed}
             renderItem={(notif) => {
-              const cfg = TYPE_CONFIG[notif.type] ?? { label: notif.type, color: 'default' };
+              const cfg = ADMIN_TYPE_CONFIG[notif.type] ?? { label: notif.type, color: 'default', icon: <BellOutlined /> };
               return (
                 <List.Item
                   onClick={() => !notif.isRead && markRead(notif.id)}
@@ -115,7 +119,7 @@ export default function NotificationsPage() {
                     avatar={
                       <div style={{ position: 'relative' }}>
                         <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                          <BellOutlined style={{ color: SLINK_COLORS.primary }} />
+                          <span style={{ color: SLINK_COLORS.primary, fontSize: 16 }}>{cfg.icon}</span>
                         </div>
                         {!notif.isRead && (
                           <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: SLINK_COLORS.primary }} />

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { notificationService, type Notification } from '../services/notification.service';
 
-export function useNotifications() {
+export function useNotifications(targetRole?: 'student' | 'admin') {
   const [items, setItems] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -9,7 +9,7 @@ export function useNotifications() {
   const fetch = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await notificationService.list({ pageSize: 50 });
+      const res = await notificationService.list({ pageSize: 50, targetRole });
       if (res.success && res.data) {
         setItems(res.data.items);
         setUnreadCount(res.data.unreadCount ?? 0);
@@ -19,7 +19,7 @@ export function useNotifications() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [targetRole]);
 
   useEffect(() => { fetch(); }, [fetch]);
 
@@ -30,7 +30,7 @@ export function useNotifications() {
   };
 
   const markAllRead = async () => {
-    await notificationService.markAllRead();
+    await notificationService.markAllRead(targetRole);
     setItems((prev) => prev.map((n) => ({ ...n, isRead: true })));
     setUnreadCount(0);
   };

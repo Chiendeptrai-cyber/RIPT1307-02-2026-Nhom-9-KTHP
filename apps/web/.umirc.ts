@@ -54,6 +54,7 @@ export default defineConfig({
         { path: 'equipment', component: 'admin/equipment/index' },
         { path: 'users', component: 'admin/users/index' },
         { path: 'reports', component: 'admin/reports/index' },
+        { path: 'notifications', component: 'admin/notifications/index' },
         { path: 'profile', component: 'admin/profile/index' },
       ],
     },

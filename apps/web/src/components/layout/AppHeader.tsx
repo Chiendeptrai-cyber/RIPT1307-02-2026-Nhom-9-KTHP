@@ -72,7 +72,7 @@ export default function AppHeader({ title }: Props) {
         <Badge count={0} showZero={false}>
           <div
             className="slink-icon-btn"
-            onClick={() => navigate('/notifications')}
+            onClick={() => navigate(user?.role === 'admin' ? '/admin/notifications' : '/notifications')}
           >
             <BellOutlined style={{ fontSize: 16, color: SLINK_COLORS.textSecondary }} />
           </div>
