@@ -11,6 +11,7 @@ router.use(authenticate);
 
 // Get current user profile (any authenticated user)
 router.get('/me', getProfile);
+router.patch('/:id', authorize(UserRole.ADMIN), updateUser);
 
 // Update profile (any authenticated user)
 router.patch('/me', updateProfile);

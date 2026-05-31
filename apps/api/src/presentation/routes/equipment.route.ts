@@ -18,6 +18,9 @@ router.get('/', listEquipment);
 router.get('/categories', listCategories);
 router.post('/categories', authenticate, authorize(UserRole.ADMIN), createCategory);
 router.get('/:id', getEquipmentDetail);
+router.post('/', authenticate, authorize(UserRole.ADMIN), createEquipment);
+router.patch('/:id', authenticate, authorize(UserRole.ADMIN), updateEquipment);
+router.delete('/:id', authenticate, authorize(UserRole.ADMIN), deleteEquipment);
 
 // Admin only routes
 router.post('/', authenticate, authorize(UserRole.ADMIN), createEquipment);

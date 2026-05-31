@@ -67,7 +67,6 @@ export default function LoginPage() {
 
   return (
     <Space direction="vertical" size={0} style={{ width: '100%' }}>
-      {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: 32 }}>
         <div
           style={{

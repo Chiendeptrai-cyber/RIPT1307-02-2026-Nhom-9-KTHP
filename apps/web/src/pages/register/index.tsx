@@ -1,13 +1,21 @@
+<<<<<<< HEAD
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { Alert, Button, Divider, Form, Input, Space, Typography, message } from 'antd';
 import { useState } from 'react';
 import { useNavigate } from '@umijs/max';
 import { SLINK_COLORS } from '../../theme/tokens';
 import { register } from '../../services/auth.service';
+=======
+import { Button, Form, Input, message, Typography } from 'antd';
+import { useState } from 'react';
+import { register } from '../../services/auth.service';
+import { extractApiError } from '../../utils/error';
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
 
 const { Title, Text, Link } = Typography;
 
 export default function RegisterPage() {
+<<<<<<< HEAD
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,10 +31,18 @@ export default function RegisterPage() {
 
     try {
       // Gọi POST /auth/register
+=======
+  const [loading, setLoading] = useState(false);
+
+  const onFinish = async (values: { fullName: string; email: string; password: string }) => {
+    setLoading(true);
+    try {
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
       const res = await register(values.fullName, values.email, values.password);
       if (!res.success) {
         throw new Error(res.message ?? 'Đăng ký thất bại');
       }
+<<<<<<< HEAD
 
       message.success('Đăng ký thành công! Hãy đăng nhập để tiếp tục.');
       // Chuyển sang trang login sau 1 giây (dùng navigate thay vì reload trang)
@@ -48,12 +64,19 @@ export default function RegisterPage() {
         msg = err.message;
       }
       setError(msg);
+=======
+      message.success('Đăng ký thành công! Vui lòng đăng nhập.');
+      window.location.href = '/login';
+    } catch (err) {
+      message.error(extractApiError(err, 'Đăng ký thất bại'));
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
     } finally {
       setLoading(false);
     }
   };
 
   return (
+<<<<<<< HEAD
     <Space direction="vertical" size={0} style={{ width: '100%' }}>
       {/* Header */}
       <div style={{ textAlign: 'center', marginBottom: 32 }}>
@@ -169,6 +192,36 @@ export default function RegisterPage() {
               boxShadow: '0 4px 12px rgba(191, 4, 4, 0.3)',
             }}
           >
+=======
+    <div>
+      <Title level={3}>Đăng ký</Title>
+      <Form name="register" onFinish={onFinish} layout="vertical">
+        <Form.Item name="fullName" label="Họ tên" rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="email"
+          label="Email"
+          rules={[
+            { required: true, message: 'Vui lòng nhập email' },
+            { type: 'email', message: 'Email không hợp lệ' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          label="Mật khẩu"
+          rules={[
+            { required: true, message: 'Vui lòng nhập mật khẩu' },
+            { min: 8, message: 'Mật khẩu tối thiểu 8 ký tự' },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" loading={loading}>
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
             Đăng ký
           </Button>
         </Form.Item>

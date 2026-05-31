@@ -8,6 +8,8 @@ import {
   createCategoryUseCase,
   equipmentRepo,
 } from '../../infrastructure/container';
+import { NotFoundError } from '../../domain/errors/not-found.error';
+import { EquipmentStatus } from '@equipment-mgmt/shared';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export async function listCategories(req: Request, res: Response): Promise<void> {

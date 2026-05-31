@@ -457,12 +457,12 @@ export default function ProfilePage() {
                                 label="Mật khẩu mới"
                                 rules={[
                                     { required: true, message: 'Vui lòng nhập mật khẩu mới' },
-                                    { min: 6, message: 'Mật khẩu ít nhất 6 ký tự' },
+                                    { min: 8, message: 'Mật khẩu ít nhất 8 ký tự' },
                                 ]}
                             >
                                 <Input.Password
                                     prefix={<LockOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
-                                    placeholder="Tối thiểu 6 ký tự"
+                                    placeholder="Tối thiểu 8 ký tự"
                                 />
                             </Form.Item>
                             <Form.Item

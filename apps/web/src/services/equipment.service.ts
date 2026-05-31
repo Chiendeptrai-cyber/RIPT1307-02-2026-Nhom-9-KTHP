@@ -1,15 +1,27 @@
 import { http } from './http';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
+<<<<<<< HEAD
+=======
+import { http } from './http';
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
 
 export interface Equipment {
   id: number;
   name: string;
   categoryId: number;
+<<<<<<< HEAD
   categoryName?: string;
+=======
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
   totalQuantity: number;
   availableQuantity: number;
   status: string;
   description?: string;
+<<<<<<< HEAD
+=======
+  createdAt?: string;
+  updatedAt?: string;
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
 }
 
 export const equipmentService = {
@@ -20,6 +32,7 @@ export const equipmentService = {
     categoryId?: number;
     status?: string;
   }): Promise<ApiResponse<PaginatedResponse<Equipment>>> {
+<<<<<<< HEAD
     const res = await http.get<ApiResponse<PaginatedResponse<Equipment>>>('/equipment', {
       params: {
         page: params?.page ?? 1,
@@ -45,6 +58,15 @@ export const equipmentService = {
   async getDetail(id: number): Promise<ApiResponse<Equipment>> {
     const res = await http.get<ApiResponse<Equipment>>(`/equipment/${id}`);
     return res.data;
+=======
+    const response = await http.get<ApiResponse<PaginatedResponse<Equipment>>>('/equipment', { params });
+    return response.data;
+  },
+
+  async getDetail(id: number): Promise<ApiResponse<Equipment>> {
+    const response = await http.get<ApiResponse<Equipment>>(`/equipment/${id}`);
+    return response.data;
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
   },
 
   async create(payload: {
@@ -54,8 +76,13 @@ export const equipmentService = {
     categoryId?: number;
     description?: string;
   }): Promise<ApiResponse<Equipment>> {
+<<<<<<< HEAD
     const res = await http.post<ApiResponse<Equipment>>('/equipment', payload);
     return res.data;
+=======
+    const response = await http.post<ApiResponse<Equipment>>('/equipment', payload);
+    return response.data;
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
   },
 
   async update(id: number, payload: {
@@ -65,6 +92,7 @@ export const equipmentService = {
     categoryId?: number;
     description?: string;
   }): Promise<ApiResponse<Equipment>> {
+<<<<<<< HEAD
     const res = await http.patch<ApiResponse<Equipment>>(`/equipment/${id}`, payload);
     return res.data;
   },
@@ -72,5 +100,14 @@ export const equipmentService = {
   async remove(id: number): Promise<ApiResponse<{ id: number }>> {
     const res = await http.delete<ApiResponse<{ id: number }>>(`/equipment/${id}`);
     return res.data;
+=======
+    const response = await http.patch<ApiResponse<Equipment>>(`/equipment/${id}`, payload);
+    return response.data;
+  },
+
+  async remove(id: number): Promise<ApiResponse<{ id: number }>> {
+    const response = await http.delete<ApiResponse<{ id: number }>>(`/equipment/${id}`);
+    return response.data;
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
   },
 };

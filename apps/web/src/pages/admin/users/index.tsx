@@ -26,19 +26,13 @@ import {
   UnlockOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import {
-  OFFLINE_STORAGE_KEYS,
-  nextId,
-  paginate,
-  readCollection,
-  writeCollection,
-  type MockUser,
-} from '../../../mocks/offlineStorage';
+import { userService, type User } from '../../../services/user.service';
+import { extractApiError } from '../../../utils/error';
 import { SLINK_COLORS } from '../../../theme/tokens';
 
 const { Title, Text } = Typography;
 
-type UserRow = MockUser;
+type UserRow = User;
 
 interface UserFormValues {
   fullName: string;
@@ -54,14 +48,13 @@ const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   locked: { label: 'Bị khóa', color: 'red' },
 };
 
-function readUsers() {
-  return readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users)
-    .filter((user) => user.role === 'student')
-    .sort((a, b) => a.id - b.id);
-}
-
-function writeUsers(users: UserRow[]) {
-  writeCollection(OFFLINE_STORAGE_KEYS.users, users);
+function paginateLocal<T>(items: T[], page: number, pageSize: number) {
+  const start = (page - 1) * pageSize;
+  return {
+    items: items.slice(start, start + pageSize),
+    total: items.length,
+    page,
+  };
 }
 
 export default function AdminUsersPage() {
@@ -76,24 +69,26 @@ export default function AdminUsersPage() {
   const [editRecord, setEditRecord] = useState<UserRow | null>(null);
   const [form] = Form.useForm<UserFormValues>();
 
-  const load = useCallback((nextPage = 1) => {
+  const load = useCallback(async (nextPage = 1) => {
     setLoading(true);
     setError(null);
     try {
+      const res = await userService.list({ page: 1, pageSize: 1000, role: 'student' });
+      const allUsers = (res.data?.items ?? []).sort((a, b) => a.id - b.id);
       const keyword = search.trim().toLowerCase();
-      const users = readUsers().filter((user) => {
+      const filtered = allUsers.filter((user) => {
         const matchesSearch = !keyword
           || user.fullName.toLowerCase().includes(keyword)
           || user.email.toLowerCase().includes(keyword);
         const matchesStatus = !status || user.status === status;
         return matchesSearch && matchesStatus;
       });
-      const paged = paginate(users, nextPage, PAGE_SIZE);
+      const paged = paginateLocal(filtered, nextPage, PAGE_SIZE);
       setItems(paged.items);
       setTotal(paged.total);
       setPage(paged.page);
-    } catch (err: any) {
-      setError(err?.message ?? 'Không thể tải danh sách sinh viên');
+    } catch (err) {
+      setError(extractApiError(err, 'Không thể tải danh sách sinh viên'));
     } finally {
       setLoading(false);
     }
@@ -104,10 +99,7 @@ export default function AdminUsersPage() {
   }, [load]);
 
   const openCreate = () => {
-    setEditRecord(null);
-    form.resetFields();
-    form.setFieldValue('status', 'active');
-    setModalOpen(true);
+    message.info('Sinh viên tự đăng ký tài khoản qua trang Đăng ký');
   };
 
   const openEdit = (record: UserRow) => {
@@ -120,64 +112,37 @@ export default function AdminUsersPage() {
     setModalOpen(true);
   };
 
-  const handleSubmit = (values: UserFormValues) => {
-    const users = readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users);
-    const email = values.email.trim().toLowerCase();
-    const duplicate = users.some((user) => user.email.toLowerCase() === email && user.id !== editRecord?.id);
+  const handleSubmit = async (values: UserFormValues) => {
+    if (!editRecord) return;
 
-    if (duplicate) {
-      message.error('Email sinh viên đã tồn tại');
-      return;
-    }
-
-    if (editRecord) {
-      writeUsers(users.map((user) => (
-        user.id === editRecord.id
-          ? { ...user, ...values, email }
-          : user
-      )));
+    try {
+      const email = values.email.trim().toLowerCase();
+      await userService.update(editRecord.id, {
+        fullName: values.fullName,
+        email,
+        status: values.status,
+      });
       message.success('Cập nhật sinh viên thành công');
-    } else {
-      writeUsers([
-        ...users,
-        {
-          id: nextId(users),
-          fullName: values.fullName,
-          email,
-          role: 'student',
-          status: values.status,
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-      message.success('Thêm sinh viên thành công');
+      setModalOpen(false);
+      load(page);
+    } catch (err) {
+      message.error(extractApiError(err, 'Không thể cập nhật sinh viên'));
     }
-
-    setModalOpen(false);
-    load(page);
   };
 
-  const handleToggleLock = (user: UserRow) => {
+  const handleToggleLock = async (user: UserRow) => {
     const nextStatus = user.status === 'locked' ? 'active' : 'locked';
-    writeUsers(readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users).map((item) => (
-      item.id === user.id ? { ...item, status: nextStatus } : item
-    )));
-    message.success(nextStatus === 'locked' ? 'Đã khóa tài khoản' : 'Đã mở khóa tài khoản');
-    load(page);
+    try {
+      await userService.update(user.id, { status: nextStatus });
+      message.success(nextStatus === 'locked' ? 'Đã khóa tài khoản' : 'Đã mở khóa tài khoản');
+      load(page);
+    } catch (err) {
+      message.error(extractApiError(err, 'Không thể cập nhật trạng thái tài khoản'));
+    }
   };
 
-  const handleDelete = (user: UserRow) => {
-    Modal.confirm({
-      title: 'Xóa sinh viên',
-      content: `Bạn có chắc chắn muốn xóa "${user.fullName}"?`,
-      okText: 'Xóa',
-      okButtonProps: { danger: true },
-      cancelText: 'Hủy',
-      onOk: () => {
-        writeUsers(readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users).filter((item) => item.id !== user.id));
-        message.success('Xóa sinh viên thành công');
-        load(page);
-      },
-    });
+  const handleDelete = () => {
+    message.warning('Chức năng xóa sinh viên chưa được hỗ trợ trên server');
   };
 
   const columns: ColumnsType<UserRow> = [
@@ -232,7 +197,7 @@ export default function AdminUsersPage() {
             size="small"
             danger
             icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record)}
+            onClick={() => handleDelete()}
             style={{ borderRadius: 4 }}
           >
             Xóa

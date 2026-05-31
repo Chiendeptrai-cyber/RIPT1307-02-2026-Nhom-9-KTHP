@@ -1,6 +1,5 @@
 import { Outlet, useNavigate } from '@umijs/max';
 import { Layout } from 'antd';
-import { useEffect } from 'react';
 import AppHeader from '@/components/layout/AppHeader';
 import AppSidebar from '@/components/layout/AppSidebar';
 import { studentMenuItems } from '@/config/menu.config';

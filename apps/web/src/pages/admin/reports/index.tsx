@@ -330,6 +330,7 @@ export default function AdminReportsPage() {
   const handleExport = async () => {
     setExporting(true);
     try {
+<<<<<<< HEAD
       await reportService.exportRequestsCSV({
         from: filterRange?.[0]?.toISOString(),
         to: filterRange?.[1]?.endOf('day')?.toISOString(),
@@ -338,6 +339,9 @@ export default function AdminReportsPage() {
     } catch (error) {
       console.error(error);
       message.error('Không thể xuất báo cáo, vui lòng thử lại');
+=======
+      await reportService.exportRequestsCSV();
+>>>>>>> ef361b6 (fix: ket noi thanh cong API)
     } finally {
       setExporting(false);
     }

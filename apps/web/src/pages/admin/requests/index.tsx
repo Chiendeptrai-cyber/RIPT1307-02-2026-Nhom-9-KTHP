@@ -10,6 +10,7 @@ import {
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
+import { extractApiError } from '../../../utils/error';
 import { SLINK_COLORS } from '../../../theme/tokens';
 
 const { Title, Text } = Typography;
