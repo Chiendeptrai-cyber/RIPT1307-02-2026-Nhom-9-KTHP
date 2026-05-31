@@ -1,6 +1,6 @@
 import type { Pool } from 'pg';
 import type { IEquipmentRepository } from '../../../domain/repositories/equipment.repository';
-import type { EquipmentEntity } from '../../../domain/entities/equipment.entity';
+import type { EquipmentEntity, EquipmentDetailEntity, EquipmentInstanceEntity } from '../../../domain/entities/equipment.entity';
 
 export class PgEquipmentRepository implements IEquipmentRepository {
   constructor(private readonly pool: Pool) {}
@@ -19,6 +19,25 @@ export class PgEquipmentRepository implements IEquipmentRepository {
       [id],
     );
     return result.rows[0] ?? null;
+  }
+
+  async getDetailById(id: number): Promise<EquipmentDetailEntity | null> {
+    const equipment = await this.findById(id);
+    if (!equipment) return null;
+
+    const instancesResult = await this.pool.query<EquipmentInstanceEntity>(
+      `SELECT id, equipment_id AS "equipmentId", serial_number AS "serialNumber",
+              condition, created_at AS "createdAt", updated_at AS "updatedAt"
+       FROM equipment_instances
+       WHERE equipment_id = $1
+       ORDER BY id ASC`,
+      [id],
+    );
+
+    return {
+      ...equipment,
+      instances: instancesResult.rows,
+    };
   }
 
   async list(

@@ -12,6 +12,4 @@ export interface IEquipmentRepository {
   countAll(): Promise<number>;
   decrementAvailable(id: number, amount: number): Promise<void>;
   incrementAvailable(id: number, amount: number): Promise<void>;
-  listCategories(): Promise<{ id: number; name: string; description?: string }[]>;
-  createCategory(name: string, description?: string): Promise<{ id: number; name: string; description?: string }>;
 }

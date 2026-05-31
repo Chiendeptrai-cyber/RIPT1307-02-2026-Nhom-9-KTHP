@@ -132,6 +132,14 @@ export default function EquipmentDetailPage() {
           )}
         </Descriptions>
 
+        <Alert
+          style={{ marginTop: 24 }}
+          type="info"
+          showIcon
+          message="Nhiệm vụ"
+          description="Phụ trách phát triển backend cho feature và tích hợp frontend với API tương ứng."
+        />
+
         {/* Action */}
         <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>
           <Button

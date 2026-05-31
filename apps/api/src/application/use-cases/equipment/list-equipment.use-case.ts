@@ -1,5 +1,6 @@
 import type { IEquipmentRepository } from '../../../domain/repositories/equipment.repository';
 import { BUSINESS } from '@equipment-mgmt/shared';
+import type { EquipmentEntity } from '../../../domain/entities/equipment.entity';
 
 export class ListEquipmentUseCase {
   constructor(private readonly equipmentRepo: IEquipmentRepository) {}
@@ -10,7 +11,7 @@ export class ListEquipmentUseCase {
     search?: string;
     categoryId?: number;
     status?: string;
-  }) {
+  }): Promise<{ items: EquipmentEntity[]; total: number }> {
     const page = params.page ?? 1;
     const pageSize = Math.min(params.pageSize ?? BUSINESS.EQUIPMENT_PAGE_SIZE, 100);
 
