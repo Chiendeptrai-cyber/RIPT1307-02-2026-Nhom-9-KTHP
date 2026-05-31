@@ -35,9 +35,9 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     data: Omit<BorrowRequestEntity, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<BorrowRequestEntity> {
     const result = await this.pool.query<BorrowRequestEntity>(
-      `INSERT INTO borrow_requests (user_id, status, expected_return_date, note)
-       VALUES ($1, $2, $3, $4)
-       RETURNING id, user_id AS "userId", status,
+      `INSERT INTO borrow_requests (user_id, equipment_id, quantity, status, expected_return_date, note)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, user_id AS "userId", equipment_id AS "equipmentId", quantity, status,
                  expected_return_date AS "expectedReturnDate",
                  note, created_at AS "createdAt", updated_at AS "updatedAt",
                  FORMAT('PH-%s-%s', TO_CHAR(created_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'YYYYMMDD'), LPAD(id::TEXT, 5, '0')) AS "displayCode"`,
@@ -81,7 +81,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
 
     const result = await this.pool.query<BorrowRequestEntity>(
       `UPDATE borrow_requests SET ${sets.join(', ')} WHERE id = $${idx}
-       RETURNING id, user_id AS "userId", status,
+       RETURNING id, user_id AS "userId", equipment_id AS "equipmentId", quantity, status,
                  expected_return_date AS "expectedReturnDate",
                  note, approved_at AS "approvedAt", borrowed_at AS "borrowedAt",
                  returned_at AS "returnedAt", borrow_start_date AS "borrowStartDate",
@@ -147,6 +147,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
       `SELECT COUNT(*) AS total
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
+       LEFT JOIN equipment e ON e.id = br.equipment_id
        ${where}`,
       values,
     );

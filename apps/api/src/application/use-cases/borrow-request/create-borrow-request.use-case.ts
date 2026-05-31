@@ -50,10 +50,12 @@ export class CreateBorrowRequestUseCase {
     // 3. Tạo borrow request
     const request = await this.borrowRequestRepo.create({
       userId: data.userId,
+      equipmentId: data.equipmentId,
+      quantity: data.quantity,
       status: BorrowRequestStatus.PENDING,
       expectedReturnDate: data.expectedReturnDate,
       note: data.note,
-    } as any);
+    });
 
     // 3b. Lưu thiết bị và số lượng vào borrow_request_items
     await this.borrowRequestRepo.createItem({

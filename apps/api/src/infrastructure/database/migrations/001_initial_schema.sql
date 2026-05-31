@@ -68,18 +68,13 @@ CREATE TABLE equipment_instances (
 CREATE TABLE borrow_requests (
   id SERIAL PRIMARY KEY,
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  equipment_id INT NOT NULL REFERENCES equipment(id) ON DELETE RESTRICT,
+  quantity INT NOT NULL DEFAULT 1,
   status borrow_request_status NOT NULL DEFAULT 'pending',
   expected_return_date TIMESTAMP WITH TIME ZONE NOT NULL,
   note TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
-);
-
-CREATE TABLE borrow_request_items (
-  id SERIAL PRIMARY KEY,
-  borrow_request_id INT NOT NULL REFERENCES borrow_requests(id) ON DELETE CASCADE,
-  equipment_id INT NOT NULL REFERENCES equipment(id) ON DELETE RESTRICT,
-  quantity INT NOT NULL
 );
 
 CREATE TABLE borrow_records (
