@@ -5,4 +5,5 @@ export interface IBorrowRequestRepository {
   create(data: Omit<BorrowRequestEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<BorrowRequestEntity>;
   update(id: number, data: Partial<BorrowRequestEntity>): Promise<BorrowRequestEntity>;
   listByUser(userId: number, page: number, pageSize: number): Promise<{ items: BorrowRequestEntity[]; total: number }>;
+  countByStatus(status: string): Promise<number>;
 }

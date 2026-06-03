@@ -105,4 +105,11 @@ export class PgUserRepository implements IUserRepository {
 
     return { items: result.rows, total };
   }
+
+  async countAll(): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total FROM users`,
+    );
+    return Number(result.rows[0].total);
+  }
 }

@@ -2,7 +2,9 @@ import { getPool } from './database/connection';
 import { PgUserRepository }           from './database/repositories/pg-user.repository';
 import { PgEquipmentRepository }      from './database/repositories/pg-equipment.repository';
 import { PgBorrowRequestRepository }  from './database/repositories/pg-borrow-request.repository';
+import { PgBorrowRecordRepository }   from './database/repositories/pg-borrow-record.repository';
 import { PgNotificationRepository }   from './database/repositories/pg-notification.repository';
+import { PgViolationRepository }      from './database/repositories/pg-violation.repository';
 import { JwtTokenService }            from './services/jwt-token.service';
 
 import { LoginUseCase }                  from '../application/use-cases/auth/login.use-case';
@@ -18,6 +20,8 @@ import { MarkNotificationReadUseCase }   from '../application/use-cases/notifica
 import { ListUsersUseCase }              from '../application/use-cases/user/list-users.use-case';
 import { LockUserUseCase }               from '../application/use-cases/user/lock-user.use-case';
 import { GetUserProfileUseCase }         from '../application/use-cases/user/get-user-profile.use-case';
+import { GetDashboardStatsUseCase }      from '../application/use-cases/report/get-dashboard-stats.use-case';
+import { ExportReportUseCase }           from '../application/use-cases/report/export-report.use-case';
 
 const pool = getPool();
 
@@ -25,7 +29,9 @@ const pool = getPool();
 const userRepo           = new PgUserRepository(pool);
 const equipmentRepo      = new PgEquipmentRepository(pool);
 const borrowRequestRepo  = new PgBorrowRequestRepository(pool);
+const borrowRecordRepo   = new PgBorrowRecordRepository(pool);
 const notificationRepo   = new PgNotificationRepository(pool);
+const violationRepo      = new PgViolationRepository(pool);
 
 // Services
 const tokenService = new JwtTokenService();
@@ -52,6 +58,16 @@ export const markNotificationReadUseCase = new MarkNotificationReadUseCase(notif
 export const listUsersUseCase     = new ListUsersUseCase(userRepo);
 export const lockUserUseCase      = new LockUserUseCase(userRepo);
 export const getUserProfileUseCase = new GetUserProfileUseCase(userRepo);
+
+// Report use cases
+export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(
+  borrowRequestRepo,
+  borrowRecordRepo,
+  userRepo,
+  equipmentRepo,
+  violationRepo,
+);
+export const exportReportUseCase = new ExportReportUseCase(borrowRecordRepo);
 
 // Expose repos for controllers that need direct listAll
 export { borrowRequestRepo, userRepo, equipmentRepo };

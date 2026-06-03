@@ -6,7 +6,7 @@ export class MarkNotificationReadUseCase {
 
   async execute(id: number | 'all', userId: number) {
     if (id === 'all') {
-      await (this.notificationRepo as any).markAllRead(userId);
+      await this.notificationRepo.markAllRead(userId);
       return { success: true };
     }
 

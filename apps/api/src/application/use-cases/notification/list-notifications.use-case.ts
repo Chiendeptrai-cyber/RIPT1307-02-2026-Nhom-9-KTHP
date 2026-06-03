@@ -5,7 +5,7 @@ export class ListNotificationsUseCase {
 
   async execute(userId: number, page = 1, pageSize = 20) {
     const result = await this.notificationRepo.listByUser(userId, page, pageSize);
-    const unreadCount = await (this.notificationRepo as any).countUnread(userId);
+    const unreadCount = await this.notificationRepo.countUnread(userId);
     return { ...result, unreadCount };
   }
 }

@@ -128,4 +128,12 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
 
     return { items: result.rows, total };
   }
+
+  async countByStatus(status: string): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total FROM borrow_requests WHERE status = $1`,
+      [status],
+    );
+    return Number(result.rows[0].total);
+  }
 }

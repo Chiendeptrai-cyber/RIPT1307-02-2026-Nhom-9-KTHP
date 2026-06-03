@@ -4,4 +4,7 @@ export interface IBorrowRecordRepository {
   findById(id: number): Promise<BorrowRecordEntity | null>;
   create(data: Omit<BorrowRecordEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<BorrowRecordEntity>;
   update(id: number, data: Partial<BorrowRecordEntity>): Promise<BorrowRecordEntity>;
+  countAll(): Promise<number>;
+  countOverdue(): Promise<number>;
+  listByDateRange(from?: string, to?: string): Promise<BorrowRecordEntity[]>;
 }

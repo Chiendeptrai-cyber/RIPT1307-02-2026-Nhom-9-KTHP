@@ -1,3 +1,4 @@
+import { http } from './http';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 import {
   OFFLINE_STORAGE_KEYS,
@@ -204,40 +205,28 @@ export const reportService = {
     );
   },
 
-  /** Xuất CSV từ dữ liệu yêu cầu */
-  exportRequestsCSV(): void {
-    const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);
-    const sorted = [...requests].sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+  async exportRequestsCSV(options?: { from?: string; to?: string }): Promise<void> {
+    const response = await http.get<ApiResponse<{ csv: string; fileName: string }>>('/reports/export', {
+      params: {
+        from: options?.from,
+        to: options?.to,
+      },
+    });
 
-    const headers = ['ID', 'Sinh viên', 'Email', 'Thiết bị', 'Số lượng', 'Trạng thái', 'Ngày gửi', 'Hạn trả', 'Ghi chú'];
-    const statusLabel: Record<string, string> = {
-      pending: 'Chờ duyệt', approved: 'Đã duyệt', borrowing: 'Đang mượn',
-      returned: 'Đã trả', rejected: 'Từ chối', cancelled: 'Đã hủy', overdue: 'Quá hạn',
-    };
+    if (!response.data.success || !response.data.data) {
+      throw new Error(response.data.message || 'Không thể xuất báo cáo');
+    }
 
-    const rows = sorted.map((r) => [
-      r.id,
-      r.userFullName ?? '',
-      r.userEmail ?? '',
-      r.equipmentName ?? '',
-      r.quantity,
-      statusLabel[r.status] ?? r.status,
-      new Date(r.createdAt).toLocaleDateString('vi-VN'),
-      r.expectedReturnDate,
-      r.note ?? '',
-    ]);
-
-    const csvContent = [headers, ...rows]
-      .map((row) => row.map((cell) => `"${String(cell).replace(/"/g, '""')}"`).join(','))
-      .join('\n');
-
-    const bom = '\uFEFF'; // UTF-8 BOM for Excel
-    const blob = new Blob([bom + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const { csv, fileName } = response.data.data;
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `bao-cao-muon-thiet-bi-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.download = fileName;
+    document.body.appendChild(link);
     link.click();
+    link.remove();
     URL.revokeObjectURL(url);
   },
 };

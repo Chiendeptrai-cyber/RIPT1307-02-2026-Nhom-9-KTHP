@@ -13,6 +13,7 @@ import {
   Card,
   Col,
   DatePicker,
+  message,
   Progress,
   Row,
   Select,
@@ -326,10 +327,20 @@ export default function AdminReportsPage() {
     load();
   }, [load]);
 
-  const handleExport = () => {
+  const handleExport = async () => {
     setExporting(true);
-    try { reportService.exportRequestsCSV(); }
-    finally { setTimeout(() => setExporting(false), 800); }
+    try {
+      await reportService.exportRequestsCSV({
+        from: filterRange?.[0]?.toISOString(),
+        to: filterRange?.[1]?.endOf('day')?.toISOString(),
+      });
+      message.success('Đã xuất báo cáo thành công');
+    } catch (error) {
+      console.error(error);
+      message.error('Không thể xuất báo cáo, vui lòng thử lại');
+    } finally {
+      setExporting(false);
+    }
   };
 
   // ── Shared table props ──────────────────────────────────────────────────
