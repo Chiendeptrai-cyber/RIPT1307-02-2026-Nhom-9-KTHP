@@ -1,22 +1,14 @@
+import { http } from './http';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
-import {
-  OFFLINE_STORAGE_KEYS,
-  apiSuccess,
-  paginate,
-  readCollection,
-  writeCollection,
-  type MockNotification,
-} from '../mocks/offlineStorage';
 
-export type Notification = MockNotification;
-
-function getNotifications() {
-  return readCollection<Notification>(OFFLINE_STORAGE_KEYS.notifications)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-}
-
-function saveNotifications(items: Notification[]) {
-  writeCollection(OFFLINE_STORAGE_KEYS.notifications, items);
+export interface Notification {
+  id: number;
+  userId: number;
+  type: string;
+  title: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
 }
 
 export const notificationService = {
@@ -24,29 +16,17 @@ export const notificationService = {
     page?: number;
     pageSize?: number;
   }): Promise<ApiResponse<PaginatedResponse<Notification> & { unreadCount: number }>> {
-    const items = getNotifications();
-    const paged = paginate(items, params?.page ?? 1, params?.pageSize ?? 50);
-
-    return apiSuccess({
-      ...paged,
-      unreadCount: items.filter((item) => !item.isRead).length,
-    });
+    const response = await http.get('/notifications', { params });
+    return response.data;
   },
 
   async markRead(id: number): Promise<ApiResponse<Notification>> {
-    let updated: Notification | null = null;
-    const items = getNotifications().map((item) => {
-      if (item.id !== id) return item;
-      updated = { ...item, isRead: true };
-      return updated;
-    });
-
-    saveNotifications(items);
-    return apiSuccess(updated, updated ? 'Danh dau da doc thanh cong' : 'Khong tim thay thong bao') as ApiResponse<Notification>;
+    const response = await http.patch(`/notifications/${id}/read`);
+    return response.data;
   },
 
   async markAllRead(): Promise<ApiResponse<{ success: boolean }>> {
-    saveNotifications(getNotifications().map((item) => ({ ...item, isRead: true })));
-    return apiSuccess({ success: true }, 'Danh dau tat ca da doc thanh cong');
+    const response = await http.patch('/notifications/read-all');
+    return response.data;
   },
 };
