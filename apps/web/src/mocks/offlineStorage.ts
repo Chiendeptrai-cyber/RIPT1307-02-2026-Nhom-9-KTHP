@@ -34,6 +34,8 @@ export interface MockNotification {
   message: string;
   isRead: boolean;
   createdAt: string;
+  /** 'student' = shown to the student who owns it; 'admin' = shown to admins */
+  targetRole: 'student' | 'admin';
 }
 
 export interface MockUser {
@@ -165,41 +167,87 @@ const seedBorrowRequests: MockBorrowRequest[] = [
 ];
 
 const seedNotifications: MockNotification[] = [
+  // ── Student notifications ──
   {
     id: 1,
     userId: 1,
     type: 'new_request',
-    title: 'Yeu cau moi da duoc tao',
-    message: 'Yeu cau muon May chieu Epson EB-X41 cua ban dang cho duyet.',
+    title: 'Yêu cầu mới đã được tạo',
+    message: 'Yêu cầu mượn Máy chiếu Epson EB-X41 của bạn đang chờ duyệt.',
     isRead: false,
     createdAt: isoDaysAgo(1),
+    targetRole: 'student',
   },
   {
     id: 2,
     userId: 1,
     type: 'approved',
-    title: 'Yeu cau da duoc duyet',
-    message: 'Yeu cau muon Laptop Dell Latitude 5420 da duoc quan tri vien duyet.',
+    title: 'Yêu cầu đã được duyệt',
+    message: 'Yêu cầu mượn Laptop Dell Latitude 5420 đã được quản trị viên duyệt.',
     isRead: false,
     createdAt: isoDaysAgo(2),
+    targetRole: 'student',
   },
   {
     id: 3,
     userId: 1,
     type: 'due_reminder',
-    title: 'Sap den han tra thiet bi',
-    message: 'Vui long kiem tra lai lich tra thiet bi trong lich su yeu cau.',
+    title: 'Sắp đến hạn trả thiết bị',
+    message: 'Vui lòng kiểm tra lại lịch trả thiết bị trong lịch sử yêu cầu.',
     isRead: true,
     createdAt: isoDaysAgo(6),
+    targetRole: 'student',
   },
   {
     id: 4,
     userId: 2,
     type: 'checkout_confirmed',
-    title: 'Da ban giao thiet bi',
-    message: 'Micro khong day Shure BLX24 da duoc ban giao thanh cong.',
+    title: 'Đã bàn giao thiết bị',
+    message: 'Micro không dây Shure BLX24 đã được bàn giao thành công.',
     isRead: false,
     createdAt: isoDaysAgo(3),
+    targetRole: 'student',
+  },
+  // ── Admin notifications ──
+  {
+    id: 5,
+    userId: 0,
+    type: 'new_request',
+    title: 'Yêu cầu mượn mới',
+    message: 'Sinh viên Nguyễn Văn An đã gửi yêu cầu mượn Máy chiếu Epson EB-X41 (SL: 1).',
+    isRead: false,
+    createdAt: isoDaysAgo(1),
+    targetRole: 'admin',
+  },
+  {
+    id: 6,
+    userId: 0,
+    type: 'new_request',
+    title: 'Yêu cầu mượn mới',
+    message: 'Sinh viên Trần Thị Bình đã gửi yêu cầu mượn Micro không dây Shure BLX24 (SL: 1).',
+    isRead: false,
+    createdAt: isoDaysAgo(2),
+    targetRole: 'admin',
+  },
+  {
+    id: 7,
+    userId: 0,
+    type: 'overdue_alert',
+    title: 'Thiết bị quá hạn trả',
+    message: 'Sinh viên Lê Minh Châu chưa trả Camera Logitech C920, đã quá hạn 2 ngày.',
+    isRead: false,
+    createdAt: isoDaysAgo(1),
+    targetRole: 'admin',
+  },
+  {
+    id: 8,
+    userId: 0,
+    type: 'return_confirmed',
+    title: 'Thiết bị đã được trả',
+    message: 'Sinh viên Hoàng Thu Hà đã trả Laptop Dell Latitude 5420 đúng hạn.',
+    isRead: true,
+    createdAt: isoDaysAgo(4),
+    targetRole: 'admin',
   },
 ];
 
@@ -275,6 +323,16 @@ export function ensureMockDataSeeded() {
   }
   if (!window.localStorage.getItem(OFFLINE_STORAGE_KEYS.notifications)) {
     writeJson(OFFLINE_STORAGE_KEYS.notifications, seedNotifications);
+  } else {
+    // Migration: re-seed if existing notifications don't have targetRole
+    try {
+      const existing = JSON.parse(window.localStorage.getItem(OFFLINE_STORAGE_KEYS.notifications) ?? '[]');
+      if (Array.isArray(existing) && existing.length > 0 && !('targetRole' in existing[0])) {
+        writeJson(OFFLINE_STORAGE_KEYS.notifications, seedNotifications);
+      }
+    } catch {
+      writeJson(OFFLINE_STORAGE_KEYS.notifications, seedNotifications);
+    }
   }
   if (!window.localStorage.getItem(OFFLINE_STORAGE_KEYS.users)) {
     writeJson(OFFLINE_STORAGE_KEYS.users, seedUsers);

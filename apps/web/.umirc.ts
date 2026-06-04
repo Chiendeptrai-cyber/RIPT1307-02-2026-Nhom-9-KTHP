@@ -28,12 +28,14 @@ export default defineConfig({
       component: '@/layouts/AuthLayout',
       routes: [{ path: '/forgot-password', component: 'forgot-password/index' }],
     },
+    // Root redirect – standalone, no layout wrapper so admin users
+    // never briefly see the StudentLayout before being redirected.
+    { path: '/', component: 'index' },
     // Student routes
     {
       path: '/',
       component: '@/layouts/StudentLayout',
       routes: [
-        { path: '', redirect: '/equipment' },
         { path: 'equipment', component: 'equipment/index' },
         { path: 'equipment/:id', component: 'equipment/[id]' },
         { path: 'borrow-request', component: 'borrow-request/index' },
@@ -54,6 +56,7 @@ export default defineConfig({
         { path: 'equipment', component: 'admin/equipment/index' },
         { path: 'users', component: 'admin/users/index' },
         { path: 'reports', component: 'admin/reports/index' },
+        { path: 'notifications', component: 'admin/notifications/index' },
         { path: 'profile', component: 'admin/profile/index' },
       ],
     },

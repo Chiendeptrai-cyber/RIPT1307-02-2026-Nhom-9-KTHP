@@ -9,7 +9,7 @@ import {
   ToolOutlined,
   WarningOutlined,
 } from '@ant-design/icons';
-import { Badge, Button, Card, Col, Row, Statistic, Table, Tag, Typography } from 'antd';
+import { Badge, Button, Card, Col, Modal, Row, Statistic, Table, Tag, Tooltip, Typography, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -17,6 +17,8 @@ import 'dayjs/locale/vi';
 import {
   OFFLINE_STORAGE_KEYS,
   readCollection,
+  writeCollection,
+  createNotification,
   type MockBorrowRequest,
   type MockEquipment,
   type MockUser,
@@ -71,6 +73,38 @@ function loadLiveStats(): LiveStats {
       .sort((a, b) => a.expectedReturnDate.localeCompare(b.expectedReturnDate))
       .slice(0, 20),
   };
+}
+
+/** Cập nhật trạng thái yêu cầu trong mock localStorage */
+function updateRequestStatus(requestId: number, newStatus: string, rejectReason?: string) {
+  const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);
+  const updated = requests.map((r) => {
+    if (r.id === requestId) {
+      return {
+        ...r,
+        status: newStatus,
+        updatedAt: new Date().toISOString(),
+        ...(rejectReason ? { rejectReason } : {}),
+      };
+    }
+    return r;
+  });
+  writeCollection(OFFLINE_STORAGE_KEYS.borrowRequests, updated);
+
+  // Tạo thông báo cho sinh viên
+  const request = requests.find((r) => r.id === requestId);
+  if (request) {
+    createNotification({
+      userId: request.userId,
+      type: newStatus === 'approved' ? 'approved' : 'rejected',
+      title: newStatus === 'approved' ? 'Yêu cầu đã được duyệt' : 'Yêu cầu bị từ chối',
+      message:
+        newStatus === 'approved'
+          ? `Yêu cầu mượn ${request.equipmentName} đã được quản trị viên duyệt.`
+          : `Yêu cầu mượn ${request.equipmentName} đã bị từ chối.${rejectReason ? ` Lý do: ${rejectReason}` : ''}`,
+      targetRole: 'student',
+    });
+  }
 }
 
 // ─── KPI Card ────────────────────────────────────────────────────────────────
@@ -167,6 +201,7 @@ const cardStyle = {
 export default function AdminDashboardPage() {
   const [stats, setStats] = useState<LiveStats | null>(null);
   const [loading, setLoading] = useState(true);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const load = useCallback(() => {
     setLoading(true);
@@ -179,6 +214,38 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     load();
   }, [load]);
+
+  // ── Xử lý duyệt yêu cầu ───────────────────────────────────────────────
+
+  const handleApprove = (record: MockBorrowRequest) => {
+    Modal.confirm({
+      title: 'Xác nhận duyệt',
+      content: `Duyệt yêu cầu mượn "${record.equipmentName}" của ${record.userFullName}?`,
+      okText: 'Duyệt',
+      cancelText: 'Hủy',
+      okButtonProps: { style: { background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success } },
+      onOk: () => {
+        updateRequestStatus(record.id, 'approved');
+        messageApi.success(`Đã duyệt yêu cầu của ${record.userFullName}`);
+        load();
+      },
+    });
+  };
+
+  const handleReject = (record: MockBorrowRequest) => {
+    Modal.confirm({
+      title: 'Xác nhận từ chối',
+      content: `Từ chối yêu cầu mượn "${record.equipmentName}" của ${record.userFullName}?`,
+      okText: 'Từ chối',
+      cancelText: 'Hủy',
+      okButtonProps: { danger: true },
+      onOk: () => {
+        updateRequestStatus(record.id, 'rejected', 'Quản trị viên từ chối yêu cầu.');
+        messageApi.success(`Đã từ chối yêu cầu của ${record.userFullName}`);
+        load();
+      },
+    });
+  };
 
   // ── Pending requests columns ─────────────────────────────────────────────
 
@@ -214,19 +281,23 @@ export default function AdminDashboardPage() {
       width: 72,
       render: (_: unknown, record: MockBorrowRequest) => (
         <div style={{ display: 'flex', gap: 4 }}>
-          <Button
-            size="small"
-            type="primary"
-            icon={<CheckCircleOutlined />}
-            style={{ background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success }}
-            onClick={() => (window.location.href = `/admin/requests/${record.id}`)}
-          />
-          <Button
-            size="small"
-            danger
-            icon={<CloseCircleOutlined />}
-            onClick={() => (window.location.href = `/admin/requests/${record.id}`)}
-          />
+          <Tooltip title="Duyệt yêu cầu">
+            <Button
+              size="small"
+              type="primary"
+              icon={<CheckCircleOutlined />}
+              style={{ background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success }}
+              onClick={() => handleApprove(record)}
+            />
+          </Tooltip>
+          <Tooltip title="Từ chối">
+            <Button
+              size="small"
+              danger
+              icon={<CloseCircleOutlined />}
+              onClick={() => handleReject(record)}
+            />
+          </Tooltip>
         </div>
       ),
     },
@@ -285,6 +356,7 @@ export default function AdminDashboardPage() {
 
   return (
     <div style={{ padding: 24 }}>
+      {contextHolder}
       {/* ── Header ── */}
       <div
         style={{

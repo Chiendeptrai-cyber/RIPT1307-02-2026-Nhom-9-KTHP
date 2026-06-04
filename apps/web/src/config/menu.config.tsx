@@ -54,6 +54,11 @@ export const adminMenuItems: MenuProps['items'] = [
     icon: <AppstoreOutlined />,
     label: 'Báo cáo',
   },
+  {
+    key: ROUTES.ADMIN_NOTIFICATIONS,
+    icon: <BellOutlined />,
+    label: 'Thông báo',
+  },
 ];
 
 export function getMenuSelectedKey(pathname: string, keys: string[]): string {

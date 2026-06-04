@@ -2,7 +2,9 @@ import axios, { type AxiosResponse, type AxiosError } from 'axios';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export const http = axios.create({
-  baseURL: process.env.UMI_APP_API_URL ?? 'http://localhost:3000/api/v1',
+  // Dùng đường dẫn tương đối để request đi qua UMI dev-proxy (8000 → 3000).
+  // Khi deploy, đặt UMI_APP_API_URL = '/api/v1' (Nginx proxy) hoặc URL tuyệt đối nếu khác origin.
+  baseURL: process.env.UMI_APP_API_URL ?? '/api/v1',
   timeout: 15000,
   headers: { 'Content-Type': 'application/json' },
 });
