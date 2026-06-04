@@ -37,7 +37,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 31
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -50,7 +50,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 110
+        "register": 23
       },
       "enableBy": "register"
     },
@@ -63,7 +63,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 69
+        "register": 8
       },
       "enableBy": "register"
     },
@@ -77,10 +77,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            3
+            1
           ]
         },
-        "register": 131
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -94,10 +94,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            9
+            4
           ]
         },
-        "register": 261
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -114,7 +114,7 @@
             0
           ]
         },
-        "register": 48
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -127,7 +127,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 62
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -141,10 +141,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            165
+            19
           ]
         },
-        "register": 650
+        "register": 26
       },
       "enableBy": "register"
     },
@@ -157,7 +157,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 27
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -177,7 +177,7 @@
             0
           ]
         },
-        "register": 50
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -194,7 +194,7 @@
             0
           ]
         },
-        "register": 51
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -207,7 +207,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 50
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -224,7 +224,7 @@
             0
           ]
         },
-        "register": 373
+        "register": 13
       },
       "enableBy": "register"
     },
@@ -1076,7 +1076,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 58
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1090,10 +1090,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            0
+            1
           ]
         },
-        "register": 66
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1106,7 +1106,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 60
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1119,7 +1119,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1279
+        "register": 77
       },
       "enableBy": "register"
     },
@@ -1132,7 +1132,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 3236
+        "register": 70
       },
       "enableBy": "config"
     },
@@ -1145,7 +1145,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 726
+        "register": 25
       },
       "enableBy": "config"
     },
@@ -1162,7 +1162,7 @@
             0
           ]
         },
-        "register": 51
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1175,7 +1175,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 49
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1188,7 +1188,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 69
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -1202,10 +1202,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            6
+            1
           ]
         },
-        "register": 878
+        "register": 34
       }
     },
     "@umijs/preset-umi/dist/features/mpa/mpa": {
@@ -1217,7 +1217,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 68
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1230,7 +1230,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 46
+        "register": 1
       }
     },
     "@umijs/preset-umi/dist/features/overrides/overrides": {
@@ -1242,7 +1242,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1255,7 +1255,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 66
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1269,10 +1269,10 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            19
+            1
           ]
         },
-        "register": 101
+        "register": 2
       }
     },
     "@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill": {
@@ -1284,7 +1284,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 37
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1297,7 +1297,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1310,7 +1310,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 37
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1323,7 +1323,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 49
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1336,7 +1336,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 56
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1349,7 +1349,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 239
+        "register": 6
       },
       "enableBy": "register"
     },
@@ -1362,7 +1362,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 110
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -1375,7 +1375,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 54
+        "register": 1
       }
     },
     "@umijs/preset-umi/dist/features/ssr/ssr": {
@@ -1387,7 +1387,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 113
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -1400,7 +1400,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 188
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -1413,7 +1413,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 158
+        "register": 6
       },
       "enableBy": "register"
     },
@@ -1426,7 +1426,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 163
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -1439,7 +1439,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 40
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1452,7 +1452,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 255
+        "register": 8
       }
     },
     "@umijs/preset-umi/dist/features/monorepo/redirect": {
@@ -1464,7 +1464,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1203
+        "register": 22
       },
       "enableBy": "config"
     },
@@ -1477,7 +1477,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 62
+        "register": 1
       }
     },
     "@umijs/preset-umi/dist/features/clickToComponent/clickToComponent": {
@@ -1489,7 +1489,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 57
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1502,7 +1502,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 63
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -1515,7 +1515,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1528,7 +1528,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 103
+        "register": 2
       }
     },
     "@umijs/preset-umi/dist/features/swc/swc": {
@@ -1541,10 +1541,10 @@
       "time": {
         "hooks": {
           "addOnDemandDeps": [
-            0
+            1
           ]
         },
-        "register": 40
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1557,7 +1557,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 183
+        "register": 5
       }
     },
     "@umijs/preset-umi/dist/features/mako/mako": {
@@ -1569,7 +1569,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 63
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -1582,7 +1582,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 69
+        "register": 2
       }
     },
     "@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian": {
@@ -1594,7 +1594,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 119
+        "register": 3
       }
     },
     "@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad": {
@@ -1606,7 +1606,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 554
+        "register": 30
       }
     },
     "@umijs/preset-umi/dist/features/forget/forget": {
@@ -1618,7 +1618,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 81
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -1631,7 +1631,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 88
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1644,7 +1644,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 288
+        "register": 14
       },
       "enableBy": "register"
     },
@@ -1657,7 +1657,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 809
+        "register": 43
       },
       "enableBy": "register"
     },
@@ -1671,10 +1671,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            36
+            14
           ]
         },
-        "register": 2644
+        "register": 59
       }
     },
     "@umijs/preset-umi/dist/commands/help": {
@@ -1686,7 +1686,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 55
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1699,7 +1699,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 61
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1712,7 +1712,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 45
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1725,7 +1725,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 53
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1738,7 +1738,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 41
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1751,7 +1751,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 118
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1764,7 +1764,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 53
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1777,7 +1777,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 55
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1790,7 +1790,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 61
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1803,7 +1803,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 42
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1816,7 +1816,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 48
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1829,7 +1829,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 54
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1842,7 +1842,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 34
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1855,7 +1855,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 33
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1868,7 +1868,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 33
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1881,7 +1881,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 40
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1894,7 +1894,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 49
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -1907,7 +1907,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 106
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -1920,7 +1920,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 386
+        "register": 36
       },
       "enableBy": "register"
     },
@@ -1933,7 +1933,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 45
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1946,7 +1946,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 149
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1959,7 +1959,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 120
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -1974,7 +1974,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 46
+        "register": 1
       }
     },
     "@umijs/plugins/dist/antd": {
@@ -1987,16 +1987,16 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            59
+            5
           ],
           "modifyAppData": [
-            0
+            1
           ],
           "onCheck": [
             0
           ]
         },
-        "register": 162
+        "register": 10
       }
     },
     "@umijs/plugins/dist/dva": {
@@ -2008,7 +2008,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 112
+        "register": 7
       },
       "enableBy": "config"
     },
@@ -2021,7 +2021,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 36
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2036,7 +2036,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 99
+        "register": 7
       },
       "enableBy": "config"
     },
@@ -2049,7 +2049,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 85
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -2062,7 +2062,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 92
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -2075,7 +2075,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 49
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -2088,7 +2088,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 46
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2101,7 +2101,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 44
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -2114,7 +2114,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 111
+        "register": 2
       }
     },
     "@umijs/plugins/dist/qiankun/slave": {
@@ -2126,7 +2126,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 47
+        "register": 3
       }
     },
     "@umijs/plugins/dist/react-query": {
@@ -2138,7 +2138,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 39
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2151,7 +2151,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 36
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2164,7 +2164,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 63
+        "register": 2
       },
       "enableBy": "config"
     },
@@ -2177,7 +2177,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 37
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2190,7 +2190,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 39
+        "register": 1
       },
       "enableBy": "config"
     },
@@ -2207,7 +2207,7 @@
             0
           ]
         },
-        "register": 23
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -2224,7 +2224,7 @@
             0
           ]
         },
-        "register": 38
+        "register": 0
       },
       "enableBy": "register"
     },
@@ -2238,10 +2238,10 @@
       "time": {
         "hooks": {
           "onCheckPkgJSON": [
-            0
+            1
           ]
         },
-        "register": 43
+        "register": 1
       },
       "enableBy": "register"
     },
@@ -2254,7 +2254,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 47
+        "register": 1
       },
       "enableBy": "register"
     }
@@ -2303,12 +2303,12 @@
       },
       {
         "path": "/",
+        "component": "index"
+      },
+      {
+        "path": "/",
         "component": "@/layouts/StudentLayout",
         "routes": [
-          {
-            "path": "",
-            "redirect": "/equipment"
-          },
           {
             "path": "equipment",
             "component": "equipment/index"
@@ -2366,6 +2366,10 @@
           {
             "path": "reports",
             "component": "admin/reports/index"
+          },
+          {
+            "path": "notifications",
+            "component": "admin/notifications/index"
           },
           {
             "path": "profile",
@@ -2498,12 +2502,12 @@
       },
       {
         "path": "/",
+        "component": "index"
+      },
+      {
+        "path": "/",
         "component": "@/layouts/StudentLayout",
         "routes": [
-          {
-            "path": "",
-            "redirect": "/equipment"
-          },
           {
             "path": "equipment",
             "component": "equipment/index"
@@ -2561,6 +2565,10 @@
           {
             "path": "reports",
             "component": "admin/reports/index"
+          },
+          {
+            "path": "notifications",
+            "component": "admin/notifications/index"
           },
           {
             "path": "profile",
@@ -3650,24 +3658,26 @@
     },
     "7": {
       "path": "/",
-      "file": "@/layouts/StudentLayout.tsx",
+      "file": "@/pages/index.tsx",
       "id": "7",
       "absPath": "/",
-      "__content": "import { Outlet } from '@umijs/max';\nimport { Layout } from 'antd';\nimport { useEffect } from 'react';\nimport AppHeader from '@/components/layout/AppHeader';\nimport AppSidebar from '@/components/layout/AppSidebar';\nimport { studentMenuItems } from '@/config/menu.config';\nimport { ensureMockDataSeeded } from '@/mocks/offlineStorage';\n\nconst { Content } = Layout;\n\nexport default function StudentLayout() {\n  useEffect(() => {\n    ensureMockDataSeeded();\n  }, []);\n\n  return (\n    <Layout hasSider style={{ height: '100vh', background: '#F2F2F2', overflow: 'hidden' }}>\n      <AppSidebar items={studentMenuItems} title=\"Quản lý thiết bị\" />\n      <Layout style={{ background: '#F2F2F2', minWidth: 0, overflow: 'hidden' }}>\n        <AppHeader title=\"Cổng sinh viên\" />\n        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>\n          <Outlet />\n        </Content>\n      </Layout>\n    </Layout>\n  );\n}\n",
+      "__content": "import { useEffect } from 'react';\r\nimport { useNavigate } from '@umijs/max';\r\nimport { useAuthStore } from '../stores/auth.store';\r\n\r\nexport default function IndexPage() {\r\n  const navigate = useNavigate();\r\n  const user = useAuthStore((state) => state.user);\r\n\r\n  useEffect(() => {\r\n    if (!user) {\r\n      navigate('/login', { replace: true });\r\n      return;\r\n    }\r\n\r\n    if (user.role === 'admin') {\r\n      navigate('/admin/dashboard', { replace: true });\r\n    } else {\r\n      navigate('/equipment', { replace: true });\r\n    }\r\n  }, [user, navigate]);\r\n\r\n  return null;\r\n}\r\n",
       "__isJSFile": true,
-      "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/StudentLayout.tsx"
+      "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/index.tsx"
     },
     "8": {
-      "path": "",
-      "redirect": "/equipment",
-      "parentId": "7",
+      "path": "/",
+      "file": "@/layouts/StudentLayout.tsx",
       "id": "8",
-      "absPath": "/"
+      "absPath": "/",
+      "__content": "import { Outlet } from '@umijs/max';\r\nimport { Layout } from 'antd';\r\nimport { useEffect } from 'react';\r\nimport AppHeader from '@/components/layout/AppHeader';\r\nimport AppSidebar from '@/components/layout/AppSidebar';\r\nimport { studentMenuItems } from '@/config/menu.config';\r\nimport { ensureMockDataSeeded } from '@/mocks/offlineStorage';\r\n\r\nconst { Content } = Layout;\r\n\r\nexport default function StudentLayout() {\r\n  useEffect(() => {\r\n    ensureMockDataSeeded();\r\n  }, []);\r\n\r\n  return (\r\n    <Layout hasSider style={{ height: '100vh', background: '#F2F2F2', overflow: 'hidden' }}>\r\n      <AppSidebar items={studentMenuItems} title=\"Quản lý thiết bị\" />\r\n      <Layout style={{ background: '#F2F2F2', minWidth: 0, overflow: 'hidden' }}>\r\n        <AppHeader title=\"Cổng sinh viên\" />\r\n        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>\r\n          <Outlet />\r\n        </Content>\r\n      </Layout>\r\n    </Layout>\r\n  );\r\n}\r\n",
+      "__isJSFile": true,
+      "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/StudentLayout.tsx"
     },
     "9": {
       "path": "equipment",
       "file": "@/pages/equipment/index.tsx",
-      "parentId": "7",
+      "parentId": "8",
       "id": "9",
       "absPath": "/equipment",
       "__content": "import {\n  PlusOutlined,\n  SearchOutlined,\n  ToolOutlined,\n  ReloadOutlined,\n} from '@ant-design/icons';\nimport {\n  Alert,\n  Button,\n  Card,\n  Col,\n  Empty,\n  Input,\n  Pagination,\n  Row,\n  Skeleton,\n  Tag,\n  Typography,\n} from 'antd';\nimport { useState } from 'react';\nimport { useNavigate } from '@umijs/max';\nimport { useEquipmentList } from '../../hooks/useEquipmentList';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nfunction EquipmentCard({ item }: { item: any }) {\n  const navigate = useNavigate();\n  const isAvailable = item.availableQuantity > 0;\n\n  return (\n    <Card\n      hoverable\n      onClick={() => navigate(`/equipment/${item.id}`)}\n      style={{\n        borderRadius: 8,\n        border: `1px solid ${SLINK_COLORS.border}`,\n        boxShadow: SLINK_COLORS.shadow,\n        height: '100%',\n      }}\n      styles={{ body: { padding: 16 } }}\n    >\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\n        <div\n          style={{\n            width: 40,\n            height: 40,\n            borderRadius: 8,\n            background: 'rgba(191, 4, 4, 0.08)',\n            display: 'flex',\n            alignItems: 'center',\n            justifyContent: 'center',\n            marginBottom: 4,\n          }}\n        >\n          <ToolOutlined style={{ fontSize: 20, color: SLINK_COLORS.primary }} />\n        </div>\n        <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>\n          {item.name}\n        </Text>\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\n          <Text type=\"secondary\" style={{ fontSize: 12 }}>\n            Còn lại: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\n              {item.availableQuantity}/{item.totalQuantity}\n            </strong>\n          </Text>\n          <Tag color={isAvailable ? 'green' : 'red'} style={{ margin: 0, fontSize: 11 }}>\n            {isAvailable ? 'Có sẵn' : 'Hết'}\n          </Tag>\n        </div>\n      </div>\n    </Card>\n  );\n}\n\nexport default function EquipmentListPage() {\n  const [search, setSearch] = useState('');\n  const [debouncedSearch, setDebouncedSearch] = useState('');\n  const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();\n\n  const { items, total, page, loading, error, refetch } = useEquipmentList({\n    search: debouncedSearch,\n    pageSize: 20,\n  });\n\n  const handleSearchChange = (val: string) => {\n    setSearch(val);\n    if (searchTimer) clearTimeout(searchTimer);\n    const t = setTimeout(() => setDebouncedSearch(val), 400);\n    setSearchTimer(t);\n  };\n\n  return (\n    <div style={{ padding: 24 }}>\n      {/* Header Card */}\n      <Card\n        style={{\n          borderRadius: 8,\n          border: `1px solid ${SLINK_COLORS.border}`,\n          boxShadow: SLINK_COLORS.shadow,\n          marginBottom: 16,\n        }}\n        styles={{ body: { padding: '16px 20px' } }}\n      >\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\n            <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(191, 4, 4, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\n              <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            </div>\n            <div>\n              <Title level={5} style={{ marginBottom: 0, color: SLINK_COLORS.textBase }}>\n                Danh sách thiết bị\n              </Title>\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>\n                Tìm kiếm và đăng ký mượn thiết bị\n              </Text>\n            </div>\n          </div>\n          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\n            <Input\n              placeholder=\"Tìm kiếm thiết bị...\"\n              prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n              value={search}\n              onChange={(e) => handleSearchChange(e.target.value)}\n              style={{ width: 240, borderRadius: 6 }}\n              allowClear\n            />\n            <Button\n              icon={<ReloadOutlined />}\n              onClick={() => refetch(page)}\n              style={{ borderRadius: 6 }}\n            />\n            <Button\n              type=\"primary\"\n              icon={<PlusOutlined />}\n              href=\"/borrow-request/create\"\n              style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\n            >\n              Tạo yêu cầu\n            </Button>\n          </div>\n        </div>\n      </Card>\n\n      {/* Error */}\n      {error && (\n        <Alert\n          type=\"error\"\n          message={error}\n          closable\n          style={{ marginBottom: 16, borderRadius: 8 }}\n        />\n      )}\n\n      {/* Content */}\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 20 } }}\n      >\n        {loading ? (\n          <Row gutter={[16, 16]}>\n            {Array.from({ length: 8 }).map((_, i) => (\n              <Col key={i} xs={24} sm={12} lg={8} xl={6}>\n                <Skeleton.Button active block style={{ height: 100, borderRadius: 8 }} />\n              </Col>\n            ))}\n          </Row>\n        ) : items.length === 0 ? (\n          <Empty\n            description={\n              debouncedSearch\n                ? `Không tìm thấy thiết bị nào khớp với \"${debouncedSearch}\"`\n                : 'Chưa có thiết bị nào trong hệ thống'\n            }\n          />\n        ) : (\n          <>\n            <Row gutter={[16, 16]}>\n              {items.map((item) => (\n                <Col key={item.id} xs={24} sm={12} lg={8} xl={6}>\n                  <EquipmentCard item={item} />\n                </Col>\n              ))}\n            </Row>\n            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>\n              <Pagination\n                current={page}\n                total={total}\n                pageSize={20}\n                onChange={(p) => refetch(p)}\n                showTotal={(t) => `${t} thiết bị`}\n                showSizeChanger={false}\n              />\n            </div>\n          </>\n        )}\n      </Card>\n    </div>\n  );\n}\n",
@@ -3677,7 +3687,7 @@
     "10": {
       "path": "equipment/:id",
       "file": "@/pages/equipment/[id].tsx",
-      "parentId": "7",
+      "parentId": "8",
       "id": "10",
       "absPath": "/equipment/:id",
       "__content": "import { useCallback, useEffect, useState } from 'react';\nimport { useParams, useNavigate } from '@umijs/max';\nimport {\n  Alert, Badge, Button, Card, Descriptions, Result, Skeleton, Tag, Typography,\n} from 'antd';\nimport { ArrowLeftOutlined, ToolOutlined } from '@ant-design/icons';\nimport { equipmentService, type Equipment } from '../../services/equipment.service';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst statusConfig: Record<string, { label: string; color: string }> = {\n  active:            { label: 'Đang hoạt động', color: 'green' },\n  under_maintenance: { label: 'Đang bảo trì',   color: 'orange' },\n  deleted:           { label: 'Đã xóa',          color: 'red' },\n};\n\nexport default function EquipmentDetailPage() {\n  const { id } = useParams<{ id: string }>();\n  const navigate = useNavigate();\n  const [equipment, setEquipment] = useState<Equipment | null>(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState<string | null>(null);\n\n  const load = useCallback(async () => {\n    if (!id) return;\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await equipmentService.getDetail(Number(id));\n      if (res.success && res.data) setEquipment(res.data);\n      else setError('Không thể tải thông tin thiết bị');\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Thiết bị không tồn tại hoặc đã bị xóa');\n    } finally {\n      setLoading(false);\n    }\n  }, [id]);\n\n  useEffect(() => { load(); }, [load]);\n\n  if (loading) {\n    return (\n      <div style={{ padding: 24 }}>\n        <Skeleton active paragraph={{ rows: 6 }} />\n      </div>\n    );\n  }\n\n  if (error || !equipment) {\n    return (\n      <div style={{ padding: 24 }}>\n        <Result\n          status=\"404\"\n          title=\"Không tìm thấy thiết bị\"\n          subTitle={error ?? 'Thiết bị này không tồn tại hoặc đã bị xóa'}\n          extra={<Button onClick={() => navigate('/equipment')}>Quay lại danh sách</Button>}\n        />\n      </div>\n    );\n  }\n\n  const isAvailable = equipment.availableQuantity > 0;\n  const cfg = statusConfig[equipment.status] ?? { label: equipment.status, color: 'default' };\n\n  return (\n    <div style={{ padding: 24 }}>\n      {/* Back */}\n      <Button\n        icon={<ArrowLeftOutlined />}\n        type=\"text\"\n        onClick={() => navigate('/equipment')}\n        style={{ marginBottom: 16, padding: 0, color: SLINK_COLORS.textSecondary }}\n      >\n        Quay lại danh sách\n      </Button>\n\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n      >\n        {/* Header */}\n        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 24 }}>\n          <div style={{ width: 56, height: 56, borderRadius: 10, background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>\n            <ToolOutlined style={{ fontSize: 28, color: SLINK_COLORS.primary }} />\n          </div>\n          <div style={{ flex: 1 }}>\n            <Title level={4} style={{ marginBottom: 4 }}>{equipment.name}</Title>\n            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\n              <Tag color={cfg.color}>{cfg.label}</Tag>\n              <Badge\n                count={equipment.availableQuantity}\n                style={{ backgroundColor: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}\n                overflowCount={999}\n              />\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>chiếc còn sẵn</Text>\n            </div>\n          </div>\n        </div>\n\n        {/* Details */}\n        <Descriptions column={{ xs: 1, sm: 2 }} bordered size=\"small\">\n          <Descriptions.Item label=\"Tổng số lượng\">{equipment.totalQuantity} chiếc</Descriptions.Item>\n          <Descriptions.Item label=\"Còn có thể mượn\">\n            <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\n              {equipment.availableQuantity} chiếc\n            </Text>\n          </Descriptions.Item>\n          <Descriptions.Item label=\"Trạng thái\">\n            <Tag color={cfg.color}>{cfg.label}</Tag>\n          </Descriptions.Item>\n          {equipment.description && (\n            <Descriptions.Item label=\"Mô tả\" span={2}>{equipment.description}</Descriptions.Item>\n          )}\n        </Descriptions>\n\n        {/* Action */}\n        <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>\n          <Button\n            type=\"primary\"\n            size=\"large\"\n            disabled={!isAvailable || equipment.status !== 'active'}\n            onClick={() => navigate(`/borrow-request/create?equipmentId=${equipment.id}`)}\n            style={{\n              background: isAvailable ? SLINK_COLORS.primary : undefined,\n              borderColor: isAvailable ? SLINK_COLORS.primary : undefined,\n              borderRadius: 6,\n            }}\n          >\n            {isAvailable ? 'Đăng ký mượn thiết bị này' : 'Thiết bị hiện không có sẵn'}\n          </Button>\n        </div>\n      </Card>\n    </div>\n  );\n}\n",
@@ -3687,7 +3697,7 @@
     "11": {
       "path": "borrow-request",
       "file": "@/pages/borrow-request/index.tsx",
-      "parentId": "7",
+      "parentId": "8",
       "id": "11",
       "absPath": "/borrow-request",
       "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Button, Card, Empty, message, Modal, Pagination,\n  Skeleton, Space, Table, Tag, Typography,\n} from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport { ExclamationCircleOutlined, FileTextOutlined } from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { borrowRequestService, type BorrowRequest } from '../../services/borrow-request.service';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst STATUS_CONFIG: Record<string, { label: string; color: string }> = {\n  pending:   { label: 'Chờ duyệt',   color: 'orange' },\n  approved:  { label: 'Đã duyệt',    color: 'blue' },\n  rejected:  { label: 'Bị từ chối',  color: 'red' },\n  cancelled: { label: 'Đã hủy',      color: 'default' },\n  borrowing: { label: 'Đang mượn',   color: 'geekblue' },\n  overdue:   { label: 'Quá hạn',     color: 'volcano' },\n  returned:  { label: 'Đã trả',      color: 'green' },\n};\n\nexport default function BorrowRequestHistoryPage() {\n  const [items,   setItems]   = useState<BorrowRequest[]>([]);\n  const [total,   setTotal]   = useState(0);\n  const [page,    setPage]    = useState(1);\n  const [loading, setLoading] = useState(false);\n  const [error,   setError]   = useState<string | null>(null);\n\n  const load = useCallback(async (p = 1) => {\n    setLoading(true);\n    setError(null);\n    try {\n      const res = await borrowRequestService.listMy({ page: p, pageSize: 10 });\n      if (res.success && res.data) {\n        setItems(res.data.items);\n        setTotal(res.data.total);\n        setPage(p);\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Không thể tải lịch sử yêu cầu');\n    } finally {\n      setLoading(false);\n    }\n  }, []);\n\n  useEffect(() => { load(); }, [load]);\n\n  const handleCancel = (record: BorrowRequest) => {\n    Modal.confirm({\n      title: 'Hủy yêu cầu mượn',\n      icon: <ExclamationCircleOutlined />,\n      content: `Bạn có chắc chắn muốn hủy yêu cầu mượn #${record.id}?`,\n      okText: 'Hủy yêu cầu',\n      okButtonProps: { danger: true },\n      cancelText: 'Không',\n      onOk: async () => {\n        try {\n          await borrowRequestService.cancel(record.id);\n          message.success('Đã hủy yêu cầu mượn');\n          load(page);\n        } catch (err: any) {\n          message.error(err?.response?.data?.message ?? 'Không thể hủy yêu cầu');\n        }\n      },\n    });\n  };\n\n  const columns: ColumnsType<BorrowRequest> = [\n    { title: '#', dataIndex: 'id', key: 'id', width: 60 },\n    {\n      title: 'Ngày gửi',\n      dataIndex: 'createdAt',\n      key: 'createdAt',\n      render: (v) => dayjs(v).format('DD/MM/YYYY HH:mm'),\n    },\n    {\n      title: 'Ngày trả dự kiến',\n      dataIndex: 'expectedReturnDate',\n      key: 'expectedReturnDate',\n      render: (v) => dayjs(v).format('DD/MM/YYYY'),\n    },\n    {\n      title: 'Ghi chú',\n      dataIndex: 'note',\n      key: 'note',\n      render: (v) => v ?? <Text type=\"secondary\">—</Text>,\n    },\n    {\n      title: 'Trạng thái',\n      dataIndex: 'status',\n      key: 'status',\n      render: (status: string) => {\n        const cfg = STATUS_CONFIG[status] ?? { label: status, color: 'default' };\n        return <Tag color={cfg.color}>{cfg.label}</Tag>;\n      },\n    },\n    {\n      title: 'Thao tác',\n      key: 'actions',\n      render: (_, record) => (\n        <Space>\n          {record.status === 'pending' && (\n            <Button\n              size=\"small\"\n              danger\n              onClick={() => handleCancel(record)}\n              style={{ borderRadius: 4 }}\n            >\n              Hủy\n            </Button>\n          )}\n        </Space>\n      ),\n    },\n  ];\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', gap: 10 }}>\n          <FileTextOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n          <div>\n            <Title level={5} style={{ marginBottom: 0 }}>Lịch sử yêu cầu mượn</Title>\n            <Text type=\"secondary\" style={{ fontSize: 12 }}>Danh sách các yêu cầu mượn thiết bị của bạn</Text>\n          </div>\n        </div>\n\n        {error && (\n          <Alert type=\"error\" message={error} style={{ margin: 16, borderRadius: 6 }} />\n        )}\n\n        {loading ? (\n          <div style={{ padding: 20 }}>\n            <Skeleton active paragraph={{ rows: 5 }} />\n          </div>\n        ) : items.length === 0 ? (\n          <div style={{ padding: 40 }}>\n            <Empty description=\"Bạn chưa có yêu cầu mượn nào\" />\n            <div style={{ textAlign: 'center', marginTop: 16 }}>\n              <Button type=\"primary\" href=\"/borrow-request/create\" style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}>\n                Tạo yêu cầu đầu tiên\n              </Button>\n            </div>\n          </div>\n        ) : (\n          <>\n            <Table\n              dataSource={items}\n              columns={columns}\n              rowKey=\"id\"\n              pagination={false}\n              style={{ borderRadius: '0 0 8px 8px' }}\n            />\n            <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\n              <Pagination\n                current={page}\n                total={total}\n                pageSize={10}\n                onChange={load}\n                showTotal={(t) => `${t} yêu cầu`}\n                showSizeChanger={false}\n              />\n            </div>\n          </>\n        )}\n      </Card>\n    </div>\n  );\n}\n",
@@ -3697,7 +3707,7 @@
     "12": {
       "path": "borrow-request/create",
       "file": "@/pages/borrow-request/create.tsx",
-      "parentId": "7",
+      "parentId": "8",
       "id": "12",
       "absPath": "/borrow-request/create",
       "__content": "import { useCallback, useEffect, useState } from 'react';\nimport { useLocation, useNavigate } from '@umijs/max';\nimport {\n  Alert, Button, Card, DatePicker, Form, Input, InputNumber,\n  message, Select, Skeleton, Typography,\n} from 'antd';\nimport { ArrowLeftOutlined, SendOutlined } from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { equipmentService, type Equipment } from '../../services/equipment.service';\nimport { borrowRequestService } from '../../services/borrow-request.service';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nexport default function BorrowRequestCreatePage() {\n  const navigate   = useNavigate();\n  const location   = useLocation();\n  const [form]     = Form.useForm();\n  const [submitting, setSubmitting] = useState(false);\n  const [error,      setError]      = useState<string | null>(null);\n  const [equipmentList, setEquipmentList] = useState<Equipment[]>([]);\n  const [loadingEquipment, setLoadingEquipment] = useState(true);\n\n  // Pre-fill equipmentId from URL query string\n  const searchParams = new URLSearchParams(location.search);\n  const prefilledId  = searchParams.get('equipmentId');\n\n  // Load available equipment list\n  const loadEquipment = useCallback(async () => {\n    setLoadingEquipment(true);\n    try {\n      const res = await equipmentService.list({ status: 'active', pageSize: 100 });\n      if (res.success && res.data) {\n        setEquipmentList(res.data.items.filter((e) => e.availableQuantity > 0));\n      }\n    } catch {\n      // Silent\n    } finally {\n      setLoadingEquipment(false);\n    }\n  }, []);\n\n  useEffect(() => {\n    loadEquipment();\n    if (prefilledId) form.setFieldValue('equipmentId', Number(prefilledId));\n  }, [loadEquipment, prefilledId, form]);\n\n  const onFinish = async (values: {\n    equipmentId: number;\n    quantity: number;\n    expectedReturnDate: dayjs.Dayjs;\n    note?: string;\n  }) => {\n    setSubmitting(true);\n    setError(null);\n    try {\n      const res = await borrowRequestService.create({\n        equipmentId: values.equipmentId,\n        quantity: values.quantity ?? 1,\n        expectedReturnDate: values.expectedReturnDate.format('YYYY-MM-DD'),\n        note: values.note,\n      });\n\n      if (res.success) {\n        message.success('Đã gửi yêu cầu mượn thiết bị thành công!');\n        navigate('/borrow-request');\n      }\n    } catch (err: any) {\n      setError(err?.response?.data?.message ?? 'Có lỗi xảy ra khi gửi yêu cầu');\n    } finally {\n      setSubmitting(false);\n    }\n  };\n\n  const selectedEquipmentId = Form.useWatch('equipmentId', form);\n  const selectedEquipment   = equipmentList.find((e) => e.id === selectedEquipmentId);\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Button\n        icon={<ArrowLeftOutlined />}\n        type=\"text\"\n        onClick={() => navigate('/borrow-request')}\n        style={{ marginBottom: 16, padding: 0, color: SLINK_COLORS.textSecondary }}\n      >\n        Quay lại lịch sử\n      </Button>\n\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow, maxWidth: 600 }}\n        styles={{ body: { padding: 24 } }}\n      >\n        <Title level={5} style={{ marginBottom: 4 }}>Tạo yêu cầu mượn thiết bị</Title>\n        <Text type=\"secondary\" style={{ fontSize: 13, display: 'block', marginBottom: 20 }}>\n          Điền thông tin để gửi yêu cầu mượn đến quản trị viên\n        </Text>\n\n        {error && (\n          <Alert type=\"error\" message={error} closable onClose={() => setError(null)} style={{ marginBottom: 16, borderRadius: 6 }} />\n        )}\n\n        {loadingEquipment ? (\n          <Skeleton active paragraph={{ rows: 4 }} />\n        ) : (\n          <Form form={form} layout=\"vertical\" onFinish={onFinish} requiredMark=\"optional\">\n            <Form.Item\n              name=\"equipmentId\"\n              label=\"Thiết bị muốn mượn\"\n              rules={[{ required: true, message: 'Vui lòng chọn thiết bị' }]}\n            >\n              <Select\n                placeholder=\"Chọn thiết bị...\"\n                showSearch\n                optionFilterProp=\"label\"\n                options={equipmentList.map((e) => ({\n                  value: e.id,\n                  label: `${e.name} (còn ${e.availableQuantity} chiếc)`,\n                }))}\n              />\n            </Form.Item>\n\n            {selectedEquipment && (\n              <Alert\n                type=\"info\"\n                message={`Số lượng có thể mượn: ${selectedEquipment.availableQuantity} chiếc`}\n                style={{ marginBottom: 16, borderRadius: 6 }}\n              />\n            )}\n\n            <Form.Item\n              name=\"quantity\"\n              label=\"Số lượng\"\n              initialValue={1}\n              rules={[\n                { required: true, message: 'Vui lòng nhập số lượng' },\n                {\n                  validator: (_, val) => {\n                    if (!selectedEquipment) return Promise.resolve();\n                    if (val > selectedEquipment.availableQuantity) {\n                      return Promise.reject(`Chỉ còn ${selectedEquipment.availableQuantity} chiếc`);\n                    }\n                    return Promise.resolve();\n                  },\n                },\n              ]}\n            >\n              <InputNumber min={1} max={selectedEquipment?.availableQuantity ?? 99} style={{ width: '100%' }} />\n            </Form.Item>\n\n            <Form.Item\n              name=\"expectedReturnDate\"\n              label=\"Ngày trả dự kiến\"\n              rules={[\n                { required: true, message: 'Vui lòng chọn ngày trả' },\n                {\n                  validator: (_, val: dayjs.Dayjs) => {\n                    if (!val) return Promise.resolve();\n                    const today = dayjs().startOf('day');\n                    const maxDate = today.add(14, 'day');\n                    if (val.isBefore(today.add(1, 'day'))) {\n                      return Promise.reject('Ngày trả phải từ ngày mai trở đi');\n                    }\n                    if (val.isAfter(maxDate)) {\n                      return Promise.reject('Ngày trả không được quá 14 ngày kể từ hôm nay');\n                    }\n                    return Promise.resolve();\n                  },\n                },\n              ]}\n            >\n              <DatePicker\n                style={{ width: '100%' }}\n                format=\"DD/MM/YYYY\"\n                disabledDate={(d) => d.isBefore(dayjs().add(1, 'day').startOf('day'))}\n                placeholder=\"Chọn ngày trả\"\n              />\n            </Form.Item>\n\n            <Form.Item name=\"note\" label=\"Ghi chú (tùy chọn)\">\n              <Input.TextArea rows={3} placeholder=\"Mô tả mục đích sử dụng...\" maxLength={200} showCount />\n            </Form.Item>\n\n            <Form.Item style={{ marginBottom: 0 }}>\n              <Button\n                type=\"primary\"\n                htmlType=\"submit\"\n                size=\"large\"\n                icon={<SendOutlined />}\n                loading={submitting}\n                block\n                style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\n              >\n                Gửi yêu cầu mượn\n              </Button>\n            </Form.Item>\n          </Form>\n        )}\n      </Card>\n    </div>\n  );\n}\n",
@@ -3707,17 +3717,17 @@
     "13": {
       "path": "notifications",
       "file": "@/pages/notifications/index.tsx",
-      "parentId": "7",
+      "parentId": "8",
       "id": "13",
       "absPath": "/notifications",
-      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  Alert, Badge, Button, Card, Empty, List, message,\n  Skeleton, Tabs, Tag, Typography,\n} from 'antd';\nimport { BellOutlined, CheckOutlined } from '@ant-design/icons';\nimport dayjs from 'dayjs';\nimport { useNotifications } from '../../hooks/useNotifications';\nimport { SLINK_COLORS } from '../../theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst TYPE_CONFIG: Record<string, { label: string; color: string }> = {\n  new_request:        { label: 'Yêu cầu mới',   color: 'blue' },\n  approved:           { label: 'Đã duyệt',       color: 'green' },\n  rejected:           { label: 'Từ chối',        color: 'red' },\n  checkout_confirmed: { label: 'Bàn giao',       color: 'purple' },\n  return_confirmed:   { label: 'Đã trả',         color: 'cyan' },\n  due_reminder:       { label: 'Nhắc nhở',       color: 'orange' },\n  overdue_alert:      { label: 'Quá hạn',        color: 'volcano' },\n};\n\nexport default function NotificationsPage() {\n  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications();\n  const [activeTab, setActiveTab] = useState('all');\n\n  const displayed = activeTab === 'unread' ? items.filter((n) => !n.isRead) : items;\n\n  return (\n    <div style={{ padding: 24 }}>\n      <Card\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\n        styles={{ body: { padding: 0 } }}\n      >\n        {/* Header */}\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\n            <BellOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\n            <div>\n              <Title level={5} style={{ marginBottom: 0 }}>\n                Thông báo{' '}\n                {unreadCount > 0 && (\n                  <Badge count={unreadCount} style={{ marginLeft: 4 }} />\n                )}\n              </Title>\n              <Text type=\"secondary\" style={{ fontSize: 12 }}>Các thông báo liên quan đến yêu cầu mượn của bạn</Text>\n            </div>\n          </div>\n          {unreadCount > 0 && (\n            <Button\n              icon={<CheckOutlined />}\n              size=\"small\"\n              onClick={async () => {\n                await markAllRead();\n                message.success('Đã đánh dấu tất cả là đã đọc');\n              }}\n              style={{ borderRadius: 6 }}\n            >\n              Đánh dấu tất cả đã đọc\n            </Button>\n          )}\n        </div>\n\n        {/* Tabs */}\n        <div style={{ padding: '0 20px' }}>\n          <Tabs\n            activeKey={activeTab}\n            onChange={setActiveTab}\n            items={[\n              { key: 'all', label: `Tất cả (${items.length})` },\n              { key: 'unread', label: `Chưa đọc (${unreadCount})` },\n            ]}\n            style={{ borderBottom: 'none' }}\n          />\n        </div>\n\n        {/* Content */}\n        {loading ? (\n          <div style={{ padding: 20 }}>\n            <Skeleton active paragraph={{ rows: 4 }} />\n          </div>\n        ) : displayed.length === 0 ? (\n          <div style={{ padding: 40 }}>\n            <Empty description={activeTab === 'unread' ? 'Không có thông báo chưa đọc' : 'Chưa có thông báo nào'} />\n          </div>\n        ) : (\n          <List\n            dataSource={displayed}\n            renderItem={(notif) => {\n              const cfg = TYPE_CONFIG[notif.type] ?? { label: notif.type, color: 'default' };\n              return (\n                <List.Item\n                  onClick={() => !notif.isRead && markRead(notif.id)}\n                  style={{\n                    padding: '14px 20px',\n                    cursor: notif.isRead ? 'default' : 'pointer',\n                    background: notif.isRead ? 'transparent' : 'rgba(191, 4, 4, 0.03)',\n                    borderBottom: `1px solid ${SLINK_COLORS.border}`,\n                    transition: 'background 0.2s',\n                  }}\n                  actions={[\n                    !notif.isRead && (\n                      <Button\n                        type=\"link\"\n                        size=\"small\"\n                        onClick={(e) => { e.stopPropagation(); markRead(notif.id); }}\n                        style={{ color: SLINK_COLORS.info, padding: 0 }}\n                      >\n                        Đánh dấu đã đọc\n                      </Button>\n                    ),\n                  ].filter(Boolean)}\n                >\n                  <List.Item.Meta\n                    avatar={\n                      <div style={{ position: 'relative' }}>\n                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\n                          <BellOutlined style={{ color: SLINK_COLORS.primary }} />\n                        </div>\n                        {!notif.isRead && (\n                          <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: SLINK_COLORS.primary }} />\n                        )}\n                      </div>\n                    }\n                    title={\n                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                        <Text strong style={{ fontSize: 14 }}>{notif.title}</Text>\n                        <Tag color={cfg.color} style={{ margin: 0, fontSize: 11 }}>{cfg.label}</Tag>\n                      </div>\n                    }\n                    description={\n                      <div>\n                        <Text type=\"secondary\" style={{ fontSize: 13 }}>{notif.message}</Text>\n                        <br />\n                        <Text type=\"secondary\" style={{ fontSize: 11 }}>\n                          {dayjs(notif.createdAt).format('HH:mm DD/MM/YYYY')}\n                        </Text>\n                      </div>\n                    }\n                  />\n                </List.Item>\n              );\n            }}\n          />\n        )}\n      </Card>\n    </div>\n  );\n}\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\r\nimport {\r\n  Alert, Badge, Button, Card, Empty, List, message,\r\n  Skeleton, Tabs, Tag, Typography,\r\n} from 'antd';\r\nimport { BellOutlined, CheckOutlined } from '@ant-design/icons';\r\nimport dayjs from 'dayjs';\r\nimport { useNotifications } from '../../hooks/useNotifications';\r\nimport { SLINK_COLORS } from '../../theme/tokens';\r\n\r\nconst { Title, Text } = Typography;\r\n\r\nconst TYPE_CONFIG: Record<string, { label: string; color: string }> = {\r\n  new_request:        { label: 'Yêu cầu mới',   color: 'blue' },\r\n  approved:           { label: 'Đã duyệt',       color: 'green' },\r\n  rejected:           { label: 'Từ chối',        color: 'red' },\r\n  checkout_confirmed: { label: 'Bàn giao',       color: 'purple' },\r\n  return_confirmed:   { label: 'Đã trả',         color: 'cyan' },\r\n  due_reminder:       { label: 'Nhắc nhở',       color: 'orange' },\r\n  overdue_alert:      { label: 'Quá hạn',        color: 'volcano' },\r\n};\r\n\r\nexport default function NotificationsPage() {\r\n  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications('student');\r\n  const [activeTab, setActiveTab] = useState('all');\r\n\r\n  const displayed = activeTab === 'unread' ? items.filter((n) => !n.isRead) : items;\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      <Card\r\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\r\n        styles={{ body: { padding: 0 } }}\r\n      >\r\n        {/* Header */}\r\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\r\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\r\n            <BellOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\r\n            <div>\r\n              <Title level={5} style={{ marginBottom: 0 }}>\r\n                Thông báo{' '}\r\n                {unreadCount > 0 && (\r\n                  <Badge count={unreadCount} style={{ marginLeft: 4 }} />\r\n                )}\r\n              </Title>\r\n              <Text type=\"secondary\" style={{ fontSize: 12 }}>Các thông báo liên quan đến yêu cầu mượn của bạn</Text>\r\n            </div>\r\n          </div>\r\n          {unreadCount > 0 && (\r\n            <Button\r\n              icon={<CheckOutlined />}\r\n              size=\"small\"\r\n              onClick={async () => {\r\n                await markAllRead();\r\n                message.success('Đã đánh dấu tất cả là đã đọc');\r\n              }}\r\n              style={{ borderRadius: 6 }}\r\n            >\r\n              Đánh dấu tất cả đã đọc\r\n            </Button>\r\n          )}\r\n        </div>\r\n\r\n        {/* Tabs */}\r\n        <div style={{ padding: '0 20px' }}>\r\n          <Tabs\r\n            activeKey={activeTab}\r\n            onChange={setActiveTab}\r\n            items={[\r\n              { key: 'all', label: `Tất cả (${items.length})` },\r\n              { key: 'unread', label: `Chưa đọc (${unreadCount})` },\r\n            ]}\r\n            style={{ borderBottom: 'none' }}\r\n          />\r\n        </div>\r\n\r\n        {/* Content */}\r\n        {loading ? (\r\n          <div style={{ padding: 20 }}>\r\n            <Skeleton active paragraph={{ rows: 4 }} />\r\n          </div>\r\n        ) : displayed.length === 0 ? (\r\n          <div style={{ padding: 40 }}>\r\n            <Empty description={activeTab === 'unread' ? 'Không có thông báo chưa đọc' : 'Chưa có thông báo nào'} />\r\n          </div>\r\n        ) : (\r\n          <List\r\n            dataSource={displayed}\r\n            renderItem={(notif) => {\r\n              const cfg = TYPE_CONFIG[notif.type] ?? { label: notif.type, color: 'default' };\r\n              return (\r\n                <List.Item\r\n                  onClick={() => !notif.isRead && markRead(notif.id)}\r\n                  style={{\r\n                    padding: '14px 20px',\r\n                    cursor: notif.isRead ? 'default' : 'pointer',\r\n                    background: notif.isRead ? 'transparent' : 'rgba(191, 4, 4, 0.03)',\r\n                    borderBottom: `1px solid ${SLINK_COLORS.border}`,\r\n                    transition: 'background 0.2s',\r\n                  }}\r\n                  actions={[\r\n                    !notif.isRead && (\r\n                      <Button\r\n                        type=\"link\"\r\n                        size=\"small\"\r\n                        onClick={(e) => { e.stopPropagation(); markRead(notif.id); }}\r\n                        style={{ color: SLINK_COLORS.info, padding: 0 }}\r\n                      >\r\n                        Đánh dấu đã đọc\r\n                      </Button>\r\n                    ),\r\n                  ].filter(Boolean)}\r\n                >\r\n                  <List.Item.Meta\r\n                    avatar={\r\n                      <div style={{ position: 'relative' }}>\r\n                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\r\n                          <BellOutlined style={{ color: SLINK_COLORS.primary }} />\r\n                        </div>\r\n                        {!notif.isRead && (\r\n                          <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: SLINK_COLORS.primary }} />\r\n                        )}\r\n                      </div>\r\n                    }\r\n                    title={\r\n                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\r\n                        <Text strong style={{ fontSize: 14 }}>{notif.title}</Text>\r\n                        <Tag color={cfg.color} style={{ margin: 0, fontSize: 11 }}>{cfg.label}</Tag>\r\n                      </div>\r\n                    }\r\n                    description={\r\n                      <div>\r\n                        <Text type=\"secondary\" style={{ fontSize: 13 }}>{notif.message}</Text>\r\n                        <br />\r\n                        <Text type=\"secondary\" style={{ fontSize: 11 }}>\r\n                          {dayjs(notif.createdAt).format('HH:mm DD/MM/YYYY')}\r\n                        </Text>\r\n                      </div>\r\n                    }\r\n                  />\r\n                </List.Item>\r\n              );\r\n            }}\r\n          />\r\n        )}\r\n      </Card>\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/notifications/index.tsx"
     },
     "14": {
       "path": "profile",
       "file": "@/pages/profile/index.tsx",
-      "parentId": "7",
+      "parentId": "8",
       "id": "14",
       "absPath": "/profile",
       "__content": "import { useState } from 'react';\nimport {\n    CheckCircleOutlined,\n    EditOutlined,\n    IdcardOutlined,\n    LockOutlined,\n    MailOutlined,\n    SaveOutlined,\n    SafetyOutlined,\n    UserOutlined,\n} from '@ant-design/icons';\nimport {\n    Avatar,\n    Button,\n    Card,\n    Col,\n    Divider,\n    Form,\n    Input,\n    message,\n    Row,\n    Space,\n    Tag,\n    Typography,\n} from 'antd';\nimport { useAuthStore } from '@/stores/auth.store';\nimport { SLINK_COLORS } from '@/theme/tokens';\n\nconst { Title, Text } = Typography;\n\nconst cardStyle = {\n    borderRadius: 8,\n    border: `1px solid ${SLINK_COLORS.border}`,\n    boxShadow: SLINK_COLORS.shadow,\n};\n\ninterface ProfileFormValues {\n    fullName: string;\n    email: string;\n}\n\ninterface PasswordFormValues {\n    currentPassword: string;\n    newPassword: string;\n    confirmPassword: string;\n}\n\nexport default function ProfilePage() {\n    const user = useAuthStore((state) => state.user);\n    const setAuth = useAuthStore((state) => state.setAuth);\n    const token = useAuthStore((state) => state.token);\n\n    const [editingProfile, setEditingProfile] = useState(false);\n    const [savingProfile, setSavingProfile] = useState(false);\n    const [savingPassword, setSavingPassword] = useState(false);\n\n    const [profileForm] = Form.useForm<ProfileFormValues>();\n    const [passwordForm] = Form.useForm<PasswordFormValues>();\n\n    const roleLabel = user?.role === 'admin' ? 'Quản trị viên' : 'Sinh viên';\n    const roleColor = user?.role === 'admin' ? 'red' : 'blue';\n\n    const handleEditProfile = () => {\n        profileForm.setFieldsValue({\n            fullName: user?.fullName ?? '',\n            email: user?.email ?? '',\n        });\n        setEditingProfile(true);\n    };\n\n    const handleSaveProfile = async (values: ProfileFormValues) => {\n        if (!user) return;\n        setSavingProfile(true);\n        try {\n            // Update auth store with new name/email (localStorage-backed)\n            await new Promise((resolve) => setTimeout(resolve, 400)); // simulate async\n            setAuth({ ...user, fullName: values.fullName, email: values.email }, token ?? '');\n            message.success('Cập nhật thông tin thành công!');\n            setEditingProfile(false);\n        } catch {\n            message.error('Có lỗi xảy ra, vui lòng thử lại.');\n        } finally {\n            setSavingProfile(false);\n        }\n    };\n\n    const handleSavePassword = async (values: PasswordFormValues) => {\n        setSavingPassword(true);\n        try {\n            await new Promise((resolve) => setTimeout(resolve, 500)); // simulate async\n            if (values.newPassword !== values.confirmPassword) {\n                message.error('Mật khẩu xác nhận không khớp!');\n                return;\n            }\n            message.success('Đổi mật khẩu thành công!');\n            passwordForm.resetFields();\n        } catch {\n            message.error('Có lỗi xảy ra, vui lòng thử lại.');\n        } finally {\n            setSavingPassword(false);\n        }\n    };\n\n    // Avatar initials from name\n    const initials = (user?.fullName ?? 'U')\n        .split(' ')\n        .map((w) => w[0])\n        .slice(-2)\n        .join('')\n        .toUpperCase();\n\n    return (\n        <div style={{ padding: 24, maxWidth: 900, margin: '0 auto' }}>\n            {/* ── Page heading ── */}\n            <div style={{ marginBottom: 24 }}>\n                <Title level={4} style={{ marginBottom: 4 }}>\n                    Thông Tin Cá Nhân\n                </Title>\n                <Text type=\"secondary\">Xem và cập nhật thông tin tài khoản của bạn</Text>\n            </div>\n\n            <Row gutter={[24, 24]}>\n                {/* ── LEFT: Avatar card ── */}\n                <Col xs={24} md={8}>\n                    <Card style={cardStyle}>\n                        <div style={{ textAlign: 'center', padding: '16px 0' }}>\n                            {/* Avatar with gradient ring */}\n                            <div\n                                style={{\n                                    display: 'inline-block',\n                                    padding: 3,\n                                    borderRadius: '50%',\n                                    background: `linear-gradient(135deg, ${SLINK_COLORS.primary}, #8B0000)`,\n                                    marginBottom: 16,\n                                }}\n                            >\n                                <Avatar\n                                    size={96}\n                                    style={{\n                                        background: '#fff',\n                                        color: SLINK_COLORS.primary,\n                                        fontSize: 32,\n                                        fontWeight: 700,\n                                        border: `3px solid ${SLINK_COLORS.background}`,\n                                    }}\n                                >\n                                    {initials}\n                                </Avatar>\n                            </div>\n\n                            <Title level={5} style={{ marginBottom: 4 }}>\n                                {user?.fullName ?? '—'}\n                            </Title>\n                            <Text type=\"secondary\" style={{ display: 'block', marginBottom: 12, fontSize: 13 }}>\n                                {user?.email ?? '—'}\n                            </Text>\n                            <Tag\n                                color={roleColor}\n                                icon={user?.role === 'admin' ? <SafetyOutlined /> : <UserOutlined />}\n                                style={{ borderRadius: 20, padding: '2px 12px' }}\n                            >\n                                {roleLabel}\n                            </Tag>\n                        </div>\n\n                        <Divider style={{ margin: '16px 0' }} />\n\n                        {/* Quick info */}\n                        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>\n                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>\n                                <IdcardOutlined style={{ color: SLINK_COLORS.textSecondary, marginTop: 2 }} />\n                                <div>\n                                    <Text type=\"secondary\" style={{ fontSize: 11, display: 'block' }}>\n                                        ID tài khoản\n                                    </Text>\n                                    <Text style={{ fontSize: 13, fontWeight: 500 }}>#{user?.id ?? '—'}</Text>\n                                </div>\n                            </div>\n                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>\n                                <MailOutlined style={{ color: SLINK_COLORS.textSecondary, marginTop: 2 }} />\n                                <div>\n                                    <Text type=\"secondary\" style={{ fontSize: 11, display: 'block' }}>\n                                        Email\n                                    </Text>\n                                    <Text\n                                        style={{ fontSize: 13, fontWeight: 500, wordBreak: 'break-all' }}\n                                    >\n                                        {user?.email ?? '—'}\n                                    </Text>\n                                </div>\n                            </div>\n                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>\n                                <CheckCircleOutlined style={{ color: SLINK_COLORS.success, marginTop: 2 }} />\n                                <div>\n                                    <Text type=\"secondary\" style={{ fontSize: 11, display: 'block' }}>\n                                        Trạng thái\n                                    </Text>\n                                    <Tag color=\"green\" style={{ fontSize: 12 }}>\n                                        Đang hoạt động\n                                    </Tag>\n                                </div>\n                            </div>\n                        </div>\n                    </Card>\n                </Col>\n\n                {/* ── RIGHT: Edit forms ── */}\n                <Col xs={24} md={16}>\n                    {/* Profile info form */}\n                    <Card\n                        style={{ ...cardStyle, marginBottom: 24 }}\n                        title={\n                            <Space>\n                                <UserOutlined style={{ color: SLINK_COLORS.primary }} />\n                                <span style={{ fontWeight: 600 }}>Thông tin cơ bản</span>\n                            </Space>\n                        }\n                        extra={\n                            !editingProfile ? (\n                                <Button\n                                    size=\"small\"\n                                    icon={<EditOutlined />}\n                                    onClick={handleEditProfile}\n                                    style={{ borderRadius: 6 }}\n                                >\n                                    Chỉnh sửa\n                                </Button>\n                            ) : null\n                        }\n                    >\n                        {!editingProfile ? (\n                            // Read-only view\n                            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>\n                                <div>\n                                    <Text type=\"secondary\" style={{ fontSize: 12 }}>\n                                        Họ và tên\n                                    </Text>\n                                    <div\n                                        style={{\n                                            marginTop: 4,\n                                            padding: '8px 12px',\n                                            background: SLINK_COLORS.surface,\n                                            borderRadius: 6,\n                                            fontSize: 14,\n                                            fontWeight: 500,\n                                        }}\n                                    >\n                                        {user?.fullName ?? '—'}\n                                    </div>\n                                </div>\n                                <div>\n                                    <Text type=\"secondary\" style={{ fontSize: 12 }}>\n                                        Email\n                                    </Text>\n                                    <div\n                                        style={{\n                                            marginTop: 4,\n                                            padding: '8px 12px',\n                                            background: SLINK_COLORS.surface,\n                                            borderRadius: 6,\n                                            fontSize: 14,\n                                        }}\n                                    >\n                                        {user?.email ?? '—'}\n                                    </div>\n                                </div>\n                                <div>\n                                    <Text type=\"secondary\" style={{ fontSize: 12 }}>\n                                        Vai trò\n                                    </Text>\n                                    <div style={{ marginTop: 6 }}>\n                                        <Tag color={roleColor}>{roleLabel}</Tag>\n                                    </div>\n                                </div>\n                            </div>\n                        ) : (\n                            // Edit form\n                            <Form\n                                form={profileForm}\n                                layout=\"vertical\"\n                                onFinish={handleSaveProfile}\n                            >\n                                <Form.Item\n                                    name=\"fullName\"\n                                    label=\"Họ và tên\"\n                                    rules={[{ required: true, message: 'Vui lòng nhập họ và tên' }]}\n                                >\n                                    <Input\n                                        prefix={<UserOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n                                        placeholder=\"Nhập họ và tên\"\n                                    />\n                                </Form.Item>\n                                <Form.Item\n                                    name=\"email\"\n                                    label=\"Email\"\n                                    rules={[\n                                        { required: true, message: 'Vui lòng nhập email' },\n                                        { type: 'email', message: 'Email không hợp lệ' },\n                                    ]}\n                                >\n                                    <Input\n                                        prefix={<MailOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n                                        placeholder=\"Nhập email\"\n                                    />\n                                </Form.Item>\n                                <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>\n                                    <Button onClick={() => setEditingProfile(false)}>Hủy</Button>\n                                    <Button\n                                        type=\"primary\"\n                                        htmlType=\"submit\"\n                                        loading={savingProfile}\n                                        icon={<SaveOutlined />}\n                                        style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary }}\n                                    >\n                                        Lưu thay đổi\n                                    </Button>\n                                </div>\n                            </Form>\n                        )}\n                    </Card>\n\n                    {/* Change password form */}\n                    <Card\n                        style={cardStyle}\n                        title={\n                            <Space>\n                                <LockOutlined style={{ color: SLINK_COLORS.primary }} />\n                                <span style={{ fontWeight: 600 }}>Đổi mật khẩu</span>\n                            </Space>\n                        }\n                    >\n                        <Form\n                            form={passwordForm}\n                            layout=\"vertical\"\n                            onFinish={handleSavePassword}\n                        >\n                            <Form.Item\n                                name=\"currentPassword\"\n                                label=\"Mật khẩu hiện tại\"\n                                rules={[{ required: true, message: 'Vui lòng nhập mật khẩu hiện tại' }]}\n                            >\n                                <Input.Password\n                                    prefix={<LockOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n                                    placeholder=\"Nhập mật khẩu hiện tại\"\n                                />\n                            </Form.Item>\n                            <Form.Item\n                                name=\"newPassword\"\n                                label=\"Mật khẩu mới\"\n                                rules={[\n                                    { required: true, message: 'Vui lòng nhập mật khẩu mới' },\n                                    { min: 6, message: 'Mật khẩu ít nhất 6 ký tự' },\n                                ]}\n                            >\n                                <Input.Password\n                                    prefix={<LockOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n                                    placeholder=\"Tối thiểu 6 ký tự\"\n                                />\n                            </Form.Item>\n                            <Form.Item\n                                name=\"confirmPassword\"\n                                label=\"Xác nhận mật khẩu mới\"\n                                dependencies={['newPassword']}\n                                rules={[\n                                    { required: true, message: 'Vui lòng xác nhận mật khẩu' },\n                                    ({ getFieldValue }) => ({\n                                        validator(_, value) {\n                                            if (!value || getFieldValue('newPassword') === value) {\n                                                return Promise.resolve();\n                                            }\n                                            return Promise.reject(new Error('Mật khẩu xác nhận không khớp!'));\n                                        },\n                                    }),\n                                ]}\n                            >\n                                <Input.Password\n                                    prefix={<LockOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\n                                    placeholder=\"Nhập lại mật khẩu mới\"\n                                />\n                            </Form.Item>\n                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>\n                                <Button\n                                    type=\"primary\"\n                                    htmlType=\"submit\"\n                                    loading={savingPassword}\n                                    icon={<SaveOutlined />}\n                                    style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary }}\n                                >\n                                    Cập nhật mật khẩu\n                                </Button>\n                            </div>\n                        </Form>\n                    </Card>\n                </Col>\n            </Row>\n        </div>\n    );\n}\n",
@@ -3729,7 +3739,7 @@
       "file": "@/layouts/AdminLayout.tsx",
       "id": "15",
       "absPath": "/admin",
-      "__content": "import { Outlet } from '@umijs/max';\nimport { Layout } from 'antd';\nimport { useEffect } from 'react';\nimport AppHeader from '@/components/layout/AppHeader';\nimport AppSidebar from '@/components/layout/AppSidebar';\nimport { adminMenuItems } from '@/config/menu.config';\nimport { ensureMockDataSeeded } from '@/mocks/offlineStorage';\n\nconst { Content } = Layout;\n\nexport default function AdminLayout() {\n  useEffect(() => {\n    ensureMockDataSeeded();\n  }, []);\n\n  return (\n    <Layout hasSider style={{ height: '100vh', background: '#F2F2F2', overflow: 'hidden' }}>\n      <AppSidebar items={adminMenuItems} title=\"Quản trị hệ thống\" />\n      <Layout style={{ background: '#F2F2F2', minWidth: 0, overflow: 'hidden' }}>\n        <AppHeader title=\"Cổng quản trị\" />\n        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>\n          <Outlet />\n        </Content>\n      </Layout>\n    </Layout>\n  );\n}\n",
+      "__content": "import { Outlet } from '@umijs/max';\r\nimport { Layout } from 'antd';\r\nimport { useEffect } from 'react';\r\nimport AppHeader from '@/components/layout/AppHeader';\r\nimport AppSidebar from '@/components/layout/AppSidebar';\r\nimport { adminMenuItems } from '@/config/menu.config';\r\nimport { ensureMockDataSeeded } from '@/mocks/offlineStorage';\r\n\r\nconst { Content } = Layout;\r\n\r\nexport default function AdminLayout() {\r\n  useEffect(() => {\r\n    ensureMockDataSeeded();\r\n  }, []);\r\n\r\n  return (\r\n    <Layout hasSider style={{ height: '100vh', background: '#F2F2F2', overflow: 'hidden' }}>\r\n      <AppSidebar items={adminMenuItems} title=\"Quản trị hệ thống\" />\r\n      <Layout style={{ background: '#F2F2F2', minWidth: 0, overflow: 'hidden' }}>\r\n        <AppHeader title=\"Cổng quản trị\" />\r\n        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>\r\n          <Outlet />\r\n        </Content>\r\n      </Layout>\r\n    </Layout>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/layouts/AdminLayout.tsx"
     },
@@ -3746,7 +3756,7 @@
       "parentId": "15",
       "id": "17",
       "absPath": "/admin/dashboard",
-      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  AppstoreOutlined,\n  CheckCircleOutlined,\n  ClockCircleOutlined,\n  CloseCircleOutlined,\n  ReloadOutlined,\n  TeamOutlined,\n  ToolOutlined,\n  WarningOutlined,\n} from '@ant-design/icons';\nimport { Badge, Button, Card, Col, Row, Statistic, Table, Tag, Typography } from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport dayjs from 'dayjs';\nimport relativeTime from 'dayjs/plugin/relativeTime';\nimport 'dayjs/locale/vi';\nimport {\n  OFFLINE_STORAGE_KEYS,\n  readCollection,\n  type MockBorrowRequest,\n  type MockEquipment,\n  type MockUser,\n} from '../../../mocks/offlineStorage';\nimport { SLINK_COLORS } from '../../../theme/tokens';\n\ndayjs.extend(relativeTime);\ndayjs.locale('vi');\n\nconst { Title, Text } = Typography;\n\n// ─── Types ────────────────────────────────────────────────────────────────────\n\ninterface LiveStats {\n  pendingCount: number;\n  borrowingCount: number;\n  overdueCount: number;\n  totalEquipment: number;\n  availableEquipment: number;\n  totalStudents: number;\n  pendingRequests: MockBorrowRequest[];\n  overdueRequests: MockBorrowRequest[];\n}\n\n// ─── Helpers ──────────────────────────────────────────────────────────────────\n\nfunction loadLiveStats(): LiveStats {\n  const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);\n  const equipment = readCollection<MockEquipment>(OFFLINE_STORAGE_KEYS.equipment);\n  const users = readCollection<MockUser>(OFFLINE_STORAGE_KEYS.users);\n  const now = new Date();\n\n  const pending = requests.filter((r) => r.status === 'pending');\n  const borrowing = requests.filter((r) => r.status === 'borrowing');\n  const overdue = requests.filter(\n    (r) =>\n      (r.status === 'borrowing' || r.status === 'approved') &&\n      new Date(r.expectedReturnDate) < now,\n  );\n\n  return {\n    pendingCount: pending.length,\n    borrowingCount: borrowing.length,\n    overdueCount: overdue.length,\n    totalEquipment: equipment.length,\n    availableEquipment: equipment.filter((e) => e.status === 'active').length,\n    totalStudents: users.filter((u) => u.role === 'student').length,\n    pendingRequests: pending\n      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))\n      .slice(0, 20),\n    overdueRequests: overdue\n      .sort((a, b) => a.expectedReturnDate.localeCompare(b.expectedReturnDate))\n      .slice(0, 20),\n  };\n}\n\n// ─── KPI Card ────────────────────────────────────────────────────────────────\n\ninterface KpiCardProps {\n  title: string;\n  value: number;\n  icon: React.ReactNode;\n  iconColor: string;\n  iconBg: string;\n  alert?: boolean;\n  subtitle?: string;\n}\n\nfunction KpiCard({ title, value, icon, iconColor, iconBg, alert, subtitle }: KpiCardProps) {\n  return (\n    <Card\n      style={{\n        borderRadius: 10,\n        border: `1px solid ${alert && value > 0 ? 'rgba(191,4,4,0.25)' : SLINK_COLORS.border}`,\n        boxShadow: alert && value > 0 ? '0 2px 12px rgba(191,4,4,0.10)' : SLINK_COLORS.shadow,\n        background: alert && value > 0 ? 'rgba(191,4,4,0.02)' : '#fff',\n        height: 104,\n      }}\n      styles={{ body: { padding: '14px 18px', height: '100%' } }}\n    >\n      <div style={{ display: 'flex', alignItems: 'center', gap: 14, height: '100%' }}>\n        <div\n          style={{\n            width: 46,\n            height: 46,\n            borderRadius: 10,\n            background: iconBg,\n            display: 'flex',\n            alignItems: 'center',\n            justifyContent: 'center',\n            flexShrink: 0,\n            fontSize: 20,\n            color: iconColor,\n          }}\n        >\n          {alert && value > 0 ? (\n            <Badge count={value} size=\"small\" offset={[6, -6]}>\n              {icon}\n            </Badge>\n          ) : icon}\n        </div>\n        <div style={{ minWidth: 0, flex: 1 }}>\n          <Text type=\"secondary\" style={{ fontSize: 12, display: 'block', marginBottom: 2 }}>\n            {title}\n          </Text>\n          <Statistic\n            value={value}\n            valueStyle={{\n              fontSize: 24,\n              fontWeight: 700,\n              color: alert && value > 0 ? SLINK_COLORS.primary : SLINK_COLORS.textBase,\n              lineHeight: 1,\n            }}\n          />\n          {subtitle && (\n            <Text type=\"secondary\" style={{ fontSize: 11, display: 'block', marginTop: 2 }}>\n              {subtitle}\n            </Text>\n          )}\n        </div>\n      </div>\n    </Card>\n  );\n}\n\n// ─── Empty state ─────────────────────────────────────────────────────────────\n\nfunction EmptyState({ icon, text }: { icon: React.ReactNode; text: string }) {\n  return (\n    <div style={{ padding: '40px 0', textAlign: 'center' }}>\n      <div style={{ fontSize: 36, color: SLINK_COLORS.success, marginBottom: 8 }}>{icon}</div>\n      <Text type=\"secondary\" style={{ fontSize: 13 }}>{text}</Text>\n    </div>\n  );\n}\n\n// ─── Main Page ────────────────────────────────────────────────────────────────\n\nconst PAGE_SIZE = 8;\nconst TABLE_HEIGHT = 480; // fixed height for both tables\n\nconst cardStyle = {\n  borderRadius: 10,\n  border: `1px solid ${SLINK_COLORS.border}`,\n  boxShadow: SLINK_COLORS.shadow,\n};\n\nexport default function AdminDashboardPage() {\n  const [stats, setStats] = useState<LiveStats | null>(null);\n  const [loading, setLoading] = useState(true);\n\n  const load = useCallback(() => {\n    setLoading(true);\n    setTimeout(() => {\n      setStats(loadLiveStats());\n      setLoading(false);\n    }, 200);\n  }, []);\n\n  useEffect(() => {\n    load();\n  }, [load]);\n\n  // ── Pending requests columns ─────────────────────────────────────────────\n\n  const pendingColumns: ColumnsType<MockBorrowRequest> = [\n    {\n      title: 'Sinh viên',\n      dataIndex: 'userFullName',\n      key: 'userFullName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Thiết bị',\n      dataIndex: 'equipmentName',\n      key: 'equipmentName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Gửi',\n      dataIndex: 'createdAt',\n      key: 'createdAt',\n      width: 90,\n      render: (v: string) => (\n        <Text type=\"secondary\" style={{ fontSize: 12 }}>\n          {dayjs(v).fromNow()}\n        </Text>\n      ),\n    },\n    {\n      title: '',\n      key: 'action',\n      width: 72,\n      render: (_: unknown, record: MockBorrowRequest) => (\n        <div style={{ display: 'flex', gap: 4 }}>\n          <Button\n            size=\"small\"\n            type=\"primary\"\n            icon={<CheckCircleOutlined />}\n            style={{ background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success }}\n            onClick={() => (window.location.href = `/admin/requests/${record.id}`)}\n          />\n          <Button\n            size=\"small\"\n            danger\n            icon={<CloseCircleOutlined />}\n            onClick={() => (window.location.href = `/admin/requests/${record.id}`)}\n          />\n        </div>\n      ),\n    },\n  ];\n\n  // ── Overdue columns ──────────────────────────────────────────────────────\n\n  const overdueColumns: ColumnsType<MockBorrowRequest> = [\n    {\n      title: 'Sinh viên',\n      dataIndex: 'userFullName',\n      key: 'userFullName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Thiết bị',\n      dataIndex: 'equipmentName',\n      key: 'equipmentName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Hạn trả',\n      dataIndex: 'expectedReturnDate',\n      key: 'expectedReturnDate',\n      width: 96,\n      render: (v: string) => (\n        <Text style={{ color: '#CF1322', fontWeight: 600, fontSize: 12 }}>\n          {dayjs(v).format('DD/MM/YY')}\n        </Text>\n      ),\n    },\n    {\n      title: 'Trễ',\n      key: 'days',\n      width: 64,\n      render: (_: unknown, r: MockBorrowRequest) => {\n        const d = dayjs().diff(dayjs(r.expectedReturnDate), 'day');\n        return <Tag color=\"volcano\" style={{ fontSize: 11 }}>{d}N</Tag>;\n      },\n    },\n  ];\n\n  const tableProps = {\n    size: 'small' as const,\n    loading,\n    pagination: {\n      pageSize: PAGE_SIZE,\n      size: 'small' as const,\n      showSizeChanger: false,\n      showTotal: (total: number) => <Text style={{ fontSize: 12 }}>{total} mục</Text>,\n    },\n    scroll: { y: TABLE_HEIGHT },\n  };\n\n  return (\n    <div style={{ padding: 24 }}>\n      {/* ── Header ── */}\n      <div\n        style={{\n          marginBottom: 20,\n          display: 'flex',\n          justifyContent: 'space-between',\n          alignItems: 'flex-start',\n          gap: 12,\n          flexWrap: 'wrap',\n        }}\n      >\n        <div>\n          <Title level={4} style={{ marginBottom: 4 }}>\n            Tổng Quan Hệ Thống\n          </Title>\n          <Text type=\"secondary\" style={{ fontSize: 13 }}>\n            Trạng thái hoạt động thời gian thực —{' '}\n            <span style={{ color: SLINK_COLORS.textBase }}>\n              {dayjs().format('dddd, DD/MM/YYYY')}\n            </span>\n          </Text>\n        </div>\n        <Button icon={<ReloadOutlined />} onClick={load} loading={loading}>\n          Làm mới\n        </Button>\n      </div>\n\n      {/* ── KPI Row ── */}\n      <Row gutter={[12, 12]} style={{ marginBottom: 20 }}>\n        {[\n          {\n            title: 'Chờ duyệt',\n            value: stats?.pendingCount ?? 0,\n            icon: <ClockCircleOutlined />,\n            iconColor: '#FA8C16',\n            iconBg: 'rgba(250,140,22,0.1)',\n            alert: true,\n            subtitle: 'Cần xử lý',\n          },\n          {\n            title: 'Đang mượn',\n            value: stats?.borrowingCount ?? 0,\n            icon: <AppstoreOutlined />,\n            iconColor: SLINK_COLORS.info,\n            iconBg: 'rgba(15,136,242,0.1)',\n            subtitle: 'Đồ đang lưu hành',\n          },\n          {\n            title: 'Quá hạn',\n            value: stats?.overdueCount ?? 0,\n            icon: <WarningOutlined />,\n            iconColor: '#CF1322',\n            iconBg: 'rgba(207,19,34,0.1)',\n            alert: true,\n            subtitle: 'Cần thu hồi',\n          },\n          {\n            title: 'Tổng thiết bị',\n            value: stats?.totalEquipment ?? 0,\n            icon: <ToolOutlined />,\n            iconColor: SLINK_COLORS.primary,\n            iconBg: 'rgba(191,4,4,0.08)',\n            subtitle: `${stats?.availableEquipment ?? 0} đang hoạt động`,\n          },\n          {\n            title: 'Sẵn sàng',\n            value: stats?.availableEquipment ?? 0,\n            icon: <CheckCircleOutlined />,\n            iconColor: SLINK_COLORS.success,\n            iconBg: 'rgba(102,191,38,0.1)',\n            subtitle: 'Có thể cho mượn',\n          },\n          {\n            title: 'Sinh viên',\n            value: stats?.totalStudents ?? 0,\n            icon: <TeamOutlined />,\n            iconColor: '#722ED1',\n            iconBg: 'rgba(114,46,209,0.1)',\n            subtitle: 'Đã đăng ký',\n          },\n        ].map((kpi) => (\n          <Col key={kpi.title} xs={12} sm={8} lg={4}>\n            <KpiCard {...kpi} />\n          </Col>\n        ))}\n      </Row>\n\n      {/* ── Tables Row — equal height 50/50 ── */}\n      <Row gutter={[16, 16]} align=\"stretch\">\n        {/* Pending requests */}\n        <Col xs={24} xl={12}>\n          <Card\n            style={{ ...cardStyle, height: '100%' }}\n            bodyStyle={{ padding: 0 }}\n            title={\n              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                <ClockCircleOutlined style={{ color: '#FA8C16' }} />\n                <Text strong style={{ fontSize: 14 }}>Yêu cầu chờ duyệt</Text>\n                {!!stats?.pendingCount && (\n                  <Badge count={stats.pendingCount} style={{ backgroundColor: '#FA8C16' }} />\n                )}\n              </div>\n            }\n            extra={\n              <a href=\"/admin/requests\" style={{ color: SLINK_COLORS.info, fontSize: 13 }}>\n                Xem tất cả →\n              </a>\n            }\n          >\n            {!loading && stats?.pendingRequests.length === 0 ? (\n              <EmptyState\n                icon={<CheckCircleOutlined />}\n                text=\"Không có yêu cầu nào đang chờ duyệt\"\n              />\n            ) : (\n              <Table<MockBorrowRequest>\n                {...tableProps}\n                dataSource={stats?.pendingRequests ?? []}\n                columns={pendingColumns}\n                rowKey=\"id\"\n              />\n            )}\n          </Card>\n        </Col>\n\n        {/* Overdue requests */}\n        <Col xs={24} xl={12}>\n          <Card\n            style={{ ...cardStyle, height: '100%' }}\n            bodyStyle={{ padding: 0 }}\n            title={\n              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                <WarningOutlined style={{ color: '#CF1322' }} />\n                <Text strong style={{ fontSize: 14 }}>Thiết bị quá hạn</Text>\n                {!!stats?.overdueCount && <Badge count={stats.overdueCount} />}\n              </div>\n            }\n            extra={\n              <a href=\"/admin/requests\" style={{ color: '#CF1322', fontSize: 13 }}>\n                Xem tất cả →\n              </a>\n            }\n          >\n            {!loading && stats?.overdueRequests.length === 0 ? (\n              <EmptyState\n                icon={<CheckCircleOutlined />}\n                text=\"Không có thiết bị nào quá hạn\"\n              />\n            ) : (\n              <Table<MockBorrowRequest>\n                {...tableProps}\n                dataSource={stats?.overdueRequests ?? []}\n                columns={overdueColumns}\n                rowKey=\"id\"\n              />\n            )}\n          </Card>\n        </Col>\n      </Row>\n    </div>\n  );\n}\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\nimport {\n  AppstoreOutlined,\n  CheckCircleOutlined,\n  ClockCircleOutlined,\n  CloseCircleOutlined,\n  ReloadOutlined,\n  TeamOutlined,\n  ToolOutlined,\n  WarningOutlined,\n} from '@ant-design/icons';\nimport { Badge, Button, Card, Col, Modal, Row, Statistic, Table, Tag, Tooltip, Typography, message } from 'antd';\nimport type { ColumnsType } from 'antd/es/table';\nimport dayjs from 'dayjs';\nimport relativeTime from 'dayjs/plugin/relativeTime';\nimport 'dayjs/locale/vi';\nimport {\n  OFFLINE_STORAGE_KEYS,\n  readCollection,\n  writeCollection,\n  createNotification,\n  type MockBorrowRequest,\n  type MockEquipment,\n  type MockUser,\n} from '../../../mocks/offlineStorage';\nimport { SLINK_COLORS } from '../../../theme/tokens';\n\ndayjs.extend(relativeTime);\ndayjs.locale('vi');\n\nconst { Title, Text } = Typography;\n\n// ─── Types ────────────────────────────────────────────────────────────────────\n\ninterface LiveStats {\n  pendingCount: number;\n  borrowingCount: number;\n  overdueCount: number;\n  totalEquipment: number;\n  availableEquipment: number;\n  totalStudents: number;\n  pendingRequests: MockBorrowRequest[];\n  overdueRequests: MockBorrowRequest[];\n}\n\n// ─── Helpers ──────────────────────────────────────────────────────────────────\n\nfunction loadLiveStats(): LiveStats {\n  const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);\n  const equipment = readCollection<MockEquipment>(OFFLINE_STORAGE_KEYS.equipment);\n  const users = readCollection<MockUser>(OFFLINE_STORAGE_KEYS.users);\n  const now = new Date();\n\n  const pending = requests.filter((r) => r.status === 'pending');\n  const borrowing = requests.filter((r) => r.status === 'borrowing');\n  const overdue = requests.filter(\n    (r) =>\n      (r.status === 'borrowing' || r.status === 'approved') &&\n      new Date(r.expectedReturnDate) < now,\n  );\n\n  return {\n    pendingCount: pending.length,\n    borrowingCount: borrowing.length,\n    overdueCount: overdue.length,\n    totalEquipment: equipment.length,\n    availableEquipment: equipment.filter((e) => e.status === 'active').length,\n    totalStudents: users.filter((u) => u.role === 'student').length,\n    pendingRequests: pending\n      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))\n      .slice(0, 20),\n    overdueRequests: overdue\n      .sort((a, b) => a.expectedReturnDate.localeCompare(b.expectedReturnDate))\n      .slice(0, 20),\n  };\n}\n\n/** Cập nhật trạng thái yêu cầu trong mock localStorage */\nfunction updateRequestStatus(requestId: number, newStatus: string, rejectReason?: string) {\n  const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);\n  const updated = requests.map((r) => {\n    if (r.id === requestId) {\n      return {\n        ...r,\n        status: newStatus,\n        updatedAt: new Date().toISOString(),\n        ...(rejectReason ? { rejectReason } : {}),\n      };\n    }\n    return r;\n  });\n  writeCollection(OFFLINE_STORAGE_KEYS.borrowRequests, updated);\n\n  // Tạo thông báo cho sinh viên\n  const request = requests.find((r) => r.id === requestId);\n  if (request) {\n    createNotification({\n      userId: request.userId,\n      type: newStatus === 'approved' ? 'approved' : 'rejected',\n      title: newStatus === 'approved' ? 'Yêu cầu đã được duyệt' : 'Yêu cầu bị từ chối',\n      message:\n        newStatus === 'approved'\n          ? `Yêu cầu mượn ${request.equipmentName} đã được quản trị viên duyệt.`\n          : `Yêu cầu mượn ${request.equipmentName} đã bị từ chối.${rejectReason ? ` Lý do: ${rejectReason}` : ''}`,\n      targetRole: 'student',\n    });\n  }\n}\n\n// ─── KPI Card ────────────────────────────────────────────────────────────────\n\ninterface KpiCardProps {\n  title: string;\n  value: number;\n  icon: React.ReactNode;\n  iconColor: string;\n  iconBg: string;\n  alert?: boolean;\n  subtitle?: string;\n}\n\nfunction KpiCard({ title, value, icon, iconColor, iconBg, alert, subtitle }: KpiCardProps) {\n  return (\n    <Card\n      style={{\n        borderRadius: 10,\n        border: `1px solid ${alert && value > 0 ? 'rgba(191,4,4,0.25)' : SLINK_COLORS.border}`,\n        boxShadow: alert && value > 0 ? '0 2px 12px rgba(191,4,4,0.10)' : SLINK_COLORS.shadow,\n        background: alert && value > 0 ? 'rgba(191,4,4,0.02)' : '#fff',\n        height: 104,\n      }}\n      styles={{ body: { padding: '14px 18px', height: '100%' } }}\n    >\n      <div style={{ display: 'flex', alignItems: 'center', gap: 14, height: '100%' }}>\n        <div\n          style={{\n            width: 46,\n            height: 46,\n            borderRadius: 10,\n            background: iconBg,\n            display: 'flex',\n            alignItems: 'center',\n            justifyContent: 'center',\n            flexShrink: 0,\n            fontSize: 20,\n            color: iconColor,\n          }}\n        >\n          {alert && value > 0 ? (\n            <Badge count={value} size=\"small\" offset={[6, -6]}>\n              {icon}\n            </Badge>\n          ) : icon}\n        </div>\n        <div style={{ minWidth: 0, flex: 1 }}>\n          <Text type=\"secondary\" style={{ fontSize: 12, display: 'block', marginBottom: 2 }}>\n            {title}\n          </Text>\n          <Statistic\n            value={value}\n            valueStyle={{\n              fontSize: 24,\n              fontWeight: 700,\n              color: alert && value > 0 ? SLINK_COLORS.primary : SLINK_COLORS.textBase,\n              lineHeight: 1,\n            }}\n          />\n          {subtitle && (\n            <Text type=\"secondary\" style={{ fontSize: 11, display: 'block', marginTop: 2 }}>\n              {subtitle}\n            </Text>\n          )}\n        </div>\n      </div>\n    </Card>\n  );\n}\n\n// ─── Empty state ─────────────────────────────────────────────────────────────\n\nfunction EmptyState({ icon, text }: { icon: React.ReactNode; text: string }) {\n  return (\n    <div style={{ padding: '40px 0', textAlign: 'center' }}>\n      <div style={{ fontSize: 36, color: SLINK_COLORS.success, marginBottom: 8 }}>{icon}</div>\n      <Text type=\"secondary\" style={{ fontSize: 13 }}>{text}</Text>\n    </div>\n  );\n}\n\n// ─── Main Page ────────────────────────────────────────────────────────────────\n\nconst PAGE_SIZE = 8;\nconst TABLE_HEIGHT = 480; // fixed height for both tables\n\nconst cardStyle = {\n  borderRadius: 10,\n  border: `1px solid ${SLINK_COLORS.border}`,\n  boxShadow: SLINK_COLORS.shadow,\n};\n\nexport default function AdminDashboardPage() {\n  const [stats, setStats] = useState<LiveStats | null>(null);\n  const [loading, setLoading] = useState(true);\n  const [messageApi, contextHolder] = message.useMessage();\n\n  const load = useCallback(() => {\n    setLoading(true);\n    setTimeout(() => {\n      setStats(loadLiveStats());\n      setLoading(false);\n    }, 200);\n  }, []);\n\n  useEffect(() => {\n    load();\n  }, [load]);\n\n  // ── Xử lý duyệt yêu cầu ───────────────────────────────────────────────\n\n  const handleApprove = (record: MockBorrowRequest) => {\n    Modal.confirm({\n      title: 'Xác nhận duyệt',\n      content: `Duyệt yêu cầu mượn \"${record.equipmentName}\" của ${record.userFullName}?`,\n      okText: 'Duyệt',\n      cancelText: 'Hủy',\n      okButtonProps: { style: { background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success } },\n      onOk: () => {\n        updateRequestStatus(record.id, 'approved');\n        messageApi.success(`Đã duyệt yêu cầu của ${record.userFullName}`);\n        load();\n      },\n    });\n  };\n\n  const handleReject = (record: MockBorrowRequest) => {\n    Modal.confirm({\n      title: 'Xác nhận từ chối',\n      content: `Từ chối yêu cầu mượn \"${record.equipmentName}\" của ${record.userFullName}?`,\n      okText: 'Từ chối',\n      cancelText: 'Hủy',\n      okButtonProps: { danger: true },\n      onOk: () => {\n        updateRequestStatus(record.id, 'rejected', 'Quản trị viên từ chối yêu cầu.');\n        messageApi.success(`Đã từ chối yêu cầu của ${record.userFullName}`);\n        load();\n      },\n    });\n  };\n\n  // ── Pending requests columns ─────────────────────────────────────────────\n\n  const pendingColumns: ColumnsType<MockBorrowRequest> = [\n    {\n      title: 'Sinh viên',\n      dataIndex: 'userFullName',\n      key: 'userFullName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Thiết bị',\n      dataIndex: 'equipmentName',\n      key: 'equipmentName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Gửi',\n      dataIndex: 'createdAt',\n      key: 'createdAt',\n      width: 90,\n      render: (v: string) => (\n        <Text type=\"secondary\" style={{ fontSize: 12 }}>\n          {dayjs(v).fromNow()}\n        </Text>\n      ),\n    },\n    {\n      title: '',\n      key: 'action',\n      width: 72,\n      render: (_: unknown, record: MockBorrowRequest) => (\n        <div style={{ display: 'flex', gap: 4 }}>\n          <Tooltip title=\"Duyệt yêu cầu\">\n            <Button\n              size=\"small\"\n              type=\"primary\"\n              icon={<CheckCircleOutlined />}\n              style={{ background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success }}\n              onClick={() => handleApprove(record)}\n            />\n          </Tooltip>\n          <Tooltip title=\"Từ chối\">\n            <Button\n              size=\"small\"\n              danger\n              icon={<CloseCircleOutlined />}\n              onClick={() => handleReject(record)}\n            />\n          </Tooltip>\n        </div>\n      ),\n    },\n  ];\n\n  // ── Overdue columns ──────────────────────────────────────────────────────\n\n  const overdueColumns: ColumnsType<MockBorrowRequest> = [\n    {\n      title: 'Sinh viên',\n      dataIndex: 'userFullName',\n      key: 'userFullName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Thiết bị',\n      dataIndex: 'equipmentName',\n      key: 'equipmentName',\n      ellipsis: true,\n      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,\n    },\n    {\n      title: 'Hạn trả',\n      dataIndex: 'expectedReturnDate',\n      key: 'expectedReturnDate',\n      width: 96,\n      render: (v: string) => (\n        <Text style={{ color: '#CF1322', fontWeight: 600, fontSize: 12 }}>\n          {dayjs(v).format('DD/MM/YY')}\n        </Text>\n      ),\n    },\n    {\n      title: 'Trễ',\n      key: 'days',\n      width: 64,\n      render: (_: unknown, r: MockBorrowRequest) => {\n        const d = dayjs().diff(dayjs(r.expectedReturnDate), 'day');\n        return <Tag color=\"volcano\" style={{ fontSize: 11 }}>{d}N</Tag>;\n      },\n    },\n  ];\n\n  const tableProps = {\n    size: 'small' as const,\n    loading,\n    pagination: {\n      pageSize: PAGE_SIZE,\n      size: 'small' as const,\n      showSizeChanger: false,\n      showTotal: (total: number) => <Text style={{ fontSize: 12 }}>{total} mục</Text>,\n    },\n    scroll: { y: TABLE_HEIGHT },\n  };\n\n  return (\n    <div style={{ padding: 24 }}>\n      {contextHolder}\n      {/* ── Header ── */}\n      <div\n        style={{\n          marginBottom: 20,\n          display: 'flex',\n          justifyContent: 'space-between',\n          alignItems: 'flex-start',\n          gap: 12,\n          flexWrap: 'wrap',\n        }}\n      >\n        <div>\n          <Title level={4} style={{ marginBottom: 4 }}>\n            Tổng Quan Hệ Thống\n          </Title>\n          <Text type=\"secondary\" style={{ fontSize: 13 }}>\n            Trạng thái hoạt động thời gian thực —{' '}\n            <span style={{ color: SLINK_COLORS.textBase }}>\n              {dayjs().format('dddd, DD/MM/YYYY')}\n            </span>\n          </Text>\n        </div>\n        <Button icon={<ReloadOutlined />} onClick={load} loading={loading}>\n          Làm mới\n        </Button>\n      </div>\n\n      {/* ── KPI Row ── */}\n      <Row gutter={[12, 12]} style={{ marginBottom: 20 }}>\n        {[\n          {\n            title: 'Chờ duyệt',\n            value: stats?.pendingCount ?? 0,\n            icon: <ClockCircleOutlined />,\n            iconColor: '#FA8C16',\n            iconBg: 'rgba(250,140,22,0.1)',\n            alert: true,\n            subtitle: 'Cần xử lý',\n          },\n          {\n            title: 'Đang mượn',\n            value: stats?.borrowingCount ?? 0,\n            icon: <AppstoreOutlined />,\n            iconColor: SLINK_COLORS.info,\n            iconBg: 'rgba(15,136,242,0.1)',\n            subtitle: 'Đồ đang lưu hành',\n          },\n          {\n            title: 'Quá hạn',\n            value: stats?.overdueCount ?? 0,\n            icon: <WarningOutlined />,\n            iconColor: '#CF1322',\n            iconBg: 'rgba(207,19,34,0.1)',\n            alert: true,\n            subtitle: 'Cần thu hồi',\n          },\n          {\n            title: 'Tổng thiết bị',\n            value: stats?.totalEquipment ?? 0,\n            icon: <ToolOutlined />,\n            iconColor: SLINK_COLORS.primary,\n            iconBg: 'rgba(191,4,4,0.08)',\n            subtitle: `${stats?.availableEquipment ?? 0} đang hoạt động`,\n          },\n          {\n            title: 'Sẵn sàng',\n            value: stats?.availableEquipment ?? 0,\n            icon: <CheckCircleOutlined />,\n            iconColor: SLINK_COLORS.success,\n            iconBg: 'rgba(102,191,38,0.1)',\n            subtitle: 'Có thể cho mượn',\n          },\n          {\n            title: 'Sinh viên',\n            value: stats?.totalStudents ?? 0,\n            icon: <TeamOutlined />,\n            iconColor: '#722ED1',\n            iconBg: 'rgba(114,46,209,0.1)',\n            subtitle: 'Đã đăng ký',\n          },\n        ].map((kpi) => (\n          <Col key={kpi.title} xs={12} sm={8} lg={4}>\n            <KpiCard {...kpi} />\n          </Col>\n        ))}\n      </Row>\n\n      {/* ── Tables Row — equal height 50/50 ── */}\n      <Row gutter={[16, 16]} align=\"stretch\">\n        {/* Pending requests */}\n        <Col xs={24} xl={12}>\n          <Card\n            style={{ ...cardStyle, height: '100%' }}\n            bodyStyle={{ padding: 0 }}\n            title={\n              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                <ClockCircleOutlined style={{ color: '#FA8C16' }} />\n                <Text strong style={{ fontSize: 14 }}>Yêu cầu chờ duyệt</Text>\n                {!!stats?.pendingCount && (\n                  <Badge count={stats.pendingCount} style={{ backgroundColor: '#FA8C16' }} />\n                )}\n              </div>\n            }\n            extra={\n              <a href=\"/admin/requests\" style={{ color: SLINK_COLORS.info, fontSize: 13 }}>\n                Xem tất cả →\n              </a>\n            }\n          >\n            {!loading && stats?.pendingRequests.length === 0 ? (\n              <EmptyState\n                icon={<CheckCircleOutlined />}\n                text=\"Không có yêu cầu nào đang chờ duyệt\"\n              />\n            ) : (\n              <Table<MockBorrowRequest>\n                {...tableProps}\n                dataSource={stats?.pendingRequests ?? []}\n                columns={pendingColumns}\n                rowKey=\"id\"\n              />\n            )}\n          </Card>\n        </Col>\n\n        {/* Overdue requests */}\n        <Col xs={24} xl={12}>\n          <Card\n            style={{ ...cardStyle, height: '100%' }}\n            bodyStyle={{ padding: 0 }}\n            title={\n              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\n                <WarningOutlined style={{ color: '#CF1322' }} />\n                <Text strong style={{ fontSize: 14 }}>Thiết bị quá hạn</Text>\n                {!!stats?.overdueCount && <Badge count={stats.overdueCount} />}\n              </div>\n            }\n            extra={\n              <a href=\"/admin/requests\" style={{ color: '#CF1322', fontSize: 13 }}>\n                Xem tất cả →\n              </a>\n            }\n          >\n            {!loading && stats?.overdueRequests.length === 0 ? (\n              <EmptyState\n                icon={<CheckCircleOutlined />}\n                text=\"Không có thiết bị nào quá hạn\"\n              />\n            ) : (\n              <Table<MockBorrowRequest>\n                {...tableProps}\n                dataSource={stats?.overdueRequests ?? []}\n                columns={overdueColumns}\n                rowKey=\"id\"\n              />\n            )}\n          </Card>\n        </Col>\n      </Row>\n    </div>\n  );\n}\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/dashboard/index.tsx"
     },
@@ -3801,10 +3811,20 @@
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/reports/index.tsx"
     },
     "23": {
+      "path": "notifications",
+      "file": "@/pages/admin/notifications/index.tsx",
+      "parentId": "15",
+      "id": "23",
+      "absPath": "/admin/notifications",
+      "__content": "import { useState } from 'react';\r\nimport {\r\n  Badge, Button, Card, Empty, List, message,\r\n  Skeleton, Tabs, Tag, Typography,\r\n} from 'antd';\r\nimport {\r\n  BellOutlined, CheckOutlined, ExclamationCircleOutlined,\r\n  FileTextOutlined, SwapOutlined,\r\n} from '@ant-design/icons';\r\nimport dayjs from 'dayjs';\r\nimport { useNotifications } from '../../../hooks/useNotifications';\r\nimport { SLINK_COLORS } from '../../../theme/tokens';\r\n\r\nconst { Title, Text } = Typography;\r\n\r\n/** Admin-facing notification type display config */\r\nconst ADMIN_TYPE_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {\r\n  new_request:        { label: 'Yêu cầu mới',       color: 'blue',    icon: <FileTextOutlined /> },\r\n  overdue_alert:      { label: 'Quá hạn',            color: 'volcano', icon: <ExclamationCircleOutlined /> },\r\n  return_confirmed:   { label: 'Đã trả',             color: 'green',   icon: <SwapOutlined /> },\r\n  checkout_confirmed: { label: 'Bàn giao',           color: 'purple',  icon: <SwapOutlined /> },\r\n  due_reminder:       { label: 'Nhắc nhở',           color: 'orange',  icon: <BellOutlined /> },\r\n  approved:           { label: 'Đã duyệt',           color: 'green',   icon: <CheckOutlined /> },\r\n  rejected:           { label: 'Từ chối',            color: 'red',     icon: <ExclamationCircleOutlined /> },\r\n};\r\n\r\nexport default function AdminNotificationsPage() {\r\n  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications('admin');\r\n  const [activeTab, setActiveTab] = useState('all');\r\n\r\n  const displayed = activeTab === 'unread' ? items.filter((n) => !n.isRead) : items;\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      <Card\r\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\r\n        styles={{ body: { padding: 0 } }}\r\n      >\r\n        {/* Header */}\r\n        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\r\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\r\n            <BellOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\r\n            <div>\r\n              <Title level={5} style={{ marginBottom: 0 }}>\r\n                Thông báo hệ thống{' '}\r\n                {unreadCount > 0 && (\r\n                  <Badge count={unreadCount} style={{ marginLeft: 4 }} />\r\n                )}\r\n              </Title>\r\n              <Text type=\"secondary\" style={{ fontSize: 12 }}>Thông báo dành cho quản trị viên</Text>\r\n            </div>\r\n          </div>\r\n          {unreadCount > 0 && (\r\n            <Button\r\n              icon={<CheckOutlined />}\r\n              size=\"small\"\r\n              onClick={async () => {\r\n                await markAllRead();\r\n                message.success('Đã đánh dấu tất cả là đã đọc');\r\n              }}\r\n              style={{ borderRadius: 6 }}\r\n            >\r\n              Đánh dấu tất cả đã đọc\r\n            </Button>\r\n          )}\r\n        </div>\r\n\r\n        {/* Tabs */}\r\n        <div style={{ padding: '0 20px' }}>\r\n          <Tabs\r\n            activeKey={activeTab}\r\n            onChange={setActiveTab}\r\n            items={[\r\n              { key: 'all', label: `Tất cả (${items.length})` },\r\n              { key: 'unread', label: `Chưa đọc (${unreadCount})` },\r\n            ]}\r\n            style={{ borderBottom: 'none' }}\r\n          />\r\n        </div>\r\n\r\n        {/* Content */}\r\n        {loading ? (\r\n          <div style={{ padding: 20 }}>\r\n            <Skeleton active paragraph={{ rows: 4 }} />\r\n          </div>\r\n        ) : displayed.length === 0 ? (\r\n          <div style={{ padding: 40 }}>\r\n            <Empty description={activeTab === 'unread' ? 'Không có thông báo chưa đọc' : 'Chưa có thông báo nào'} />\r\n          </div>\r\n        ) : (\r\n          <List\r\n            dataSource={displayed}\r\n            renderItem={(notif) => {\r\n              const cfg = ADMIN_TYPE_CONFIG[notif.type] ?? { label: notif.type, color: 'default', icon: <BellOutlined /> };\r\n              return (\r\n                <List.Item\r\n                  onClick={() => !notif.isRead && markRead(notif.id)}\r\n                  style={{\r\n                    padding: '14px 20px',\r\n                    cursor: notif.isRead ? 'default' : 'pointer',\r\n                    background: notif.isRead ? 'transparent' : 'rgba(191, 4, 4, 0.03)',\r\n                    borderBottom: `1px solid ${SLINK_COLORS.border}`,\r\n                    transition: 'background 0.2s',\r\n                  }}\r\n                  actions={[\r\n                    !notif.isRead && (\r\n                      <Button\r\n                        type=\"link\"\r\n                        size=\"small\"\r\n                        onClick={(e) => { e.stopPropagation(); markRead(notif.id); }}\r\n                        style={{ color: SLINK_COLORS.info, padding: 0 }}\r\n                      >\r\n                        Đánh dấu đã đọc\r\n                      </Button>\r\n                    ),\r\n                  ].filter(Boolean)}\r\n                >\r\n                  <List.Item.Meta\r\n                    avatar={\r\n                      <div style={{ position: 'relative' }}>\r\n                        <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\r\n                          <span style={{ color: SLINK_COLORS.primary, fontSize: 16 }}>{cfg.icon}</span>\r\n                        </div>\r\n                        {!notif.isRead && (\r\n                          <div style={{ position: 'absolute', top: 0, right: 0, width: 8, height: 8, borderRadius: '50%', background: SLINK_COLORS.primary }} />\r\n                        )}\r\n                      </div>\r\n                    }\r\n                    title={\r\n                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>\r\n                        <Text strong style={{ fontSize: 14 }}>{notif.title}</Text>\r\n                        <Tag color={cfg.color} style={{ margin: 0, fontSize: 11 }}>{cfg.label}</Tag>\r\n                      </div>\r\n                    }\r\n                    description={\r\n                      <div>\r\n                        <Text type=\"secondary\" style={{ fontSize: 13 }}>{notif.message}</Text>\r\n                        <br />\r\n                        <Text type=\"secondary\" style={{ fontSize: 11 }}>\r\n                          {dayjs(notif.createdAt).format('HH:mm DD/MM/YYYY')}\r\n                        </Text>\r\n                      </div>\r\n                    }\r\n                  />\r\n                </List.Item>\r\n              );\r\n            }}\r\n          />\r\n        )}\r\n      </Card>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__isJSFile": true,
+      "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/notifications/index.tsx"
+    },
+    "24": {
       "path": "profile",
       "file": "@/pages/admin/profile/index.tsx",
       "parentId": "15",
-      "id": "23",
+      "id": "24",
       "absPath": "/admin/profile",
       "__content": "// Admin profile page – re-exports the shared ProfilePage\r\nexport { default } from '../../profile';",
       "__isJSFile": true,
@@ -3848,7 +3868,7 @@
   "faviconFiles": [],
   "port": 8000,
   "host": "0.0.0.0",
-  "ip": "192.168.1.122",
+  "ip": "192.168.1.130",
   "antd": {
     "pkgPath": "E:\\RIPT1307-02-2026-Nhom-9-KTHP\\apps\\web\\node_modules\\antd",
     "version": "5.29.3"

@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { notificationService, type Notification } from '../services/notification.service';
 
-export function useNotifications() {
+/**
+ * Hook để lấy thông báo của user đang đăng nhập từ backend.
+ * Backend tự lọc theo userId trong JWT token, không cần truyền targetRole.
+ */
+export function useNotifications(_targetRole?: 'student' | 'admin') {
   const [items, setItems] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);

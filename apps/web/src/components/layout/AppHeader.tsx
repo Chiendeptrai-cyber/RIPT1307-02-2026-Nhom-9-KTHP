@@ -1,12 +1,16 @@
 import { BellOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Avatar, Badge, Dropdown, Layout, Space, Typography } from 'antd';
+import { Avatar, Badge, Dropdown, Layout, Typography } from 'antd';
 import type { MenuProps } from 'antd';
+import { useEffect, useState } from 'react';
 import { useNavigate } from '@umijs/max';
 import { useAuthStore } from '@/stores/auth.store';
 import { SLINK_COLORS } from '@/theme/tokens';
+import { notificationService } from '@/services/notification.service';
 
 const { Header } = Layout;
 const { Text } = Typography;
+
+const POLL_INTERVAL_MS = 60_000; // poll mỗi 60 giây
 
 interface Props {
   title: string;
@@ -16,6 +20,31 @@ export default function AppHeader({ title }: Props) {
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  // Lấy unread count từ backend và poll định kỳ
+  useEffect(() => {
+    let cancelled = false;
+
+    async function pollUnread() {
+      try {
+        const res = await notificationService.list({ pageSize: 1 });
+        if (!cancelled && res.success && res.data) {
+          setUnreadCount(res.data.unreadCount ?? 0);
+        }
+      } catch {
+        // Silent – không làm gián đoạn UI nếu backend chưa sẵn sàng
+      }
+    }
+
+    pollUnread();
+    const timer = setInterval(pollUnread, POLL_INTERVAL_MS);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, []);
 
   const displayName = user?.fullName ?? 'Người dùng';
   const roleLabel = user?.role === 'admin' ? 'Quản trị viên' : 'Sinh viên';
@@ -68,11 +97,11 @@ export default function AppHeader({ title }: Props) {
 
       {/* Right Actions */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0 }}>
-        {/* Notification Bell */}
-        <Badge count={0} showZero={false}>
+        {/* Notification Bell – real unread count từ API */}
+        <Badge count={unreadCount} showZero={false} overflowCount={99}>
           <div
             className="slink-icon-btn"
-            onClick={() => navigate('/notifications')}
+            onClick={() => navigate(user?.role === 'admin' ? '/admin/notifications' : '/notifications')}
           >
             <BellOutlined style={{ fontSize: 16, color: SLINK_COLORS.textSecondary }} />
           </div>

@@ -1,52 +1,63 @@
+import { http } from './http';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
-import {
-  OFFLINE_STORAGE_KEYS,
-  apiSuccess,
-  paginate,
-  readCollection,
-  writeCollection,
-  type MockNotification,
-} from '../mocks/offlineStorage';
 
-export type Notification = MockNotification;
-
-function getNotifications() {
-  return readCollection<Notification>(OFFLINE_STORAGE_KEYS.notifications)
-    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+// Notification shape returned by the backend (matches NotificationEntity)
+export interface Notification {
+  id: number;
+  userId: number;
+  type: string;
+  title: string;
+  message: string;
+  isRead: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
-function saveNotifications(items: Notification[]) {
-  writeCollection(OFFLINE_STORAGE_KEYS.notifications, items);
+// Shape of the list response data
+export interface NotificationListData extends PaginatedResponse<Notification> {
+  unreadCount: number;
 }
 
 export const notificationService = {
+  /**
+   * GET /api/v1/notifications?page=1&pageSize=20
+   * Fetches paginated notifications for the authenticated user.
+   */
   async list(params?: {
     page?: number;
     pageSize?: number;
-  }): Promise<ApiResponse<PaginatedResponse<Notification> & { unreadCount: number }>> {
-    const items = getNotifications();
-    const paged = paginate(items, params?.page ?? 1, params?.pageSize ?? 50);
-
-    return apiSuccess({
-      ...paged,
-      unreadCount: items.filter((item) => !item.isRead).length,
-    });
+  }): Promise<ApiResponse<NotificationListData>> {
+    const response = await http.get<ApiResponse<NotificationListData>>(
+      '/notifications',
+      {
+        params: {
+          page: params?.page ?? 1,
+          pageSize: params?.pageSize ?? 20,
+        },
+      },
+    );
+    return response.data;
   },
 
+  /**
+   * PATCH /api/v1/notifications/:id/read
+   * Marks a single notification as read.
+   */
   async markRead(id: number): Promise<ApiResponse<Notification>> {
-    let updated: Notification | null = null;
-    const items = getNotifications().map((item) => {
-      if (item.id !== id) return item;
-      updated = { ...item, isRead: true };
-      return updated;
-    });
-
-    saveNotifications(items);
-    return apiSuccess(updated, updated ? 'Danh dau da doc thanh cong' : 'Khong tim thay thong bao') as ApiResponse<Notification>;
+    const response = await http.patch<ApiResponse<Notification>>(
+      `/notifications/${id}/read`,
+    );
+    return response.data;
   },
 
+  /**
+   * PATCH /api/v1/notifications/all/read
+   * Marks ALL notifications of the authenticated user as read.
+   */
   async markAllRead(): Promise<ApiResponse<{ success: boolean }>> {
-    saveNotifications(getNotifications().map((item) => ({ ...item, isRead: true })));
-    return apiSuccess({ success: true }, 'Danh dau tat ca da doc thanh cong');
+    const response = await http.patch<ApiResponse<{ success: boolean }>>(
+      '/notifications/all/read',
+    );
+    return response.data;
   },
 };
