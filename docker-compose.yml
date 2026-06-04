@@ -43,11 +43,11 @@ services:
       # CORS – allow web container (port 8080 khi chạy Docker, 8000 khi dev local)
       CORS_ORIGIN: "http://localhost:8080,http://localhost:8000"
       # Email (optional – leave blank to disable)
-      SMTP_HOST: ""
+      SMTP_HOST: "smtp.gmail.com"
       SMTP_PORT: 587
-      SMTP_USER: ""
-      SMTP_PASS: ""
-      SMTP_FROM: ""
+      SMTP_USER: "lambao2108@gmail.com"
+      SMTP_PASS: "bvfqwlsfpufcvzch"
+      SMTP_FROM: "PTIT Equipment Management <lambao2108@gmail.com>"
       # Uploads
       UPLOAD_DIR: /app/uploads
     volumes:

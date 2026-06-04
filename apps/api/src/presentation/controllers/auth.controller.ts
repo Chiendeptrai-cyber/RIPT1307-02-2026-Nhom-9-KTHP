@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { loginUseCase, registerUseCase, userRepo } from '../../infrastructure/container';
+import { loginUseCase, registerUseCase, forgotPasswordUseCase, resetPasswordUseCase, userRepo } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export async function login(req: Request, res: Response): Promise<void> {
@@ -25,6 +25,27 @@ export async function register(req: Request, res: Response): Promise<void> {
     success: true,
     data: result,
     message: 'Đăng ký tài khoản thành công',
+  } satisfies ApiResponse);
+}
+
+export async function forgotPassword(req: Request, res: Response): Promise<void> {
+  const { email } = req.body as { email: string };
+  const result = await forgotPasswordUseCase.execute({ email });
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Mã đặt lại mật khẩu đã được gửi',
+  } satisfies ApiResponse);
+}
+
+export async function resetPassword(req: Request, res: Response): Promise<void> {
+  const { token, password } = req.body as { token: string; password: string };
+  await resetPasswordUseCase.execute({ token, passwordStr: password });
+
+  res.json({
+    success: true,
+    message: 'Đặt lại mật khẩu thành công',
   } satisfies ApiResponse);
 }
 

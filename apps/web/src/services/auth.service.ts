@@ -38,3 +38,13 @@ export async function getMe(): Promise<ApiResponse<UserProfile>> {
   const response = await http.get<ApiResponse<UserProfile>>('/auth/me');
   return response.data;
 }
+
+export async function forgotPassword(email: string): Promise<ApiResponse<{ resetToken: string }>> {
+  const response = await http.post<ApiResponse<{ resetToken: string }>>('/auth/forgot-password', { email });
+  return response.data;
+}
+
+export async function resetPassword(token: string, passwordStr: string): Promise<ApiResponse> {
+  const response = await http.post<ApiResponse>('/auth/reset-password', { token, password: passwordStr });
+  return response.data;
+}
