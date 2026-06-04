@@ -43,6 +43,7 @@ CREATE TABLE equipment (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   category_id INT NOT NULL REFERENCES categories(id) ON DELETE RESTRICT,
+  description TEXT,
   total_quantity INT NOT NULL,
   available_quantity INT NOT NULL,
   status equipment_status NOT NULL DEFAULT 'active',

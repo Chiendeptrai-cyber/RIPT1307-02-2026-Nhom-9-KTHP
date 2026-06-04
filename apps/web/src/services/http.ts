@@ -2,7 +2,7 @@ import axios, { type AxiosResponse, type AxiosError } from 'axios';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export const http = axios.create({
-  baseURL: process.env.UMI_APP_API_URL ?? 'http://localhost:3000/api/v1',
+  baseURL: '/api/v1',
   timeout: 15000,
   headers: { 'Content-Type': 'application/json' },
 });
