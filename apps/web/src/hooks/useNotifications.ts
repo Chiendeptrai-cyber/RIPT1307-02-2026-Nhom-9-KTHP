@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { notificationService, type Notification } from '../services/notification.service';
 
-export function useNotifications(targetRole?: 'student' | 'admin') {
+/**
+ * Hook để lấy thông báo của user đang đăng nhập từ backend.
+ * Backend tự lọc theo userId trong JWT token, không cần truyền targetRole.
+ */
+export function useNotifications(_targetRole?: 'student' | 'admin') {
   const [items, setItems] = useState<Notification[]>([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -9,7 +13,7 @@ export function useNotifications(targetRole?: 'student' | 'admin') {
   const fetch = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await notificationService.list({ pageSize: 50, targetRole });
+      const res = await notificationService.list({ pageSize: 50 });
       if (res.success && res.data) {
         setItems(res.data.items);
         setUnreadCount(res.data.unreadCount ?? 0);
@@ -19,7 +23,7 @@ export function useNotifications(targetRole?: 'student' | 'admin') {
     } finally {
       setLoading(false);
     }
-  }, [targetRole]);
+  }, []);
 
   useEffect(() => { fetch(); }, [fetch]);
 
@@ -30,7 +34,7 @@ export function useNotifications(targetRole?: 'student' | 'admin') {
   };
 
   const markAllRead = async () => {
-    await notificationService.markAllRead(targetRole);
+    await notificationService.markAllRead();
     setItems((prev) => prev.map((n) => ({ ...n, isRead: true })));
     setUnreadCount(0);
   };
