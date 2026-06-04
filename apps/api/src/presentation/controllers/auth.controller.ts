@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { loginUseCase, registerUseCase } from '../../infrastructure/container';
+import { loginUseCase, registerUseCase, userRepo } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export async function login(req: Request, res: Response): Promise<void> {
@@ -29,9 +29,12 @@ export async function register(req: Request, res: Response): Promise<void> {
 }
 
 export async function getMe(req: Request, res: Response): Promise<void> {
+  const user = await userRepo.findById(req.user!.userId);
   res.json({
     success: true,
-    data: req.user,
+    data: user
+      ? { userId: user.id, role: user.role, fullName: user.fullName, email: user.email }
+      : req.user,
     message: 'OK',
   } satisfies ApiResponse);
 }

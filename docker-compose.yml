@@ -40,8 +40,8 @@ services:
       # JWT – CHANGE THIS IN PRODUCTION!
       JWT_SECRET: super_secret_jwt_key_change_me_in_production
       JWT_EXPIRES_IN: 8h
-      # CORS – allow web container
-      CORS_ORIGIN: http://localhost:8000
+      # CORS – allow web container (port 8080 khi chạy Docker, 8000 khi dev local)
+      CORS_ORIGIN: "http://localhost:8080,http://localhost:8000"
       # Email (optional – leave blank to disable)
       SMTP_HOST: ""
       SMTP_PORT: 587

@@ -141,3 +141,14 @@ CREATE INDEX idx_borrow_requests_user_id ON borrow_requests(user_id);
 CREATE INDEX idx_equipment_status ON equipment(status);
 CREATE INDEX idx_notifications_user_id_is_read ON notifications(user_id, is_read);
 CREATE INDEX idx_equipment_stock_logs_equipment_id ON equipment_stock_logs(equipment_id);
+
+-- Seed: tài khoản admin mặc định (password: password)
+INSERT INTO users (full_name, email, password_hash, role, status)
+VALUES (
+  'Admin PTIT',
+  'admin@ptit.edu.vn',
+  '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+  'admin',
+  'active'
+) ON CONFLICT (email) DO NOTHING;
+
