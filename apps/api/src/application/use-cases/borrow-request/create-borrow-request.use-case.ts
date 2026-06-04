@@ -1,6 +1,7 @@
 import type { IEquipmentRepository } from '../../../domain/repositories/equipment.repository';
 import type { IBorrowRequestRepository } from '../../../domain/repositories/borrow-request.repository';
 import type { INotificationRepository } from '../../../domain/repositories/notification.repository';
+import type { IUserRepository } from '../../../domain/repositories/user.repository';
 import { AppError } from '../../../domain/errors/app.error';
 import { BorrowRequestStatus, NotificationType } from '@equipment-mgmt/shared';
 
@@ -9,6 +10,7 @@ export class CreateBorrowRequestUseCase {
     private readonly borrowRequestRepo: IBorrowRequestRepository,
     private readonly equipmentRepo: IEquipmentRepository,
     private readonly notificationRepo: INotificationRepository,
+    private readonly userRepo: IUserRepository,
   ) {}
 
   async execute(data: {
@@ -61,6 +63,24 @@ export class CreateBorrowRequestUseCase {
       message: `Yêu cầu mượn thiết bị "${equipment.name}" của bạn đang chờ được phê duyệt.`,
       isRead: false,
     });
+
+    // 5. Gửi thông báo cho tất cả admin
+    try {
+      const student = await this.userRepo.findById(data.userId);
+      const studentName = student?.fullName ?? 'Sinh viên';
+      const admins = await this.userRepo.findAll({ page: 1, pageSize: 100, role: 'admin' });
+      for (const admin of admins.items) {
+        await this.notificationRepo.create({
+          userId: admin.id,
+          type: NotificationType.NEW_REQUEST,
+          title: 'Yêu cầu mượn mới',
+          message: `Sinh viên ${studentName} đã gửi yêu cầu mượn "${equipment.name}" (SL: ${data.quantity}).`,
+          isRead: false,
+        });
+      }
+    } catch (err) {
+      // Bỏ qua lỗi thông báo cho admin để không gián đoạn luồng chính
+    }
 
     return { ...request, equipmentName: equipment.name };
   }

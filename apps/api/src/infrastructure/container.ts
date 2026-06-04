@@ -12,6 +12,9 @@ import { ForgotPasswordUseCase }         from '../application/use-cases/auth/for
 import { ResetPasswordUseCase }          from '../application/use-cases/auth/reset-password.use-case';
 import { ListEquipmentUseCase }          from '../application/use-cases/equipment/list-equipment.use-case';
 import { GetEquipmentDetailUseCase }     from '../application/use-cases/equipment/get-equipment-detail.use-case';
+import { CreateEquipmentUseCase }         from '../application/use-cases/equipment/create-equipment.use-case';
+import { UpdateEquipmentUseCase }         from '../application/use-cases/equipment/update-equipment.use-case';
+import { DeleteEquipmentUseCase }         from '../application/use-cases/equipment/delete-equipment.use-case';
 import { CreateBorrowRequestUseCase }    from '../application/use-cases/borrow-request/create-borrow-request.use-case';
 import { ApproveBorrowRequestUseCase }   from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
 import { RejectBorrowRequestUseCase }    from '../application/use-cases/borrow-request/reject-borrow-request.use-case';
@@ -43,9 +46,12 @@ export const resetPasswordUseCase  = new ResetPasswordUseCase(userRepo, password
 // Equipment use cases
 export const listEquipmentUseCase      = new ListEquipmentUseCase(equipmentRepo);
 export const getEquipmentDetailUseCase = new GetEquipmentDetailUseCase(equipmentRepo);
+export const createEquipmentUseCase    = new CreateEquipmentUseCase(equipmentRepo);
+export const updateEquipmentUseCase    = new UpdateEquipmentUseCase(equipmentRepo);
+export const deleteEquipmentUseCase    = new DeleteEquipmentUseCase(equipmentRepo);
 
 // Borrow request use cases
-export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo);
+export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo, userRepo);
 export const approveBorrowRequestUseCase = new ApproveBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
 export const rejectBorrowRequestUseCase  = new RejectBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
 export const cancelBorrowRequestUseCase  = new CancelBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
