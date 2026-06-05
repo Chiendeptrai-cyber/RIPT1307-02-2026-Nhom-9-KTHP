@@ -191,6 +191,19 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     return result.rows;
   }
 
+  /** Đếm số phiếu mượn đang active của một thiết bị cụ thể (để validate xóa/chuyển trạng thái) */
+  async countActiveByEquipment(equipmentId: number): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total
+       FROM borrow_requests br
+       JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       WHERE bri.equipment_id = $1
+         AND br.status IN ('pending', 'approved', 'borrowing')`,
+      [equipmentId],
+    );
+    return Number(result.rows[0].total);
+  }
+
   /** Tìm tất cả đơn "approved" quá 3 ngày chưa đến nhận (để auto-cancel) */
   async findExpiredApprovedRequests(): Promise<BorrowRequestEntity[]> {
     const result = await this.pool.query<BorrowRequestEntity>(
