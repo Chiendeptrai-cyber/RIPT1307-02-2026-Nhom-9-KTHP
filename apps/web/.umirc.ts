@@ -28,6 +28,11 @@ export default defineConfig({
       component: '@/layouts/AuthLayout',
       routes: [{ path: '/forgot-password', component: 'forgot-password/index' }],
     },
+    {
+      path: '/reset-password',
+      component: '@/layouts/AuthLayout',
+      routes: [{ path: '/reset-password', component: 'reset-password/index' }],
+    },
     // Root redirect – standalone, no layout wrapper so admin users
     // never briefly see the StudentLayout before being redirected.
     { path: '/', component: 'index' },

@@ -21,8 +21,17 @@ http.interceptors.response.use(
   (res: AxiosResponse<ApiResponse>) => res,
   (err: AxiosError<ApiResponse>) => {
     if (err.response?.status === 401) {
-      localStorage.removeItem('access_token');
-      window.location.href = '/login';
+      // Không redirect nếu là request login hoặc register
+      const isAuthRequest = err.config?.url?.includes('/auth/login') || err.config?.url?.includes('/auth/register');
+      
+      // Kiểm tra xem có đang ở trang auth không
+      const path = window.location.pathname.replace(/\/$/, '');
+      const isAuthPage = ['/login', '/register', '/forgot-password'].includes(path);
+      
+      if (!isAuthRequest && !isAuthPage) {
+        localStorage.removeItem('access_token');
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(err);
   },

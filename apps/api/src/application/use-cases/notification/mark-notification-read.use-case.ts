@@ -2,7 +2,7 @@ import type { INotificationRepository } from '../../../domain/repositories/notif
 import { AppError } from '../../../domain/errors/app.error';
 
 export class MarkNotificationReadUseCase {
-  constructor(private readonly notificationRepo: INotificationRepository) {}
+  constructor(private readonly notificationRepo: INotificationRepository) { }
 
   async execute(id: number | 'all', userId: number) {
     if (id === 'all') {

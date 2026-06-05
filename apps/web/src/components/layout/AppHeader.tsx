@@ -69,7 +69,7 @@ export default function AppHeader({ title }: Props) {
       navigate(user?.role === 'admin' ? '/admin/profile' : '/profile');
     } else if (key === 'logout') {
       logout();
-      navigate('/login');
+      window.location.href = '/login';
     }
   };
 

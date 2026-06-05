@@ -1,31 +1,68 @@
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Alert, Button, Divider, Form, Input, Space, Typography } from 'antd';
 import { useState } from 'react';
+import { useNavigate } from '@umijs/max';
 import { useAuthStore } from '../../stores/auth.store';
-import { UserRole } from '@equipment-mgmt/shared';
 import { SLINK_COLORS } from '../../theme/tokens';
+import { login, getMe } from '../../services/auth.service';
+import type { UserRole } from '@equipment-mgmt/shared';
 
 const { Title, Text, Link } = Typography;
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const onFinish = (values: { email: string; password: string }) => {
+  const onFinish = async (values: { email: string; password: string }) => {
     setLoading(true);
     setError(null);
 
-    // Demo auth - xác định role dựa trên email
-    setTimeout(() => {
-      const isAdmin = values.email.toLowerCase().includes('admin');
-      const role = isAdmin ? UserRole.ADMIN : UserRole.STUDENT;
-      const fullName = isAdmin ? 'Admin PTIT' : 'Sinh viên PTIT';
+    try {
+      // 1. Gọi POST /auth/login → nhận accessToken
+      const loginRes = await login(values.email, values.password);
+      if (!loginRes.success || !loginRes.data?.accessToken) {
+        throw new Error(loginRes.message ?? 'Đăng nhập thất bại');
+      }
 
-      setAuth({ id: 1, fullName, email: values.email, role }, 'demo-token');
-      window.location.href = isAdmin ? '/admin/dashboard' : '/equipment';
+      // 2. Lưu token vào localStorage (http interceptor đính vào mọi request tiếp theo)
+      localStorage.setItem('access_token', loginRes.data.accessToken);
+
+      // 3. Gọi GET /auth/me → nhận thông tin user (role, fullName, email)
+      const meRes = await getMe();
+      if (!meRes.success || !meRes.data) {
+        throw new Error('Không lấy được thông tin tài khoản');
+      }
+
+      const { userId, role, fullName, email } = meRes.data;
+
+      // 4. Lưu vào Zustand store (persist vào localStorage)
+      setAuth(
+        { id: userId, fullName, email, role: role as UserRole },
+        loginRes.data.accessToken,
+      );
+
+      // 5. Redirect theo role (dùng navigate để chuyển trang mượt mà không load lại trang)
+      navigate(role === 'admin' ? '/admin/dashboard' : '/equipment', { replace: true });
+    } catch (err: any) {
+      let msg = 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.';
+      if (err?.response?.data) {
+        const resData = err.response.data;
+        if (resData.errors) {
+          msg = Object.values(resData.errors)
+            .flatMap((messages: any) => messages)
+            .join('; ');
+        } else if (resData.message) {
+          msg = resData.message;
+        }
+      } else if (err instanceof Error) {
+        msg = err.message;
+      }
+      setError(msg);
+    } finally {
       setLoading(false);
-    }, 800);
+    }
   };
 
   return (
@@ -45,7 +82,9 @@ export default function LoginPage() {
             boxShadow: '0 4px 16px rgba(191, 4, 4, 0.3)',
           }}
         >
-          <span style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: '0.5px' }}>PTIT</span>
+          <span style={{ color: '#fff', fontWeight: 800, fontSize: 12, letterSpacing: '0.5px' }}>
+            PTIT
+          </span>
         </div>
         <Title level={3} style={{ marginBottom: 4, color: SLINK_COLORS.textBase }}>
           Chào mừng trở lại
@@ -114,7 +153,9 @@ export default function LoginPage() {
       </Form>
 
       <Divider style={{ margin: '16px 0' }}>
-        <Text type="secondary" style={{ fontSize: 12 }}>hoặc</Text>
+        <Text type="secondary" style={{ fontSize: 12 }}>
+          hoặc
+        </Text>
       </Divider>
 
       <Text type="secondary" style={{ display: 'block', textAlign: 'center', fontSize: 13 }}>
@@ -123,21 +164,6 @@ export default function LoginPage() {
           Đăng ký ngay
         </Link>
       </Text>
-
-      {/* Demo hint */}
-      <div
-        style={{
-          marginTop: 24,
-          padding: '10px 14px',
-          background: SLINK_COLORS.surface,
-          borderRadius: 6,
-          border: `1px solid ${SLINK_COLORS.border}`,
-        }}
-      >
-        <Text type="secondary" style={{ fontSize: 12, display: 'block' }}>
-          💡 <strong>Demo:</strong> Nhập email chứa "admin" để vào trang quản trị
-        </Text>
-      </div>
     </Space>
   );
 }

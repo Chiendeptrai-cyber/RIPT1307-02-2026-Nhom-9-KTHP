@@ -1,40 +1,43 @@
-import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
-import { Alert, Button, Divider, Form, Input, Space, Typography, message } from 'antd';
-import { useState } from 'react';
-import { useNavigate } from '@umijs/max';
+import { LockOutlined, KeyOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { Alert, Button, Form, Input, Space, Typography, message } from 'antd';
+import { useState, useEffect } from 'react';
+import { useNavigate, useSearchParams } from '@umijs/max';
 import { SLINK_COLORS } from '../../theme/tokens';
-import { register } from '../../services/auth.service';
+import { resetPassword } from '../../services/auth.service';
 
 const { Title, Text, Link } = Typography;
 
-export default function RegisterPage() {
+export default function ResetPasswordPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [form] = Form.useForm();
 
-  const onFinish = async (values: {
-    fullName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }) => {
+  const tokenFromUrl = searchParams.get('token') || '';
+
+  useEffect(() => {
+    if (tokenFromUrl) {
+      form.setFieldsValue({ token: tokenFromUrl });
+    }
+  }, [tokenFromUrl, form]);
+
+  const onFinish = async (values: { token: string; passwordStr: string }) => {
     setLoading(true);
     setError(null);
 
     try {
-      // Gọi POST /auth/register
-      const res = await register(values.fullName, values.email, values.password);
+      const res = await resetPassword(values.token, values.passwordStr);
       if (!res.success) {
-        throw new Error(res.message ?? 'Đăng ký thất bại');
+        throw new Error(res.message ?? 'Đặt lại mật khẩu thất bại');
       }
 
-      message.success('Đăng ký thành công! Hãy đăng nhập để tiếp tục.');
-      // Chuyển sang trang login sau 1 giây (dùng navigate thay vì reload trang)
+      message.success('Đặt lại mật khẩu thành công! Quay lại trang Đăng nhập...');
       setTimeout(() => {
         navigate('/login');
-      }, 1000);
+      }, 1500);
     } catch (err: any) {
-      let msg = 'Đăng ký thất bại. Vui lòng thử lại.';
+      let msg = 'Đặt lại mật khẩu thất bại. Vui lòng kiểm tra lại.';
       if (err?.response?.data) {
         const resData = err.response.data;
         if (resData.errors) {
@@ -75,57 +78,39 @@ export default function RegisterPage() {
           </span>
         </div>
         <Title level={3} style={{ marginBottom: 4, color: SLINK_COLORS.textBase }}>
-          Tạo tài khoản mới
+          Đặt lại mật khẩu
         </Title>
-        <Text type="secondary">Đăng ký để sử dụng hệ thống quản lý thiết bị</Text>
+        <Text type="secondary">Nhập mã xác nhận và mật khẩu mới của bạn</Text>
       </div>
 
       {error && (
         <Alert message={error} type="error" showIcon style={{ marginBottom: 20, borderRadius: 6 }} />
       )}
 
-      <Form name="register" onFinish={onFinish} layout="vertical" size="large">
+      <Form form={form} name="reset-password" onFinish={onFinish} layout="vertical" size="large">
         <Form.Item
-          name="fullName"
-          label={<Text strong>Họ và tên</Text>}
-          rules={[
-            { required: true, message: 'Vui lòng nhập họ và tên!' },
-            { min: 2, message: 'Tên phải có ít nhất 2 ký tự!' },
-          ]}
+          name="token"
+          label={<Text strong>Mã xác thực (Token)</Text>}
+          rules={[{ required: true, message: 'Vui lòng nhập mã xác thực (Token)!' }]}
         >
           <Input
-            prefix={<UserOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
-            placeholder="Nguyễn Văn A"
+            prefix={<KeyOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
+            placeholder="Dán mã UUID nhận được từ hệ thống"
             style={{ borderRadius: 6 }}
           />
         </Form.Item>
 
         <Form.Item
-          name="email"
-          label={<Text strong>Email</Text>}
+          name="passwordStr"
+          label={<Text strong>Mật khẩu mới</Text>}
           rules={[
-            { required: true, message: 'Vui lòng nhập email!' },
-            { type: 'email', message: 'Email không hợp lệ!' },
-          ]}
-        >
-          <Input
-            prefix={<MailOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
-            placeholder="your@ptit.edu.vn"
-            style={{ borderRadius: 6 }}
-          />
-        </Form.Item>
-
-        <Form.Item
-          name="password"
-          label={<Text strong>Mật khẩu</Text>}
-          rules={[
-            { required: true, message: 'Vui lòng nhập mật khẩu!' },
+            { required: true, message: 'Vui lòng nhập mật khẩu mới!' },
             { min: 8, message: 'Mật khẩu phải có ít nhất 8 ký tự!' },
           ]}
         >
           <Input.Password
             prefix={<LockOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
-            placeholder="Ít nhất 8 ký tự"
+            placeholder="Nhập mật khẩu mới (ít nhất 8 ký tự)"
             style={{ borderRadius: 6 }}
           />
         </Form.Item>
@@ -133,12 +118,12 @@ export default function RegisterPage() {
         <Form.Item
           name="confirmPassword"
           label={<Text strong>Xác nhận mật khẩu</Text>}
-          dependencies={['password']}
+          dependencies={['passwordStr']}
           rules={[
             { required: true, message: 'Vui lòng xác nhận mật khẩu!' },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue('password') === value) {
+                if (!value || getFieldValue('passwordStr') === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(new Error('Mật khẩu xác nhận không khớp!'));
@@ -148,12 +133,12 @@ export default function RegisterPage() {
         >
           <Input.Password
             prefix={<LockOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
-            placeholder="Nhập lại mật khẩu"
+            placeholder="Nhập lại mật khẩu mới"
             style={{ borderRadius: 6 }}
           />
         </Form.Item>
 
-        <Form.Item style={{ marginBottom: 16, marginTop: 8 }}>
+        <Form.Item style={{ marginBottom: 16 }}>
           <Button
             type="primary"
             htmlType="submit"
@@ -169,23 +154,16 @@ export default function RegisterPage() {
               boxShadow: '0 4px 12px rgba(191, 4, 4, 0.3)',
             }}
           >
-            Đăng ký
+            Đổi mật khẩu
           </Button>
         </Form.Item>
       </Form>
 
-      <Divider style={{ margin: '16px 0' }}>
-        <Text type="secondary" style={{ fontSize: 12 }}>
-          hoặc
-        </Text>
-      </Divider>
-
-      <Text type="secondary" style={{ display: 'block', textAlign: 'center', fontSize: 13 }}>
-        Đã có tài khoản?{' '}
-        <Link href="/login" style={{ color: SLINK_COLORS.primary, fontWeight: 600 }}>
-          Đăng nhập ngay
+      <div style={{ textAlign: 'center', marginTop: 16 }}>
+        <Link href="/login" style={{ color: SLINK_COLORS.textSecondary, fontSize: 13 }}>
+          <ArrowLeftOutlined style={{ marginRight: 6 }} /> Quay lại đăng nhập
         </Link>
-      </Text>
+      </div>
     </Space>
   );
 }

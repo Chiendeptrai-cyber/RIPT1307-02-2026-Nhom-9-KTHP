@@ -10,3 +10,6 @@ node_modules
 chat.json
 README.md
 BOILERPLATE_STATUS.md
+**/src/.umi
+**/.umi
+**/node_modules/.cache
