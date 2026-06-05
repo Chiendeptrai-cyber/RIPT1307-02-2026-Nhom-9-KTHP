@@ -18,6 +18,14 @@ export interface NotificationListData extends PaginatedResponse<Notification> {
   unreadCount: number;
 }
 
+export const NOTIFICATION_CHANGED_EVENT = 'equipment-mgmt:notification-changed';
+
+export function notifyNotificationChanged() {
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event(NOTIFICATION_CHANGED_EVENT));
+  }
+}
+
 export const notificationService = {
   /**
    * GET /api/v1/notifications?page=1&pageSize=20
@@ -47,6 +55,7 @@ export const notificationService = {
     const response = await http.patch<ApiResponse<Notification>>(
       `/notifications/${id}/read`,
     );
+    notifyNotificationChanged();
     return response.data;
   },
 
@@ -58,6 +67,7 @@ export const notificationService = {
     const response = await http.patch<ApiResponse<{ success: boolean }>>(
       '/notifications/all/read',
     );
+    notifyNotificationChanged();
     return response.data;
   },
 };
