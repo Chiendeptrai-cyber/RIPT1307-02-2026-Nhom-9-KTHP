@@ -6,8 +6,8 @@ import axios, {
   type AxiosRequestConfig,
   type AxiosResponse,
   type AxiosError,
-} from '/home/minhchien/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/axios@0.27.2/node_modules/axios';
-import useUmiRequest, { UseRequestProvider } from '/home/minhchien/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@ahooksjs+use-request@2.8.15_react@18.3.1/node_modules/@ahooksjs/use-request';
+} from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/axios@0.27.2/node_modules/axios';
+import useUmiRequest, { UseRequestProvider } from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@ahooksjs+use-request@2.8.15_react@18.3.1/node_modules/@ahooksjs/use-request';
 import { ApplyPluginsType } from 'umi';
 import { getPluginManager } from '../core/plugin';
 
@@ -26,7 +26,7 @@ import {
   PaginatedOptionsWithFormat,
   PaginatedParams,
   PaginatedResult,
-} from '/home/minhchien/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@ahooksjs+use-request@2.8.15_react@18.3.1/node_modules/@ahooksjs/use-request/es/types';
+} from 'E:/RIPT1307-02-2026-Nhom-9-KTHP/node_modules/.pnpm/@ahooksjs+use-request@2.8.15_react@18.3.1/node_modules/@ahooksjs/use-request/es/types';
 
 type ResultWithData< T = any > = { data?: T; [key: string]: any };
 
