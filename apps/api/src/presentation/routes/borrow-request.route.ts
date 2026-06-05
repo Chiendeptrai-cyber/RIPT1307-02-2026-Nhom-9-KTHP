@@ -6,6 +6,9 @@ import {
   approveBorrowRequest,
   rejectBorrowRequest,
   cancelBorrowRequest,
+  markReceived,
+  markNotReceived,
+  markReturned,
 } from '../controllers/borrow-request.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize }    from '../middlewares/authorize.middleware';
@@ -23,7 +26,10 @@ router.patch('/:id/cancel', cancelBorrowRequest);
 
 // Admin routes
 router.get('/', authorize(UserRole.ADMIN), listAllRequests);
-router.patch('/:id/approve', authorize(UserRole.ADMIN), approveBorrowRequest);
-router.patch('/:id/reject',  authorize(UserRole.ADMIN), rejectBorrowRequest);
+router.patch('/:id/approve',       authorize(UserRole.ADMIN), approveBorrowRequest);
+router.patch('/:id/reject',        authorize(UserRole.ADMIN), rejectBorrowRequest);
+router.patch('/:id/mark-received', authorize(UserRole.ADMIN), markReceived);
+router.patch('/:id/mark-not-received', authorize(UserRole.ADMIN), markNotReceived);
+router.patch('/:id/mark-returned', authorize(UserRole.ADMIN), markReturned);
 
 export default router;
