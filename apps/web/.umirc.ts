@@ -5,6 +5,10 @@ export default defineConfig({
   npmClient: 'pnpm',
   styles: ['@/styles/global.less'],
 
+  // Thêm content-hash vào tên chunk file khi build production.
+  // Giúp browser cache chunk vĩnh viễn theo hash, không bao giờ dùng chunk cũ sai.
+  hash: true,
+
   // Fix MFSU duplicate React instance:
   // MFSU (Module Federation Speed Up) prebuild vendor bundle chứa React riêng.
   // Zustand trong async chunk (AppHeader) resolve React khác → "Cannot read useRef of null".
@@ -43,8 +47,8 @@ export default defineConfig({
       routes: [
         { path: 'equipment', component: 'equipment/index' },
         { path: 'equipment/:id', component: 'equipment/[id]' },
-        { path: 'borrow-request', component: 'borrow-request/index' },
         { path: 'borrow-request/create', component: 'borrow-request/create' },
+        { path: 'borrow-request', component: 'borrow-request/index' },
         { path: 'notifications', component: 'notifications/index' },
         { path: 'profile', component: 'profile/index' },
       ],

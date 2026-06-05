@@ -11,6 +11,7 @@ import {
 } from '@ant-design/icons';
 import { Badge, Button, Card, Col, Modal, Row, Statistic, Table, Tag, Tooltip, Typography, message } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { Link } from '@umijs/max';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/vi';
@@ -461,9 +462,9 @@ export default function AdminDashboardPage() {
               </div>
             }
             extra={
-              <a href="/admin/requests" style={{ color: SLINK_COLORS.info, fontSize: 13 }}>
+              <Link to="/admin/requests" style={{ color: SLINK_COLORS.info, fontSize: 13 }}>
                 Xem tất cả →
-              </a>
+              </Link>
             }
           >
             {!loading && stats?.pendingRequests.length === 0 ? (
@@ -495,9 +496,9 @@ export default function AdminDashboardPage() {
               </div>
             }
             extra={
-              <a href="/admin/requests" style={{ color: '#CF1322', fontSize: 13 }}>
+              <Link to="/admin/requests" style={{ color: '#CF1322', fontSize: 13 }}>
                 Xem tất cả →
-              </a>
+              </Link>
             }
           >
             {!loading && stats?.overdueRequests.length === 0 ? (

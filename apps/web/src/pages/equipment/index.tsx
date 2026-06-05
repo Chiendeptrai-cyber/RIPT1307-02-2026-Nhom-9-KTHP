@@ -133,7 +133,7 @@ export default function EquipmentListPage() {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              href="/borrow-request/create"
+              onClick={() => navigate('/borrow-request/create')}
               style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}
             >
               Tạo yêu cầu
