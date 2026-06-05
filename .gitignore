@@ -9895,3 +9895,7 @@ node_modules/.pnpm/@utoo+pack-shared@1.4.7/node_modules/@babel/code-frame
 node_modules/.pnpm/@utoo+pack-shared@1.4.7/node_modules/@utoo/pack-shared/README.md
 node_modules/.pnpm/@utoo+pack-shared@1.4.7/node_modules/@utoo/pack-shared/cjs/config.d.ts
 node_modules/.pnpm/@utoo+pack-shared@1.4.7/node_modules/@utoo/pack-shared/cjs/config.js
+
+apps/web/dist/*
+apps/web/src/.umi/*
+apps/web/src/.umi-production/*
