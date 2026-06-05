@@ -15,15 +15,10 @@ import { Link } from '@umijs/max';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/vi';
-import {
-  OFFLINE_STORAGE_KEYS,
-  readCollection,
-  writeCollection,
-  createNotification,
-  type MockBorrowRequest,
-  type MockEquipment,
-  type MockUser,
-} from '../../../mocks/offlineStorage';
+import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
+import { equipmentService } from '../../../services/equipment.service';
+import { http } from '../../../services/http';
+import type { ApiResponse } from '@equipment-mgmt/shared';
 import { SLINK_COLORS } from '../../../theme/tokens';
 
 dayjs.extend(relativeTime);
@@ -33,6 +28,15 @@ const { Title, Text } = Typography;
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
+interface DashboardApiStats {
+  pendingRequests: number;
+  overdueItems: number;
+  violationCount: number;
+  totalUsers: number;
+  totalEquipment: number;
+  totalBorrowed: number;
+}
+
 interface LiveStats {
   pendingCount: number;
   borrowingCount: number;
@@ -40,72 +44,8 @@ interface LiveStats {
   totalEquipment: number;
   availableEquipment: number;
   totalStudents: number;
-  pendingRequests: MockBorrowRequest[];
-  overdueRequests: MockBorrowRequest[];
-}
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-function loadLiveStats(): LiveStats {
-  const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);
-  const equipment = readCollection<MockEquipment>(OFFLINE_STORAGE_KEYS.equipment);
-  const users = readCollection<MockUser>(OFFLINE_STORAGE_KEYS.users);
-  const now = new Date();
-
-  const pending = requests.filter((r) => r.status === 'pending');
-  const borrowing = requests.filter((r) => r.status === 'borrowing');
-  const overdue = requests.filter(
-    (r) =>
-      (r.status === 'borrowing' || r.status === 'approved') &&
-      new Date(r.expectedReturnDate) < now,
-  );
-
-  return {
-    pendingCount: pending.length,
-    borrowingCount: borrowing.length,
-    overdueCount: overdue.length,
-    totalEquipment: equipment.length,
-    availableEquipment: equipment.filter((e) => e.status === 'active').length,
-    totalStudents: users.filter((u) => u.role === 'student').length,
-    pendingRequests: pending
-      .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
-      .slice(0, 20),
-    overdueRequests: overdue
-      .sort((a, b) => a.expectedReturnDate.localeCompare(b.expectedReturnDate))
-      .slice(0, 20),
-  };
-}
-
-/** Cập nhật trạng thái yêu cầu trong mock localStorage */
-function updateRequestStatus(requestId: number, newStatus: string, rejectReason?: string) {
-  const requests = readCollection<MockBorrowRequest>(OFFLINE_STORAGE_KEYS.borrowRequests);
-  const updated = requests.map((r) => {
-    if (r.id === requestId) {
-      return {
-        ...r,
-        status: newStatus,
-        updatedAt: new Date().toISOString(),
-        ...(rejectReason ? { rejectReason } : {}),
-      };
-    }
-    return r;
-  });
-  writeCollection(OFFLINE_STORAGE_KEYS.borrowRequests, updated);
-
-  // Tạo thông báo cho sinh viên
-  const request = requests.find((r) => r.id === requestId);
-  if (request) {
-    createNotification({
-      userId: request.userId,
-      type: newStatus === 'approved' ? 'approved' : 'rejected',
-      title: newStatus === 'approved' ? 'Yêu cầu đã được duyệt' : 'Yêu cầu bị từ chối',
-      message:
-        newStatus === 'approved'
-          ? `Yêu cầu mượn ${request.equipmentName} đã được quản trị viên duyệt.`
-          : `Yêu cầu mượn ${request.equipmentName} đã bị từ chối.${rejectReason ? ` Lý do: ${rejectReason}` : ''}`,
-      targetRole: 'student',
-    });
-  }
+  pendingRequests: BorrowRequest[];
+  overdueRequests: BorrowRequest[];
 }
 
 // ─── KPI Card ────────────────────────────────────────────────────────────────
@@ -191,7 +131,7 @@ function EmptyState({ icon, text }: { icon: React.ReactNode; text: string }) {
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 const PAGE_SIZE = 8;
-const TABLE_HEIGHT = 480; // fixed height for both tables
+const TABLE_HEIGHT = 480;
 
 const cardStyle = {
   borderRadius: 10,
@@ -204,66 +144,104 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const load = useCallback(() => {
+  const load = useCallback(async () => {
     setLoading(true);
-    setTimeout(() => {
-      setStats(loadLiveStats());
+    try {
+      // ── 1. Dashboard stats from real API ──────────────────────────────────
+      const [dashRes, pendingRes, overdueRes, equipRes] = await Promise.all([
+        http.get<ApiResponse<DashboardApiStats>>('/reports/dashboard'),
+        borrowRequestService.listAll({ page: 1, pageSize: 50, status: 'pending' }),
+        borrowRequestService.listAll({ page: 1, pageSize: 50, status: 'overdue' }),
+        equipmentService.list({ page: 1, pageSize: 1 }),
+      ]);
+
+      const apiStats = dashRes.data.data;
+      const pendingItems = pendingRes.data?.items ?? [];
+      const overdueItems = overdueRes.data?.items ?? [];
+      const equip = equipRes.data;
+
+      setStats({
+        pendingCount: apiStats?.pendingRequests ?? pendingItems.length,
+        borrowingCount: apiStats?.totalBorrowed ?? 0,
+        overdueCount: apiStats?.overdueItems ?? overdueItems.length,
+        totalEquipment: apiStats?.totalEquipment ?? equip?.total ?? 0,
+        availableEquipment: equip?.items?.[0] ? (equip.items as any).availableTotal ?? 0 : 0,
+        totalStudents: apiStats?.totalUsers ?? 0,
+        pendingRequests: pendingItems,
+        overdueRequests: overdueItems,
+      });
+    } catch (err) {
+      console.error('Dashboard load error:', err);
+      messageApi.error('Không thể tải dữ liệu dashboard');
+    } finally {
       setLoading(false);
-    }, 200);
-  }, []);
+    }
+  }, [messageApi]);
 
   useEffect(() => {
     load();
   }, [load]);
 
-  // ── Xử lý duyệt yêu cầu ───────────────────────────────────────────────
+  // ── Approve / Reject ──────────────────────────────────────────────────────
 
-  const handleApprove = (record: MockBorrowRequest) => {
+  const handleApprove = (record: BorrowRequest) => {
     Modal.confirm({
       title: 'Xác nhận duyệt',
-      content: `Duyệt yêu cầu mượn "${record.equipmentName}" của ${record.userFullName}?`,
+      content: `Duyệt yêu cầu của ${record.userFullName ?? `User #${record.userId}`}?`,
       okText: 'Duyệt',
       cancelText: 'Hủy',
       okButtonProps: { style: { background: SLINK_COLORS.success, borderColor: SLINK_COLORS.success } },
-      onOk: () => {
-        updateRequestStatus(record.id, 'approved');
-        messageApi.success(`Đã duyệt yêu cầu của ${record.userFullName}`);
-        load();
+      onOk: async () => {
+        try {
+          await borrowRequestService.approve(record.id);
+          messageApi.success(`Đã duyệt yêu cầu của ${record.userFullName ?? `User #${record.userId}`}`);
+          load();
+        } catch {
+          messageApi.error('Không thể duyệt yêu cầu');
+        }
       },
     });
   };
 
-  const handleReject = (record: MockBorrowRequest) => {
+  const handleReject = (record: BorrowRequest) => {
     Modal.confirm({
       title: 'Xác nhận từ chối',
-      content: `Từ chối yêu cầu mượn "${record.equipmentName}" của ${record.userFullName}?`,
+      content: `Từ chối yêu cầu của ${record.userFullName ?? `User #${record.userId}`}?`,
       okText: 'Từ chối',
       cancelText: 'Hủy',
       okButtonProps: { danger: true },
-      onOk: () => {
-        updateRequestStatus(record.id, 'rejected', 'Quản trị viên từ chối yêu cầu.');
-        messageApi.success(`Đã từ chối yêu cầu của ${record.userFullName}`);
-        load();
+      onOk: async () => {
+        try {
+          await borrowRequestService.reject(record.id, 'Quản trị viên từ chối yêu cầu.');
+          messageApi.success(`Đã từ chối yêu cầu của ${record.userFullName ?? `User #${record.userId}`}`);
+          load();
+        } catch {
+          messageApi.error('Không thể từ chối yêu cầu');
+        }
       },
     });
   };
 
-  // ── Pending requests columns ─────────────────────────────────────────────
+  // ── Pending columns ───────────────────────────────────────────────────────
 
-  const pendingColumns: ColumnsType<MockBorrowRequest> = [
+  const pendingColumns: ColumnsType<BorrowRequest> = [
     {
       title: 'Sinh viên',
       dataIndex: 'userFullName',
       key: 'userFullName',
       ellipsis: true,
-      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,
+      render: (v: string, r: BorrowRequest) => (
+        <Text style={{ fontSize: 13 }}>{v ?? `User #${r.userId}`}</Text>
+      ),
     },
     {
-      title: 'Thiết bị',
-      dataIndex: 'equipmentName',
-      key: 'equipmentName',
+      title: 'Ghi chú / Thiết bị',
+      dataIndex: 'note',
+      key: 'note',
       ellipsis: true,
-      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,
+      render: (v: string) => (
+        <Text type="secondary" style={{ fontSize: 12 }}>{v ?? '—'}</Text>
+      ),
     },
     {
       title: 'Gửi',
@@ -280,7 +258,7 @@ export default function AdminDashboardPage() {
       title: '',
       key: 'action',
       width: 72,
-      render: (_: unknown, record: MockBorrowRequest) => (
+      render: (_: unknown, record: BorrowRequest) => (
         <div style={{ display: 'flex', gap: 4 }}>
           <Tooltip title="Duyệt yêu cầu">
             <Button
@@ -304,22 +282,26 @@ export default function AdminDashboardPage() {
     },
   ];
 
-  // ── Overdue columns ──────────────────────────────────────────────────────
+  // ── Overdue columns ───────────────────────────────────────────────────────
 
-  const overdueColumns: ColumnsType<MockBorrowRequest> = [
+  const overdueColumns: ColumnsType<BorrowRequest> = [
     {
       title: 'Sinh viên',
       dataIndex: 'userFullName',
       key: 'userFullName',
       ellipsis: true,
-      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,
+      render: (v: string, r: BorrowRequest) => (
+        <Text style={{ fontSize: 13 }}>{v ?? `User #${r.userId}`}</Text>
+      ),
     },
     {
-      title: 'Thiết bị',
-      dataIndex: 'equipmentName',
-      key: 'equipmentName',
+      title: 'Ghi chú',
+      dataIndex: 'note',
+      key: 'note',
       ellipsis: true,
-      render: (v: string) => <Text style={{ fontSize: 13 }}>{v}</Text>,
+      render: (v: string) => (
+        <Text type="secondary" style={{ fontSize: 12 }}>{v ?? '—'}</Text>
+      ),
     },
     {
       title: 'Hạn trả',
@@ -336,7 +318,7 @@ export default function AdminDashboardPage() {
       title: 'Trễ',
       key: 'days',
       width: 64,
-      render: (_: unknown, r: MockBorrowRequest) => {
+      render: (_: unknown, r: BorrowRequest) => {
         const d = dayjs().diff(dayjs(r.expectedReturnDate), 'day');
         return <Tag color="volcano" style={{ fontSize: 11 }}>{d}N</Tag>;
       },
@@ -420,18 +402,18 @@ export default function AdminDashboardPage() {
             icon: <ToolOutlined />,
             iconColor: SLINK_COLORS.primary,
             iconBg: 'rgba(191,4,4,0.08)',
-            subtitle: `${stats?.availableEquipment ?? 0} đang hoạt động`,
+            subtitle: 'Trong kho',
           },
           {
-            title: 'Sẵn sàng',
-            value: stats?.availableEquipment ?? 0,
+            title: 'Tổng vi phạm',
+            value: 0, // filled from apiStats
             icon: <CheckCircleOutlined />,
             iconColor: SLINK_COLORS.success,
             iconBg: 'rgba(102,191,38,0.1)',
-            subtitle: 'Có thể cho mượn',
+            subtitle: 'Hồ sơ vi phạm',
           },
           {
-            title: 'Sinh viên',
+            title: 'Người dùng',
             value: stats?.totalStudents ?? 0,
             icon: <TeamOutlined />,
             iconColor: '#722ED1',
@@ -445,7 +427,7 @@ export default function AdminDashboardPage() {
         ))}
       </Row>
 
-      {/* ── Tables Row — equal height 50/50 ── */}
+      {/* ── Tables Row ── */}
       <Row gutter={[16, 16]} align="stretch">
         {/* Pending requests */}
         <Col xs={24} xl={12}>
@@ -473,7 +455,7 @@ export default function AdminDashboardPage() {
                 text="Không có yêu cầu nào đang chờ duyệt"
               />
             ) : (
-              <Table<MockBorrowRequest>
+              <Table<BorrowRequest>
                 {...tableProps}
                 dataSource={stats?.pendingRequests ?? []}
                 columns={pendingColumns}
@@ -507,7 +489,7 @@ export default function AdminDashboardPage() {
                 text="Không có thiết bị nào quá hạn"
               />
             ) : (
-              <Table<MockBorrowRequest>
+              <Table<BorrowRequest>
                 {...tableProps}
                 dataSource={stats?.overdueRequests ?? []}
                 columns={overdueColumns}
