@@ -7,4 +7,6 @@ export interface IBorrowRequestRepository {
   update(id: number, data: Partial<BorrowRequestEntity>): Promise<BorrowRequestEntity>;
   listByUser(userId: number, page: number, pageSize: number): Promise<{ items: BorrowRequestEntity[]; total: number }>;
   countByStatus(status: string): Promise<number>;
+  getItems(borrowRequestId: number): Promise<{ equipmentId: number; quantity: number }[]>;
 }
+

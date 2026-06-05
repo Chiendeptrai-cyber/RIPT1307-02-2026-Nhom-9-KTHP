@@ -6,6 +6,13 @@ export class PgStockLogRepository implements IStockLogRepository {
   constructor(private readonly pool: Pool) {}
 
   async create(data: Omit<EquipmentStockLogEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<EquipmentStockLogEntity> {
-    return { id: 1, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), ...data } as EquipmentStockLogEntity;
+    const result = await this.pool.query<EquipmentStockLogEntity>(
+      `INSERT INTO equipment_stock_logs (equipment_id, action, quantity, note)
+       VALUES ($1, $2, $3, $4)
+       RETURNING id, equipment_id AS "equipmentId", action, quantity, note,
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      [data.equipmentId, data.action, data.quantity, data.note ?? null],
+    );
+    return result.rows[0];
   }
 }

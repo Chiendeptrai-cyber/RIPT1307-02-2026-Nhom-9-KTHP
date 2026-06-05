@@ -1,13 +1,17 @@
 import type { IBorrowRequestRepository } from '../../../domain/repositories/borrow-request.repository';
+import type { IEquipmentRepository } from '../../../domain/repositories/equipment.repository';
+import type { IStockLogRepository } from '../../../domain/repositories/stock-log.repository';
 import type { INotificationRepository } from '../../../domain/repositories/notification.repository';
 import type { IUserRepository } from '../../../domain/repositories/user.repository';
 import type { NodemailerEmailService } from '../../../infrastructure/services/nodemailer-email.service';
 import { AppError } from '../../../domain/errors/app.error';
-import { BorrowRequestStatus, NotificationType } from '@equipment-mgmt/shared';
+import { BorrowRequestStatus, NotificationType, StockActionType } from '@equipment-mgmt/shared';
 
 export class ApproveBorrowRequestUseCase {
   constructor(
     private readonly borrowRequestRepo: IBorrowRequestRepository,
+    private readonly equipmentRepo: IEquipmentRepository,
+    private readonly stockLogRepo: IStockLogRepository,
     private readonly notificationRepo: INotificationRepository,
     private readonly userRepo: IUserRepository,
     private readonly emailService: NodemailerEmailService,
@@ -18,6 +22,38 @@ export class ApproveBorrowRequestUseCase {
     if (!request) throw new AppError('Yêu cầu mượn không tồn tại', 404, 'NOT_FOUND');
     if (request.status !== BorrowRequestStatus.PENDING) {
       throw new AppError('Chỉ có thể duyệt yêu cầu đang ở trạng thái Chờ duyệt', 400, 'INVALID_STATUS');
+    }
+
+    // Lấy thông tin thiết bị và số lượng được yêu cầu
+    const items = await this.borrowRequestRepo.getItems(requestId);
+    if (!items || items.length === 0) {
+      throw new AppError('Yêu cầu mượn không có thiết bị nào', 400, 'INVALID_REQUEST');
+    }
+
+    // Kiểm tra hàng trong kho trước khi thực hiện trừ
+    for (const item of items) {
+      const equipment = await this.equipmentRepo.findById(item.equipmentId);
+      if (!equipment) {
+        throw new AppError('Thiết bị trong yêu cầu không tồn tại', 404, 'NOT_FOUND');
+      }
+      if (equipment.availableQuantity < item.quantity) {
+        throw new AppError(
+          `Thiết bị "${equipment.name}" chỉ còn ${equipment.availableQuantity} chiếc, không đủ để duyệt ${item.quantity} chiếc`,
+          400,
+          'INSUFFICIENT_STOCK',
+        );
+      }
+    }
+
+    // Thực hiện trừ kho và tạo stock log
+    for (const item of items) {
+      await this.equipmentRepo.decrementAvailable(item.equipmentId, item.quantity);
+      await this.stockLogRepo.create({
+        equipmentId: item.equipmentId,
+        action: StockActionType.BORROW_APPROVE,
+        quantity: item.quantity,
+        note: `Duyệt yêu cầu mượn #${requestId}`,
+      });
     }
 
     const updated = await this.borrowRequestRepo.update(requestId, {

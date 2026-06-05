@@ -45,6 +45,7 @@ export async function resetPassword(req: Request, res: Response): Promise<void> 
 
   res.json({
     success: true,
+    data: null,
     message: 'Đặt lại mật khẩu thành công',
   } satisfies ApiResponse);
 }

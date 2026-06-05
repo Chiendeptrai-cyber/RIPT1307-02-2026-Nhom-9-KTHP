@@ -47,7 +47,7 @@ export async function createEquipment(req: Request, res: Response): Promise<void
     description,
   });
 
-  res.status(211 as any || 201).json({
+  res.status(201).json({
     success: true,
     data: result,
     message: 'Tạo thiết bị thành công',

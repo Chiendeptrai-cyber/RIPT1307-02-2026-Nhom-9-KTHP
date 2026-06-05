@@ -154,4 +154,14 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     );
     return Number(result.rows[0].total);
   }
+
+  async getItems(borrowRequestId: number): Promise<{ equipmentId: number; quantity: number }[]> {
+    const result = await this.pool.query<{ equipmentId: number; quantity: number }>(
+      `SELECT equipment_id AS "equipmentId", quantity
+       FROM borrow_request_items
+       WHERE borrow_request_id = $1`,
+      [borrowRequestId],
+    );
+    return result.rows;
+  }
 }

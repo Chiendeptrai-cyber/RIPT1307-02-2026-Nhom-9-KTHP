@@ -6,6 +6,7 @@ import { PgBorrowRecordRepository }   from './database/repositories/pg-borrow-re
 import { PgNotificationRepository }   from './database/repositories/pg-notification.repository';
 import { PgPasswordResetTokenRepository } from './database/repositories/pg-password-reset-token.repository';
 import { PgViolationRepository }      from './database/repositories/pg-violation.repository';
+import { PgStockLogRepository }      from './database/repositories/pg-stock-log.repository';
 import { JwtTokenService }            from './services/jwt-token.service';
 
 import { LoginUseCase }                  from '../application/use-cases/auth/login.use-case';
@@ -43,6 +44,7 @@ const borrowRecordRepo   = new PgBorrowRecordRepository(pool);
 const notificationRepo   = new PgNotificationRepository(pool);
 const passwordResetTokenRepo = new PgPasswordResetTokenRepository(pool);
 const violationRepo      = new PgViolationRepository(pool);
+const stockLogRepo       = new PgStockLogRepository(pool);
 
 // Services
 const tokenService = new JwtTokenService();
@@ -63,7 +65,7 @@ export const deleteEquipmentUseCase    = new DeleteEquipmentUseCase(equipmentRep
 
 // Borrow request use cases
 export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo, userRepo);
-export const approveBorrowRequestUseCase = new ApproveBorrowRequestUseCase(borrowRequestRepo, notificationRepo, userRepo, emailService);
+export const approveBorrowRequestUseCase = new ApproveBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo, userRepo, emailService);
 export const rejectBorrowRequestUseCase  = new RejectBorrowRequestUseCase(borrowRequestRepo, notificationRepo, userRepo, emailService);
 export const cancelBorrowRequestUseCase  = new CancelBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
 

@@ -10,4 +10,6 @@ export interface IEquipmentRepository {
   create(data: Omit<EquipmentEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<EquipmentEntity>;
   update(id: number, data: Partial<EquipmentEntity>): Promise<EquipmentEntity>;
   countAll(): Promise<number>;
+  decrementAvailable(id: number, amount: number): Promise<void>;
+  incrementAvailable(id: number, amount: number): Promise<void>;
 }
