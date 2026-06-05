@@ -1,7 +1,13 @@
 import type { Request, Response } from 'express';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 import { UserRole, UserStatus } from '@equipment-mgmt/shared';
-import { listUsersUseCase, lockUserUseCase, getUserProfileUseCase } from '../../infrastructure/container';
+import {
+  listUsersUseCase,
+  lockUserUseCase,
+  getUserProfileUseCase,
+  changePasswordUseCase,
+  updateProfileUseCase,
+} from '../../infrastructure/container';
 
 export async function listUsers(req: Request, res: Response): Promise<void> {
   const { page = 1, pageSize = 20, role, status } = req.query;
@@ -63,3 +69,34 @@ export async function lockUser(req: Request, res: Response): Promise<void> {
   } satisfies ApiResponse);
 }
 
+export async function changePassword(req: Request, res: Response): Promise<void> {
+  const { currentPassword, newPassword } = req.body;
+
+  await changePasswordUseCase.execute({
+    userId: req.user!.userId,
+    currentPassword,
+    newPassword,
+  });
+
+  res.json({
+    success: true,
+    data: null,
+    message: 'Đổi mật khẩu thành công',
+  } satisfies ApiResponse);
+}
+
+export async function updateProfile(req: Request, res: Response): Promise<void> {
+  const { fullName, email } = req.body;
+
+  const result = await updateProfileUseCase.execute({
+    userId: req.user!.userId,
+    fullName,
+    email,
+  });
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Cập nhật thông tin thành công',
+  } satisfies ApiResponse);
+}

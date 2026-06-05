@@ -48,3 +48,13 @@ export async function resetPassword(token: string, passwordStr: string): Promise
   const response = await http.post<ApiResponse>('/auth/reset-password', { token, password: passwordStr });
   return response.data;
 }
+
+export async function changePassword(currentPassword: string, newPassword: string): Promise<ApiResponse> {
+  const response = await http.patch<ApiResponse>('/users/me/password', { currentPassword, newPassword });
+  return response.data;
+}
+
+export async function updateProfile(data: { fullName?: string; email?: string }): Promise<ApiResponse<UserProfile>> {
+  const response = await http.patch<ApiResponse<UserProfile>>('/users/me', data);
+  return response.data;
+}

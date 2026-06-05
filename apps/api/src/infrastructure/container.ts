@@ -26,6 +26,8 @@ import { MarkNotificationReadUseCase }   from '../application/use-cases/notifica
 import { ListUsersUseCase }              from '../application/use-cases/user/list-users.use-case';
 import { LockUserUseCase }               from '../application/use-cases/user/lock-user.use-case';
 import { GetUserProfileUseCase }         from '../application/use-cases/user/get-user-profile.use-case';
+import { ChangePasswordUseCase }         from '../application/use-cases/user/change-password.use-case';
+import { UpdateProfileUseCase }          from '../application/use-cases/user/update-profile.use-case';
 import { GetDashboardStatsUseCase }      from '../application/use-cases/report/get-dashboard-stats.use-case';
 import { ExportReportUseCase }           from '../application/use-cases/report/export-report.use-case';
 
@@ -70,9 +72,11 @@ export const listNotificationsUseCase    = new ListNotificationsUseCase(notifica
 export const markNotificationReadUseCase = new MarkNotificationReadUseCase(notificationRepo);
 
 // User use cases
-export const listUsersUseCase     = new ListUsersUseCase(userRepo);
-export const lockUserUseCase      = new LockUserUseCase(userRepo);
-export const getUserProfileUseCase = new GetUserProfileUseCase(userRepo);
+export const listUsersUseCase       = new ListUsersUseCase(userRepo);
+export const lockUserUseCase        = new LockUserUseCase(userRepo);
+export const getUserProfileUseCase  = new GetUserProfileUseCase(userRepo);
+export const changePasswordUseCase  = new ChangePasswordUseCase(userRepo);
+export const updateProfileUseCase   = new UpdateProfileUseCase(userRepo);
 
 // Report use cases
 export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(

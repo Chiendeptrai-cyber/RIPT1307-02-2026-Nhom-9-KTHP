@@ -25,6 +25,7 @@ import {
 } from 'antd';
 import { useAuthStore } from '@/stores/auth.store';
 import { SLINK_COLORS } from '@/theme/tokens';
+import { changePassword as apiChangePassword, updateProfile as apiUpdateProfile } from '@/services/auth.service';
 
 const { Title, Text } = Typography;
 
@@ -72,13 +73,19 @@ export default function ProfilePage() {
         if (!user) return;
         setSavingProfile(true);
         try {
-            // Update auth store with new name/email (localStorage-backed)
-            await new Promise((resolve) => setTimeout(resolve, 400)); // simulate async
-            setAuth({ ...user, fullName: values.fullName, email: values.email }, token ?? '');
+            const res = await apiUpdateProfile({ fullName: values.fullName, email: values.email });
+            if (res.success && res.data) {
+                // Sync auth store with updated info from server
+                setAuth(
+                    { ...user, fullName: (res.data as any).fullName ?? values.fullName, email: (res.data as any).email ?? values.email },
+                    token ?? '',
+                );
+            }
             message.success('Cập nhật thông tin thành công!');
             setEditingProfile(false);
-        } catch {
-            message.error('Có lỗi xảy ra, vui lòng thử lại.');
+        } catch (err: any) {
+            const msg = err?.response?.data?.message ?? 'Có lỗi xảy ra, vui lòng thử lại.';
+            message.error(msg);
         } finally {
             setSavingProfile(false);
         }
@@ -87,15 +94,14 @@ export default function ProfilePage() {
     const handleSavePassword = async (values: PasswordFormValues) => {
         setSavingPassword(true);
         try {
-            await new Promise((resolve) => setTimeout(resolve, 500)); // simulate async
-            if (values.newPassword !== values.confirmPassword) {
-                message.error('Mật khẩu xác nhận không khớp!');
-                return;
+            const res = await apiChangePassword(values.currentPassword, values.newPassword);
+            if (res.success) {
+                message.success('Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
+                passwordForm.resetFields();
             }
-            message.success('Đổi mật khẩu thành công!');
-            passwordForm.resetFields();
-        } catch {
-            message.error('Có lỗi xảy ra, vui lòng thử lại.');
+        } catch (err: any) {
+            const msg = err?.response?.data?.message ?? 'Có lỗi xảy ra, vui lòng thử lại.';
+            message.error(msg);
         } finally {
             setSavingPassword(false);
         }
