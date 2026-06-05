@@ -9903,6 +9903,6 @@ dist/
 .umi/
 .umi-production/
 
-apps/web/dist/*
-apps/web/src/.umi/*
-apps/web/src/.umi-production/*
+apps/web/dist/
+apps/web/src/.umi/
+apps/web/src/.umi-production/
