@@ -51,6 +51,7 @@ export class PgUserRepository implements IUserRepository {
     if (data.email !== undefined)    { sets.push(`email = $${idx++}`);     values.push(data.email); }
     if (data.role !== undefined)     { sets.push(`role = $${idx++}`);      values.push(data.role); }
     if (data.status !== undefined)   { sets.push(`status = $${idx++}`);    values.push(data.status); }
+    if (data.passwordHash !== undefined) { sets.push(`password_hash = $${idx++}`); values.push(data.passwordHash); }
 
     sets.push(`updated_at = NOW()`);
     values.push(id);
