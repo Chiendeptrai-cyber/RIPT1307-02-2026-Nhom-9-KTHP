@@ -37,7 +37,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 43
+        "register": 7
       },
       "enableBy": "register"
     },
@@ -50,7 +50,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 229
+        "register": 231
       },
       "enableBy": "register"
     },
@@ -63,7 +63,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 126
+        "register": 51
       },
       "enableBy": "register"
     },
@@ -80,7 +80,7 @@
             0
           ]
         },
-        "register": 129
+        "register": 27
       },
       "enableBy": "register"
     },
@@ -94,10 +94,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            7
+            22
           ]
         },
-        "register": 294
+        "register": 14
       },
       "enableBy": "register"
     },
@@ -111,10 +111,10 @@
       "time": {
         "hooks": {
           "modifyRoutes": [
-            0
+            1
           ]
         },
-        "register": 61
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -127,7 +127,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 101
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -141,10 +141,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            568
+            1251
           ]
         },
-        "register": 683
+        "register": 110
       },
       "enableBy": "register"
     },
@@ -157,7 +157,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 50
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -177,7 +177,7 @@
             1
           ]
         },
-        "register": 64
+        "register": 7
       },
       "enableBy": "register"
     },
@@ -194,7 +194,7 @@
             0
           ]
         },
-        "register": 65
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -207,7 +207,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 64
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -224,7 +224,7 @@
             0
           ]
         },
-        "register": 353
+        "register": 82
       },
       "enableBy": "register"
     },
@@ -236,7 +236,7 @@
       "enableBy": "register",
       "time": {
         "hooks": {},
-        "register": 1
+        "register": 0
       }
     },
     "virtual: config-styles": {
@@ -1076,7 +1076,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 81
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -1090,10 +1090,10 @@
       "time": {
         "hooks": {
           "onStart": [
-            1
+            3
           ]
         },
-        "register": 66
+        "register": 6
       },
       "enableBy": "register"
     },
@@ -1106,7 +1106,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 65
+        "register": 8
       },
       "enableBy": "register"
     },
@@ -1119,7 +1119,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1492
+        "register": 461
       },
       "enableBy": "register"
     },
@@ -1132,7 +1132,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2303
+        "register": 551
       },
       "enableBy": "config"
     },
@@ -1145,7 +1145,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 557
+        "register": 177
       },
       "enableBy": "config"
     },
@@ -1159,10 +1159,10 @@
       "time": {
         "hooks": {
           "modifyAppData": [
-            0
+            1
           ]
         },
-        "register": 47
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -1175,7 +1175,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 51
+        "register": 10
       },
       "enableBy": "register"
     },
@@ -1188,7 +1188,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 68
+        "register": 13
       },
       "enableBy": "config"
     },
@@ -1201,7 +1201,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 585
+        "register": 166
       }
     },
     "@umijs/preset-umi/dist/features/mpa/mpa": {
@@ -1213,7 +1213,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 67
+        "register": 6
       },
       "enableBy": "config"
     },
@@ -1226,7 +1226,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 40
+        "register": 14
       }
     },
     "@umijs/preset-umi/dist/features/overrides/overrides": {
@@ -1251,7 +1251,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 57
+        "register": 7
       },
       "enableBy": "config"
     },
@@ -1265,10 +1265,10 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            18
+            10
           ]
         },
-        "register": 77
+        "register": 19
       }
     },
     "@umijs/preset-umi/dist/features/polyfill/publicPathPolyfill": {
@@ -1280,7 +1280,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 17
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1293,7 +1293,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 62
+        "register": 20
       },
       "enableBy": "register"
     },
@@ -1306,7 +1306,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -1319,7 +1319,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 57
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -1332,7 +1332,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 55
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1345,7 +1345,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 236
+        "register": 35
       },
       "enableBy": "register"
     },
@@ -1358,7 +1358,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 110
+        "register": 8
       },
       "enableBy": "config"
     },
@@ -1371,7 +1371,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 44
+        "register": 3
       }
     },
     "@umijs/preset-umi/dist/features/ssr/ssr": {
@@ -1383,7 +1383,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 115
+        "register": 18
       },
       "enableBy": "config"
     },
@@ -1396,7 +1396,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 135
+        "register": 23
       },
       "enableBy": "register"
     },
@@ -1409,7 +1409,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 120
+        "register": 29
       },
       "enableBy": "register"
     },
@@ -1422,7 +1422,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 139
+        "register": 17
       },
       "enableBy": "config"
     },
@@ -1435,7 +1435,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 46
+        "register": 7
       },
       "enableBy": "config"
     },
@@ -1448,7 +1448,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 209
+        "register": 57
       }
     },
     "@umijs/preset-umi/dist/features/monorepo/redirect": {
@@ -1460,7 +1460,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 1093
+        "register": 115
       },
       "enableBy": "config"
     },
@@ -1473,7 +1473,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 55
+        "register": 6
       }
     },
     "@umijs/preset-umi/dist/features/clickToComponent/clickToComponent": {
@@ -1485,7 +1485,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 58
+        "register": 5
       }
     },
     "@umijs/preset-umi/dist/features/legacy/legacy": {
@@ -1497,7 +1497,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 64
+        "register": 21
       },
       "enableBy": "config"
     },
@@ -1510,7 +1510,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 44
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -1523,7 +1523,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 102
+        "register": 9
       }
     },
     "@umijs/preset-umi/dist/features/swc/swc": {
@@ -1539,7 +1539,7 @@
             0
           ]
         },
-        "register": 43
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1552,7 +1552,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 136
+        "register": 17
       }
     },
     "@umijs/preset-umi/dist/features/mako/mako": {
@@ -1564,7 +1564,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 53
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -1577,7 +1577,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 60
+        "register": 11
       }
     },
     "@umijs/preset-umi/dist/features/hmrGuardian/hmrGuardian": {
@@ -1589,7 +1589,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 108
+        "register": 19
       }
     },
     "@umijs/preset-umi/dist/features/routePreloadOnLoad/routePreloadOnLoad": {
@@ -1601,7 +1601,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 466
+        "register": 169
       }
     },
     "@umijs/preset-umi/dist/features/forget/forget": {
@@ -1613,7 +1613,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 62
+        "register": 25
       },
       "enableBy": "config"
     },
@@ -1626,7 +1626,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 91
+        "register": 8
       },
       "enableBy": "register"
     },
@@ -1639,7 +1639,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 276
+        "register": 82
       },
       "enableBy": "register"
     },
@@ -1652,7 +1652,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 706
+        "register": 226
       },
       "enableBy": "register"
     },
@@ -1665,7 +1665,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 2441
+        "register": 385
       }
     },
     "@umijs/preset-umi/dist/commands/help": {
@@ -1677,7 +1677,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 58
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1690,7 +1690,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 50
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1703,7 +1703,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 44
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1716,7 +1716,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 62
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1729,7 +1729,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 56
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1742,7 +1742,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 142
+        "register": 20
       },
       "enableBy": "register"
     },
@@ -1755,7 +1755,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 11
       },
       "enableBy": "register"
     },
@@ -1768,7 +1768,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 7
       },
       "enableBy": "register"
     },
@@ -1781,7 +1781,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 57
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1794,7 +1794,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 44
+        "register": 2
       },
       "enableBy": "register"
     },
@@ -1807,7 +1807,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 44
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -1820,7 +1820,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1833,7 +1833,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 42
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1846,7 +1846,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 52
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1859,7 +1859,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 54
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1872,7 +1872,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 63
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1885,7 +1885,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 50
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -1898,7 +1898,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 91
+        "register": 4
       },
       "enableBy": "register"
     },
@@ -1911,7 +1911,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 374
+        "register": 123
       },
       "enableBy": "register"
     },
@@ -1924,7 +1924,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 46
+        "register": 5
       },
       "enableBy": "register"
     },
@@ -1937,7 +1937,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 126
+        "register": 27
       },
       "enableBy": "register"
     },
@@ -1950,7 +1950,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 84
+        "register": 9
       },
       "enableBy": "config"
     },
@@ -1965,7 +1965,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 61
+        "register": 3
       }
     },
     "@umijs/plugins/dist/antd": {
@@ -1978,16 +1978,16 @@
       "time": {
         "hooks": {
           "modifyConfig": [
-            66
+            38
           ],
           "modifyAppData": [
-            1
+            0
           ],
           "onCheck": [
-            0
+            1
           ]
         },
-        "register": 222
+        "register": 61
       }
     },
     "@umijs/plugins/dist/dva": {
@@ -1999,7 +1999,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 180
+        "register": 73
       },
       "enableBy": "config"
     },
@@ -2012,7 +2012,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 61
+        "register": 9
       },
       "enableBy": "config"
     },
@@ -2027,7 +2027,7 @@
       },
       "time": {
         "hooks": {},
-        "register": 138
+        "register": 82
       },
       "enableBy": "config"
     },
@@ -2040,7 +2040,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 102
+        "register": 61
       },
       "enableBy": "config"
     },
@@ -2053,7 +2053,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 81
+        "register": 16
       },
       "enableBy": "config"
     },
@@ -2066,7 +2066,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 71
+        "register": 8
       },
       "enableBy": "config"
     },
@@ -2079,7 +2079,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 54
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -2092,7 +2092,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 49
+        "register": 10
       },
       "enableBy": "register"
     },
@@ -2105,7 +2105,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 85
+        "register": 8
       }
     },
     "@umijs/plugins/dist/qiankun/slave": {
@@ -2117,7 +2117,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 74
+        "register": 13
       }
     },
     "@umijs/plugins/dist/react-query": {
@@ -2129,7 +2129,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 61
+        "register": 4
       },
       "enableBy": "config"
     },
@@ -2142,7 +2142,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 56
+        "register": 11
       },
       "enableBy": "config"
     },
@@ -2155,7 +2155,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 81
+        "register": 18
       },
       "enableBy": "config"
     },
@@ -2168,7 +2168,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 56
+        "register": 3
       },
       "enableBy": "config"
     },
@@ -2181,7 +2181,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 60
+        "register": 12
       },
       "enableBy": "config"
     },
@@ -2198,7 +2198,7 @@
             0
           ]
         },
-        "register": 43
+        "register": 7
       },
       "enableBy": "register"
     },
@@ -2215,7 +2215,7 @@
             0
           ]
         },
-        "register": 42
+        "register": 9
       },
       "enableBy": "register"
     },
@@ -2232,7 +2232,7 @@
             0
           ]
         },
-        "register": 46
+        "register": 3
       },
       "enableBy": "register"
     },
@@ -2245,7 +2245,7 @@
       "config": {},
       "time": {
         "hooks": {},
-        "register": 53
+        "register": 4
       },
       "enableBy": "register"
     }
@@ -3712,7 +3712,7 @@
       "parentId": "10",
       "id": "11",
       "absPath": "/equipment",
-      "__content": "import {\r\n  PlusOutlined,\r\n  SearchOutlined,\r\n  ToolOutlined,\r\n  ReloadOutlined,\r\n} from '@ant-design/icons';\r\nimport {\r\n  Alert,\r\n  Button,\r\n  Card,\r\n  Col,\r\n  Empty,\r\n  Input,\r\n  Pagination,\r\n  Row,\r\n  Skeleton,\r\n  Tag,\r\n  Typography,\r\n} from 'antd';\r\nimport { useState } from 'react';\r\nimport { useNavigate } from '@umijs/max';\r\nimport { useEquipmentList } from '../../hooks/useEquipmentList';\r\nimport { SLINK_COLORS } from '../../theme/tokens';\r\n\r\nconst { Title, Text } = Typography;\r\n\r\nfunction EquipmentCard({ item }: { item: any }) {\r\n  const navigate = useNavigate();\r\n  const isAvailable = item.availableQuantity > 0;\r\n\r\n  return (\r\n    <Card\r\n      hoverable\r\n      onClick={() => navigate(`/equipment/${item.id}`)}\r\n      style={{\r\n        borderRadius: 8,\r\n        border: `1px solid ${SLINK_COLORS.border}`,\r\n        boxShadow: SLINK_COLORS.shadow,\r\n        height: '100%',\r\n      }}\r\n      styles={{ body: { padding: 16 } }}\r\n    >\r\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\r\n        <div\r\n          style={{\r\n            width: 40,\r\n            height: 40,\r\n            borderRadius: 8,\r\n            background: 'rgba(191, 4, 4, 0.08)',\r\n            display: 'flex',\r\n            alignItems: 'center',\r\n            justifyContent: 'center',\r\n            marginBottom: 4,\r\n          }}\r\n        >\r\n          <ToolOutlined style={{ fontSize: 20, color: SLINK_COLORS.primary }} />\r\n        </div>\r\n        <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>\r\n          {item.name}\r\n        </Text>\r\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>\r\n          <Text type=\"secondary\" style={{ fontSize: 12 }}>\r\n            Còn lại: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\r\n              {item.availableQuantity}/{item.totalQuantity}\r\n            </strong>\r\n          </Text>\r\n          <Tag color={isAvailable ? 'green' : 'red'} style={{ margin: 0, fontSize: 11 }}>\r\n            {isAvailable ? 'Có sẵn' : 'Hết'}\r\n          </Tag>\r\n        </div>\r\n      </div>\r\n    </Card>\r\n  );\r\n}\r\n\r\nexport default function EquipmentListPage() {\r\n  const navigate = useNavigate();\r\n  const [search, setSearch] = useState('');\r\n  const [debouncedSearch, setDebouncedSearch] = useState('');\r\n  const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();\r\n\r\n  const { items, total, page, loading, error, refetch } = useEquipmentList({\r\n    search: debouncedSearch,\r\n    pageSize: 20,\r\n  });\r\n\r\n  const handleSearchChange = (val: string) => {\r\n    setSearch(val);\r\n    if (searchTimer) clearTimeout(searchTimer);\r\n    const t = setTimeout(() => setDebouncedSearch(val), 400);\r\n    setSearchTimer(t);\r\n  };\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      {/* Header Card */}\r\n      <Card\r\n        style={{\r\n          borderRadius: 8,\r\n          border: `1px solid ${SLINK_COLORS.border}`,\r\n          boxShadow: SLINK_COLORS.shadow,\r\n          marginBottom: 16,\r\n        }}\r\n        styles={{ body: { padding: '16px 20px' } }}\r\n      >\r\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\r\n          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\r\n            <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(191, 4, 4, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\r\n              <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\r\n            </div>\r\n            <div>\r\n              <Title level={5} style={{ marginBottom: 0, color: SLINK_COLORS.textBase }}>\r\n                Danh sách thiết bị\r\n              </Title>\r\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>\r\n                Tìm kiếm và đăng ký mượn thiết bị\r\n              </Text>\r\n            </div>\r\n          </div>\r\n          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\r\n            <Input\r\n              placeholder=\"Tìm kiếm thiết bị...\"\r\n              prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\r\n              value={search}\r\n              onChange={(e) => handleSearchChange(e.target.value)}\r\n              style={{ width: 240, borderRadius: 6 }}\r\n              allowClear\r\n            />\r\n            <Button\r\n              icon={<ReloadOutlined />}\r\n              onClick={() => refetch(page)}\r\n              style={{ borderRadius: 6 }}\r\n            />\r\n            <Button\r\n              type=\"primary\"\r\n              icon={<PlusOutlined />}\r\n              onClick={() => navigate('/borrow-request/create')}\r\n              style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\r\n            >\r\n              Tạo yêu cầu\r\n            </Button>\r\n          </div>\r\n        </div>\r\n      </Card>\r\n\r\n      {/* Error */}\r\n      {error && (\r\n        <Alert\r\n          type=\"error\"\r\n          message={error}\r\n          closable\r\n          style={{ marginBottom: 16, borderRadius: 8 }}\r\n        />\r\n      )}\r\n\r\n      {/* Content */}\r\n      <Card\r\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\r\n        styles={{ body: { padding: 20 } }}\r\n      >\r\n        {loading ? (\r\n          <Row gutter={[16, 16]}>\r\n            {Array.from({ length: 8 }).map((_, i) => (\r\n              <Col key={i} xs={24} sm={12} lg={8} xl={6}>\r\n                <Skeleton.Button active block style={{ height: 100, borderRadius: 8 }} />\r\n              </Col>\r\n            ))}\r\n          </Row>\r\n        ) : items.length === 0 ? (\r\n          <Empty\r\n            description={\r\n              debouncedSearch\r\n                ? `Không tìm thấy thiết bị nào khớp với \"${debouncedSearch}\"`\r\n                : 'Chưa có thiết bị nào trong hệ thống'\r\n            }\r\n          />\r\n        ) : (\r\n          <>\r\n            <Row gutter={[16, 16]}>\r\n              {items.map((item) => (\r\n                <Col key={item.id} xs={24} sm={12} lg={8} xl={6}>\r\n                  <EquipmentCard item={item} />\r\n                </Col>\r\n              ))}\r\n            </Row>\r\n            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>\r\n              <Pagination\r\n                current={page}\r\n                total={total}\r\n                pageSize={20}\r\n                onChange={(p) => refetch(p)}\r\n                showTotal={(t) => `${t} thiết bị`}\r\n                showSizeChanger={false}\r\n              />\r\n            </div>\r\n          </>\r\n        )}\r\n      </Card>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import {\r\n  PlusOutlined,\r\n  SearchOutlined,\r\n  ToolOutlined,\r\n  ReloadOutlined,\r\n} from '@ant-design/icons';\r\nimport {\r\n  Alert,\r\n  Button,\r\n  Card,\r\n  Col,\r\n  Empty,\r\n  Input,\r\n  Pagination,\r\n  Row,\r\n  Skeleton,\r\n  Tag,\r\n  Typography,\r\n} from 'antd';\r\nimport { useState } from 'react';\r\nimport { useNavigate } from '@umijs/max';\r\nimport { useEquipmentList } from '../../hooks/useEquipmentList';\r\nimport { SLINK_COLORS } from '../../theme/tokens';\r\n\r\nconst { Title, Text } = Typography;\r\n\r\nfunction EquipmentCard({ item }: { item: any }) {\r\n  const navigate = useNavigate();\r\n  const isAvailable = item.availableQuantity > 0;\r\n\r\n  return (\r\n    <Card\r\n      hoverable\r\n      onClick={() => navigate(`/equipment/${item.id}`)}\r\n      style={{\r\n        borderRadius: 8,\r\n        border: `1px solid ${SLINK_COLORS.border}`,\r\n        boxShadow: SLINK_COLORS.shadow,\r\n        height: '100%',\r\n      }}\r\n      styles={{ body: { padding: 16 } }}\r\n    >\r\n      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>\r\n        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>\r\n          <div\r\n            style={{\r\n              width: 32,\r\n              height: 32,\r\n              borderRadius: 6,\r\n              background: 'rgba(191, 4, 4, 0.08)',\r\n              display: 'flex',\r\n              alignItems: 'center',\r\n              justifyContent: 'center',\r\n            }}\r\n          >\r\n            <ToolOutlined style={{ fontSize: 16, color: SLINK_COLORS.primary }} />\r\n          </div>\r\n          <span style={{ \r\n            fontFamily: 'monospace',\r\n            fontWeight: 600,\r\n            color: SLINK_COLORS.primary,\r\n            fontSize: '11px',\r\n            background: 'rgba(191, 4, 4, 0.06)',\r\n            padding: '1px 6px',\r\n            borderRadius: 3,\r\n            border: '1px solid rgba(191, 4, 4, 0.12)',\r\n          }}>\r\n            EQ-{String(item.id).padStart(4, '0')}\r\n          </span>\r\n        </div>\r\n        <div style={{ minHeight: 40, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>\r\n          <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>\r\n            {item.name}\r\n          </Text>\r\n          {item.categoryName && (\r\n            <div style={{ marginTop: 4 }}>\r\n              <Tag color=\"cyan\" style={{ margin: 0, fontSize: '10px', borderRadius: 4 }}>\r\n                {item.categoryName}\r\n              </Tag>\r\n            </div>\r\n          )}\r\n        </div>\r\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 8, borderTop: `1px dashed ${SLINK_COLORS.border}` }}>\r\n          <Text type=\"secondary\" style={{ fontSize: 12 }}>\r\n            Còn lại: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\r\n              {item.availableQuantity}/{item.totalQuantity}\r\n            </strong>\r\n          </Text>\r\n          <Tag color={isAvailable ? 'green' : 'red'} style={{ margin: 0, fontSize: 11 }}>\r\n            {isAvailable ? 'Có sẵn' : 'Hết'}\r\n          </Tag>\r\n        </div>\r\n      </div>\r\n    </Card>\r\n  );\r\n}\r\n\r\nexport default function EquipmentListPage() {\r\n  const navigate = useNavigate();\r\n  const [search, setSearch] = useState('');\r\n  const [debouncedSearch, setDebouncedSearch] = useState('');\r\n  const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();\r\n\r\n  const { items, total, page, loading, error, refetch } = useEquipmentList({\r\n    search: debouncedSearch,\r\n    pageSize: 20,\r\n  });\r\n\r\n  const handleSearchChange = (val: string) => {\r\n    setSearch(val);\r\n    if (searchTimer) clearTimeout(searchTimer);\r\n    const t = setTimeout(() => setDebouncedSearch(val), 400);\r\n    setSearchTimer(t);\r\n  };\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      {/* Header Card */}\r\n      <Card\r\n        style={{\r\n          borderRadius: 8,\r\n          border: `1px solid ${SLINK_COLORS.border}`,\r\n          boxShadow: SLINK_COLORS.shadow,\r\n          marginBottom: 16,\r\n        }}\r\n        styles={{ body: { padding: '16px 20px' } }}\r\n      >\r\n        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>\r\n          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>\r\n            <div style={{ width: 40, height: 40, borderRadius: 8, background: 'rgba(191, 4, 4, 0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\r\n              <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\r\n            </div>\r\n            <div>\r\n              <Title level={5} style={{ marginBottom: 0, color: SLINK_COLORS.textBase }}>\r\n                Danh sách thiết bị\r\n              </Title>\r\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>\r\n                Tìm kiếm và đăng ký mượn thiết bị\r\n              </Text>\r\n            </div>\r\n          </div>\r\n          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>\r\n            <Input\r\n              placeholder=\"Tìm kiếm thiết bị...\"\r\n              prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}\r\n              value={search}\r\n              onChange={(e) => handleSearchChange(e.target.value)}\r\n              style={{ width: 240, borderRadius: 6 }}\r\n              allowClear\r\n            />\r\n            <Button\r\n              icon={<ReloadOutlined />}\r\n              onClick={() => refetch(page)}\r\n              style={{ borderRadius: 6 }}\r\n            />\r\n            <Button\r\n              type=\"primary\"\r\n              icon={<PlusOutlined />}\r\n              onClick={() => navigate('/borrow-request/create')}\r\n              style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}\r\n            >\r\n              Tạo yêu cầu\r\n            </Button>\r\n          </div>\r\n        </div>\r\n      </Card>\r\n\r\n      {/* Error */}\r\n      {error && (\r\n        <Alert\r\n          type=\"error\"\r\n          message={error}\r\n          closable\r\n          style={{ marginBottom: 16, borderRadius: 8 }}\r\n        />\r\n      )}\r\n\r\n      {/* Content */}\r\n      <Card\r\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\r\n        styles={{ body: { padding: 20 } }}\r\n      >\r\n        {loading ? (\r\n          <Row gutter={[16, 16]}>\r\n            {Array.from({ length: 8 }).map((_, i) => (\r\n              <Col key={i} xs={24} sm={12} lg={8} xl={6}>\r\n                <Skeleton.Button active block style={{ height: 100, borderRadius: 8 }} />\r\n              </Col>\r\n            ))}\r\n          </Row>\r\n        ) : items.length === 0 ? (\r\n          <Empty\r\n            description={\r\n              debouncedSearch\r\n                ? `Không tìm thấy thiết bị nào khớp với \"${debouncedSearch}\"`\r\n                : 'Chưa có thiết bị nào trong hệ thống'\r\n            }\r\n          />\r\n        ) : (\r\n          <>\r\n            <Row gutter={[16, 16]}>\r\n              {items.map((item) => (\r\n                <Col key={item.id} xs={24} sm={12} lg={8} xl={6}>\r\n                  <EquipmentCard item={item} />\r\n                </Col>\r\n              ))}\r\n            </Row>\r\n            <div style={{ marginTop: 16, display: 'flex', justifyContent: 'flex-end' }}>\r\n              <Pagination\r\n                current={page}\r\n                total={total}\r\n                pageSize={20}\r\n                onChange={(p) => refetch(p)}\r\n                showTotal={(t) => `${t} thiết bị`}\r\n                showSizeChanger={false}\r\n              />\r\n            </div>\r\n          </>\r\n        )}\r\n      </Card>\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/equipment/index.tsx"
     },
@@ -3722,7 +3722,7 @@
       "parentId": "10",
       "id": "12",
       "absPath": "/equipment/:id",
-      "__content": "import { useCallback, useEffect, useState } from 'react';\r\nimport { useParams, useNavigate } from '@umijs/max';\r\nimport {\r\n  Alert, Badge, Button, Card, Descriptions, Result, Skeleton, Tag, Typography,\r\n} from 'antd';\r\nimport { ArrowLeftOutlined, ToolOutlined } from '@ant-design/icons';\r\nimport { equipmentService, type Equipment } from '../../services/equipment.service';\r\nimport { SLINK_COLORS } from '../../theme/tokens';\r\n\r\nconst { Title, Text } = Typography;\r\n\r\nconst statusConfig: Record<string, { label: string; color: string }> = {\r\n  active:            { label: 'Đang hoạt động', color: 'green' },\r\n  under_maintenance: { label: 'Đang bảo trì',   color: 'orange' },\r\n  deleted:           { label: 'Đã xóa',          color: 'red' },\r\n};\r\n\r\nexport default function EquipmentDetailPage() {\r\n  const { id } = useParams<{ id: string }>();\r\n  const navigate = useNavigate();\r\n  const [equipment, setEquipment] = useState<Equipment | null>(null);\r\n  const [loading, setLoading] = useState(true);\r\n  const [error, setError] = useState<string | null>(null);\r\n\r\n  const load = useCallback(async () => {\r\n    if (!id) return;\r\n    setLoading(true);\r\n    setError(null);\r\n    try {\r\n      const res = await equipmentService.getDetail(Number(id));\r\n      if (res.success && res.data) setEquipment(res.data);\r\n      else setError('Không thể tải thông tin thiết bị');\r\n    } catch (err: any) {\r\n      setError(err?.response?.data?.message ?? 'Thiết bị không tồn tại hoặc đã bị xóa');\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [id]);\r\n\r\n  useEffect(() => { load(); }, [load]);\r\n\r\n  if (loading) {\r\n    return (\r\n      <div style={{ padding: 24 }}>\r\n        <Skeleton active paragraph={{ rows: 6 }} />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  if (error || !equipment) {\r\n    return (\r\n      <div style={{ padding: 24 }}>\r\n        <Result\r\n          status=\"404\"\r\n          title=\"Không tìm thấy thiết bị\"\r\n          subTitle={error ?? 'Thiết bị này không tồn tại hoặc đã bị xóa'}\r\n          extra={<Button onClick={() => navigate('/equipment')}>Quay lại danh sách</Button>}\r\n        />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  const isAvailable = equipment.availableQuantity > 0;\r\n  const cfg = statusConfig[equipment.status] ?? { label: equipment.status, color: 'default' };\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      {/* Back */}\r\n      <Button\r\n        icon={<ArrowLeftOutlined />}\r\n        type=\"text\"\r\n        onClick={() => navigate('/equipment')}\r\n        style={{ marginBottom: 16, padding: 0, color: SLINK_COLORS.textSecondary }}\r\n      >\r\n        Quay lại danh sách\r\n      </Button>\r\n\r\n      <Card\r\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\r\n      >\r\n        {/* Header */}\r\n        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 24 }}>\r\n          <div style={{ width: 56, height: 56, borderRadius: 10, background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>\r\n            <ToolOutlined style={{ fontSize: 28, color: SLINK_COLORS.primary }} />\r\n          </div>\r\n          <div style={{ flex: 1 }}>\r\n            <Title level={4} style={{ marginBottom: 4 }}>{equipment.name}</Title>\r\n            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\r\n              <Tag color={cfg.color}>{cfg.label}</Tag>\r\n              <Badge\r\n                count={equipment.availableQuantity}\r\n                style={{ backgroundColor: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}\r\n                overflowCount={999}\r\n              />\r\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>chiếc còn sẵn</Text>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        {/* Details */}\r\n        <Descriptions column={{ xs: 1, sm: 2 }} bordered size=\"small\">\r\n          <Descriptions.Item label=\"Tổng số lượng\">{equipment.totalQuantity} chiếc</Descriptions.Item>\r\n          <Descriptions.Item label=\"Còn có thể mượn\">\r\n            <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\r\n              {equipment.availableQuantity} chiếc\r\n            </Text>\r\n          </Descriptions.Item>\r\n          <Descriptions.Item label=\"Trạng thái\">\r\n            <Tag color={cfg.color}>{cfg.label}</Tag>\r\n          </Descriptions.Item>\r\n          {equipment.description && (\r\n            <Descriptions.Item label=\"Mô tả\" span={2}>{equipment.description}</Descriptions.Item>\r\n          )}\r\n        </Descriptions>\r\n\r\n        {/* Action */}\r\n        <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>\r\n          <Button\r\n            type=\"primary\"\r\n            size=\"large\"\r\n            disabled={!isAvailable || equipment.status !== 'active'}\r\n            onClick={() => navigate(`/borrow-request/create?equipmentId=${equipment.id}`)}\r\n            style={{\r\n              background: isAvailable ? SLINK_COLORS.primary : undefined,\r\n              borderColor: isAvailable ? SLINK_COLORS.primary : undefined,\r\n              borderRadius: 6,\r\n            }}\r\n          >\r\n            {isAvailable ? 'Đăng ký mượn thiết bị này' : 'Thiết bị hiện không có sẵn'}\r\n          </Button>\r\n        </div>\r\n      </Card>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\r\nimport { useParams, useNavigate } from '@umijs/max';\r\nimport {\r\n  Alert, Badge, Button, Card, Descriptions, Result, Skeleton, Tag, Typography,\r\n} from 'antd';\r\nimport { ArrowLeftOutlined, ToolOutlined } from '@ant-design/icons';\r\nimport { equipmentService, type Equipment } from '../../services/equipment.service';\r\nimport { SLINK_COLORS } from '../../theme/tokens';\r\n\r\nconst { Title, Text } = Typography;\r\n\r\nconst statusConfig: Record<string, { label: string; color: string }> = {\r\n  active:            { label: 'Đang hoạt động', color: 'green' },\r\n  under_maintenance: { label: 'Đang bảo trì',   color: 'orange' },\r\n  deleted:           { label: 'Đã xóa',          color: 'red' },\r\n};\r\n\r\nexport default function EquipmentDetailPage() {\r\n  const { id } = useParams<{ id: string }>();\r\n  const navigate = useNavigate();\r\n  const [equipment, setEquipment] = useState<Equipment | null>(null);\r\n  const [loading, setLoading] = useState(true);\r\n  const [error, setError] = useState<string | null>(null);\r\n\r\n  const load = useCallback(async () => {\r\n    if (!id) return;\r\n    setLoading(true);\r\n    setError(null);\r\n    try {\r\n      const res = await equipmentService.getDetail(Number(id));\r\n      if (res.success && res.data) setEquipment(res.data);\r\n      else setError('Không thể tải thông tin thiết bị');\r\n    } catch (err: any) {\r\n      setError(err?.response?.data?.message ?? 'Thiết bị không tồn tại hoặc đã bị xóa');\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [id]);\r\n\r\n  useEffect(() => { load(); }, [load]);\r\n\r\n  if (loading) {\r\n    return (\r\n      <div style={{ padding: 24 }}>\r\n        <Skeleton active paragraph={{ rows: 6 }} />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  if (error || !equipment) {\r\n    return (\r\n      <div style={{ padding: 24 }}>\r\n        <Result\r\n          status=\"404\"\r\n          title=\"Không tìm thấy thiết bị\"\r\n          subTitle={error ?? 'Thiết bị này không tồn tại hoặc đã bị xóa'}\r\n          extra={<Button onClick={() => navigate('/equipment')}>Quay lại danh sách</Button>}\r\n        />\r\n      </div>\r\n    );\r\n  }\r\n\r\n  const isAvailable = equipment.availableQuantity > 0;\r\n  const cfg = statusConfig[equipment.status] ?? { label: equipment.status, color: 'default' };\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      {/* Back */}\r\n      <Button\r\n        icon={<ArrowLeftOutlined />}\r\n        type=\"text\"\r\n        onClick={() => navigate('/equipment')}\r\n        style={{ marginBottom: 16, padding: 0, color: SLINK_COLORS.textSecondary }}\r\n      >\r\n        Quay lại danh sách\r\n      </Button>\r\n\r\n      <Card\r\n        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}\r\n      >\r\n        {/* Header */}\r\n        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 24 }}>\r\n          <div style={{ width: 56, height: 56, borderRadius: 10, background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>\r\n            <ToolOutlined style={{ fontSize: 28, color: SLINK_COLORS.primary }} />\r\n          </div>\r\n          <div style={{ flex: 1 }}>\r\n            <Title level={4} style={{ marginBottom: 4 }}>{equipment.name}</Title>\r\n            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>\r\n              <Tag color={cfg.color}>{cfg.label}</Tag>\r\n              <Badge\r\n                count={equipment.availableQuantity}\r\n                style={{ backgroundColor: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}\r\n                overflowCount={999}\r\n              />\r\n              <Text type=\"secondary\" style={{ fontSize: 13 }}>chiếc còn sẵn</Text>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        {/* Details */}\r\n        <Descriptions column={{ xs: 1, sm: 2 }} bordered size=\"small\">\r\n          <Descriptions.Item label=\"Mã thiết bị\">\r\n            <span style={{ \r\n              fontFamily: 'monospace', \r\n              fontWeight: 600, \r\n              color: SLINK_COLORS.primary,\r\n              background: 'rgba(191, 4, 4, 0.06)',\r\n              padding: '2px 8px',\r\n              borderRadius: 4,\r\n              border: '1px solid rgba(191, 4, 4, 0.15)',\r\n              fontSize: '12px'\r\n            }}>\r\n              EQ-{String(equipment.id).padStart(4, '0')}\r\n            </span>\r\n          </Descriptions.Item>\r\n          <Descriptions.Item label=\"Loại thiết bị\">\r\n            <Tag color=\"cyan\" style={{ borderRadius: 4, fontWeight: 500, margin: 0 }}>\r\n              {equipment.categoryName || 'Chung'}\r\n            </Tag>\r\n          </Descriptions.Item>\r\n          <Descriptions.Item label=\"Tổng số lượng\">{equipment.totalQuantity} chiếc</Descriptions.Item>\r\n          <Descriptions.Item label=\"Còn có thể mượn\">\r\n            <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>\r\n              {equipment.availableQuantity} chiếc\r\n            </Text>\r\n          </Descriptions.Item>\r\n          <Descriptions.Item label=\"Trạng thái\">\r\n            <Tag color={cfg.color}>{cfg.label}</Tag>\r\n          </Descriptions.Item>\r\n          {equipment.description && (\r\n            <Descriptions.Item label=\"Mô tả\" span={2}>{equipment.description}</Descriptions.Item>\r\n          )}\r\n        </Descriptions>\r\n\r\n        {/* Action */}\r\n        <div style={{ marginTop: 24, display: 'flex', gap: 12 }}>\r\n          <Button\r\n            type=\"primary\"\r\n            size=\"large\"\r\n            disabled={!isAvailable || equipment.status !== 'active'}\r\n            onClick={() => navigate(`/borrow-request/create?equipmentId=${equipment.id}`)}\r\n            style={{\r\n              background: isAvailable ? SLINK_COLORS.primary : undefined,\r\n              borderColor: isAvailable ? SLINK_COLORS.primary : undefined,\r\n              borderRadius: 6,\r\n            }}\r\n          >\r\n            {isAvailable ? 'Đăng ký mượn thiết bị này' : 'Thiết bị hiện không có sẵn'}\r\n          </Button>\r\n        </div>\r\n      </Card>\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/equipment/[id].tsx"
     },
@@ -3818,7 +3818,7 @@
       "parentId": "17",
       "id": "22",
       "absPath": "/admin/equipment",
-      "__content": "import { useCallback, useEffect, useState } from 'react';\r\nimport {\r\n  Alert,\r\n  Button,\r\n  Card,\r\n  Form,\r\n  Input,\r\n  InputNumber,\r\n  message,\r\n  Modal,\r\n  Pagination,\r\n  Select,\r\n  Skeleton,\r\n  Space,\r\n  Table,\r\n  Tag,\r\n  Typography,\r\n} from 'antd';\r\nimport type { ColumnsType } from 'antd/es/table';\r\nimport {\r\n  DeleteOutlined,\r\n  EditOutlined,\r\n  PlusOutlined,\r\n  SearchOutlined,\r\n  ToolOutlined,\r\n} from '@ant-design/icons';\r\nimport { equipmentService, type Equipment } from '../../../services/equipment.service';\r\nimport { SLINK_COLORS } from '../../../theme/tokens';\r\n\r\nconst { Title } = Typography;\r\n\r\ninterface EquipmentFormValues {\r\n  name: string;\r\n  totalQuantity: number;\r\n  status?: string;\r\n  description?: string;\r\n}\r\n\r\nexport default function AdminEquipmentPage() {\r\n  const [items, setItems] = useState<Equipment[]>([]);\r\n  const [total, setTotal] = useState(0);\r\n  const [page, setPage] = useState(1);\r\n  const [loading, setLoading] = useState(false);\r\n  const [error, setError] = useState<string | null>(null);\r\n  const [search, setSearch] = useState('');\r\n  const [modalOpen, setModalOpen] = useState(false);\r\n  const [editRecord, setEditRecord] = useState<Equipment | null>(null);\r\n  const [submitting, setSubmitting] = useState(false);\r\n  const [form] = Form.useForm<EquipmentFormValues>();\r\n\r\n  const load = useCallback(async (p = 1) => {\r\n    setLoading(true);\r\n    setError(null);\r\n    try {\r\n      const res = await equipmentService.list({\r\n        page: p,\r\n        pageSize: 15,\r\n        search: search || undefined,\r\n      });\r\n\r\n      if (res.success && res.data) {\r\n        setItems(res.data.items);\r\n        setTotal(res.data.total);\r\n        setPage(p);\r\n      }\r\n    } catch (err: any) {\r\n      setError(err?.message ?? 'Không thể tải danh sách thiết bị');\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [search]);\r\n\r\n  useEffect(() => {\r\n    load(1);\r\n  }, [load]);\r\n\r\n  const openCreate = () => {\r\n    setEditRecord(null);\r\n    form.resetFields();\r\n    setModalOpen(true);\r\n  };\r\n\r\n  const openEdit = (record: Equipment) => {\r\n    setEditRecord(record);\r\n    form.setFieldsValue({\r\n      name: record.name,\r\n      totalQuantity: record.totalQuantity,\r\n      status: record.status,\r\n      description: record.description,\r\n    });\r\n    setModalOpen(true);\r\n  };\r\n\r\n  const handleSubmit = async (values: EquipmentFormValues) => {\r\n    setSubmitting(true);\r\n    try {\r\n      if (editRecord) {\r\n        await equipmentService.update(editRecord.id, values);\r\n        message.success('Cập nhật thiết bị thành công');\r\n      } else {\r\n        await equipmentService.create({\r\n          ...values,\r\n          categoryId: 1,\r\n          status: values.status ?? 'active',\r\n        });\r\n        message.success('Thêm thiết bị thành công');\r\n      }\r\n\r\n      setModalOpen(false);\r\n      load(page);\r\n    } catch (err: any) {\r\n      message.error(err?.message ?? 'Có lỗi xảy ra');\r\n    } finally {\r\n      setSubmitting(false);\r\n    }\r\n  };\r\n\r\n  const handleDelete = (record: Equipment) => {\r\n    Modal.confirm({\r\n      title: 'Xóa thiết bị',\r\n      content: `Bạn có chắc chắn muốn xóa \"${record.name}\"?`,\r\n      okText: 'Xóa',\r\n      okButtonProps: { danger: true },\r\n      cancelText: 'Hủy',\r\n      onOk: async () => {\r\n        await equipmentService.remove(record.id);\r\n        message.success('Xóa thiết bị thành công');\r\n        load(page);\r\n      },\r\n    });\r\n  };\r\n\r\n  const columns: ColumnsType<Equipment> = [\r\n    { title: '#', dataIndex: 'id', key: 'id', width: 60 },\r\n    { title: 'Tên thiết bị', dataIndex: 'name', key: 'name' },\r\n    {\r\n      title: 'Tổng / Sẵn có',\r\n      key: 'qty',\r\n      render: (_, record) => (\r\n        <span>\r\n          <strong style={{ color: SLINK_COLORS.textBase }}>{record.availableQuantity}</strong>\r\n          <span style={{ color: SLINK_COLORS.textSecondary }}> / {record.totalQuantity}</span>\r\n        </span>\r\n      ),\r\n    },\r\n    {\r\n      title: 'Trạng thái',\r\n      dataIndex: 'status',\r\n      render: (status: string) => (\r\n        status === 'active'\r\n          ? <Tag color=\"green\">Hoạt động</Tag>\r\n          : <Tag color=\"orange\">Bảo trì</Tag>\r\n      ),\r\n    },\r\n    {\r\n      title: 'Thao tác',\r\n      key: 'actions',\r\n      render: (_, record) => (\r\n        <Space>\r\n          <Button\r\n            size=\"small\"\r\n            icon={<EditOutlined />}\r\n            onClick={() => openEdit(record)}\r\n            style={{ borderRadius: 4 }}\r\n          >\r\n            Sửa\r\n          </Button>\r\n          <Button\r\n            size=\"small\"\r\n            danger\r\n            icon={<DeleteOutlined />}\r\n            onClick={() => handleDelete(record)}\r\n            style={{ borderRadius: 4 }}\r\n          >\r\n            Xóa\r\n          </Button>\r\n        </Space>\r\n      ),\r\n    },\r\n  ];\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      <Card\r\n        style={{\r\n          borderRadius: 8,\r\n          border: `1px solid ${SLINK_COLORS.border}`,\r\n          boxShadow: SLINK_COLORS.shadow,\r\n        }}\r\n        styles={{ body: { padding: 0 } }}\r\n      >\r\n        <div\r\n          style={{\r\n            padding: '16px 20px',\r\n            borderBottom: `1px solid ${SLINK_COLORS.border}`,\r\n            display: 'flex',\r\n            justifyContent: 'space-between',\r\n            flexWrap: 'wrap',\r\n            gap: 12,\r\n          }}\r\n        >\r\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\r\n            <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\r\n            <Title level={5} style={{ marginBottom: 0 }}>Quản lý thiết bị</Title>\r\n          </div>\r\n          <Space>\r\n            <Input\r\n              placeholder=\"Tìm kiếm...\"\r\n              prefix={<SearchOutlined />}\r\n              value={search}\r\n              onChange={(event) => setSearch(event.target.value)}\r\n              style={{ width: 220, borderRadius: 6 }}\r\n              allowClear\r\n            />\r\n            <Button\r\n              type=\"primary\"\r\n              icon={<PlusOutlined />}\r\n              onClick={openCreate}\r\n              style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}\r\n            >\r\n              Thêm thiết bị\r\n            </Button>\r\n          </Space>\r\n        </div>\r\n\r\n        {error && <Alert type=\"error\" message={error} style={{ margin: 16 }} />}\r\n\r\n        {loading ? (\r\n          <div style={{ padding: 20 }}>\r\n            <Skeleton active paragraph={{ rows: 6 }} />\r\n          </div>\r\n        ) : (\r\n          <Table dataSource={items} columns={columns} rowKey=\"id\" pagination={false} />\r\n        )}\r\n\r\n        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\r\n          <Pagination\r\n            current={page}\r\n            total={total}\r\n            pageSize={15}\r\n            onChange={load}\r\n            showTotal={(count) => `${count} thiết bị`}\r\n            showSizeChanger={false}\r\n          />\r\n        </div>\r\n      </Card>\r\n\r\n      <Modal\r\n        open={modalOpen}\r\n        title={editRecord ? 'Cập nhật thiết bị' : 'Thêm thiết bị mới'}\r\n        okText={editRecord ? 'Lưu thay đổi' : 'Thêm mới'}\r\n        cancelText=\"Hủy\"\r\n        onOk={() => form.submit()}\r\n        onCancel={() => setModalOpen(false)}\r\n        confirmLoading={submitting}\r\n      >\r\n        <Form form={form} layout=\"vertical\" onFinish={handleSubmit}>\r\n          <Form.Item\r\n            name=\"name\"\r\n            label=\"Tên thiết bị\"\r\n            rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị' }]}\r\n          >\r\n            <Input placeholder=\"Ví dụ: Máy chiếu Epson EB-X41\" />\r\n          </Form.Item>\r\n          <Form.Item\r\n            name=\"totalQuantity\"\r\n            label=\"Tổng số lượng\"\r\n            rules={[{ required: true, message: 'Nhập số lượng' }]}\r\n          >\r\n            <InputNumber min={1} style={{ width: '100%' }} />\r\n          </Form.Item>\r\n          <Form.Item name=\"status\" label=\"Trạng thái\" initialValue=\"active\">\r\n            <Select\r\n              options={[\r\n                { value: 'active', label: 'Hoạt động' },\r\n                { value: 'under_maintenance', label: 'Bảo trì' },\r\n              ]}\r\n            />\r\n          </Form.Item>\r\n          <Form.Item name=\"description\" label=\"Mô tả\">\r\n            <Input.TextArea rows={3} maxLength={200} showCount />\r\n          </Form.Item>\r\n        </Form>\r\n      </Modal>\r\n    </div>\r\n  );\r\n}\r\n",
+      "__content": "import { useCallback, useEffect, useState } from 'react';\r\nimport {\r\n  Alert,\r\n  Button,\r\n  Card,\r\n  Divider,\r\n  Form,\r\n  Input,\r\n  InputNumber,\r\n  message,\r\n  Modal,\r\n  Pagination,\r\n  Select,\r\n  Skeleton,\r\n  Space,\r\n  Table,\r\n  Tag,\r\n  Typography,\r\n} from 'antd';\r\nimport type { ColumnsType } from 'antd/es/table';\r\nimport {\r\n  DeleteOutlined,\r\n  EditOutlined,\r\n  PlusOutlined,\r\n  SearchOutlined,\r\n  ToolOutlined,\r\n} from '@ant-design/icons';\r\nimport { equipmentService, type Equipment } from '../../../services/equipment.service';\r\nimport { SLINK_COLORS } from '../../../theme/tokens';\r\n\r\nconst { Title } = Typography;\r\n\r\ninterface EquipmentFormValues {\r\n  name: string;\r\n  categoryId: number;\r\n  totalQuantity: number;\r\n  status?: string;\r\n  description?: string;\r\n}\r\n\r\nexport default function AdminEquipmentPage() {\r\n  const [items, setItems] = useState<Equipment[]>([]);\r\n  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);\r\n  const [total, setTotal] = useState(0);\r\n  const [page, setPage] = useState(1);\r\n  const [loading, setLoading] = useState(false);\r\n  const [error, setError] = useState<string | null>(null);\r\n  const [search, setSearch] = useState('');\r\n  const [modalOpen, setModalOpen] = useState(false);\r\n  const [editRecord, setEditRecord] = useState<Equipment | null>(null);\r\n  const [submitting, setSubmitting] = useState(false);\r\n  const [form] = Form.useForm<EquipmentFormValues>();\r\n\r\n  const [newCategoryName, setNewCategoryName] = useState('');\r\n  const [addingCategory, setAddingCategory] = useState(false);\r\n\r\n  const handleAddCategory = async () => {\r\n    if (!newCategoryName.trim()) {\r\n      message.warning('Vui lòng nhập tên loại thiết bị');\r\n      return;\r\n    }\r\n    setAddingCategory(true);\r\n    try {\r\n      const res = await equipmentService.createCategory({ name: newCategoryName.trim() });\r\n      if (res.success && res.data) {\r\n        message.success(`Đã thêm loại thiết bị: ${res.data.name}`);\r\n        const newCat = { id: res.data.id, name: res.data.name };\r\n        setCategories((prev) => [...prev, newCat]);\r\n        form.setFieldValue('categoryId', res.data.id);\r\n        setNewCategoryName('');\r\n      } else {\r\n        message.error(res.message || 'Không thể tạo loại thiết bị');\r\n      }\r\n    } catch (err: any) {\r\n      message.error(err?.response?.data?.message || err?.message || 'Có lỗi xảy ra');\r\n    } finally {\r\n      setAddingCategory(false);\r\n    }\r\n  };\r\n\r\n  const load = useCallback(async (p = 1) => {\r\n    setLoading(true);\r\n    setError(null);\r\n    try {\r\n      const res = await equipmentService.list({\r\n        page: p,\r\n        pageSize: 15,\r\n        search: search || undefined,\r\n      });\r\n\r\n      if (res.success && res.data) {\r\n        setItems(res.data.items);\r\n        setTotal(res.data.total);\r\n        setPage(p);\r\n      }\r\n    } catch (err: any) {\r\n      setError(err?.message ?? 'Không thể tải danh sách thiết bị');\r\n    } finally {\r\n      setLoading(false);\r\n    }\r\n  }, [search]);\r\n\r\n  useEffect(() => {\r\n    load(1);\r\n    equipmentService.listCategories()\r\n      .then((res) => {\r\n        if (res.success && res.data) {\r\n          setCategories(res.data);\r\n        }\r\n      })\r\n      .catch((err) => {\r\n        console.error('Failed to load categories', err);\r\n      });\r\n  }, [load]);\r\n\r\n  const openCreate = () => {\r\n    setEditRecord(null);\r\n    form.resetFields();\r\n    setModalOpen(true);\r\n  };\r\n\r\n  const openEdit = (record: Equipment) => {\r\n    setEditRecord(record);\r\n    form.setFieldsValue({\r\n      name: record.name,\r\n      categoryId: record.categoryId,\r\n      totalQuantity: record.totalQuantity,\r\n      status: record.status,\r\n      description: record.description,\r\n    });\r\n    setModalOpen(true);\r\n  };\r\n\r\n  const handleSubmit = async (values: EquipmentFormValues) => {\r\n    setSubmitting(true);\r\n    try {\r\n      if (editRecord) {\r\n        await equipmentService.update(editRecord.id, values);\r\n        message.success('Cập nhật thiết bị thành công');\r\n      } else {\r\n        await equipmentService.create({\r\n          ...values,\r\n          categoryId: values.categoryId,\r\n          status: values.status ?? 'active',\r\n        });\r\n        message.success('Thêm thiết bị thành công');\r\n      }\r\n\r\n      setModalOpen(false);\r\n      load(page);\r\n    } catch (err: any) {\r\n      message.error(err?.message ?? 'Có lỗi xảy ra');\r\n    } finally {\r\n      setSubmitting(false);\r\n    }\r\n  };\r\n\r\n  const handleDelete = (record: Equipment) => {\r\n    Modal.confirm({\r\n      title: 'Xóa thiết bị',\r\n      content: `Bạn có chắc chắn muốn xóa \"${record.name}\"?`,\r\n      okText: 'Xóa',\r\n      okButtonProps: { danger: true },\r\n      cancelText: 'Hủy',\r\n      onOk: async () => {\r\n        await equipmentService.remove(record.id);\r\n        message.success('Xóa thiết bị thành công');\r\n        load(page);\r\n      },\r\n    });\r\n  };\r\n\r\n  const columns: ColumnsType<Equipment> = [\r\n    {\r\n      title: 'Mã thiết bị',\r\n      dataIndex: 'id',\r\n      key: 'id',\r\n      width: 120,\r\n      render: (id: number) => (\r\n        <span style={{ \r\n          fontFamily: 'SFMono-Regular, Consolas, \"Liberation Mono\", Menlo, monospace',\r\n          fontWeight: 600,\r\n          color: SLINK_COLORS.primary,\r\n          background: 'rgba(191, 4, 4, 0.06)',\r\n          padding: '2px 8px',\r\n          borderRadius: 4,\r\n          border: '1px solid rgba(191, 4, 4, 0.15)',\r\n          fontSize: '12px'\r\n        }}>\r\n          EQ-{String(id).padStart(4, '0')}\r\n        </span>\r\n      ),\r\n    },\r\n    { title: 'Tên thiết bị', dataIndex: 'name', key: 'name' },\r\n    {\r\n      title: 'Loại thiết bị',\r\n      dataIndex: 'categoryName',\r\n      key: 'categoryName',\r\n      render: (categoryName?: string) => (\r\n        <Tag color=\"cyan\" style={{ borderRadius: 4, fontWeight: 500 }}>\r\n          {categoryName || 'Chung'}\r\n        </Tag>\r\n      ),\r\n    },\r\n    {\r\n      title: 'Tổng / Sẵn có',\r\n      key: 'qty',\r\n      render: (_, record) => (\r\n        <span>\r\n          <strong style={{ color: SLINK_COLORS.textBase }}>{record.availableQuantity}</strong>\r\n          <span style={{ color: SLINK_COLORS.textSecondary }}> / {record.totalQuantity}</span>\r\n        </span>\r\n      ),\r\n    },\r\n    {\r\n      title: 'Trạng thái',\r\n      dataIndex: 'status',\r\n      render: (status: string) => (\r\n        status === 'active'\r\n          ? <Tag color=\"green\">Hoạt động</Tag>\r\n          : <Tag color=\"orange\">Bảo trì</Tag>\r\n      ),\r\n    },\r\n    {\r\n      title: 'Thao tác',\r\n      key: 'actions',\r\n      render: (_, record) => (\r\n        <Space>\r\n          <Button\r\n            size=\"small\"\r\n            icon={<EditOutlined />}\r\n            onClick={() => openEdit(record)}\r\n            style={{ borderRadius: 4 }}\r\n          >\r\n            Sửa\r\n          </Button>\r\n          <Button\r\n            size=\"small\"\r\n            danger\r\n            icon={<DeleteOutlined />}\r\n            onClick={() => handleDelete(record)}\r\n            style={{ borderRadius: 4 }}\r\n          >\r\n            Xóa\r\n          </Button>\r\n        </Space>\r\n      ),\r\n    },\r\n  ];\r\n\r\n  return (\r\n    <div style={{ padding: 24 }}>\r\n      <Card\r\n        style={{\r\n          borderRadius: 8,\r\n          border: `1px solid ${SLINK_COLORS.border}`,\r\n          boxShadow: SLINK_COLORS.shadow,\r\n        }}\r\n        styles={{ body: { padding: 0 } }}\r\n      >\r\n        <div\r\n          style={{\r\n            padding: '16px 20px',\r\n            borderBottom: `1px solid ${SLINK_COLORS.border}`,\r\n            display: 'flex',\r\n            justifyContent: 'space-between',\r\n            flexWrap: 'wrap',\r\n            gap: 12,\r\n          }}\r\n        >\r\n          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>\r\n            <ToolOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />\r\n            <Title level={5} style={{ marginBottom: 0 }}>Quản lý thiết bị</Title>\r\n          </div>\r\n          <Space>\r\n            <Input\r\n              placeholder=\"Tìm kiếm...\"\r\n              prefix={<SearchOutlined />}\r\n              value={search}\r\n              onChange={(event) => setSearch(event.target.value)}\r\n              style={{ width: 220, borderRadius: 6 }}\r\n              allowClear\r\n            />\r\n            <Button\r\n              type=\"primary\"\r\n              icon={<PlusOutlined />}\r\n              onClick={openCreate}\r\n              style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}\r\n            >\r\n              Thêm thiết bị\r\n            </Button>\r\n          </Space>\r\n        </div>\r\n\r\n        {error && <Alert type=\"error\" message={error} style={{ margin: 16 }} />}\r\n\r\n        {loading ? (\r\n          <div style={{ padding: 20 }}>\r\n            <Skeleton active paragraph={{ rows: 6 }} />\r\n          </div>\r\n        ) : (\r\n          <Table dataSource={items} columns={columns} rowKey=\"id\" pagination={false} />\r\n        )}\r\n\r\n        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>\r\n          <Pagination\r\n            current={page}\r\n            total={total}\r\n            pageSize={15}\r\n            onChange={load}\r\n            showTotal={(count) => `${count} thiết bị`}\r\n            showSizeChanger={false}\r\n          />\r\n        </div>\r\n      </Card>\r\n\r\n      <Modal\r\n        open={modalOpen}\r\n        title={editRecord ? 'Cập nhật thiết bị' : 'Thêm thiết bị mới'}\r\n        okText={editRecord ? 'Lưu thay đổi' : 'Thêm mới'}\r\n        cancelText=\"Hủy\"\r\n        onOk={() => form.submit()}\r\n        onCancel={() => setModalOpen(false)}\r\n        confirmLoading={submitting}\r\n      >\r\n        <Form form={form} layout=\"vertical\" onFinish={handleSubmit}>\r\n          <Form.Item\r\n            name=\"name\"\r\n            label=\"Tên thiết bị\"\r\n            rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị' }]}\r\n          >\r\n            <Input placeholder=\"Ví dụ: Máy chiếu Epson EB-X41\" />\r\n          </Form.Item>\r\n          <Form.Item\r\n            name=\"categoryId\"\r\n            label=\"Loại thiết bị\"\r\n            rules={[{ required: true, message: 'Vui lòng chọn loại thiết bị' }]}\r\n          >\r\n            <Select\r\n              placeholder=\"Chọn loại thiết bị\"\r\n              options={categories.map((c) => ({ value: c.id, label: c.name }))}\r\n              dropdownRender={(menu) => (\r\n                <>\r\n                  {menu}\r\n                  <Divider style={{ margin: '8px 0' }} />\r\n                  <Space style={{ padding: '0 8px 4px', display: 'flex', width: '100%' }}>\r\n                    <Input\r\n                      placeholder=\"Tên loại mới...\"\r\n                      value={newCategoryName}\r\n                      onChange={(e) => setNewCategoryName(e.target.value)}\r\n                      onKeyDown={(e) => e.stopPropagation()}\r\n                      style={{ flex: 1 }}\r\n                    />\r\n                    <Button\r\n                      type=\"primary\"\r\n                      size=\"small\"\r\n                      icon={<PlusOutlined />}\r\n                      onClick={handleAddCategory}\r\n                      loading={addingCategory}\r\n                      style={{ background: SLINK_COLORS.primary }}\r\n                    >\r\n                      Thêm\r\n                    </Button>\r\n                  </Space>\r\n                </>\r\n              )}\r\n            />\r\n          </Form.Item>\r\n          <Form.Item\r\n            name=\"totalQuantity\"\r\n            label=\"Tổng số lượng\"\r\n            rules={[{ required: true, message: 'Nhập số lượng' }]}\r\n          >\r\n            <InputNumber min={1} style={{ width: '100%' }} />\r\n          </Form.Item>\r\n          <Form.Item name=\"status\" label=\"Trạng thái\" initialValue=\"active\">\r\n            <Select\r\n              options={[\r\n                { value: 'active', label: 'Hoạt động' },\r\n                { value: 'under_maintenance', label: 'Bảo trì' },\r\n              ]}\r\n            />\r\n          </Form.Item>\r\n          <Form.Item name=\"description\" label=\"Mô tả\">\r\n            <Input.TextArea rows={3} maxLength={200} showCount />\r\n          </Form.Item>\r\n        </Form>\r\n      </Modal>\r\n    </div>\r\n  );\r\n}\r\n",
       "__isJSFile": true,
       "__absFile": "E:/RIPT1307-02-2026-Nhom-9-KTHP/apps/web/src/pages/admin/equipment/index.tsx"
     },

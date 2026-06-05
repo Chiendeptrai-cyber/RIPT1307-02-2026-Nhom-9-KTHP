@@ -5,6 +5,8 @@ import {
   createEquipment,
   updateEquipment,
   deleteEquipment,
+  listCategories,
+  createCategory,
 } from '../controllers/equipment.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize }    from '../middlewares/authorize.middleware';
@@ -13,6 +15,8 @@ import { UserRole } from '@equipment-mgmt/shared';
 const router: import('express').Router = Router();
 
 router.get('/', listEquipment);
+router.get('/categories', listCategories);
+router.post('/categories', authenticate, authorize(UserRole.ADMIN), createCategory);
 router.get('/:id', getEquipmentDetail);
 
 // Admin only routes

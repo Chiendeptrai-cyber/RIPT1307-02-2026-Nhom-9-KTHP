@@ -4,6 +4,7 @@ export interface EquipmentEntity {
   id: number;
   name: string;
   categoryId: number;
+  categoryName?: string;
   totalQuantity: number;
   availableQuantity: number;
   status: EquipmentStatus;

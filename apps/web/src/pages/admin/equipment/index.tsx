@@ -3,6 +3,7 @@ import {
   Alert,
   Button,
   Card,
+  Divider,
   Form,
   Input,
   InputNumber,
@@ -31,6 +32,7 @@ const { Title } = Typography;
 
 interface EquipmentFormValues {
   name: string;
+  categoryId: number;
   totalQuantity: number;
   status?: string;
   description?: string;
@@ -38,6 +40,7 @@ interface EquipmentFormValues {
 
 export default function AdminEquipmentPage() {
   const [items, setItems] = useState<Equipment[]>([]);
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
@@ -47,6 +50,33 @@ export default function AdminEquipmentPage() {
   const [editRecord, setEditRecord] = useState<Equipment | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [form] = Form.useForm<EquipmentFormValues>();
+
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [addingCategory, setAddingCategory] = useState(false);
+
+  const handleAddCategory = async () => {
+    if (!newCategoryName.trim()) {
+      message.warning('Vui lòng nhập tên loại thiết bị');
+      return;
+    }
+    setAddingCategory(true);
+    try {
+      const res = await equipmentService.createCategory({ name: newCategoryName.trim() });
+      if (res.success && res.data) {
+        message.success(`Đã thêm loại thiết bị: ${res.data.name}`);
+        const newCat = { id: res.data.id, name: res.data.name };
+        setCategories((prev) => [...prev, newCat]);
+        form.setFieldValue('categoryId', res.data.id);
+        setNewCategoryName('');
+      } else {
+        message.error(res.message || 'Không thể tạo loại thiết bị');
+      }
+    } catch (err: any) {
+      message.error(err?.response?.data?.message || err?.message || 'Có lỗi xảy ra');
+    } finally {
+      setAddingCategory(false);
+    }
+  };
 
   const load = useCallback(async (p = 1) => {
     setLoading(true);
@@ -72,6 +102,15 @@ export default function AdminEquipmentPage() {
 
   useEffect(() => {
     load(1);
+    equipmentService.listCategories()
+      .then((res) => {
+        if (res.success && res.data) {
+          setCategories(res.data);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load categories', err);
+      });
   }, [load]);
 
   const openCreate = () => {
@@ -84,6 +123,7 @@ export default function AdminEquipmentPage() {
     setEditRecord(record);
     form.setFieldsValue({
       name: record.name,
+      categoryId: record.categoryId,
       totalQuantity: record.totalQuantity,
       status: record.status,
       description: record.description,
@@ -100,7 +140,7 @@ export default function AdminEquipmentPage() {
       } else {
         await equipmentService.create({
           ...values,
-          categoryId: 1,
+          categoryId: values.categoryId,
           status: values.status ?? 'active',
         });
         message.success('Thêm thiết bị thành công');
@@ -131,8 +171,37 @@ export default function AdminEquipmentPage() {
   };
 
   const columns: ColumnsType<Equipment> = [
-    { title: '#', dataIndex: 'id', key: 'id', width: 60 },
+    {
+      title: 'Mã thiết bị',
+      dataIndex: 'id',
+      key: 'id',
+      width: 120,
+      render: (id: number) => (
+        <span style={{ 
+          fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
+          fontWeight: 600,
+          color: SLINK_COLORS.primary,
+          background: 'rgba(191, 4, 4, 0.06)',
+          padding: '2px 8px',
+          borderRadius: 4,
+          border: '1px solid rgba(191, 4, 4, 0.15)',
+          fontSize: '12px'
+        }}>
+          EQ-{String(id).padStart(4, '0')}
+        </span>
+      ),
+    },
     { title: 'Tên thiết bị', dataIndex: 'name', key: 'name' },
+    {
+      title: 'Loại thiết bị',
+      dataIndex: 'categoryName',
+      key: 'categoryName',
+      render: (categoryName?: string) => (
+        <Tag color="cyan" style={{ borderRadius: 4, fontWeight: 500 }}>
+          {categoryName || 'Chung'}
+        </Tag>
+      ),
+    },
     {
       title: 'Tổng / Sẵn có',
       key: 'qty',
@@ -261,6 +330,41 @@ export default function AdminEquipmentPage() {
             rules={[{ required: true, message: 'Vui lòng nhập tên thiết bị' }]}
           >
             <Input placeholder="Ví dụ: Máy chiếu Epson EB-X41" />
+          </Form.Item>
+          <Form.Item
+            name="categoryId"
+            label="Loại thiết bị"
+            rules={[{ required: true, message: 'Vui lòng chọn loại thiết bị' }]}
+          >
+            <Select
+              placeholder="Chọn loại thiết bị"
+              options={categories.map((c) => ({ value: c.id, label: c.name }))}
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  <Divider style={{ margin: '8px 0' }} />
+                  <Space style={{ padding: '0 8px 4px', display: 'flex', width: '100%' }}>
+                    <Input
+                      placeholder="Tên loại mới..."
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      onKeyDown={(e) => e.stopPropagation()}
+                      style={{ flex: 1 }}
+                    />
+                    <Button
+                      type="primary"
+                      size="small"
+                      icon={<PlusOutlined />}
+                      onClick={handleAddCategory}
+                      loading={addingCategory}
+                      style={{ background: SLINK_COLORS.primary }}
+                    >
+                      Thêm
+                    </Button>
+                  </Space>
+                </>
+              )}
+            />
           </Form.Item>
           <Form.Item
             name="totalQuantity"

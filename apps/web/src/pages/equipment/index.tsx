@@ -41,24 +41,46 @@ function EquipmentCard({ item }: { item: any }) {
       styles={{ body: { padding: 16 } }}
     >
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div
-          style={{
-            width: 40,
-            height: 40,
-            borderRadius: 8,
-            background: 'rgba(191, 4, 4, 0.08)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginBottom: 4,
-          }}
-        >
-          <ToolOutlined style={{ fontSize: 20, color: SLINK_COLORS.primary }} />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              borderRadius: 6,
+              background: 'rgba(191, 4, 4, 0.08)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <ToolOutlined style={{ fontSize: 16, color: SLINK_COLORS.primary }} />
+          </div>
+          <span style={{ 
+            fontFamily: 'monospace',
+            fontWeight: 600,
+            color: SLINK_COLORS.primary,
+            fontSize: '11px',
+            background: 'rgba(191, 4, 4, 0.06)',
+            padding: '1px 6px',
+            borderRadius: 3,
+            border: '1px solid rgba(191, 4, 4, 0.12)',
+          }}>
+            EQ-{String(item.id).padStart(4, '0')}
+          </span>
         </div>
-        <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>
-          {item.name}
-        </Text>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ minHeight: 40, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+          <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>
+            {item.name}
+          </Text>
+          {item.categoryName && (
+            <div style={{ marginTop: 4 }}>
+              <Tag color="cyan" style={{ margin: 0, fontSize: '10px', borderRadius: 4 }}>
+                {item.categoryName}
+              </Tag>
+            </div>
+          )}
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 8, borderTop: `1px dashed ${SLINK_COLORS.border}` }}>
           <Text type="secondary" style={{ fontSize: 12 }}>
             Còn lại: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>
               {item.availableQuantity}/{item.totalQuantity}

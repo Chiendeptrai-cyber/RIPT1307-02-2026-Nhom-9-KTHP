@@ -18,6 +18,7 @@ import { GetEquipmentDetailUseCase }     from '../application/use-cases/equipmen
 import { CreateEquipmentUseCase }         from '../application/use-cases/equipment/create-equipment.use-case';
 import { UpdateEquipmentUseCase }         from '../application/use-cases/equipment/update-equipment.use-case';
 import { DeleteEquipmentUseCase }         from '../application/use-cases/equipment/delete-equipment.use-case';
+import { CreateCategoryUseCase }          from '../application/use-cases/equipment/create-category.use-case';
 import { CreateBorrowRequestUseCase }    from '../application/use-cases/borrow-request/create-borrow-request.use-case';
 import { ApproveBorrowRequestUseCase }   from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
 import { RejectBorrowRequestUseCase }    from '../application/use-cases/borrow-request/reject-borrow-request.use-case';
@@ -62,6 +63,7 @@ export const getEquipmentDetailUseCase = new GetEquipmentDetailUseCase(equipment
 export const createEquipmentUseCase    = new CreateEquipmentUseCase(equipmentRepo);
 export const updateEquipmentUseCase    = new UpdateEquipmentUseCase(equipmentRepo);
 export const deleteEquipmentUseCase    = new DeleteEquipmentUseCase(equipmentRepo);
+export const createCategoryUseCase    = new CreateCategoryUseCase(equipmentRepo);
 
 // Borrow request use cases
 export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo, userRepo);

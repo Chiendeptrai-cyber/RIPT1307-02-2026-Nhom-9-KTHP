@@ -5,8 +5,29 @@ import {
   createEquipmentUseCase,
   updateEquipmentUseCase,
   deleteEquipmentUseCase,
+  createCategoryUseCase,
+  equipmentRepo,
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
+
+export async function listCategories(req: Request, res: Response): Promise<void> {
+  const categories = await equipmentRepo.listCategories();
+  res.json({
+    success: true,
+    data: categories,
+    message: 'Lấy danh sách danh mục thiết bị thành công',
+  } satisfies ApiResponse);
+}
+
+export async function createCategory(req: Request, res: Response): Promise<void> {
+  const { name, description } = req.body;
+  const category = await createCategoryUseCase.execute({ name, description });
+  res.status(201).json({
+    success: true,
+    data: category,
+    message: 'Tạo loại thiết bị mới thành công',
+  } satisfies ApiResponse);
+}
 
 export async function listEquipment(req: Request, res: Response): Promise<void> {
   const { page = '1', pageSize = '20', search, categoryId, status } = req.query as Record<string, string>;
