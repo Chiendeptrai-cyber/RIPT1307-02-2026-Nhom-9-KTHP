@@ -1,5 +1,6 @@
 import { PlusSquareOutlined, ToolOutlined } from '@ant-design/icons';
 import { Badge, Button, Card, Tag, Typography } from 'antd';
+import { useNavigate } from '@umijs/max';
 import { SLINK_COLORS } from '../../theme/tokens';
 
 const { Text } = Typography;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function EquipmentCard({ name, available, category = 'Thiết bị', id }: Props) {
+  const navigate = useNavigate();
   const isAvailable = available > 0;
 
   return (
@@ -60,7 +62,10 @@ export default function EquipmentCard({ name, available, category = 'Thiết b�
           size="small"
           icon={<PlusSquareOutlined />}
           disabled={!isAvailable}
-          href={id ? `/borrow-request/create?equipmentId=${id}` : '/borrow-request/create'}
+          onClick={() => {
+            const path = id ? `/borrow-request/create?equipmentId=${id}` : '/borrow-request/create';
+            navigate(path);
+          }}
           block
           style={{
             borderRadius: 6,

@@ -5,6 +5,7 @@ import {
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { ExclamationCircleOutlined, FileTextOutlined } from '@ant-design/icons';
+import { useNavigate } from '@umijs/max';
 import dayjs from 'dayjs';
 import { borrowRequestService, type BorrowRequest } from '../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../theme/tokens';
@@ -22,6 +23,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
 };
 
 export default function BorrowRequestHistoryPage() {
+  const navigate = useNavigate();
   const [items,   setItems]   = useState<BorrowRequest[]>([]);
   const [total,   setTotal]   = useState(0);
   const [page,    setPage]    = useState(1);
@@ -142,7 +144,7 @@ export default function BorrowRequestHistoryPage() {
           <div style={{ padding: 40 }}>
             <Empty description="Bạn chưa có yêu cầu mượn nào" />
             <div style={{ textAlign: 'center', marginTop: 16 }}>
-              <Button type="primary" href="/borrow-request/create" style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}>
+              <Button type="primary" onClick={() => navigate('/borrow-request/create')} style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}>
                 Tạo yêu cầu đầu tiên
               </Button>
             </div>
