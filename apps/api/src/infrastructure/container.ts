@@ -5,6 +5,7 @@ import { PgBorrowRequestRepository }  from './database/repositories/pg-borrow-re
 import { PgBorrowRecordRepository }   from './database/repositories/pg-borrow-record.repository';
 import { PgNotificationRepository }   from './database/repositories/pg-notification.repository';
 import { PgPasswordResetTokenRepository } from './database/repositories/pg-password-reset-token.repository';
+import { PgViolationRepository }      from './database/repositories/pg-violation.repository';
 import { JwtTokenService }            from './services/jwt-token.service';
 
 import { LoginUseCase }                  from '../application/use-cases/auth/login.use-case';
@@ -25,6 +26,8 @@ import { MarkNotificationReadUseCase }   from '../application/use-cases/notifica
 import { ListUsersUseCase }              from '../application/use-cases/user/list-users.use-case';
 import { LockUserUseCase }               from '../application/use-cases/user/lock-user.use-case';
 import { GetUserProfileUseCase }         from '../application/use-cases/user/get-user-profile.use-case';
+import { GetDashboardStatsUseCase }      from '../application/use-cases/report/get-dashboard-stats.use-case';
+import { ExportReportUseCase }           from '../application/use-cases/report/export-report.use-case';
 
 import { NodemailerEmailService } from './services/nodemailer-email.service';
 
@@ -37,6 +40,7 @@ const borrowRequestRepo  = new PgBorrowRequestRepository(pool);
 const borrowRecordRepo   = new PgBorrowRecordRepository(pool);
 const notificationRepo   = new PgNotificationRepository(pool);
 const passwordResetTokenRepo = new PgPasswordResetTokenRepository(pool);
+const violationRepo      = new PgViolationRepository(pool);
 
 // Services
 const tokenService = new JwtTokenService();
