@@ -12,6 +12,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
       # Auto-run migration on first start
       - ./apps/api/src/infrastructure/database/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
+      # Auto-run seeds on first start
+      - ./apps/api/src/infrastructure/database/seeds/001_users.sql:/docker-entrypoint-initdb.d/002_seed_users.sql:ro
+      - ./apps/api/src/infrastructure/database/seeds/002_equipment.sql:/docker-entrypoint-initdb.d/003_seed_equipment.sql:ro
+      - ./apps/api/src/infrastructure/database/seeds/003_equipment_instances.sql:/docker-entrypoint-initdb.d/004_seed_instances.sql:ro
+      - ./apps/api/src/infrastructure/database/seeds/004_borrow_data.sql:/docker-entrypoint-initdb.d/005_seed_borrow.sql:ro
+      - ./apps/api/src/infrastructure/database/seeds/005_violations_notifications.sql:/docker-entrypoint-initdb.d/006_seed_violations.sql:ro
     ports:
       - "5433:5432"
     healthcheck:
@@ -40,14 +46,14 @@ services:
       # JWT – CHANGE THIS IN PRODUCTION!
       JWT_SECRET: super_secret_jwt_key_change_me_in_production
       JWT_EXPIRES_IN: 8h
-      # CORS – allow web container
-      CORS_ORIGIN: http://localhost:8000
+      # CORS – allow web container (port 8080 khi chạy Docker, 8000 khi dev local)
+      CORS_ORIGIN: "http://localhost:8080,http://localhost:8000"
       # Email (optional – leave blank to disable)
-      SMTP_HOST: ""
+      SMTP_HOST: "smtp.gmail.com"
       SMTP_PORT: 587
-      SMTP_USER: ""
-      SMTP_PASS: ""
-      SMTP_FROM: ""
+      SMTP_USER: "lambao2108@gmail.com"
+      SMTP_PASS: "bvfqwlsfpufcvzch"
+      SMTP_FROM: "PTIT Equipment Management <lambao2108@gmail.com>"
       # Uploads
       UPLOAD_DIR: /app/uploads
     volumes:

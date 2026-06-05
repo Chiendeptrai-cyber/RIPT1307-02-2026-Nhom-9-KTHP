@@ -1,4 +1,5 @@
 import { http } from './http';
+import { notifyNotificationChanged } from './notification.service';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
 
 export interface BorrowRequest {
@@ -6,7 +7,7 @@ export interface BorrowRequest {
   userId: number;
   equipmentId: number;
   quantity: number;
-  status: string;
+  status: 'pending' | 'approved' | 'rejected' | 'cancelled' | 'borrowing' | 'overdue' | 'returned';
   expectedReturnDate: string;
   note?: string;
   createdAt: string;
@@ -24,16 +25,24 @@ export const borrowRequestService = {
     expectedReturnDate: string;
     note?: string;
   }): Promise<ApiResponse<BorrowRequest>> {
-    const response = await http.post('/borrow-requests', payload);
-    return response.data;
+    const res = await http.post<ApiResponse<BorrowRequest>>('/borrow-requests', payload);
+    if (res.data.success) {
+      notifyNotificationChanged();
+    }
+    return res.data;
   },
 
   async listMy(params?: {
     page?: number;
     pageSize?: number;
   }): Promise<ApiResponse<PaginatedResponse<BorrowRequest>>> {
-    const response = await http.get('/borrow-requests/my', { params });
-    return response.data;
+    const res = await http.get<ApiResponse<PaginatedResponse<BorrowRequest>>>('/borrow-requests/my', {
+      params: {
+        page: params?.page ?? 1,
+        pageSize: params?.pageSize ?? 10,
+      },
+    });
+    return res.data;
   },
 
   async listAll(params?: {
@@ -42,37 +51,34 @@ export const borrowRequestService = {
     status?: string;
     search?: string;
   }): Promise<ApiResponse<PaginatedResponse<BorrowRequest>>> {
-    const response = await http.get('/borrow-requests', { params });
-    return response.data;
+    const res = await http.get<ApiResponse<PaginatedResponse<BorrowRequest>>>('/borrow-requests', {
+      params: {
+        page: params?.page ?? 1,
+        pageSize: params?.pageSize ?? 15,
+        status: params?.status || undefined,
+        search: params?.search || undefined,
+      },
+    });
+    return res.data;
   },
 
   async cancel(id: number): Promise<ApiResponse<BorrowRequest>> {
-    const response = await http.patch(`/borrow-requests/${id}/cancel`);
-    return response.data;
+    const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/cancel`);
+    return res.data;
   },
 
   async approve(id: number): Promise<ApiResponse<BorrowRequest>> {
-    const response = await http.patch(`/borrow-requests/${id}/approve`);
-    return response.data;
+    const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/approve`);
+    return res.data;
   },
 
   async reject(id: number, reason: string): Promise<ApiResponse<BorrowRequest>> {
-    const response = await http.patch(`/borrow-requests/${id}/reject`, { reason });
-    return response.data;
-  },
-
-  async handover(id: number): Promise<ApiResponse<BorrowRequest>> {
-    const response = await http.patch(`/borrow-requests/${id}/handover`);
-    return response.data;
-  },
-
-  async returnEquipment(id: number): Promise<ApiResponse<BorrowRequest>> {
-    const response = await http.patch(`/borrow-requests/${id}/return`);
-    return response.data;
+    const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/reject`, { reason });
+    return res.data;
   },
 
   async remove(id: number): Promise<ApiResponse<{ id: number }>> {
-    const response = await http.delete(`/borrow-requests/${id}`);
-    return response.data;
+    const res = await http.delete<ApiResponse<{ id: number }>>(`/borrow-requests/${id}`);
+    return res.data;
   },
 };

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_equipment_mgmt_web=self.webpackChunk_equipment_mgmt_web||[]).push([[1311],{41311:function(s,n,t){t.r(n),t.d(n,{default:function(){return m}});var O=t(44194),u=t(81017),e=t(31549);function m(){var E=(0,u.useOutletContext)();return(0,e.jsx)(u.Outlet,{context:E})}}}]);

@@ -8,4 +8,11 @@ export class PgViolationRepository implements IViolationRepository {
   async create(data: Omit<ViolationEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<ViolationEntity> {
     return { id: 1, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), ...data } as ViolationEntity;
   }
+
+  async countAll(): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total FROM violations`,
+    );
+    return Number(result.rows[0].total);
+  }
 }

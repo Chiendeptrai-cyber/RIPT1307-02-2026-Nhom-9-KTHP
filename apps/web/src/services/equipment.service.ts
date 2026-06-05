@@ -1,5 +1,5 @@
+import { http } from './http';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
-import { http } from './http'; // Import file cấu hình axios của nhóm
 
 export interface Equipment {
   id: number;
@@ -19,13 +19,21 @@ export const equipmentService = {
     categoryId?: number;
     status?: string;
   }): Promise<ApiResponse<PaginatedResponse<Equipment>>> {
-    const response = await http.get('/equipment', { params });
-    return response.data;
+    const res = await http.get<ApiResponse<PaginatedResponse<Equipment>>>('/equipment', {
+      params: {
+        page: params?.page ?? 1,
+        pageSize: params?.pageSize ?? 20,
+        search: params?.search || undefined,
+        categoryId: params?.categoryId || undefined,
+        status: params?.status || undefined,
+      },
+    });
+    return res.data;
   },
 
   async getDetail(id: number): Promise<ApiResponse<Equipment>> {
-    const response = await http.get(`/equipment/${id}`);
-    return response.data;
+    const res = await http.get<ApiResponse<Equipment>>(`/equipment/${id}`);
+    return res.data;
   },
 
   async create(payload: {
@@ -35,8 +43,8 @@ export const equipmentService = {
     categoryId?: number;
     description?: string;
   }): Promise<ApiResponse<Equipment>> {
-    const response = await http.post('/equipment', payload);
-    return response.data;
+    const res = await http.post<ApiResponse<Equipment>>('/equipment', payload);
+    return res.data;
   },
 
   async update(id: number, payload: {
@@ -45,12 +53,12 @@ export const equipmentService = {
     status?: string;
     description?: string;
   }): Promise<ApiResponse<Equipment>> {
-    const response = await http.patch(`/equipment/${id}`, payload); 
-    return response.data;
+    const res = await http.patch<ApiResponse<Equipment>>(`/equipment/${id}`, payload);
+    return res.data;
   },
 
   async remove(id: number): Promise<ApiResponse<{ id: number }>> {
-    const response = await http.delete(`/equipment/${id}`);
-    return response.data;
+    const res = await http.delete<ApiResponse<{ id: number }>>(`/equipment/${id}`);
+    return res.data;
   },
 };

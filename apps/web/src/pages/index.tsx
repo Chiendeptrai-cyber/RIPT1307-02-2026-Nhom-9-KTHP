@@ -1,21 +1,23 @@
 import { useEffect } from 'react';
+import { useNavigate } from '@umijs/max';
 import { useAuthStore } from '../stores/auth.store';
 
 export default function IndexPage() {
+  const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     if (!user) {
-      window.location.href = '/login';
+      navigate('/login', { replace: true });
       return;
     }
 
     if (user.role === 'admin') {
-      window.location.href = '/admin/dashboard';
+      navigate('/admin/dashboard', { replace: true });
     } else {
-      window.location.href = '/equipment';
+      navigate('/equipment', { replace: true });
     }
-  }, [user]);
+  }, [user, navigate]);
 
   return null;
 }

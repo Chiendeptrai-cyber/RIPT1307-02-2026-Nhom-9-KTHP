@@ -2,6 +2,9 @@ import type { Request, Response } from 'express';
 import {
   listEquipmentUseCase,
   getEquipmentDetailUseCase,
+  createEquipmentUseCase,
+  updateEquipmentUseCase,
+  deleteEquipmentUseCase,
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 
@@ -33,3 +36,51 @@ export async function getEquipmentDetail(req: Request, res: Response): Promise<v
     message: 'Lấy thông tin thiết bị thành công',
   } satisfies ApiResponse);
 }
+
+export async function createEquipment(req: Request, res: Response): Promise<void> {
+  const { name, totalQuantity, categoryId, status, description } = req.body;
+  const result = await createEquipmentUseCase.execute({
+    name,
+    totalQuantity: Number(totalQuantity),
+    categoryId: Number(categoryId),
+    status: status || 'active',
+    description,
+  });
+
+  res.status(201).json({
+    success: true,
+    data: result,
+    message: 'Tạo thiết bị thành công',
+  } satisfies ApiResponse);
+}
+
+export async function updateEquipment(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const { name, totalQuantity, categoryId, status, description } = req.body;
+
+  const result = await updateEquipmentUseCase.execute(id, {
+    name,
+    totalQuantity: totalQuantity !== undefined ? Number(totalQuantity) : undefined,
+    categoryId: categoryId !== undefined ? Number(categoryId) : undefined,
+    status,
+    description,
+  });
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Cập nhật thiết bị thành công',
+  } satisfies ApiResponse);
+}
+
+export async function deleteEquipment(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await deleteEquipmentUseCase.execute(id);
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Xóa thiết bị thành công',
+  } satisfies ApiResponse);
+}
+

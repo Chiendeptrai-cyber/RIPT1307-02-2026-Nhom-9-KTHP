@@ -51,6 +51,7 @@ export class PgUserRepository implements IUserRepository {
     if (data.email !== undefined)    { sets.push(`email = $${idx++}`);     values.push(data.email); }
     if (data.role !== undefined)     { sets.push(`role = $${idx++}`);      values.push(data.role); }
     if (data.status !== undefined)   { sets.push(`status = $${idx++}`);    values.push(data.status); }
+    if (data.passwordHash !== undefined) { sets.push(`password_hash = $${idx++}`); values.push(data.passwordHash); }
 
     sets.push(`updated_at = NOW()`);
     values.push(id);
@@ -68,6 +69,7 @@ export class PgUserRepository implements IUserRepository {
     page: number;
     pageSize: number;
     role?: string;
+    status?: string;
   }): Promise<{ items: UserEntity[]; total: number }> {
     const offset = (options.page - 1) * options.pageSize;
     const conditions: string[] = [];
@@ -77,6 +79,11 @@ export class PgUserRepository implements IUserRepository {
     if (options.role) {
       conditions.push(`role = $${idx++}`);
       values.push(options.role);
+    }
+
+    if (options.status) {
+      conditions.push(`status = $${idx++}`);
+      values.push(options.status);
     }
 
     const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
@@ -98,5 +105,12 @@ export class PgUserRepository implements IUserRepository {
     );
 
     return { items: result.rows, total };
+  }
+
+  async countAll(): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total FROM users`,
+    );
+    return Number(result.rows[0].total);
   }
 }

@@ -47,6 +47,7 @@ CREATE TABLE equipment (
   total_quantity INT NOT NULL,
   available_quantity INT NOT NULL,
   status equipment_status NOT NULL DEFAULT 'active',
+  description TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
@@ -65,6 +66,7 @@ CREATE TABLE borrow_requests (
   user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
   status borrow_request_status NOT NULL DEFAULT 'pending',
   expected_return_date TIMESTAMP WITH TIME ZONE NOT NULL,
+  note TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
@@ -142,3 +144,84 @@ CREATE INDEX idx_borrow_requests_user_id ON borrow_requests(user_id);
 CREATE INDEX idx_equipment_status ON equipment(status);
 CREATE INDEX idx_notifications_user_id_is_read ON notifications(user_id, is_read);
 CREATE INDEX idx_equipment_stock_logs_equipment_id ON equipment_stock_logs(equipment_id);
+
+-- Seed: danh mục mặc định
+INSERT INTO categories (id, name, description)
+VALUES (1, 'Chung', 'Danh mục mặc định')
+ON CONFLICT (id) DO NOTHING;
+SELECT setval('categories_id_seq', (SELECT COALESCE(MAX(id), 1) FROM categories));
+
+-- Seed: tài khoản admin mặc định (password: password)
+INSERT INTO users (full_name, email, password_hash, role, status)
+VALUES (
+  'Admin PTIT',
+  'admin@ptit.edu.vn',
+  '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+  'admin',
+  'active'
+) ON CONFLICT (email) DO NOTHING;
+
+-- Seed: equipment sample
+INSERT INTO equipment (name, category_id, total_quantity, available_quantity, status, description, created_at, updated_at)
+VALUES 
+  ('Laptop Dell XPS 13', 1, 5, 3, 'active', 'Laptop del XPS siêu nhẹ, màn hình 13 inch FHD', NOW(), NOW()),
+  ('Máy chiếu Epson', 1, 3, 2, 'active', 'Máy chiếu LED 3000 lumens cho phòng học', NOW(), NOW()),
+  ('USB Hub 7 cổng', 1, 10, 8, 'active', 'Hub USB 3.0 với sạc nhanh', NOW(), NOW()),
+  ('Cáp HDMI 2.1', 1, 20, 15, 'active', 'Cáp HDMI 2.1 hỗ trợ 8K', NOW(), NOW()),
+  ('Webcam Logitech', 1, 8, 6, 'active', 'Webcam Full HD 30fps', NOW(), NOW())
+ON CONFLICT DO NOTHING;
+SELECT setval('equipment_id_seq', (SELECT COALESCE(MAX(id), 1) FROM equipment));
+
+-- Seed: equipment instances
+INSERT INTO equipment_instances (equipment_id, serial_number, condition, created_at, updated_at)
+VALUES 
+  (1, 'DELL-XPS-001', 'good', NOW(), NOW()),
+  (1, 'DELL-XPS-002', 'good', NOW(), NOW()),
+  (1, 'DELL-XPS-003', 'good', NOW(), NOW()),
+  (1, 'DELL-XPS-004', 'good', NOW(), NOW()),
+  (1, 'DELL-XPS-005', 'good', NOW(), NOW()),
+  (2, 'EPSON-001', 'good', NOW(), NOW()),
+  (2, 'EPSON-002', 'good', NOW(), NOW()),
+  (2, 'EPSON-003', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-001', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-002', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-003', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-004', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-005', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-006', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-007', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-008', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-009', 'good', NOW(), NOW()),
+  (3, 'USB-HUB-010', 'good', NOW(), NOW()),
+  (4, 'HDMI-001', 'good', NOW(), NOW()),
+  (4, 'HDMI-002', 'good', NOW(), NOW()),
+  (4, 'HDMI-003', 'good', NOW(), NOW()),
+  (4, 'HDMI-004', 'good', NOW(), NOW()),
+  (4, 'HDMI-005', 'good', NOW(), NOW()),
+  (4, 'HDMI-006', 'good', NOW(), NOW()),
+  (4, 'HDMI-007', 'good', NOW(), NOW()),
+  (4, 'HDMI-008', 'good', NOW(), NOW()),
+  (4, 'HDMI-009', 'good', NOW(), NOW()),
+  (4, 'HDMI-010', 'good', NOW(), NOW()),
+  (4, 'HDMI-011', 'good', NOW(), NOW()),
+  (4, 'HDMI-012', 'good', NOW(), NOW()),
+  (4, 'HDMI-013', 'good', NOW(), NOW()),
+  (4, 'HDMI-014', 'good', NOW(), NOW()),
+  (4, 'HDMI-015', 'good', NOW(), NOW()),
+  (4, 'HDMI-016', 'good', NOW(), NOW()),
+  (4, 'HDMI-017', 'good', NOW(), NOW()),
+  (4, 'HDMI-018', 'good', NOW(), NOW()),
+  (4, 'HDMI-019', 'good', NOW(), NOW()),
+  (4, 'HDMI-020', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-001', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-002', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-003', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-004', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-005', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-006', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-007', 'good', NOW(), NOW()),
+  (5, 'WEBCAM-008', 'good', NOW(), NOW())
+ON CONFLICT DO NOTHING;
+SELECT setval('equipment_instances_id_seq', (SELECT COALESCE(MAX(id), 1) FROM equipment_instances));
+
+

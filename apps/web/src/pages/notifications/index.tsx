@@ -21,7 +21,7 @@ const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
 };
 
 export default function NotificationsPage() {
-  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications();
+  const { items, unreadCount, loading, markRead, markAllRead } = useNotifications('student');
   const [activeTab, setActiveTab] = useState('all');
 
   const displayed = activeTab === 'unread' ? items.filter((n) => !n.isRead) : items;

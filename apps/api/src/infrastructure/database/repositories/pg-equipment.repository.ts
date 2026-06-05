@@ -65,6 +65,13 @@ export class PgEquipmentRepository implements IEquipmentRepository {
     return { items: result.rows, total };
   }
 
+  async countAll(): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total FROM equipment WHERE status != 'deleted'`,
+    );
+    return Number(result.rows[0].total);
+  }
+
   async create(
     data: Omit<EquipmentEntity, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<EquipmentEntity> {

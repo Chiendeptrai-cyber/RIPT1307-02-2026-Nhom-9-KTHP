@@ -74,6 +74,7 @@ function EquipmentCard({ item }: { item: any }) {
 }
 
 export default function EquipmentListPage() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();
@@ -133,7 +134,7 @@ export default function EquipmentListPage() {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              href="/borrow-request/create"
+              onClick={() => navigate('/borrow-request/create')}
               style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}
             >
               Tạo yêu cầu

@@ -31,6 +31,19 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     return result.rows[0];
   }
 
+  async createItem(data: {
+    borrowRequestId: number;
+    equipmentId: number;
+    quantity: number;
+  }): Promise<void> {
+    await this.pool.query(
+      `INSERT INTO borrow_request_items (borrow_request_id, equipment_id, quantity)
+       VALUES ($1, $2, $3)`,
+      [data.borrowRequestId, data.equipmentId, data.quantity],
+    );
+  }
+
+
   async update(
     id: number,
     data: Partial<BorrowRequestEntity>,
@@ -86,7 +99,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     page: number,
     pageSize: number,
     options?: { status?: string; search?: string },
-  ): Promise<{ items: (BorrowRequestEntity & { userFullName: string; userEmail: string })[]; total: number }> {
+  ): Promise<{ items: (BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string; quantity?: number })[]; total: number }> {
     const offset = (page - 1) * pageSize;
     const conditions: string[] = [];
     const values: unknown[] = [];
@@ -117,9 +130,13 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
       `SELECT br.id, br.user_id AS "userId", br.status,
               br.expected_return_date AS "expectedReturnDate",
               br.note, br.created_at AS "createdAt", br.updated_at AS "updatedAt",
-              u.full_name AS "userFullName", u.email AS "userEmail"
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName",
+              bri.quantity AS "quantity"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
        ${where}
        ORDER BY br.created_at DESC
        LIMIT $${idx++} OFFSET $${idx}`,
@@ -127,5 +144,24 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     );
 
     return { items: result.rows, total };
+  }
+
+
+  async countByStatus(status: string): Promise<number> {
+    const result = await this.pool.query<{ total: string }>(
+      `SELECT COUNT(*) AS total FROM borrow_requests WHERE status = $1`,
+      [status],
+    );
+    return Number(result.rows[0].total);
+  }
+
+  async getItems(borrowRequestId: number): Promise<{ equipmentId: number; quantity: number }[]> {
+    const result = await this.pool.query<{ equipmentId: number; quantity: number }>(
+      `SELECT equipment_id AS "equipmentId", quantity
+       FROM borrow_request_items
+       WHERE borrow_request_id = $1`,
+      [borrowRequestId],
+    );
+    return result.rows;
   }
 }

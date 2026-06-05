@@ -68,16 +68,28 @@ export const reportService = {
     return response.data;
   },
 
-  async exportRequestsCSV(): Promise<void> {
-    // Gọi API Backend để tải file CSV về máy
-    const response = await http.get('/reports/export', { responseType: 'blob' });
-    
-    // Logic tải file của trình duyệt
-    const url = URL.createObjectURL(new Blob([response.data]));
+  async exportRequestsCSV(options?: { from?: string; to?: string }): Promise<void> {
+    const response = await http.get<ApiResponse<{ csv: string; fileName: string }>>('/reports/export', {
+      params: {
+        from: options?.from,
+        to: options?.to,
+      },
+    });
+
+    if (!response.data.success || !response.data.data) {
+      throw new Error(response.data.message || 'Không thể xuất báo cáo');
+    }
+
+    const { csv, fileName } = response.data.data;
+    const bom = '\uFEFF';
+    const blob = new Blob([bom + csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `bao-cao-muon-thiet-bi-${new Date().toISOString().slice(0, 10)}.csv`;
+    link.download = fileName;
+    document.body.appendChild(link);
     link.click();
+    link.remove();
     URL.revokeObjectURL(url);
   },
 };
