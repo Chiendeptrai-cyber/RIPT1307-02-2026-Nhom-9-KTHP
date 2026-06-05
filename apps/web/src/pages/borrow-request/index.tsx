@@ -4,7 +4,7 @@ import {
   Skeleton, Space, Table, Tag, Typography,
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { ExclamationCircleOutlined, FileTextOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined, FileTextOutlined, PlusOutlined } from '@ant-design/icons';
 import { useNavigate } from '@umijs/max';
 import dayjs from 'dayjs';
 import { borrowRequestService, type BorrowRequest } from '../../services/borrow-request.service';
@@ -124,12 +124,22 @@ export default function BorrowRequestHistoryPage() {
         style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}
         styles={{ body: { padding: 0 } }}
       >
-        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', gap: 10 }}>
-          <FileTextOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />
-          <div>
-            <Title level={5} style={{ marginBottom: 0 }}>Lịch sử yêu cầu mượn</Title>
-            <Text type="secondary" style={{ fontSize: 12 }}>Danh sách các yêu cầu mượn thiết bị của bạn</Text>
+        <div style={{ padding: '16px 20px', borderBottom: `1px solid ${SLINK_COLORS.border}`, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <FileTextOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />
+            <div>
+              <Title level={5} style={{ marginBottom: 0 }}>Lịch sử yêu cầu mượn</Title>
+              <Text type="secondary" style={{ fontSize: 12 }}>Danh sách các yêu cầu mượn thiết bị của bạn</Text>
+            </div>
           </div>
+          <Button
+            type="primary"
+            icon={<PlusOutlined />}
+            onClick={() => navigate('/borrow-request/create')}
+            style={{ background: SLINK_COLORS.primary, borderColor: SLINK_COLORS.primary, borderRadius: 6 }}
+          >
+            Tạo yêu cầu mới
+          </Button>
         </div>
 
         {error && (

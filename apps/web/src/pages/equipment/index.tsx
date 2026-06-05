@@ -74,6 +74,7 @@ function EquipmentCard({ item }: { item: any }) {
 }
 
 export default function EquipmentListPage() {
+  const navigate = useNavigate();
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();

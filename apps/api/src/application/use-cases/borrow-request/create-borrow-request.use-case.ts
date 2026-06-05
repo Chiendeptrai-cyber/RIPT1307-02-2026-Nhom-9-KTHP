@@ -55,6 +55,13 @@ export class CreateBorrowRequestUseCase {
       note: data.note,
     } as any);
 
+    // 3b. Lưu thiết bị và số lượng vào borrow_request_items
+    await this.borrowRequestRepo.createItem({
+      borrowRequestId: request.id,
+      equipmentId: data.equipmentId,
+      quantity: data.quantity,
+    });
+
     // 4. Gửi thông báo cho sinh viên
     await this.notificationRepo.create({
       userId: data.userId,
