@@ -1,4 +1,5 @@
 import { http } from './http';
+import { notifyNotificationChanged } from './notification.service';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
 
 export interface BorrowRequest {
@@ -25,6 +26,9 @@ export const borrowRequestService = {
     note?: string;
   }): Promise<ApiResponse<BorrowRequest>> {
     const res = await http.post<ApiResponse<BorrowRequest>>('/borrow-requests', payload);
+    if (res.data.success) {
+      notifyNotificationChanged();
+    }
     return res.data;
   },
 
