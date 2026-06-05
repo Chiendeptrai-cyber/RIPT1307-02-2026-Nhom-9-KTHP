@@ -1,7 +1,26 @@
-import { Outlet } from '@umijs/max';
+import { Outlet, useNavigate } from '@umijs/max';
 import { Card } from 'antd';
+import { useEffect } from 'react';
+import { useAuthStore } from '@/stores/auth.store';
 
 export default function AuthLayout() {
+  const navigate = useNavigate();
+  const { user, token } = useAuthStore();
+
+  useEffect(() => {
+    if (token && user) {
+      if (user.role === 'admin') {
+        navigate('/admin/dashboard', { replace: true });
+      } else {
+        navigate('/equipment', { replace: true });
+      }
+    }
+  }, [user, token, navigate]);
+
+  if (token && user) {
+    return null;
+  }
+
   return (
     <div
       style={{
