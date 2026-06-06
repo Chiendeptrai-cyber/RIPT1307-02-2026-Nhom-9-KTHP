@@ -3,7 +3,7 @@ import { UserStatus } from '../enums/index.ts';
 
 export const lockUserSchema = z.object({
   targetUserId: z.number().int().positive('User ID must be a positive integer'),
-  newStatus: z.enum([UserStatus.ACTIVE, UserStatus.BORROW_BLOCKED, UserStatus.LOCKED]),
+  newStatus: z.enum([UserStatus.ACTIVE, UserStatus.LOCKED]),
   reason: z.string().optional(),
 });
 
