@@ -9,6 +9,7 @@ import {
   markReceived,
   markNotReceived,
   markReturned,
+  listDueOverdue,
 } from '../controllers/borrow-request.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize }    from '../middlewares/authorize.middleware';
@@ -26,6 +27,7 @@ router.patch('/:id/cancel', cancelBorrowRequest);
 
 // Admin routes
 router.get('/', authorize(UserRole.ADMIN), listAllRequests);
+router.get('/due-overdue', authorize(UserRole.ADMIN), listDueOverdue);
 router.patch('/:id/approve',       authorize(UserRole.ADMIN), approveBorrowRequest);
 router.patch('/:id/reject',        authorize(UserRole.ADMIN), rejectBorrowRequest);
 router.patch('/:id/mark-received', authorize(UserRole.ADMIN), markReceived);

@@ -3,6 +3,7 @@ import {
   SearchOutlined,
   ToolOutlined,
   ReloadOutlined,
+  PictureOutlined,
 } from '@ant-design/icons';
 import {
   Alert,
@@ -40,55 +41,51 @@ function EquipmentCard({ item }: { item: any }) {
         boxShadow: SLINK_COLORS.shadow,
         height: '100%',
       }}
-      styles={{ body: { padding: 16 } }}
+      styles={{ body: { padding: 0 } }}
     >
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div
-            style={{
-              width: 32,
-              height: 32,
-              borderRadius: 6,
-              background: 'rgba(191, 4, 4, 0.08)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <ToolOutlined style={{ fontSize: 16, color: SLINK_COLORS.primary }} />
+      {/* Image thumbnail */}
+      <div style={{ height: 120, background: '#f5f5f5', borderRadius: '8px 8px 0 0', overflow: 'hidden', position: 'relative' }}>
+        {item.imageUrl ? (
+          <img
+            src={item.imageUrl}
+            alt={item.name}
+            style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8, boxSizing: 'border-box' }}
+          />
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#bbb' }}>
+            <PictureOutlined style={{ fontSize: 32 }} />
+            <span style={{ fontSize: 11, marginTop: 4 }}>Chưa có ảnh</span>
           </div>
-          <span style={{ 
-            fontFamily: 'monospace',
-            fontWeight: 600,
-            color: SLINK_COLORS.primary,
-            fontSize: '11px',
-            background: 'rgba(191, 4, 4, 0.06)',
-            padding: '1px 6px',
-            borderRadius: 3,
-            border: '1px solid rgba(191, 4, 4, 0.12)',
-          }}>
-            EQ-{String(item.id).padStart(4, '0')}
-          </span>
-        </div>
-        <div style={{ minHeight: 40, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-          <Text strong style={{ fontSize: 14, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>
-            {item.name}
-          </Text>
-          {item.categoryName && (
-            <div style={{ marginTop: 4 }}>
-              <Tag color="cyan" style={{ margin: 0, fontSize: '10px', borderRadius: 4 }}>
-                {item.categoryName}
-              </Tag>
-            </div>
-          )}
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 'auto', paddingTop: 8, borderTop: `1px dashed ${SLINK_COLORS.border}` }}>
-          <Text type="secondary" style={{ fontSize: 12 }}>
-            Còn lại: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>
+        )}
+        <span style={{
+          position: 'absolute', top: 6, right: 6,
+          fontFamily: 'monospace', fontWeight: 600,
+          color: SLINK_COLORS.primary, fontSize: '10px',
+          background: 'rgba(255,255,255,0.9)',
+          padding: '1px 6px', borderRadius: 3,
+          border: '1px solid rgba(191, 4, 4, 0.12)',
+        }}>
+          EQ-{String(item.id).padStart(4, '0')}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
+        <Text strong style={{ fontSize: 13, color: SLINK_COLORS.textBase, lineHeight: 1.4 }}>
+          {item.name}
+        </Text>
+        {item.categoryName && (
+          <Tag color="cyan" style={{ margin: 0, fontSize: '10px', borderRadius: 4, width: 'fit-content' }}>
+            {item.categoryName}
+          </Tag>
+        )}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4, paddingTop: 6, borderTop: `1px dashed ${SLINK_COLORS.border}` }}>
+          <Text type="secondary" style={{ fontSize: 11 }}>
+            Còn: <strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>
               {item.availableQuantity}/{item.totalQuantity}
             </strong>
           </Text>
-          <Tag color={isAvailable ? 'green' : 'red'} style={{ margin: 0, fontSize: 11 }}>
+          <Tag color={isAvailable ? 'green' : 'red'} style={{ margin: 0, fontSize: 10 }}>
             {isAvailable ? 'Có sẵn' : 'Hết'}
           </Tag>
         </div>

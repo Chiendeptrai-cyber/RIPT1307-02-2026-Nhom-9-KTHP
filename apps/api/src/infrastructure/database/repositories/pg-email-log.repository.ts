@@ -6,6 +6,14 @@ export class PgEmailLogRepository implements IEmailLogRepository {
   constructor(private readonly pool: Pool) {}
 
   async create(data: Omit<EmailLogEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<EmailLogEntity> {
-    return { id: 1, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), ...data } as EmailLogEntity;
+    const result = await this.pool.query<EmailLogEntity>(
+      `INSERT INTO email_logs (user_id, type, status, subject, recipient, error_message)
+       VALUES ($1, $2, $3, $4, $5, $6)
+       RETURNING id, user_id AS "userId", type, status, subject, recipient,
+                 error_message AS "errorMessage",
+                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+      [data.userId, data.type, data.status, data.subject, data.recipient, data.errorMessage ?? null],
+    );
+    return result.rows[0];
   }
 }

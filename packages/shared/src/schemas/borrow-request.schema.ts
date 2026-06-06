@@ -7,4 +7,7 @@ export const createBorrowRequestSchema = z.object({
     message: 'Invalid date',
   }),
   note: z.string().max(200).optional(),
+  rulesAccepted: z.literal(true, {
+    errorMap: () => ({ message: 'You must accept the borrowing rules' }),
+  }),
 });

@@ -10,7 +10,7 @@ export class PgEquipmentRepository implements IEquipmentRepository {
       `SELECT e.id, e.name, e.category_id AS "categoryId",
               e.total_quantity AS "totalQuantity",
               e.available_quantity AS "availableQuantity",
-              e.status, e.description,
+              e.status, e.description, e.image_url AS "imageUrl",
               e.created_at AS "createdAt", e.updated_at AS "updatedAt",
               c.name AS "categoryName"
        FROM equipment e
@@ -57,7 +57,7 @@ export class PgEquipmentRepository implements IEquipmentRepository {
       `SELECT e.id, e.name, e.category_id AS "categoryId",
               e.total_quantity AS "totalQuantity",
               e.available_quantity AS "availableQuantity",
-              e.status, e.description,
+              e.status, e.description, e.image_url AS "imageUrl",
               e.created_at AS "createdAt", e.updated_at AS "updatedAt",
               c.name AS "categoryName"
        FROM equipment e
@@ -82,10 +82,10 @@ export class PgEquipmentRepository implements IEquipmentRepository {
     data: Omit<EquipmentEntity, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<EquipmentEntity> {
     const insertResult = await this.pool.query<{ id: number }>(
-      `INSERT INTO equipment (name, category_id, total_quantity, available_quantity, status, description)
-       VALUES ($1, $2, $3, $3, $4, $5)
+      `INSERT INTO equipment (name, category_id, total_quantity, available_quantity, status, description, image_url)
+       VALUES ($1, $2, $3, $3, $4, $5, $6)
        RETURNING id`,
-      [data.name, data.categoryId, data.totalQuantity, data.status, (data as any).description ?? null],
+      [data.name, data.categoryId, data.totalQuantity, data.status, (data as any).description ?? null, (data as any).imageUrl ?? null],
     );
     const created = await this.findById(insertResult.rows[0].id);
     if (!created) {
@@ -105,6 +105,7 @@ export class PgEquipmentRepository implements IEquipmentRepository {
     if (data.availableQuantity !== undefined) { sets.push(`available_quantity = $${idx++}`); values.push(data.availableQuantity); }
     if (data.status !== undefined)            { sets.push(`status = $${idx++}`);             values.push(data.status); }
     if ((data as any).description !== undefined) { sets.push(`description = $${idx++}`);    values.push((data as any).description); }
+    if ((data as any).imageUrl !== undefined)    { sets.push(`image_url = $${idx++}`);      values.push((data as any).imageUrl); }
 
     sets.push(`updated_at = NOW()`);
     values.push(id);

@@ -37,9 +37,8 @@ const { Title, Text } = Typography;
 
 const PAGE_SIZE = 15;
 
-const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
+const STATUS_CONFIG: Record<string, { label: string; color: string; hidden?: boolean }> = {
   active: { label: 'Hoạt động', color: 'green' },
-  borrow_blocked: { label: 'Cấm mượn', color: 'orange' },
   locked: { label: 'Bị khóa', color: 'red' },
 };
 
@@ -306,10 +305,12 @@ export default function AdminUsersPage() {
                 setStatusFilter(val);
               }}
               style={{ width: 160 }}
-              options={Object.entries(STATUS_CONFIG).map(([key, value]) => ({
-                value: key,
-                label: value.label,
-              }))}
+              options={Object.entries(STATUS_CONFIG)
+                .filter(([_, value]) => !value.hidden)
+                .map(([key, value]) => ({
+                  value: key,
+                  label: value.label,
+                }))}
             />
             <Input
               placeholder="Tìm tên hoặc email..."

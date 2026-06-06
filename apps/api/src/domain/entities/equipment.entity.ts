@@ -9,6 +9,7 @@ export interface EquipmentEntity {
   availableQuantity: number;
   status: EquipmentStatus;
   description?: string;
+  imageUrl?: string;
   createdAt: string;
   updatedAt: string;
 }

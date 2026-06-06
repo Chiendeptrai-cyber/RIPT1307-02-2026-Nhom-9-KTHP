@@ -5,6 +5,5 @@ export enum UserRole {
 
 export enum UserStatus {
   ACTIVE = 'active',
-  BORROW_BLOCKED = 'borrow_blocked',
   LOCKED = 'locked',
 }

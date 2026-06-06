@@ -62,6 +62,7 @@ export default defineConfig({
         { path: 'dashboard', component: 'admin/dashboard/index' },
         { path: 'requests', component: 'admin/requests/index' },
         { path: 'requests/:id', component: 'admin/requests/[id]' },
+        { path: 'due-overdue', component: 'admin/due-overdue/index' },
         { path: 'equipment', component: 'admin/equipment/index' },
         { path: 'users', component: 'admin/users/index' },
         { path: 'reports', component: 'admin/reports/index' },

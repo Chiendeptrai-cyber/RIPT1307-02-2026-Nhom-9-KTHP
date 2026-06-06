@@ -1,6 +1,8 @@
 import 'dotenv/config';
 import { createApp } from './app';
 import { startScheduler } from './infrastructure/jobs/scheduler';
+import { getPool } from './infrastructure/database/connection';
+import { runMigrations } from './infrastructure/database/migration-runner';
 import { ensureDefaultAdminUser } from './infrastructure/database/seed-admin';
 import { runSeeds, runMigrations } from './infrastructure/database/seed-runner';
 
@@ -8,11 +10,13 @@ const PORT = Number(process.env.PORT ?? 3000);
 
 const app = createApp();
 
-// Initialize default admin user before starting server
+// Run migrations → seed admin → seed sample data → start server
 (async () => {
   try {
-    console.log('Running database migrations...');
-    await runMigrations();
+    const pool = getPool();
+
+    console.log('📦 Running database migrations...');
+    await runMigrations(pool);
 
     console.log('Seeding default admin user...');
     await ensureDefaultAdminUser();
@@ -21,7 +25,7 @@ const app = createApp();
     console.log('Running sample data seeds...');
     await runSeeds();
   } catch (err) {
-    console.error('❌ Failed to seed database:', err);
+    console.error('❌ Failed to initialize database:', err);
     process.exit(1);
   }
 })();
