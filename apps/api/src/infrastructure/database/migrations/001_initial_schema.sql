@@ -17,9 +17,12 @@ CREATE TABLE users (
   password_hash TEXT NOT NULL,
   role user_role NOT NULL DEFAULT 'student',
   status user_status NOT NULL DEFAULT 'active',
+  phone_number TEXT,
+  avatar_url TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
+
 
 CREATE TABLE password_reset_tokens (
   id SERIAL PRIMARY KEY,

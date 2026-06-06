@@ -1,12 +1,16 @@
 import type { Request, Response } from 'express';
+import fs from 'fs';
+import path from 'path';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 import { UserRole, UserStatus } from '@equipment-mgmt/shared';
+import { BadRequestError } from '../../domain/errors/bad-request.error';
 import {
   listUsersUseCase,
   lockUserUseCase,
   getUserProfileUseCase,
   changePasswordUseCase,
   updateProfileUseCase,
+  userRepo,
 } from '../../infrastructure/container';
 
 export async function listUsers(req: Request, res: Response): Promise<void> {
@@ -86,12 +90,52 @@ export async function changePassword(req: Request, res: Response): Promise<void>
 }
 
 export async function updateProfile(req: Request, res: Response): Promise<void> {
-  const { fullName, email } = req.body;
+  const { fullName, email, phoneNumber, avatar } = req.body;
+
+  let avatarUrl: string | undefined = undefined;
+
+  if (avatar) {
+    const matches = avatar.match(/^data:image\/(png|jpeg|jpg);base64,(.+)$/);
+    if (!matches) {
+      throw new BadRequestError('Định dạng ảnh không hợp lệ. Chỉ chấp nhận JPG/PNG');
+    }
+    const ext = matches[1];
+    const dataBuffer = Buffer.from(matches[2], 'base64');
+    if (dataBuffer.length > 2 * 1024 * 1024) {
+      throw new BadRequestError('Kích thước ảnh không được vượt quá 2MB');
+    }
+
+    const uploadDir = process.env.UPLOAD_DIR ?? path.join(process.cwd(), 'uploads');
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+
+    // Clean up old avatar if exists
+    const user = await userRepo.findById(req.user!.userId);
+    if (user && user.avatarUrl) {
+      const oldFileName = user.avatarUrl.substring(user.avatarUrl.lastIndexOf('/') + 1);
+      const oldFilePath = path.join(uploadDir, oldFileName);
+      if (fs.existsSync(oldFilePath)) {
+        try {
+          fs.unlinkSync(oldFilePath);
+        } catch (e) {
+          console.error('Failed to delete old avatar', e);
+        }
+      }
+    }
+
+    const fileName = `avatar-${req.user!.userId}-${Date.now()}.${ext}`;
+    const filePath = path.join(uploadDir, fileName);
+    fs.writeFileSync(filePath, dataBuffer);
+    avatarUrl = `/api/v1/uploads/${fileName}`;
+  }
 
   const result = await updateProfileUseCase.execute({
     userId: req.user!.userId,
     fullName,
     email,
+    phoneNumber,
+    avatarUrl,
   });
 
   res.json({
