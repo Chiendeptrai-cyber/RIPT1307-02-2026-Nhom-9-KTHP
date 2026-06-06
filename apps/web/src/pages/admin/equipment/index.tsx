@@ -12,6 +12,8 @@ import {
 } from '@ant-design/icons';
 import { equipmentService, type Equipment, type StockAdjustType } from '../../../services/equipment.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { SystemLogAction } from '@equipment-mgmt/shared';
+import { createSystemLog } from '../../../mocks/systemLogStore';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -93,7 +95,25 @@ export default function AdminEquipmentPage() {
     setFormLoading(true);
     try {
       if (formModal.record) {
-        await equipmentService.update(formModal.record.id, { name: values.name, description: values.description });
+        const old = formModal.record;
+        await equipmentService.update(old.id, { name: values.name, description: values.description });
+        const changedFields: string[] = [];
+        if (values.name !== old.name) changedFields.push('name');
+        if (values.description !== old.description) changedFields.push('description');
+        if (changedFields.length > 0) {
+          createSystemLog({
+            adminId: 100, adminName: 'Admin',
+            action: SystemLogAction.UPDATE_EQUIPMENT, category: 'equipment',
+            targetId: old.id, targetLabel: `TB-${String(old.id).padStart(3, '0')} · ${values.name}`,
+            details: {
+              equipmentCode: `TB-${String(old.id).padStart(3, '0')}`,
+              equipmentName: values.name,
+              field: changedFields[0],
+              oldValue: changedFields[0] === 'name' ? old.name : (old as any).description ?? '',
+              newValue: changedFields[0] === 'name' ? values.name : values.description ?? '',
+            },
+          });
+        }
         message.success('Cập nhật thông tin thiết bị thành công');
       } else {
         await equipmentService.create({ name: values.name, totalQuantity: Number(values.totalQuantity), description: values.description, categoryId: 1 });
@@ -119,6 +139,31 @@ export default function AdminEquipmentPage() {
         newAvailableQuantity: values.newAvailableQuantity ? Number(values.newAvailableQuantity) : undefined,
         reason: values.reason,
       });
+      const actionMap: Record<string, SystemLogAction> = {
+        import: SystemLogAction.STOCK_IMPORT,
+        mark_damaged: SystemLogAction.STOCK_MARK_DAMAGED,
+        mark_lost: SystemLogAction.STOCK_MARK_LOST,
+        adjustment: SystemLogAction.STOCK_ADJUSTMENT,
+      };
+      const opLabelMap: Record<string, string> = {
+        import: 'Nhap them', mark_damaged: 'Ghi nhan hong',
+        mark_lost: 'Ghi nhan mat', adjustment: 'Dieu chinh truc tiep',
+      };
+      const rec = stockModal.record;
+      createSystemLog({
+        adminId: 100, adminName: 'Admin',
+        action: actionMap[adjustType] ?? SystemLogAction.STOCK_ADJUSTMENT,
+        category: 'stock',
+        targetId: rec.id, targetLabel: `TB-${String(rec.id).padStart(3, '0')} · ${rec.name}`,
+        details: {
+          equipmentCode: `TB-${String(rec.id).padStart(3, '0')}`,
+          equipmentName: rec.name,
+          operationLabel: opLabelMap[adjustType] ?? adjustType,
+          quantityChange: values.quantity ? `+${values.quantity}` : '—',
+          oldAvailable: String(rec.availableQuantity),
+          newAvailable: values.newAvailableQuantity ? String(values.newAvailableQuantity) : '—',
+        },
+      });
       message.success('Cập nhật kho thành công');
       setStockModal({ open: false }); load(page);
     } catch (e: any) { message.error(e?.message ?? 'Cập nhật kho thất bại'); }
@@ -133,6 +178,19 @@ export default function AdminEquipmentPage() {
     setStatusLoading(true);
     try {
       await equipmentService.changeStatus(statusModal.record.id, newStatus);
+      const rec = statusModal.record;
+      createSystemLog({
+        adminId: 100, adminName: 'Admin',
+        action: SystemLogAction.STOCK_STATUS_CHANGE, category: 'stock',
+        targetId: rec.id, targetLabel: `TB-${String(rec.id).padStart(3, '0')} · ${rec.name}`,
+        details: {
+          equipmentCode: `TB-${String(rec.id).padStart(3, '0')}`,
+          equipmentName: rec.name,
+          operationLabel: 'Chuyen trang thai',
+          oldStatus: rec.status,
+          newStatus: newStatus,
+        },
+      });
       message.success('Chuyển trạng thái thành công');
       setStatusModal({ open: false }); load(page);
     } catch (e: any) { message.error(e?.message ?? 'Chuyển trạng thái thất bại'); }

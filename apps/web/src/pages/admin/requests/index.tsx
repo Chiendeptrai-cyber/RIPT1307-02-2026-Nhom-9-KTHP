@@ -12,6 +12,8 @@ import {
 import dayjs from 'dayjs';
 import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { SystemLogAction } from '@equipment-mgmt/shared';
+import { createSystemLog } from '../../../mocks/systemLogStore';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -161,6 +163,12 @@ export default function AdminRequestsPage() {
     setRejectLoading(true);
     try {
       await borrowRequestService.reject(rejectModal.record.id, rejectReason.trim());
+      createSystemLog({
+        adminId: 100, adminName: 'Admin',
+        action: SystemLogAction.REJECT_REQUEST, category: 'approval',
+        targetId: displayCode(rejectModal.record), targetLabel: displayCode(rejectModal.record),
+        details: { studentName: rejectModal.record.userFullName ?? '', actionLabel: 'Tu choi', reason: rejectReason.trim() },
+      });
       message.success('Đã từ chối — thông báo đã gửi cho sinh viên');
       setRejectModal({ open: false });
       await Promise.all([refreshTab('pending'), refreshTab('rejected')]);
@@ -189,7 +197,16 @@ export default function AdminRequestsPage() {
           <Space size={6}>
             <Popconfirm title="Duyệt yêu cầu này?" okText="Duyệt" cancelText="Hủy"
               onConfirm={() => doAction(r.id, 'approve',
-                () => borrowRequestService.approve(r.id),
+                async () => {
+                  const res = await borrowRequestService.approve(r.id);
+                  createSystemLog({
+                    adminId: 100, adminName: 'Admin',
+                    action: SystemLogAction.APPROVE_REQUEST, category: 'approval',
+                    targetId: displayCode(r), targetLabel: displayCode(r),
+                    details: { studentName: r.userFullName ?? '', actionLabel: 'Duyet' },
+                  });
+                  return res;
+                },
                 'Đã duyệt — thông báo đã gửi cho sinh viên',
                 ['pending', 'approved']
               )}>

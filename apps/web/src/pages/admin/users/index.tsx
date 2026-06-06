@@ -35,6 +35,8 @@ import {
   type MockUser,
 } from '../../../mocks/offlineStorage';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { SystemLogAction } from '@equipment-mgmt/shared';
+import { createSystemLog } from '../../../mocks/systemLogStore';
 
 const { Title, Text } = Typography;
 
@@ -161,6 +163,17 @@ export default function AdminUsersPage() {
     writeUsers(readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users).map((item) => (
       item.id === user.id ? { ...item, status: nextStatus } : item
     )));
+    createSystemLog({
+      adminId: 100, adminName: 'Admin',
+      action: nextStatus === 'locked' ? SystemLogAction.LOCK_ACCOUNT : SystemLogAction.UNLOCK_ACCOUNT,
+      category: 'account',
+      targetId: user.id, targetLabel: user.fullName,
+      details: {
+        studentName: user.fullName,
+        actionLabel: nextStatus === 'locked' ? 'Khoa' : 'Mo khoa',
+        reason: nextStatus === 'locked' ? 'Khoa tai khoan thu cong' : 'Mo khoa tai khoan',
+      },
+    });
     message.success(nextStatus === 'locked' ? 'Đã khóa tài khoản' : 'Đã mở khóa tài khoản');
     load(page);
   };
