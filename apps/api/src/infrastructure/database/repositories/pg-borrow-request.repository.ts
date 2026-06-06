@@ -133,8 +133,13 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     let idx = 1;
 
     if (options?.status) {
-      conditions.push(`br.status = $${idx++}`);
-      values.push(options.status);
+      if (options.status === 'overdue') {
+        // Dynamically detect overdue: explicit 'overdue' status OR 'borrowing' past due date
+        conditions.push(`(br.status = 'overdue' OR (br.status = 'borrowing' AND br.expected_return_date < NOW()))`);
+      } else {
+        conditions.push(`br.status = $${idx++}`);
+        values.push(options.status);
+      }
     }
     if (options?.search) {
       conditions.push(`u.full_name ILIKE $${idx++}`);
