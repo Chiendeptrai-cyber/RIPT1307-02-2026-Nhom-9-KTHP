@@ -37,6 +37,7 @@ import {
   MarkReturnedUseCase,
 } from '../application/use-cases/borrow-request/borrow-lifecycle.use-cases';
 import { ListNotificationsUseCase }      from '../application/use-cases/notification/list-notifications.use-case';
+import { ListAllNotificationsUseCase }   from '../application/use-cases/notification/list-all-notifications.use-case';
 import { MarkNotificationReadUseCase }   from '../application/use-cases/notification/mark-notification-read.use-case';
 import { ListUsersUseCase }              from '../application/use-cases/user/list-users.use-case';
 import { LockUserUseCase }               from '../application/use-cases/user/lock-user.use-case';
@@ -93,6 +94,7 @@ export const markReturnedUseCase         = new MarkReturnedUseCase(borrowRequest
 
 // Notification use cases
 export const listNotificationsUseCase    = new ListNotificationsUseCase(notificationRepo);
+export const listAllNotificationsUseCase = new ListAllNotificationsUseCase(notificationRepo);
 export const markNotificationReadUseCase = new MarkNotificationReadUseCase(notificationRepo);
 
 // User use cases

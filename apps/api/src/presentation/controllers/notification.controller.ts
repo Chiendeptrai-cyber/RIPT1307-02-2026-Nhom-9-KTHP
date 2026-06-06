@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express';
 import {
   listNotificationsUseCase,
+  listAllNotificationsUseCase,
   markNotificationReadUseCase,
   notificationRepo,
   userRepo,
@@ -12,6 +13,18 @@ export async function listNotifications(req: Request, res: Response): Promise<vo
   const { page = '1', pageSize = '20' } = req.query as Record<string, string>;
 
   const result = await listNotificationsUseCase.execute(userId, Number(page), Number(pageSize));
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'OK',
+  } satisfies ApiResponse);
+}
+
+export async function listAllNotifications(req: Request, res: Response): Promise<void> {
+  const { page = '1', pageSize = '20' } = req.query as Record<string, string>;
+
+  const result = await listAllNotificationsUseCase.execute(Number(page), Number(pageSize));
 
   res.json({
     success: true,
@@ -90,5 +103,26 @@ export async function sendManualNotification(req: Request, res: Response): Promi
     data: { sent: targetUsers.length },
     message: `Đã gửi thông báo đến ${targetUsers.length} người dùng`,
   } satisfies ApiResponse);
+}
+
+export async function getSettings(req: Request, res: Response): Promise<void> {
+  const settings = await notificationRepo.getSettings();
+  res.json({ success: true, data: settings, message: 'OK' });
+}
+
+export async function updateSettings(req: Request, res: Response): Promise<void> {
+  await notificationRepo.updateSettings(req.body);
+  res.json({ success: true, data: null, message: 'Cập nhật cấu hình thành công' });
+}
+
+export async function getRetryQueue(req: Request, res: Response): Promise<void> {
+  const queue = await notificationRepo.getRetryQueue();
+  res.json({ success: true, data: queue, message: 'OK' });
+}
+
+export async function retryEmail(req: Request, res: Response): Promise<void> {
+  const { id } = req.params;
+  await notificationRepo.retryEmail(Number(id));
+  res.json({ success: true, data: null, message: 'Đã đưa vào tiến trình thử lại' });
 }
 

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Alert, Badge, Button, Card, Col, Divider, Form, Input, InputNumber,
   message, Modal, Row, Select, Space, Switch, Table, Tag, TimePicker, Tooltip, Typography,
@@ -21,14 +21,21 @@ interface NtfLog {
 }
 interface RetryItem {
   id: string; time: string; event: string; recipient: string;
-  email: string; tryNum: string; error: string;
+  email: string; tryNum: string; error: string; realId: number;
 }
 
-const MOCK_LOGS: NtfLog[] = [];
+const EVENT_TYPES = ['Yêu cầu mới', 'Đã duyệt', 'Từ chối', 'Bàn giao', 'Đã trả', 'Nhắc nhở', 'Quá hạn', 'Hệ thống'];
 
-const MOCK_RETRY: RetryItem[] = [];
-
-const EVENT_TYPES = ['Phiếu được duyệt','Phiếu bị từ chối','Nhắc trả sắp hạn','Cảnh báo quá hạn','Bàn giao thiết bị','Xác nhận đã trả'];
+const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
+  new_request:        { label: 'Yêu cầu mới',   color: 'blue' },
+  approved:           { label: 'Đã duyệt',       color: 'green' },
+  rejected:           { label: 'Từ chối',        color: 'red' },
+  checkout_confirmed: { label: 'Bàn giao',       color: 'purple' },
+  return_confirmed:   { label: 'Đã trả',         color: 'cyan' },
+  due_reminder:       { label: 'Nhắc nhở',       color: 'orange' },
+  overdue_alert:      { label: 'Quá hạn',        color: 'volcano' },
+  manual:             { label: 'Hệ thống',       color: 'blue' },
+};
 
 const CHANNEL_COLOR: Record<string,string> = {
   'Email + App': 'purple', 'Email': 'blue', 'Trong app': 'green',
@@ -43,6 +50,10 @@ export default function AdminNotificationsPage() {
   const [eventFilter, setEventFilter] = useState<string|undefined>();
   const [search, setSearch] = useState('');
   const [sendModal, setSendModal] = useState(false);
+  const [logs, setLogs] = useState<NtfLog[]>([]);
+  const [totalLogs, setTotalLogs] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [retryQueue, setRetryQueue] = useState<RetryItem[]>([]);
   const [sendForm] = Form.useForm();
 
   // Config state
@@ -57,8 +68,96 @@ export default function AdminNotificationsPage() {
   const [retryInterval, setRetryInterval] = useState(5);
   const [alertCron, setAlertCron]       = useState(true);
 
+  const fetchLogs = async () => {
+    setLoading(true);
+    try {
+      const res = await notificationService.listAll({ page: 1, pageSize: 100 });
+      if (res.success && res.data) {
+        const mapped = res.data.items.map((n: any) => ({
+          id: `NTF-${n.id}`,
+          time: dayjs(n.createdAt).format('DD/MM HH:mm'),
+          event: TYPE_CONFIG[n.type]?.label || n.type,
+          channel: 'Trong app',
+          recipient: n.recipient || `User ${n.userId}`,
+          content: `${n.title} - ${n.message}`.substring(0, 100),
+          tries: 1,
+          status: 'Đã gửi'
+        }));
+        setLogs(mapped);
+        setTotalLogs(res.data.total);
+      }
+    } catch (e) {
+      // ignore
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchSettings = async () => {
+    try {
+      const res = await notificationService.getSettings();
+      if (res.success && res.data && res.data.reminderHour) {
+        const s = res.data;
+        if (s.reminderHour) setReminderHour(dayjs(s.reminderHour, 'HH:mm'));
+        if (s.overdueHour) setOverdueHour(dayjs(s.overdueHour, 'HH:mm'));
+        if (s.scanDays !== undefined) setScanDays(s.scanDays);
+        if (s.sendToAdmin !== undefined) setSendToAdmin(s.sendToAdmin);
+        if (s.chApproved !== undefined) setChApproved(s.chApproved);
+        if (s.chRejected !== undefined) setChRejected(s.chRejected);
+        if (s.chHandover !== undefined) setChHandover(s.chHandover);
+        if (s.maxRetry !== undefined) setMaxRetry(s.maxRetry);
+        if (s.retryInterval !== undefined) setRetryInterval(s.retryInterval);
+        if (s.alertCron !== undefined) setAlertCron(s.alertCron);
+      }
+    } catch (e) {}
+  };
+
+  const fetchRetryQueue = async () => {
+    try {
+      const res = await notificationService.getRetryQueue();
+      if (res.success) {
+        setRetryQueue(res.data.map((item: any) => ({
+          id: item.id,
+          time: dayjs(item.time).format('DD/MM HH:mm'),
+          event: TYPE_CONFIG[item.event]?.label || item.event,
+          recipient: item.recipient,
+          email: item.email,
+          tryNum: item.tryNum,
+          error: item.error || 'N/A',
+          realId: item.realId
+        })));
+      }
+    } catch (e) {}
+  };
+
+  useEffect(() => {
+    fetchLogs();
+    fetchSettings();
+    fetchRetryQueue();
+  }, []);
+
+  const handleSaveSettings = async () => {
+    try {
+      await notificationService.updateSettings({
+        reminderHour: reminderHour.format('HH:mm'),
+        overdueHour: overdueHour.format('HH:mm'),
+        scanDays,
+        sendToAdmin,
+        chApproved,
+        chRejected,
+        chHandover,
+        maxRetry,
+        retryInterval,
+        alertCron,
+      });
+      message.success('Đã lưu cấu hình thông báo');
+    } catch (e) {
+      message.error('Lưu cấu hình thất bại');
+    }
+  };
+
   /* ── filtered logs ── */
-  const filteredLogs = MOCK_LOGS.filter(r => {
+  const filteredLogs = logs.filter(r => {
     const matchEvent = !eventFilter || r.event === eventFilter;
     const matchSearch = !search ||
       r.recipient.toLowerCase().includes(search.toLowerCase()) ||
@@ -92,13 +191,21 @@ export default function AdminNotificationsPage() {
     }},
     { title: 'Lỗi',        dataIndex: 'error',      render: v => <Text style={{ fontSize: 12, color: '#ff4d4f' }}>{v}</Text> },
     { title: 'Thao tác',   key: 'action', width: 90, render: (_, r) => (
-      <Button size="small" onClick={() => message.success(`Đã thử lại ${r.id}`)}>Thử lại</Button>
+      <Button size="small" onClick={async () => {
+        try {
+          await notificationService.retryEmail(r.realId);
+          message.success(`Đã đưa ${r.id} vào tiến trình thử lại`);
+          fetchRetryQueue();
+        } catch (e) {
+          message.error('Thử lại thất bại');
+        }
+      }}>Thử lại</Button>
     )},
   ];
 
   const tabs: { key: 'history'|'retry'|'config'; label: React.ReactNode }[] = [
-    { key: 'history', label: <span>Lịch sử gửi <Badge count={MOCK_LOGS.length} style={{ background: '#595959', marginLeft: 4 }} /></span> },
-    { key: 'retry',   label: <span>Hàng chờ retry <Badge count={MOCK_RETRY.length} style={{ background: SLINK_COLORS.primary, marginLeft: 4 }} /></span> },
+    { key: 'history', label: <span>Lịch sử gửi <Badge count={totalLogs} style={{ background: '#595959', marginLeft: 4 }} /></span> },
+    { key: 'retry',   label: <span>Hàng chờ retry <Badge count={retryQueue.length} style={{ background: SLINK_COLORS.primary, marginLeft: 4 }} /></span> },
     { key: 'config',  label: 'Cấu hình' },
   ];
 
@@ -147,7 +254,7 @@ export default function AdminNotificationsPage() {
           <div>
             <div style={{ padding: '14px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${SLINK_COLORS.border}` }}>
               <Text style={{ color: '#595959', borderLeft: `3px solid ${SLINK_COLORS.primary}`, paddingLeft: 8 }}>
-                Lịch sử gửi thông báo — <strong>{filteredLogs.length} bản ghi</strong>
+                Lịch sử gửi thông báo — <strong>{totalLogs} bản ghi</strong>
               </Text>
               <Space>
                 <Select
@@ -171,6 +278,7 @@ export default function AdminNotificationsPage() {
               dataSource={filteredLogs} columns={logColumns} rowKey="id"
               size="small" pagination={{ pageSize: 10, showTotal: c => `${c} bản ghi` }}
               style={{ padding: '0 4px' }}
+              loading={loading}
             />
           </div>
         )}
@@ -178,15 +286,15 @@ export default function AdminNotificationsPage() {
         {/* ── Tab: Hàng chờ retry ── */}
         {activeTab === 'retry' && (
           <div>
-            {MOCK_RETRY.length > 0 && (
+            {retryQueue.length > 0 && (
               <Alert
                 type="warning" showIcon
-                message={`${MOCK_RETRY.length} email đang chờ gửi lại — thử tối đa ${maxRetry} lần, cách nhau ${retryInterval} phút`}
+                message={`${retryQueue.length} email đang chờ gửi lại — thử tối đa ${maxRetry} lần, cách nhau ${retryInterval} phút`}
                 style={{ margin: 16, borderRadius: 6 }}
               />
             )}
             <Table<RetryItem>
-              dataSource={MOCK_RETRY} columns={retryColumns} rowKey="id"
+              dataSource={retryQueue} columns={retryColumns} rowKey="id"
               size="small" pagination={false}
               style={{ padding: '0 4px 16px' }}
             />
@@ -294,7 +402,7 @@ export default function AdminNotificationsPage() {
                   <div style={{ marginTop: 16, textAlign: 'right' }}>
                     <Button
                       type="primary" style={{ background: SLINK_COLORS.primary }}
-                      onClick={() => message.success('Đã lưu cấu hình thông báo')}
+                      onClick={handleSaveSettings}
                     >
                       Lưu cấu hình
                     </Button>
@@ -324,6 +432,7 @@ export default function AdminNotificationsPage() {
               });
               message.success(res.message ?? `Đã gửi thông báo thành công`);
               setSendModal(false); sendForm.resetFields();
+              fetchLogs();
             } catch (e: any) {
               message.error(e?.response?.data?.message ?? 'Gửi thông báo thất bại');
             }
