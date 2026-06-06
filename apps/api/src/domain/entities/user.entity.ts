@@ -7,6 +7,10 @@ export interface UserEntity {
   passwordHash: string;
   role: UserRole;
   status: UserStatus;
+  lockReason?: string | null;
+  lockedAt?: string | null;
+  lockedBy?: number | null;
   createdAt: string;
   updatedAt: string;
 }
+
