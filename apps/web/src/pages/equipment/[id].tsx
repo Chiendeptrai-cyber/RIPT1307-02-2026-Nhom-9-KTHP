@@ -99,6 +99,25 @@ export default function EquipmentDetailPage() {
 
         {/* Details */}
         <Descriptions column={{ xs: 1, sm: 2 }} bordered size="small">
+          <Descriptions.Item label="Mã thiết bị">
+            <span style={{ 
+              fontFamily: 'monospace', 
+              fontWeight: 600, 
+              color: SLINK_COLORS.primary,
+              background: 'rgba(191, 4, 4, 0.06)',
+              padding: '2px 8px',
+              borderRadius: 4,
+              border: '1px solid rgba(191, 4, 4, 0.15)',
+              fontSize: '12px'
+            }}>
+              EQ-{String(equipment.id).padStart(4, '0')}
+            </span>
+          </Descriptions.Item>
+          <Descriptions.Item label="Loại thiết bị">
+            <Tag color="cyan" style={{ borderRadius: 4, fontWeight: 500, margin: 0 }}>
+              {equipment.categoryName || 'Chung'}
+            </Tag>
+          </Descriptions.Item>
           <Descriptions.Item label="Tổng số lượng">{equipment.totalQuantity} chiếc</Descriptions.Item>
           <Descriptions.Item label="Còn có thể mượn">
             <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>

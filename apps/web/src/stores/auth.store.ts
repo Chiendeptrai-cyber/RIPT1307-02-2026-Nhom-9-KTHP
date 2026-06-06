@@ -7,6 +7,8 @@ export interface AuthUser {
   fullName: string;
   email: string;
   role: UserRole;
+  phoneNumber?: string | null;
+  avatarUrl?: string | null;
 }
 
 interface AuthStore {

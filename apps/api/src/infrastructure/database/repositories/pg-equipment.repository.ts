@@ -11,8 +11,11 @@ export class PgEquipmentRepository implements IEquipmentRepository {
               e.total_quantity AS "totalQuantity",
               e.available_quantity AS "availableQuantity",
               e.status, e.description,
-              e.created_at AS "createdAt", e.updated_at AS "updatedAt"
-       FROM equipment e WHERE e.id = $1 AND e.status != 'deleted'`,
+              e.created_at AS "createdAt", e.updated_at AS "updatedAt",
+              c.name AS "categoryName"
+       FROM equipment e
+       LEFT JOIN categories c ON e.category_id = c.id
+       WHERE e.id = $1 AND e.status != 'deleted'`,
       [id],
     );
     return result.rows[0] ?? null;
@@ -29,7 +32,7 @@ export class PgEquipmentRepository implements IEquipmentRepository {
     let idx = 1;
 
     if (options?.search) {
-      conditions.push(`e.name ILIKE $${idx++}`);
+      conditions.push(`unaccent(e.name) ILIKE unaccent($${idx++})`);
       values.push(`%${options.search}%`);
     }
     if (options?.categoryId) {
@@ -55,8 +58,11 @@ export class PgEquipmentRepository implements IEquipmentRepository {
               e.total_quantity AS "totalQuantity",
               e.available_quantity AS "availableQuantity",
               e.status, e.description,
-              e.created_at AS "createdAt", e.updated_at AS "updatedAt"
-       FROM equipment e ${where}
+              e.created_at AS "createdAt", e.updated_at AS "updatedAt",
+              c.name AS "categoryName"
+       FROM equipment e
+       LEFT JOIN categories c ON e.category_id = c.id
+       ${where}
        ORDER BY e.name ASC
        LIMIT $${idx++} OFFSET $${idx}`,
       values,
@@ -75,17 +81,17 @@ export class PgEquipmentRepository implements IEquipmentRepository {
   async create(
     data: Omit<EquipmentEntity, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<EquipmentEntity> {
-    const result = await this.pool.query<EquipmentEntity>(
+    const insertResult = await this.pool.query<{ id: number }>(
       `INSERT INTO equipment (name, category_id, total_quantity, available_quantity, status, description)
        VALUES ($1, $2, $3, $3, $4, $5)
-       RETURNING id, name, category_id AS "categoryId",
-                 total_quantity AS "totalQuantity",
-                 available_quantity AS "availableQuantity",
-                 status, description,
-                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+       RETURNING id`,
       [data.name, data.categoryId, data.totalQuantity, data.status, (data as any).description ?? null],
     );
-    return result.rows[0];
+    const created = await this.findById(insertResult.rows[0].id);
+    if (!created) {
+      throw new Error('Không thể tạo thiết bị');
+    }
+    return created;
   }
 
   async update(id: number, data: Partial<EquipmentEntity>): Promise<EquipmentEntity> {
@@ -103,16 +109,15 @@ export class PgEquipmentRepository implements IEquipmentRepository {
     sets.push(`updated_at = NOW()`);
     values.push(id);
 
-    const result = await this.pool.query<EquipmentEntity>(
-      `UPDATE equipment SET ${sets.join(', ')} WHERE id = $${idx}
-       RETURNING id, name, category_id AS "categoryId",
-                 total_quantity AS "totalQuantity",
-                 available_quantity AS "availableQuantity",
-                 status, description,
-                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+    await this.pool.query(
+      `UPDATE equipment SET ${sets.join(', ')} WHERE id = $${idx}`,
       values,
     );
-    return result.rows[0];
+    const updated = await this.findById(id);
+    if (!updated) {
+      throw new Error('Không thể tìm thấy thiết bị sau khi cập nhật');
+    }
+    return updated;
   }
 
   async decrementAvailable(id: number, amount: number): Promise<void> {
@@ -129,5 +134,22 @@ export class PgEquipmentRepository implements IEquipmentRepository {
        WHERE id = $2`,
       [amount, id],
     );
+  }
+
+  async listCategories(): Promise<{ id: number; name: string; description?: string }[]> {
+    const result = await this.pool.query<{ id: number; name: string; description?: string }>(
+      `SELECT id, name, description FROM categories ORDER BY name ASC`
+    );
+    return result.rows;
+  }
+
+  async createCategory(name: string, description?: string): Promise<{ id: number; name: string; description?: string }> {
+    const result = await this.pool.query<{ id: number; name: string; description?: string }>(
+      `INSERT INTO categories (name, description, created_at, updated_at)
+       VALUES ($1, $2, NOW(), NOW())
+       RETURNING id, name, description`,
+      [name, description ?? null],
+    );
+    return result.rows[0];
   }
 }

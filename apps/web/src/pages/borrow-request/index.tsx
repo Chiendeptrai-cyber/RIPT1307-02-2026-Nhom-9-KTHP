@@ -53,7 +53,7 @@ export default function BorrowRequestHistoryPage() {
     Modal.confirm({
       title: 'Hủy yêu cầu mượn',
       icon: <ExclamationCircleOutlined />,
-      content: `Bạn có chắc chắn muốn hủy yêu cầu mượn #${record.id}?`,
+      content: `Bạn có chắc chắn muốn hủy yêu cầu mượn ${record.displayCode || `PH-${String(record.id).padStart(5, '0')}`}?`,
       okText: 'Hủy yêu cầu',
       okButtonProps: { danger: true },
       cancelText: 'Không',
@@ -70,7 +70,47 @@ export default function BorrowRequestHistoryPage() {
   };
 
   const columns: ColumnsType<BorrowRequest> = [
-    { title: '#', dataIndex: 'id', key: 'id', width: 60 },
+    {
+      title: 'Mã yêu cầu',
+      dataIndex: 'displayCode',
+      key: 'displayCode',
+      width: 140,
+      render: (v, record) => {
+        const shortCode = v ? v.replace('PH-20', 'PH-') : `PH-${String(record.id).padStart(5, '0')}`;
+        return (
+          <span style={{ 
+            fontFamily: 'monospace',
+            fontWeight: 600,
+            color: SLINK_COLORS.primary,
+            background: 'rgba(191, 4, 4, 0.06)',
+            padding: '2px 6px',
+            borderRadius: 4,
+            border: '1px solid rgba(191, 4, 4, 0.12)',
+            fontSize: '11px',
+            whiteSpace: 'nowrap',
+          }}>
+            {shortCode}
+          </span>
+        );
+      },
+    },
+    {
+      title: 'Thiết bị',
+      key: 'equipment',
+      render: (_, record) => {
+        if (!record.equipmentName) return <Text type="secondary">—</Text>;
+        return (
+          <Space direction="vertical" size={2}>
+            <Text strong style={{ color: SLINK_COLORS.textBase }}>
+              {record.equipmentName}
+            </Text>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              Số lượng: <strong>{record.quantity ?? 1}</strong>
+            </Text>
+          </Space>
+        );
+      },
+    },
     {
       title: 'Ngày gửi',
       dataIndex: 'createdAt',

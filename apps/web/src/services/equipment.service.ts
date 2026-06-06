@@ -5,6 +5,7 @@ export interface Equipment {
   id: number;
   name: string;
   categoryId: number;
+  categoryName?: string;
   totalQuantity: number;
   availableQuantity: number;
   status: 'active' | 'under_maintenance' | 'damaged' | 'discontinued' | 'deleted';
@@ -24,6 +25,16 @@ export const equipmentService = {
     return res.data;
   },
 
+  async listCategories(): Promise<ApiResponse<{ id: number; name: string; description?: string }[]>> {
+    const res = await http.get<ApiResponse<{ id: number; name: string; description?: string }[]>>('/equipment/categories');
+    return res.data;
+  },
+
+  async createCategory(payload: { name: string; description?: string }): Promise<ApiResponse<{ id: number; name: string; description?: string }>> {
+    const res = await http.post<ApiResponse<{ id: number; name: string; description?: string }>>('/equipment/categories', payload);
+    return res.data;
+  },
+
   async getDetail(id: number): Promise<ApiResponse<Equipment>> {
     const res = await http.get<ApiResponse<Equipment>>(`/equipment/${id}`);
     return res.data;
@@ -34,7 +45,13 @@ export const equipmentService = {
     return res.data;
   },
 
-  async update(id: number, payload: { name?: string; description?: string }): Promise<ApiResponse<Equipment>> {
+  async update(id: number, payload: {
+    name?: string;
+    totalQuantity?: number;
+    status?: string;
+    categoryId?: number;
+    description?: string;
+  }): Promise<ApiResponse<Equipment>> {
     const res = await http.patch<ApiResponse<Equipment>>(`/equipment/${id}`, payload);
     return res.data;
   },

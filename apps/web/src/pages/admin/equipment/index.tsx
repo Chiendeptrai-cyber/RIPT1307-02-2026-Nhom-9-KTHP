@@ -1,9 +1,24 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  Alert, Badge, Button, Descriptions, Divider, Form, Input,
-  InputNumber, message, Modal, Popconfirm, Radio, Select,
-  Skeleton, Space, Table, Tag, Tooltip, Typography,
-} from 'antd';
+  Alert,
+  Badge,
+  Button,
+  Descriptions,
+  Divider,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Radio,
+  Select,
+  Skeleton,
+  Space,
+  Table,
+  Tag,
+  Tooltip,
+  Typography,
+} from "antd";
 import type { ColumnsType } from 'antd/es/table';
 import {
   DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined,
@@ -26,7 +41,14 @@ const STATUS_CFG: Record<string, { label: string; color: string; badge: 'success
   discontinued:      { label: 'Ngừng sử dụng',  color: 'default', badge: 'default' },
 };
 
-// Trạng thái có thể chuyển đến từ mỗi trạng thái
+interface EquipmentFormValues {
+  name: string;
+  categoryId: number;
+  totalQuantity: number;
+  status?: string;
+  description?: string;
+}
+
 const TRANSITIONS: Record<string, { value: string; label: string; danger?: boolean }[]> = {
   active:            [{ value: 'under_maintenance', label: 'Chuyển sang Sửa chữa' }, { value: 'damaged', label: 'Ghi nhận Hỏng', danger: true }],
   under_maintenance: [{ value: 'active', label: 'Đã sửa xong → Hoạt động' }, { value: 'discontinued', label: 'Ngừng sử dụng', danger: true }],
@@ -41,35 +63,34 @@ const ADJUST_TYPES: { value: StockAdjustType; label: string; desc: string; icon:
   { value: 'adjustment',  label: 'Điều chỉnh trực tiếp',   desc: 'Đặt giá trị tổng/sẵn sàng mới',     icon: <ApartmentOutlined />,    color: '#1677ff' },
 ];
 
-/* ─── Main Component ──────────────────────────────────────── */
 export default function AdminEquipmentPage() {
-  const [items, setItems]         = useState<Equipment[]>([]);
-  const [total, setTotal]         = useState(0);
-  const [page, setPage]           = useState(1);
-  const [loading, setLoading]     = useState(false);
-  const [error, setError]         = useState<string | null>(null);
-  const [search, setSearch]       = useState('');
+  const [items, setItems] = useState<Equipment[]>([]);
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
   const [statusFilter, setStatusFilter] = useState<string | undefined>();
 
-  // Create/Edit modal
   const [formModal, setFormModal] = useState<{ open: boolean; record?: Equipment }>({ open: false });
   const [formLoading, setFormLoading] = useState(false);
   const [infoForm] = Form.useForm();
 
-  // Stock adjustment modal
+  const [newCategoryName, setNewCategoryName] = useState('');
+  const [addingCategory, setAddingCategory] = useState(false);
+
   const [stockModal, setStockModal] = useState<{ open: boolean; record?: Equipment }>({ open: false });
   const [adjustType, setAdjustType] = useState<StockAdjustType>('import');
   const [stockForm] = Form.useForm();
   const [stockLoading, setStockLoading] = useState(false);
 
-  // Status change modal
   const [statusModal, setStatusModal] = useState<{ open: boolean; record?: Equipment }>({ open: false });
   const [newStatus, setNewStatus] = useState('');
   const [statusLoading, setStatusLoading] = useState(false);
 
   const searchTimer = useRef<ReturnType<typeof setTimeout>>();
 
-  /* ── Load ──────────────────────────────────────────────── */
   const load = useCallback(async (p = 1) => {
     setLoading(true); setError(null);
     try {
@@ -82,13 +103,43 @@ export default function AdminEquipmentPage() {
   useEffect(() => {
     clearTimeout(searchTimer.current);
     searchTimer.current = setTimeout(() => load(1), 300);
-  }, [search, statusFilter]);
+  }, [search, statusFilter, load]);
 
-  /* ── Create / Edit info ────────────────────────────────── */
+  useEffect(() => {
+    equipmentService.listCategories()
+      .then((res) => { if (res.success && res.data) setCategories(res.data); })
+      .catch((err) => console.error('Failed to load categories', err));
+  }, []);
+
+  const handleAddCategory = async () => {
+    if (!newCategoryName.trim()) { message.warning('Vui lòng nhập tên loại thiết bị'); return; }
+    setAddingCategory(true);
+    try {
+      const res = await equipmentService.createCategory({ name: newCategoryName.trim() });
+      if (res.success && res.data) {
+        const newCat = { id: res.data.id, name: res.data.name };
+        setCategories((prev) => [...prev, newCat]);
+        infoForm.setFieldValue('categoryId', res.data.id);
+        setNewCategoryName('');
+        message.success(`Đã thêm loại thiết bị: ${res.data.name}`);
+      } else {
+        message.error(res.message || 'Không thể tạo loại thiết bị');
+      }
+    } catch (err: any) {
+      message.error(err?.response?.data?.message || err?.message || 'Có lỗi xảy ra');
+    } finally { setAddingCategory(false); }
+  };
+
   const openCreate = () => { setFormModal({ open: true }); infoForm.resetFields(); };
   const openEdit = (r: Equipment) => {
     setFormModal({ open: true, record: r });
-    infoForm.setFieldsValue({ name: r.name, description: r.description });
+    infoForm.setFieldsValue({
+      name: r.name,
+      description: r.description,
+      totalQuantity: r.totalQuantity,
+      categoryId: (r as any).categoryId ?? undefined,
+      status: r.status,
+    });
   };
 
   const handleFormSubmit = async (values: any) => {
@@ -116,15 +167,20 @@ export default function AdminEquipmentPage() {
         }
         message.success('Cập nhật thông tin thiết bị thành công');
       } else {
-        await equipmentService.create({ name: values.name, totalQuantity: Number(values.totalQuantity), description: values.description, categoryId: 1 });
-        message.success('Thêm thiết bị mới thành công');
+        await equipmentService.create({
+          name: values.name,
+          totalQuantity: Number(values.totalQuantity),
+          description: values.description,
+          categoryId: values.categoryId,
+          status: values.status ?? 'active',
+        });
+        message.success('Thêm thiết bị thành công');
       }
       setFormModal({ open: false }); load(page);
     } catch (e: any) { message.error(e?.message ?? 'Có lỗi xảy ra'); }
     finally { setFormLoading(false); }
   };
 
-  /* ── Stock adjustment ──────────────────────────────────── */
   const openStock = (r: Equipment) => { setStockModal({ open: true, record: r }); setAdjustType('import'); stockForm.resetFields(); };
 
   const handleStockSubmit = async (values: any) => {
@@ -149,7 +205,7 @@ export default function AdminEquipmentPage() {
         import: 'Nhap them', mark_damaged: 'Ghi nhan hong',
         mark_lost: 'Ghi nhan mat', adjustment: 'Dieu chinh truc tiep',
       };
-      const rec = stockModal.record;
+      const rec = stockModal.record!;
       createSystemLog({
         adminId: 100, adminName: 'Admin',
         action: actionMap[adjustType] ?? SystemLogAction.STOCK_ADJUSTMENT,
@@ -170,7 +226,6 @@ export default function AdminEquipmentPage() {
     finally { setStockLoading(false); }
   };
 
-  /* ── Status change ─────────────────────────────────────── */
   const openStatus = (r: Equipment) => { setStatusModal({ open: true, record: r }); setNewStatus(''); };
 
   const handleStatusChange = async () => {
@@ -178,7 +233,7 @@ export default function AdminEquipmentPage() {
     setStatusLoading(true);
     try {
       await equipmentService.changeStatus(statusModal.record.id, newStatus);
-      const rec = statusModal.record;
+      const rec = statusModal.record!;
       createSystemLog({
         adminId: 100, adminName: 'Admin',
         action: SystemLogAction.STOCK_STATUS_CHANGE, category: 'stock',
@@ -197,7 +252,6 @@ export default function AdminEquipmentPage() {
     finally { setStatusLoading(false); }
   };
 
-  /* ── Delete ────────────────────────────────────────────── */
   const handleDelete = (r: Equipment) => {
     const hasStock = r.availableQuantity > 0;
     Modal.confirm({
@@ -232,16 +286,46 @@ export default function AdminEquipmentPage() {
     });
   };
 
-  /* ── Columns ───────────────────────────────────────────── */
   const columns: ColumnsType<Equipment> = [
     {
+      title: 'Mã thiết bị',
+      dataIndex: 'id',
+      key: 'id',
+      width: 120,
+      render: (id: number) => (
+        <span style={{ 
+          fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
+          fontWeight: 600,
+          color: SLINK_COLORS.primary,
+          background: 'rgba(191, 4, 4, 0.06)',
+          padding: '2px 8px',
+          borderRadius: 4,
+          border: '1px solid rgba(191, 4, 4, 0.15)',
+          fontSize: '12px'
+        }}>
+          EQ-{String(id).padStart(4, '0')}
+        </span>
+      ),
+    },
+    {
       title: 'Tên thiết bị',
+      dataIndex: 'name',
       key: 'name',
-      render: (_, r) => (
+      render: (name, r) => (
         <div>
-          <Text strong style={{ fontSize: 13 }}>{r.name}</Text>
+          <Text strong style={{ fontSize: 13 }}>{name}</Text>
           {r.description && <><br /><Text type="secondary" style={{ fontSize: 12 }}>{r.description}</Text></>}
         </div>
+      ),
+    },
+    {
+      title: 'Loại thiết bị',
+      dataIndex: 'categoryName',
+      key: 'categoryName',
+      render: (categoryName?: string) => (
+        <Tag color="cyan" style={{ borderRadius: 4, fontWeight: 500 }}>
+          {categoryName || 'Chung'}
+        </Tag>
       ),
     },
     {
@@ -301,7 +385,6 @@ export default function AdminEquipmentPage() {
     },
   ];
 
-  /* ─── Render ───────────────────────────────────────────── */
   return (
     <div style={{ padding: 24, background: SLINK_COLORS.surface, minHeight: '100vh' }}>
       {/* Header */}
@@ -326,7 +409,6 @@ export default function AdminEquipmentPage() {
             style={{ background: SLINK_COLORS.primary }}>Thêm thiết bị</Button>
         </div>
 
-        {/* Table */}
         {loading ? <div style={{ padding: 24 }}><Skeleton active paragraph={{ rows: 8 }} /></div> : (
           <Table<Equipment>
             dataSource={items} columns={columns} rowKey="id"
@@ -352,13 +434,45 @@ export default function AdminEquipmentPage() {
           <Form.Item name="name" label="Tên thiết bị" rules={[{ required: true, message: 'Vui lòng nhập tên' }]}>
             <Input placeholder="Ví dụ: Máy chiếu Epson EB-X41" />
           </Form.Item>
-          {!formModal.record && (
-            <Form.Item name="totalQuantity" label="Số lượng ban đầu" rules={[{ required: true, message: 'Nhập số lượng' }]}>
-              <InputNumber min={1} style={{ width: '100%' }} placeholder="Nhập số lượng" />
-            </Form.Item>
-          )}
-          <Form.Item name="description" label="Mô tả / Quy định mượn">
-            <TextArea rows={3} maxLength={300} showCount placeholder="Mô tả thiết bị, quy định sử dụng..." />
+          <Form.Item name="categoryId" label="Loại thiết bị" rules={[{ required: true, message: 'Vui lòng chọn loại thiết bị' }]}> 
+            <Select
+              placeholder="Chọn loại thiết bị"
+              options={categories.map((c) => ({ value: c.id, label: c.name }))}
+              dropdownRender={(menu) => (
+                <>
+                  {menu}
+                  <Divider style={{ margin: '8px 0' }} />
+                  <Space style={{ padding: '0 8px 4px', display: 'flex', width: '100%' }}>
+                    <Input
+                      placeholder="Tên loại mới..."
+                      value={newCategoryName}
+                      onChange={(e) => setNewCategoryName(e.target.value)}
+                      onKeyDown={(e) => e.stopPropagation()}
+                      style={{ flex: 1 }}
+                    />
+                    <Button
+                      type="primary"
+                      size="small"
+                      icon={<PlusOutlined />}
+                      onClick={handleAddCategory}
+                      loading={addingCategory}
+                      style={{ background: SLINK_COLORS.primary }}
+                    >
+                      Thêm
+                    </Button>
+                  </Space>
+                </>
+              )}
+            />
+          </Form.Item>
+          <Form.Item name="totalQuantity" label="Tổng số lượng" rules={[{ required: true, message: 'Nhập số lượng' }]}>
+            <InputNumber min={1} style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item name="status" label="Trạng thái" initialValue="active">
+            <Select options={[{ value: 'active', label: 'Hoạt động' }, { value: 'under_maintenance', label: 'Bảo trì' }]} />
+          </Form.Item>
+          <Form.Item name="description" label="Mô tả">
+            <Input.TextArea rows={3} maxLength={200} showCount />
           </Form.Item>
         </Form>
       </Modal>
@@ -377,7 +491,6 @@ export default function AdminEquipmentPage() {
       >
         {stockModal.record && (
           <>
-            {/* Số liệu hiện tại */}
             <Descriptions size="small" bordered column={2} style={{ marginBottom: 16 }}>
               <Descriptions.Item label="Tổng">{stockModal.record.totalQuantity}</Descriptions.Item>
               <Descriptions.Item label="Sẵn sàng">{stockModal.record.availableQuantity}</Descriptions.Item>
@@ -385,7 +498,6 @@ export default function AdminEquipmentPage() {
               <Descriptions.Item label="Trạng thái"><Tag color={STATUS_CFG[stockModal.record.status]?.color}>{STATUS_CFG[stockModal.record.status]?.label}</Tag></Descriptions.Item>
             </Descriptions>
 
-            {/* Chọn loại điều chỉnh */}
             <div style={{ marginBottom: 16 }}>
               <Text strong style={{ display: 'block', marginBottom: 8 }}>Loại điều chỉnh:</Text>
               <Radio.Group value={adjustType} onChange={e => { setAdjustType(e.target.value); stockForm.resetFields(); }} style={{ width: '100%' }}>

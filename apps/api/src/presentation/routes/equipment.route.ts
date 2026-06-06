@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import {
+
   listEquipment, getEquipmentDetail, createEquipment,
-  updateEquipment, deleteEquipment, stockAdjustment, changeEquipmentStatus,
+  updateEquipment, deleteEquipment, stockAdjustment, changeEquipmentStatus,listCategories, createCategory,
+
 } from '../controllers/equipment.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize }    from '../middlewares/authorize.middleware';
@@ -11,6 +13,8 @@ const router: import('express').Router = Router();
 
 // Public
 router.get('/', listEquipment);
+router.get('/categories', listCategories);
+router.post('/categories', authenticate, authorize(UserRole.ADMIN), createCategory);
 router.get('/:id', getEquipmentDetail);
 
 // Admin only

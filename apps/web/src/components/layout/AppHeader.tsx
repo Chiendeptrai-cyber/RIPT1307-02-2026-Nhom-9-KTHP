@@ -341,6 +341,7 @@ export default function AppHeader({ title }: Props) {
           <div className="slink-user-btn" style={{ display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
             <Avatar
               size={32}
+              src={user?.avatarUrl || undefined}
               icon={<UserOutlined />}
               style={{ backgroundColor: SLINK_COLORS.primary, flexShrink: 0 }}
             />

@@ -7,6 +7,8 @@ export interface UserEntity {
   passwordHash: string;
   role: UserRole;
   status: UserStatus;
+  phoneNumber?: string | null;
+  avatarUrl?: string | null;
   createdAt: string;
   updatedAt: string;
 }
