@@ -37,6 +37,8 @@ import { UpdateProfileUseCase } from '../application/use-cases/user/update-profi
 import { GetDashboardStatsUseCase } from '../application/use-cases/report/get-dashboard-stats.use-case';
 import { ExportReportUseCase } from '../application/use-cases/report/export-report.use-case';
 
+import { HandoverEquipmentUseCase } from '../application/use-cases/borrow-request/handover-equipment.use-case';
+import { ReturnEquipmentUseCase } from '../application/use-cases/borrow-request/return-equipment.use-case';
 import { NodemailerEmailService } from './services/nodemailer-email.service';
 
 const pool = getPool();
@@ -76,6 +78,8 @@ export const cancelBorrowRequestUseCase = new CancelBorrowRequestUseCase(borrowR
 export const markReceivedUseCase = new MarkReceivedUseCase(borrowRequestRepo, notificationRepo, userRepo, emailService);
 export const markNotReceivedUseCase = new MarkNotReceivedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo);
 export const markReturnedUseCase = new MarkReturnedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo, userRepo, emailService);
+export const handoverEquipmentUseCase = new HandoverEquipmentUseCase(borrowRequestRepo, notificationRepo);
+export const returnEquipmentUseCase = new ReturnEquipmentUseCase(borrowRequestRepo, borrowRecordRepo, equipmentRepo, notificationRepo);
 
 // Notification use cases
 export const listNotificationsUseCase = new ListNotificationsUseCase(notificationRepo);

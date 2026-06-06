@@ -9,6 +9,8 @@ import {
   markReceived,
   markNotReceived,
   markReturned,
+  handover,
+  returnEquipment,
 } from '../controllers/borrow-request.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize } from '../middlewares/authorize.middleware';

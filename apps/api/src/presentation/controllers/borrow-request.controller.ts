@@ -7,11 +7,11 @@ import {
   markReceivedUseCase,
   markNotReceivedUseCase,
   markReturnedUseCase,
+  handoverEquipmentUseCase,
+  returnEquipmentUseCase,
   borrowRequestRepo,
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
-import { HandoverEquipmentUseCase } from '../../application/use-cases/borrow-request/handover-equipment.use-case';
-import { ReturnEquipmentUseCase } from '../../application/use-cases/borrow-request/return-equipment.use-case';
 
 export async function createBorrowRequest(req: Request, res: Response): Promise<void> {
   const userId = req.user!.userId;
@@ -135,5 +135,33 @@ export async function markReturned(req: Request, res: Response): Promise<void> {
     success: true,
     data: result,
     message: 'Đã xác nhận nhận lại thiết bị — phiếu chuyển sang trạng thái Đã trả',
+  } satisfies ApiResponse);
+}
+
+/** Admin: Bàn giao thiết bị cho sinh viên (approved → borrowing) */
+export async function handover(req: Request, res: Response): Promise<void> {
+  const borrowRequestId = Number(req.params.id);
+  const adminId = req.user!.userId;
+
+  await handoverEquipmentUseCase.execute({ borrowRequestId, adminId });
+
+  res.json({
+    success: true,
+    data: null,
+    message: 'Bàn giao thiết bị thành công',
+  } satisfies ApiResponse);
+}
+
+/** Admin: Xác nhận trả thiết bị (borrowing → returned) */
+export async function returnEquipment(req: Request, res: Response): Promise<void> {
+  const borrowRequestId = Number(req.params.id);
+  const adminId = req.user!.userId;
+
+  await returnEquipmentUseCase.execute({ borrowRequestId, adminId });
+
+  res.json({
+    success: true,
+    data: null,
+    message: 'Trả thiết bị thành công',
   } satisfies ApiResponse);
 }
