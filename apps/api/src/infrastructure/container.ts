@@ -99,5 +99,4 @@ export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(
 export const exportReportUseCase = new ExportReportUseCase(borrowRecordRepo);
 
 // Expose repos for controllers that need direct listAll
-// THÊM MỚI: Export thêm borrowRecordRepo nếu cần dùng sau này
-export { borrowRequestRepo, userRepo, equipmentRepo, borrowRecordRepo };
+export { borrowRequestRepo, userRepo, equipmentRepo };

@@ -15,7 +15,7 @@ export class HandoverEquipmentUseCase {
   constructor(
     private borrowRequestRepo: IBorrowRequestRepository,
     private notificationRepo: INotificationRepository
-  ) {}
+  ) { }
 
   async execute(input: HandoverEquipmentInput): Promise<void> {
     const { borrowRequestId, adminId } = input;
@@ -28,7 +28,7 @@ export class HandoverEquipmentUseCase {
 
     // 2. Ràng buộc nghiệp vụ
     // Thay thế dòng throw mới:
-    if (request.status !=BorrowRequestStatus.APPROVED) {
+    if (request.status != BorrowRequestStatus.APPROVED) {
       throw new AppError(
         'Thiết bị chỉ có thể được bàn giao khi phiếu ở trạng thái Đã duyệt.',
         400,
