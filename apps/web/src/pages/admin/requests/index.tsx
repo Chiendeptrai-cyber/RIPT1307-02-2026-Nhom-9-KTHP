@@ -1,92 +1,85 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Alert, Button, Form, Input, message, Modal, Popconfirm,
-  Skeleton, Space, Table, Tag, Typography, Badge,
+  Skeleton, Space, Table, Tag, Typography,
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import {
   CheckCircleOutlined, CloseCircleOutlined, FileTextOutlined,
-  SearchOutlined, InboxOutlined, StopOutlined, RollbackOutlined, EyeOutlined,
+  SearchOutlined, InboxOutlined, StopOutlined, RollbackOutlined,
+  EyeOutlined, ReloadOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { SystemLogAction } from '@equipment-mgmt/shared';
+import { createSystemLog } from '../../../mocks/systemLogStore';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
-/* ─── Tab definitions ─────────────────────────────────────── */
+/* ─── Types ──────────────────────────────────────────────── */
 type TabKey = 'pending' | 'approved' | 'borrowing' | 'overdue' | 'returned' | 'cancelled' | 'rejected';
 
-interface TabDef {
-  key: TabKey;
-  label: string;
-  color: string;
-  badgeColor: string;
-}
-
+interface TabDef { key: TabKey; label: string; color: string; }
 const TABS: TabDef[] = [
-  { key: 'pending',   label: 'Chờ duyệt',  color: '#fa8c16', badgeColor: '#fa8c16' },
-  { key: 'approved',  label: 'Đã duyệt',   color: '#1677ff', badgeColor: '#1677ff' },
-  { key: 'borrowing', label: 'Đang mượn',  color: '#722ed1', badgeColor: '#722ed1' },
-  { key: 'overdue',   label: 'Quá hạn',    color: '#cf1322', badgeColor: '#cf1322' },
-  { key: 'returned',  label: 'Đã trả',     color: '#389e0d', badgeColor: '#389e0d' },
-  { key: 'cancelled', label: 'Đã hủy',     color: '#8c8c8c', badgeColor: '#8c8c8c' },
-  { key: 'rejected',  label: 'Từ chối',    color: '#ff4d4f', badgeColor: '#ff4d4f' },
+  { key: 'pending',   label: 'Chờ duyệt',  color: '#fa8c16' },
+  { key: 'approved',  label: 'Đã duyệt',   color: '#1677ff' },
+  { key: 'borrowing', label: 'Đang mượn',  color: '#722ed1' },
+  { key: 'overdue',   label: 'Quá hạn',    color: '#cf1322' },
+  { key: 'returned',  label: 'Đã trả',     color: '#389e0d' },
+  { key: 'cancelled', label: 'Đã hủy',     color: '#8c8c8c' },
+  { key: 'rejected',  label: 'Từ chối',    color: '#ff4d4f' },
 ];
 
 /* ─── Helpers ─────────────────────────────────────────────── */
-const fmt = (v?: string | null) => (v ? dayjs(v).format('DD/MM/YYYY') : '—');
-const fmtFull = (v?: string | null) => (v ? dayjs(v).format('DD/MM/YYYY HH:mm') : '—');
+const fmt = (v?: string | null) => v ? dayjs(v).format('DD/MM/YYYY') : '—';
+const fmtFull = (v?: string | null) => v ? dayjs(v).format('DD/MM/YYYY HH:mm') : '—';
+const daysFromNow = (d?: string | null) => d ? dayjs(d).diff(dayjs().startOf('day'), 'day') : 0;
+const displayCode = (r: BorrowRequest) =>
+  r.displayCode ?? `PH-${dayjs(r.createdAt).format('YYYYMMDD')}-${String(r.id).padStart(5, '0')}`;
 
-function daysFromNow(dateStr?: string | null): number {
-  if (!dateStr) return 0;
-  return dayjs(dateStr).diff(dayjs().startOf('day'), 'day');
-}
-
-function CountdownBadge({ dateStr, warnDays = 1, label = '' }: { dateStr?: string | null; warnDays?: number; label?: string }) {
+function Countdown({ dateStr, warnDays = 1 }: { dateStr?: string | null; warnDays?: number }) {
   const days = daysFromNow(dateStr);
-  const color = days <= warnDays ? '#ff4d4f' : days <= 3 ? '#fa8c16' : '#389e0d';
-  return (
-    <span style={{ color, fontWeight: 600 }}>
-      {days > 0 ? `Còn ${days} ngày` : days === 0 ? 'Hôm nay' : `Quá ${Math.abs(days)} ngày`}
-      {label && <span style={{ fontWeight: 400, color: '#8c8c8c', marginLeft: 4 }}>{label}</span>}
-    </span>
-  );
+  const color = days <= 0 ? '#ff4d4f' : days <= warnDays ? '#fa8c16' : '#389e0d';
+  return <span style={{ color, fontWeight: 600 }}>
+    {days > 0 ? `Còn ${days} ngày` : days === 0 ? 'Hôm nay' : `Quá ${Math.abs(days)} ngày`}
+  </span>;
 }
 
-function EquipmentCell({ record }: { record: BorrowRequest }) {
-  return (
-    <div>
-      <Text style={{ fontSize: 13 }}>{record.equipmentName ?? <Text type="secondary">—</Text>}</Text>
-      {record.quantity && (
-        <><br /><Text type="secondary" style={{ fontSize: 12 }}>SL: {record.quantity}</Text></>
-      )}
-    </div>
-  );
+function StudentCell({ r }: { r: BorrowRequest }) {
+  return <div>
+    <Text strong style={{ fontSize: 13 }}>{r.userFullName ?? '—'}</Text><br />
+    <Text type="secondary" style={{ fontSize: 12 }}>{r.userEmail ?? ''}</Text>
+  </div>;
 }
 
-function StudentCell({ record }: { record: BorrowRequest }) {
-  return (
-    <div>
-      <Text strong style={{ fontSize: 13 }}>{record.userFullName ?? '—'}</Text>
-      <br />
-      <Text type="secondary" style={{ fontSize: 12 }}>{record.userEmail ?? ''}</Text>
-    </div>
-  );
+function EqCell({ r }: { r: BorrowRequest }) {
+  return <div>
+    <Text style={{ fontSize: 13 }}>{r.equipmentName ?? '—'}</Text>
+    {r.quantity && <><br /><Text type="secondary" style={{ fontSize: 12 }}>SL: {r.quantity}</Text></>}
+  </div>;
 }
 
-/* ─── Main Component ──────────────────────────────────────── */
+function CodeCell({ r }: { r: BorrowRequest }) {
+  return <Text code style={{ fontSize: 12, color: SLINK_COLORS.primary, fontWeight: 600 }}>
+    {displayCode(r)}
+  </Text>;
+}
+
+/* ─── Cache type ──────────────────────────────────────────── */
+interface TabCache { items: BorrowRequest[]; total: number; page: number; }
+type CacheMap = Partial<Record<TabKey, TabCache>>;
+
+/* ─── Main ────────────────────────────────────────────────── */
 export default function AdminRequestsPage() {
   const [activeTab, setActiveTab] = useState<TabKey>('pending');
-  const [items, setItems] = useState<BorrowRequest[]>([]);
-  const [counts, setCounts] = useState<Partial<Record<TabKey, number>>>({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [search, setSearch] = useState('');
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [cache, setCache] = useState<CacheMap>({});
+  const [initialLoading, setInitialLoading] = useState(true);  // first load
+  const [refreshing, setRefreshing] = useState(false);         // silent refresh indicator
   const [actionLoading, setActionLoading] = useState<Record<number, string>>({});
+  const [search, setSearch] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   // Reject modal
   const [rejectModal, setRejectModal] = useState<{ open: boolean; record?: BorrowRequest }>({ open: false });
@@ -97,37 +90,66 @@ export default function AdminRequestsPage() {
   // Detail modal
   const [detailModal, setDetailModal] = useState<{ open: boolean; record?: BorrowRequest }>({ open: false });
 
-  const load = useCallback(async (p = 1, tab = activeTab) => {
-    setLoading(true);
+  // Search debounce
+  const searchTimer = useRef<ReturnType<typeof setTimeout>>();
+
+  /* ── Fetch a single tab ─────────────────────────────────── */
+  const fetchTab = useCallback(async (tab: TabKey, page = 1, searchVal = '') => {
+    const res = await borrowRequestService.listAll({
+      page, pageSize: 15, status: tab,
+      search: searchVal || undefined,
+    });
+    if (res.success && res.data) {
+      setCache(prev => ({ ...prev, [tab]: { items: res.data!.items, total: res.data!.total, page } }));
+    }
+  }, []);
+
+  /* ── Initial: load ALL tabs in parallel ─────────────────── */
+  const loadAll = useCallback(async (searchVal = '') => {
     setError(null);
     try {
-      const res = await borrowRequestService.listAll({ page: p, pageSize: 15, status: tab, search: search || undefined });
-      if (res.success && res.data) {
-        setItems(res.data.items);
-        setTotal(res.data.total);
-        setPage(p);
-        setCounts(prev => ({ ...prev, [tab]: res.data!.total }));
-      }
+      await Promise.all(TABS.map(t => fetchTab(t.key, 1, searchVal)));
     } catch (e: any) {
-      setError(e?.message ?? 'Không thể tải danh sách');
-    } finally {
-      setLoading(false);
+      setError(e?.message ?? 'Không thể tải dữ liệu');
     }
-  }, [search, activeTab]);
+  }, [fetchTab]);
 
-  useEffect(() => { load(1, activeTab); }, [activeTab, search]);
+  useEffect(() => {
+    setInitialLoading(true);
+    loadAll('').finally(() => setInitialLoading(false));
+  }, []);
 
-  const setRowLoading = (id: number, action: string) =>
-    setActionLoading(prev => ({ ...prev, [id]: action }));
-  const clearRowLoading = (id: number) =>
-    setActionLoading(prev => { const n = { ...prev }; delete n[id]; return n; });
+  /* ── Search: debounce then reload all tabs ──────────────── */
+  useEffect(() => {
+    clearTimeout(searchTimer.current);
+    searchTimer.current = setTimeout(() => {
+      setRefreshing(true);
+      loadAll(search).finally(() => setRefreshing(false));
+    }, 400);
+  }, [search]);
 
-  const doAction = async (id: number, action: string, fn: () => Promise<any>, successMsg: string) => {
+  /* ── Silent refresh a specific tab after action ─────────── */
+  const refreshTab = async (tab: TabKey) => {
+    const cur = cache[tab];
+    await fetchTab(tab, cur?.page ?? 1, search);
+  };
+
+  /* ── Page change for current tab ───────────────────────── */
+  const handlePageChange = async (p: number) => {
+    await fetchTab(activeTab, p, search);
+  };
+
+  /* ── Action helper ──────────────────────────────────────── */
+  const setRowLoading = (id: number, a: string) => setActionLoading(p => ({ ...p, [id]: a }));
+  const clearRowLoading = (id: number) => setActionLoading(p => { const n = { ...p }; delete n[id]; return n; });
+
+  const doAction = async (id: number, action: string, fn: () => Promise<any>, msg: string, affectedTabs: TabKey[]) => {
     setRowLoading(id, action);
     try {
       await fn();
-      message.success(successMsg);
-      load(page, activeTab);
+      message.success(msg);
+      // Refresh affected tabs silently — NO page reload, NO skeleton
+      await Promise.all(affectedTabs.map(t => refreshTab(t)));
     } catch (e: any) {
       message.error(e?.message ?? 'Thao tác thất bại');
     } finally {
@@ -141,9 +163,15 @@ export default function AdminRequestsPage() {
     setRejectLoading(true);
     try {
       await borrowRequestService.reject(rejectModal.record.id, rejectReason.trim());
-      message.success('Đã từ chối yêu cầu');
+      createSystemLog({
+        adminId: 100, adminName: 'Admin',
+        action: SystemLogAction.REJECT_REQUEST, category: 'approval',
+        targetId: displayCode(rejectModal.record), targetLabel: displayCode(rejectModal.record),
+        details: { studentName: rejectModal.record.userFullName ?? '', actionLabel: 'Tu choi', reason: rejectReason.trim() },
+      });
+      message.success('Đã từ chối — thông báo đã gửi cho sinh viên');
       setRejectModal({ open: false });
-      load(page, activeTab);
+      await Promise.all([refreshTab('pending'), refreshTab('rejected')]);
     } catch (e: any) {
       message.error(e?.message ?? 'Thao tác thất bại');
     } finally {
@@ -151,308 +179,286 @@ export default function AdminRequestsPage() {
     }
   };
 
-  /* ─── Column definitions per tab ──────────────────────── */
-  const baseColumns = (extra: ColumnsType<BorrowRequest>): ColumnsType<BorrowRequest> => [
-    {
-      title: 'Mã phiếu',
-      key: 'code',
-      width: 160,
-      render: (_, r) => (
-        <Text code style={{ fontSize: 12, color: SLINK_COLORS.primary, fontWeight: 600 }}>
-          {r.displayCode ?? `PH-${dayjs(r.createdAt).format('YYYYMMDD')}-${String(r.id).padStart(5, '0')}`}
-        </Text>
-      ),
-    },
-    {
-      title: 'Sinh viên',
-      key: 'student',
-      render: (_, r) => <StudentCell record={r} />,
-    },
-    {
-      title: 'Thiết bị',
-      key: 'equipment',
-      render: (_, r) => <EquipmentCell record={r} />,
-    },
+  /* ─── Columns per tab ─────────────────────────────────────── */
+  const base = (extra: ColumnsType<BorrowRequest>): ColumnsType<BorrowRequest> => [
+    { title: 'Mã phiếu', key: 'code', width: 160, render: (_, r) => <CodeCell r={r} /> },
+    { title: 'Sinh viên', key: 'sv', render: (_, r) => <StudentCell r={r} /> },
+    { title: 'Thiết bị', key: 'tb', render: (_, r) => <EqCell r={r} /> },
     ...extra,
   ];
 
-  const columnsByTab: Record<TabKey, ColumnsType<BorrowRequest>> = {
-    pending: baseColumns([
-      { title: 'Ngày gửi', key: 'createdAt', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Mượn dự kiến', key: 'borrow', render: (_, r) => fmt(r.borrowStartDate ?? r.createdAt) },
-      { title: 'Trả dự kiến', key: 'ret', render: (_, r) => fmt(r.expectedReturnDate) },
+  const cols: Record<TabKey, ColumnsType<BorrowRequest>> = {
+    pending: base([
+      { title: 'Ngày gửi', key: 'c', render: (_, r) => fmt(r.createdAt) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
       {
-        title: 'Thao tác', key: 'actions', width: 180,
+        title: 'Thao tác', key: 'act', width: 180,
         render: (_, r) => (
           <Space size={6}>
-            <Popconfirm
-              title="Duyệt yêu cầu mượn này?"
-              okText="Duyệt" cancelText="Hủy"
-              onConfirm={() => doAction(r.id, 'approve', () => borrowRequestService.approve(r.id), 'Đã duyệt — thông báo đã gửi cho sinh viên')}
-            >
-              <Button size="small" icon={<CheckCircleOutlined />} style={{ color: '#389e0d', borderColor: '#389e0d' }} loading={actionLoading[r.id] === 'approve'}>Duyệt</Button>
+            <Popconfirm title="Duyệt yêu cầu này?" okText="Duyệt" cancelText="Hủy"
+              onConfirm={() => doAction(r.id, 'approve',
+                async () => {
+                  const res = await borrowRequestService.approve(r.id);
+                  createSystemLog({
+                    adminId: 100, adminName: 'Admin',
+                    action: SystemLogAction.APPROVE_REQUEST, category: 'approval',
+                    targetId: displayCode(r), targetLabel: displayCode(r),
+                    details: { studentName: r.userFullName ?? '', actionLabel: 'Duyet' },
+                  });
+                  return res;
+                },
+                'Đã duyệt — thông báo đã gửi cho sinh viên',
+                ['pending', 'approved']
+              )}>
+              <Button size="small" icon={<CheckCircleOutlined />}
+                style={{ color: '#389e0d', borderColor: '#389e0d' }}
+                loading={actionLoading[r.id] === 'approve'}>Duyệt</Button>
             </Popconfirm>
             <Button size="small" danger icon={<CloseCircleOutlined />}
-              onClick={() => { setRejectModal({ open: true, record: r }); setRejectReason(''); form.resetFields(); }}
-            >Từ chối</Button>
+              onClick={() => { setRejectModal({ open: true, record: r }); setRejectReason(''); form.resetFields(); }}>
+              Từ chối
+            </Button>
           </Space>
         ),
       },
     ]),
 
-    approved: baseColumns([
-      { title: 'Ngày duyệt', key: 'approvedAt', render: (_, r) => fmt(r.approvedAt) },
-      { title: 'Mượn dự kiến', key: 'borrow', render: (_, r) => fmt(r.expectedReturnDate) },
+    approved: base([
+      { title: 'Ngày duyệt', key: 'ad', render: (_, r) => fmt(r.approvedAt) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
       {
-        title: 'Hạn đến nhận',
-        key: 'pickup',
+        title: 'Hạn đến nhận', key: 'hdn',
         render: (_, r) => {
-          const deadline = r.approvedAt ? dayjs(r.approvedAt).add(3, 'day') : null;
-          return deadline ? <CountdownBadge dateStr={deadline.toISOString()} warnDays={1} label="(deadline)" /> : '—';
+          const dl = r.approvedAt ? dayjs(r.approvedAt).add(3, 'day').toISOString() : null;
+          return <Countdown dateStr={dl} warnDays={1} />;
         },
       },
       {
-        title: 'Thao tác', key: 'actions', width: 200,
+        title: 'Thao tác', key: 'act', width: 200,
         render: (_, r) => (
           <Space size={6}>
-            <Popconfirm
-              title="Xác nhận sinh viên đã đến nhận thiết bị?"
-              okText="Đã nhận" cancelText="Hủy"
-              onConfirm={() => doAction(r.id, 'received', () => borrowRequestService.markReceived(r.id), 'Đã xác nhận nhận — phiếu chuyển sang Đang mượn')}
-            >
-              <Button size="small" type="primary" icon={<InboxOutlined />} loading={actionLoading[r.id] === 'received'}>Đã nhận</Button>
+            <Popconfirm title="Sinh viên đã đến nhận thiết bị?" okText="Đã nhận" cancelText="Hủy"
+              onConfirm={() => doAction(r.id, 'recv',
+                () => borrowRequestService.markReceived(r.id),
+                'Phiếu chuyển sang Đang mượn',
+                ['approved', 'borrowing']
+              )}>
+              <Button size="small" type="primary" icon={<InboxOutlined />}
+                loading={actionLoading[r.id] === 'recv'}>Đã nhận</Button>
             </Popconfirm>
-            <Popconfirm
-              title="Xác nhận sinh viên chưa đến nhận?" okType="danger"
-              okText="Hủy đơn" cancelText="Không"
-              onConfirm={() => doAction(r.id, 'notreceived', () => borrowRequestService.markNotReceived(r.id), 'Đã hủy phiếu — sinh viên không đến nhận')}
-            >
-              <Button size="small" danger icon={<StopOutlined />} loading={actionLoading[r.id] === 'notreceived'}>Chưa nhận</Button>
+            <Popconfirm title="Sinh viên chưa đến nhận?" okText="Hủy đơn" cancelText="Không" okType="danger"
+              onConfirm={() => doAction(r.id, 'norecv',
+                () => borrowRequestService.markNotReceived(r.id),
+                'Đã hủy — sinh viên không đến nhận',
+                ['approved', 'cancelled']
+              )}>
+              <Button size="small" danger icon={<StopOutlined />}
+                loading={actionLoading[r.id] === 'norecv'}>Chưa nhận</Button>
             </Popconfirm>
           </Space>
         ),
       },
     ]),
 
-    borrowing: baseColumns([
-      { title: 'Ngày bắt đầu mượn', key: 'borrowedAt', render: (_, r) => fmt(r.borrowedAt) },
-      { title: 'Trả dự kiến', key: 'ret', render: (_, r) => fmt(r.expectedReturnDate) },
+    borrowing: base([
+      { title: 'Ngày nhận', key: 'bd', render: (_, r) => fmt(r.borrowedAt) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Còn lại', key: 'cl', render: (_, r) => <Countdown dateStr={r.expectedReturnDate} warnDays={2} /> },
       {
-        title: 'Còn lại',
-        key: 'remaining',
-        render: (_, r) => <CountdownBadge dateStr={r.expectedReturnDate} warnDays={2} />,
-      },
-      {
-        title: 'Thao tác', key: 'actions', width: 160,
+        title: 'Thao tác', key: 'act', width: 150,
         render: (_, r) => (
-          <Popconfirm
-            title="Xác nhận đã nhận lại thiết bị từ sinh viên?"
-            okText="Đã nhận lại" cancelText="Hủy"
-            onConfirm={() => doAction(r.id, 'returned', () => borrowRequestService.markReturned(r.id), 'Đã nhận lại thiết bị — phiếu chuyển sang Đã trả')}
-          >
-            <Button size="small" icon={<RollbackOutlined />} style={{ color: '#389e0d', borderColor: '#389e0d' }} loading={actionLoading[r.id] === 'returned'}>Đã nhận lại</Button>
+          <Popconfirm title="Xác nhận đã nhận lại thiết bị?" okText="Đã nhận lại" cancelText="Hủy"
+            onConfirm={() => doAction(r.id, 'ret',
+              () => borrowRequestService.markReturned(r.id),
+              'Phiếu chuyển sang Đã trả',
+              ['borrowing', 'returned']
+            )}>
+            <Button size="small" icon={<RollbackOutlined />}
+              style={{ color: '#389e0d', borderColor: '#389e0d' }}
+              loading={actionLoading[r.id] === 'ret'}>Đã nhận lại</Button>
           </Popconfirm>
         ),
       },
     ]),
 
-    overdue: baseColumns([
-      { title: 'Trả dự kiến', key: 'ret', render: (_, r) => fmt(r.expectedReturnDate) },
+    overdue: base([
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
       {
-        title: 'Quá hạn',
-        key: 'overdue',
-        render: (_, r) => {
-          const days = Math.abs(daysFromNow(r.expectedReturnDate));
-          return <Tag color="error" style={{ fontWeight: 700 }}>Trễ {days} ngày</Tag>;
-        },
+        title: 'Quá hạn', key: 'qh',
+        render: (_, r) => <Tag color="error" style={{ fontWeight: 700 }}>Trễ {Math.abs(daysFromNow(r.expectedReturnDate))} ngày</Tag>,
       },
       {
-        title: 'Thao tác', key: 'actions', width: 160,
+        title: 'Thao tác', key: 'act', width: 150,
         render: (_, r) => (
-          <Popconfirm
-            title="Xác nhận đã nhận lại thiết bị (quá hạn)?"
-            okText="Đã nhận lại" cancelText="Hủy"
-            onConfirm={() => doAction(r.id, 'returned', () => borrowRequestService.markReturned(r.id), 'Đã nhận lại — ghi nhận trả không đúng hạn')}
-          >
-            <Button size="small" danger icon={<RollbackOutlined />} loading={actionLoading[r.id] === 'returned'}>Đã nhận lại</Button>
+          <Popconfirm title="Xác nhận đã nhận lại (quá hạn)?" okText="Đã nhận lại" cancelText="Hủy"
+            onConfirm={() => doAction(r.id, 'ret',
+              () => borrowRequestService.markReturned(r.id),
+              'Ghi nhận trả không đúng hạn',
+              ['overdue', 'returned']
+            )}>
+            <Button size="small" danger icon={<RollbackOutlined />}
+              loading={actionLoading[r.id] === 'ret'}>Đã nhận lại</Button>
           </Popconfirm>
         ),
       },
     ]),
 
-    returned: baseColumns([
-      { title: 'Trả dự kiến', key: 'ret', render: (_, r) => fmt(r.expectedReturnDate) },
-      { title: 'Ngày trả thực tế', key: 'returnedAt', render: (_, r) => fmtFull(r.returnedAt) },
+    returned: base([
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Ngày trả thực tế', key: 'ra', render: (_, r) => fmtFull(r.returnedAt) },
       {
-        title: 'Ghi chú',
-        key: 'note',
+        title: 'Kết quả', key: 'kq',
         render: (_, r) => {
           if (!r.returnedAt) return '—';
-          const onTime = dayjs(r.returnedAt) <= dayjs(r.expectedReturnDate);
-          return onTime
+          const ok = dayjs(r.returnedAt) <= dayjs(r.expectedReturnDate);
+          return ok
             ? <Tag color="success" icon={<CheckCircleOutlined />}>Trả đúng hạn</Tag>
             : <Tag color="error" icon={<CloseCircleOutlined />}>Trả không đúng hạn</Tag>;
         },
       },
       {
-        title: 'Thao tác', key: 'actions', width: 120,
+        title: 'Thao tác', key: 'act', width: 100,
         render: (_, r) => (
           <Button size="small" icon={<EyeOutlined />} onClick={() => setDetailModal({ open: true, record: r })}>Xem</Button>
         ),
       },
     ]),
 
-    cancelled: baseColumns([
-      { title: 'Ngày tạo', key: 'createdAt', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Ngày hủy', key: 'updatedAt', render: (_, r) => fmt(r.updatedAt) },
-      {
-        title: 'Lý do hủy',
-        key: 'reason',
-        render: (_, r) => <Text type="secondary" style={{ fontSize: 12 }}>{r.rejectReason ?? r.note ?? '—'}</Text>,
-      },
+    cancelled: base([
+      { title: 'Ngày tạo', key: 'c', render: (_, r) => fmt(r.createdAt) },
+      { title: 'Ngày hủy', key: 'u', render: (_, r) => fmt(r.updatedAt) },
+      { title: 'Lý do', key: 'lr', render: (_, r) => <Text type="secondary" style={{ fontSize: 12 }}>{r.rejectReason ?? r.note ?? '—'}</Text> },
     ]),
 
-    rejected: baseColumns([
-      { title: 'Ngày gửi', key: 'createdAt', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Ngày từ chối', key: 'updatedAt', render: (_, r) => fmt(r.updatedAt) },
-      {
-        title: 'Lý do từ chối',
-        key: 'reason',
-        render: (_, r) => <Text type="secondary" style={{ fontSize: 12 }}>{r.rejectReason ?? r.note ?? '—'}</Text>,
-      },
+    rejected: base([
+      { title: 'Ngày gửi', key: 'c', render: (_, r) => fmt(r.createdAt) },
+      { title: 'Ngày từ chối', key: 'u', render: (_, r) => fmt(r.updatedAt) },
+      { title: 'Lý do', key: 'lr', render: (_, r) => <Text type="secondary" style={{ fontSize: 12 }}>{r.rejectReason ?? r.note ?? '—'}</Text> },
     ]),
   };
 
-  /* ─── Render ───────────────────────────────────────────── */
-  const activeTabDef = TABS.find(t => t.key === activeTab)!;
+  /* ─── Current tab data ────────────────────────────────────── */
+  const curCache = cache[activeTab];
+  const tabDef = TABS.find(t => t.key === activeTab)!;
 
+  /* ─── Manual refresh ──────────────────────────────────────── */
+  const handleManualRefresh = async () => {
+    setRefreshing(true);
+    await loadAll(search).finally(() => setRefreshing(false));
+  };
+
+  /* ─── Render ──────────────────────────────────────────────── */
   return (
     <div style={{ padding: 24, background: SLINK_COLORS.surface, minHeight: '100vh' }}>
-      {/* Page header */}
+      {/* Header */}
       <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
         <FileTextOutlined style={{ fontSize: 22, color: SLINK_COLORS.primary }} />
-        <Title level={4} style={{ margin: 0, color: SLINK_COLORS.textBase }}>Quản lý phiếu mượn</Title>
+        <Title level={4} style={{ margin: 0 }}>Quản lý phiếu mượn</Title>
+        <Button
+          size="small" icon={<ReloadOutlined spin={refreshing} />}
+          onClick={handleManualRefresh} loading={refreshing}
+          style={{ marginLeft: 'auto' }}
+        >Làm mới</Button>
       </div>
 
-      {/* Shopee-style status tabs */}
-      <div style={{
-        background: '#fff',
-        borderRadius: 8,
-        boxShadow: SLINK_COLORS.shadow,
-        border: `1px solid ${SLINK_COLORS.border}`,
-        marginBottom: 0,
-        overflow: 'hidden',
-      }}>
-        {/* Tab bar */}
-        <div style={{
-          display: 'flex',
-          borderBottom: `1px solid ${SLINK_COLORS.border}`,
-          overflowX: 'auto',
-        }}>
-          {TABS.map(tab => {
-            const isActive = tab.key === activeTab;
-            return (
-              <button
-                key={tab.key}
-                id={`tab-${tab.key}`}
-                onClick={() => { setActiveTab(tab.key); setPage(1); setSearch(''); }}
-                style={{
-                  flex: '0 0 auto',
-                  padding: '14px 24px',
-                  border: 'none',
-                  borderBottom: isActive ? `2px solid ${tab.color}` : '2px solid transparent',
-                  background: 'transparent',
-                  color: isActive ? tab.color : '#595959',
-                  fontWeight: isActive ? 700 : 400,
-                  fontSize: 14,
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 6,
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {tab.label}
-                {counts[tab.key] !== undefined && counts[tab.key]! > 0 && (
-                  <span style={{
-                    background: isActive ? tab.color : '#f0f0f0',
-                    color: isActive ? '#fff' : '#595959',
-                    borderRadius: 10,
-                    fontSize: 11,
-                    fontWeight: 700,
-                    padding: '1px 7px',
-                    minWidth: 20,
-                    textAlign: 'center',
-                  }}>{counts[tab.key]}</span>
-                )}
-              </button>
-            );
-          })}
+      {error && <Alert type="error" message={error} style={{ marginBottom: 16, borderRadius: 6 }} closable />}
+
+      {initialLoading ? (
+        <div style={{ background: '#fff', borderRadius: 8, padding: 24, boxShadow: SLINK_COLORS.shadow }}>
+          <Skeleton active paragraph={{ rows: 8 }} />
         </div>
-
-        {/* Search + active tab label */}
+      ) : (
         <div style={{
-          padding: '14px 20px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          borderBottom: `1px solid ${SLINK_COLORS.border}`,
-          flexWrap: 'wrap',
-          gap: 12,
+          background: '#fff', borderRadius: 8,
+          boxShadow: SLINK_COLORS.shadow,
+          border: `1px solid ${SLINK_COLORS.border}`,
+          overflow: 'hidden',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <div style={{ width: 4, height: 18, background: activeTabDef.color, borderRadius: 2 }} />
-            <Text strong style={{ color: activeTabDef.color }}>
-              {activeTabDef.label}
-            </Text>
-            {total > 0 && <Text type="secondary" style={{ fontSize: 13 }}>· {total} phiếu</Text>}
+          {/* ── Tab bar ─────────────────────────────────────── */}
+          <div style={{ display: 'flex', borderBottom: `1px solid ${SLINK_COLORS.border}`, overflowX: 'auto' }}>
+            {TABS.map(tab => {
+              const isActive = tab.key === activeTab;
+              const count = cache[tab.key]?.total ?? 0;
+              return (
+                <button
+                  key={tab.key}
+                  id={`tab-${tab.key}`}
+                  onClick={() => setActiveTab(tab.key)}   // ← instant, no API call
+                  style={{
+                    flex: '0 0 auto',
+                    padding: '14px 22px',
+                    border: 'none',
+                    borderBottom: isActive ? `2px solid ${tab.color}` : '2px solid transparent',
+                    background: 'transparent',
+                    color: isActive ? tab.color : '#595959',
+                    fontWeight: isActive ? 700 : 400,
+                    fontSize: 14,
+                    cursor: 'pointer',
+                    transition: 'color 0.2s, border-color 0.2s',
+                    display: 'flex', alignItems: 'center', gap: 6,
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {tab.label}
+                  {count > 0 && (
+                    <span style={{
+                      background: isActive ? tab.color : '#f0f0f0',
+                      color: isActive ? '#fff' : '#595959',
+                      borderRadius: 10, fontSize: 11, fontWeight: 700,
+                      padding: '1px 7px',
+                    }}>{count}</span>
+                  )}
+                </button>
+              );
+            })}
           </div>
-          <Input
-            placeholder="Tìm theo tên sinh viên..."
-            prefix={<SearchOutlined />}
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            style={{ width: 240, borderRadius: 6 }}
-            allowClear
-          />
-        </div>
 
-        {/* Error */}
-        {error && <Alert type="error" message={error} style={{ margin: 16, borderRadius: 6 }} />}
-
-        {/* Table */}
-        {loading ? (
-          <div style={{ padding: 24 }}>
-            <Skeleton active paragraph={{ rows: 6 }} />
+          {/* ── Toolbar ─────────────────────────────────────── */}
+          <div style={{
+            padding: '12px 20px',
+            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+            borderBottom: `1px solid ${SLINK_COLORS.border}`, flexWrap: 'wrap', gap: 10,
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 4, height: 18, background: tabDef.color, borderRadius: 2 }} />
+              <Text strong style={{ color: tabDef.color }}>{tabDef.label}</Text>
+              {curCache && <Text type="secondary" style={{ fontSize: 13 }}>· {curCache.total} phiếu</Text>}
+            </div>
+            <Input
+              placeholder="Tìm theo tên sinh viên..."
+              prefix={<SearchOutlined />}
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{ width: 240, borderRadius: 6 }}
+              allowClear
+            />
           </div>
-        ) : (
+
+          {/* ── Table: key={activeTab} forces remount on tab change so columns update correctly ── */}
           <Table<BorrowRequest>
-            dataSource={items}
-            columns={columnsByTab[activeTab]}
+            key={activeTab}
+            dataSource={curCache?.items ?? []}
+            columns={cols[activeTab]}
             rowKey="id"
+            loading={refreshing}
             pagination={{
-              current: page,
-              total,
+              current: curCache?.page ?? 1,
+              total: curCache?.total ?? 0,
               pageSize: 15,
-              onChange: (p) => load(p, activeTab),
-              showTotal: (c) => `${c} phiếu`,
+              onChange: handlePageChange,
+              showTotal: c => `${c} phiếu`,
               showSizeChanger: false,
               style: { padding: '12px 20px' },
             }}
             size="middle"
             scroll={{ x: 900 }}
-            locale={{ emptyText: `Không có phiếu ${activeTabDef.label.toLowerCase()} nào` }}
-            rowClassName={(r) => {
-              if (activeTab === 'overdue') return 'row-overdue';
-              if (activeTab === 'pending') return 'row-pending';
-              return '';
-            }}
+            locale={{ emptyText: `Không có phiếu ${tabDef.label.toLowerCase()} nào` }}
+            rowClassName={r => activeTab === 'overdue' ? 'row-overdue' : activeTab === 'pending' ? 'row-pending' : ''}
           />
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Reject Modal */}
+      {/* ── Reject Modal ─────────────────────────────────────── */}
       <Modal
         open={rejectModal.open}
         title={<Space><CloseCircleOutlined style={{ color: '#ff4d4f' }} /><span>Từ chối phiếu mượn</span></Space>}
@@ -464,23 +470,17 @@ export default function AdminRequestsPage() {
         destroyOnClose
       >
         <p style={{ color: '#595959', marginBottom: 12 }}>
-          Sinh viên <strong>{rejectModal.record?.userFullName}</strong> sẽ nhận thông báo từ chối qua <strong>chuông thông báo</strong> và <strong>email</strong>.
+          Sinh viên <strong>{rejectModal.record?.userFullName}</strong> sẽ nhận thông báo qua <strong>chuông</strong> và <strong>email</strong>.
         </p>
         <Form form={form} layout="vertical">
           <Form.Item name="reason" label="Lý do từ chối" rules={[{ required: true, message: 'Vui lòng nhập lý do' }]}>
-            <TextArea
-              rows={4}
-              placeholder="Nhập lý do từ chối..."
-              value={rejectReason}
-              onChange={e => setRejectReason(e.target.value)}
-              maxLength={500}
-              showCount
-            />
+            <TextArea rows={4} placeholder="Nhập lý do..." value={rejectReason}
+              onChange={e => setRejectReason(e.target.value)} maxLength={500} showCount />
           </Form.Item>
         </Form>
       </Modal>
 
-      {/* Detail Modal */}
+      {/* ── Detail Modal ─────────────────────────────────────── */}
       <Modal
         open={detailModal.open}
         title={<Space><EyeOutlined /><span>Chi tiết phiếu mượn</span></Space>}
@@ -492,8 +492,8 @@ export default function AdminRequestsPage() {
           const r = detailModal.record!;
           const onTime = r.returnedAt ? dayjs(r.returnedAt) <= dayjs(r.expectedReturnDate) : null;
           return (
-            <div style={{ lineHeight: 2 }}>
-              <div><Text type="secondary">Mã phiếu:</Text> <Text strong>{r.displayCode ?? `PH-${dayjs(r.createdAt).format('YYYYMMDD')}-${String(r.id).padStart(5, '0')}`}</Text></div>
+            <div style={{ lineHeight: 2.2 }}>
+              <div><Text type="secondary">Mã phiếu:</Text> <Text code style={{ color: SLINK_COLORS.primary }}>{displayCode(r)}</Text></div>
               <div><Text type="secondary">Sinh viên:</Text> <Text strong>{r.userFullName}</Text></div>
               <div><Text type="secondary">Email:</Text> <Text>{r.userEmail}</Text></div>
               <div><Text type="secondary">Thiết bị:</Text> <Text>{r.equipmentName} × {r.quantity}</Text></div>
@@ -501,8 +501,7 @@ export default function AdminRequestsPage() {
               <div><Text type="secondary">Trả dự kiến:</Text> <Text>{fmt(r.expectedReturnDate)}</Text></div>
               <div><Text type="secondary">Ngày trả thực tế:</Text> <Text>{fmtFull(r.returnedAt)}</Text></div>
               {onTime !== null && (
-                <div>
-                  <Text type="secondary">Kết quả:</Text>{' '}
+                <div><Text type="secondary">Kết quả:</Text>{' '}
                   {onTime
                     ? <Tag color="success" icon={<CheckCircleOutlined />}>Trả đúng hạn</Tag>
                     : <Tag color="error" icon={<CloseCircleOutlined />}>Trả không đúng hạn</Tag>}
@@ -515,7 +514,7 @@ export default function AdminRequestsPage() {
 
       <style>{`
         .row-overdue > td { background: #fff1f0 !important; }
-        .row-pending > td { background: #fffbe6 !important; }
+        .row-pending  > td { background: #fffbe6 !important; }
       `}</style>
     </div>
   );
