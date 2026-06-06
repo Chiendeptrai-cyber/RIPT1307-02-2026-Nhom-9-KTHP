@@ -29,6 +29,7 @@ export const borrowRequestService = {
     quantity: number;
     expectedReturnDate: string;
     note?: string;
+    rulesAccepted: boolean;
   }): Promise<ApiResponse<BorrowRequest>> {
     const res = await http.post<ApiResponse<BorrowRequest>>('/borrow-requests', payload);
     if (res.data.success) {

@@ -19,6 +19,7 @@ export class CreateBorrowRequestUseCase {
     quantity: number;
     expectedReturnDate: string;
     note?: string;
+    rulesAccepted?: boolean;
   }) {
     // 1. Kiểm tra thiết bị tồn tại và còn hàng
     const equipment = await this.equipmentRepo.findById(data.equipmentId);
@@ -53,6 +54,7 @@ export class CreateBorrowRequestUseCase {
       status: BorrowRequestStatus.PENDING,
       expectedReturnDate: data.expectedReturnDate,
       note: data.note,
+      rulesAcceptedAt: new Date().toISOString(),
     } as any);
 
     // 3b. Lưu thiết bị và số lượng vào borrow_request_items
