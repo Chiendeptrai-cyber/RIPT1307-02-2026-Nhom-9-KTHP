@@ -4,6 +4,7 @@ import {
   ClockCircleOutlined,
   DashboardOutlined,
   FileTextOutlined,
+  HistoryOutlined,
   TeamOutlined,
   ToolOutlined,
 } from '@ant-design/icons';
@@ -56,6 +57,17 @@ export const adminMenuItems: MenuProps['items'] = [
     label: 'Người dùng',
   },
   {
+    key: 'system-logs',
+    icon: <HistoryOutlined />,
+    label: 'Nhật ký hệ thống',
+    children: [
+      { key: ROUTES.ADMIN_LOGS_APPROVAL, label: 'Lịch sử duyệt phiếu' },
+      { key: ROUTES.ADMIN_LOGS_EQUIPMENT, label: 'Lịch sử sửa thiết bị' },
+      { key: ROUTES.ADMIN_LOGS_ACCOUNT, label: 'Lịch sử khóa tài khoản' },
+      { key: ROUTES.ADMIN_LOGS_STOCK, label: 'Lịch sử cập nhật kho' },
+    ],
+  },
+  {
     key: ROUTES.ADMIN_REPORTS,
     icon: <AppstoreOutlined />,
     label: 'Báo cáo',
@@ -79,6 +91,10 @@ export function getMenuKeys(items: MenuProps['items']): string[] {
     if (!item || typeof item !== 'object' || !('key' in item) || item.key == null) {
       return [];
     }
-    return [String(item.key)];
+    const keys = [String(item.key)];
+    if ('children' in item && Array.isArray((item as any).children)) {
+      keys.push(...getMenuKeys((item as any).children));
+    }
+    return keys;
   });
 }

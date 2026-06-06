@@ -17,4 +17,8 @@ export const ROUTES = {
   ADMIN_REPORTS: '/admin/reports',
   ADMIN_NOTIFICATIONS: '/admin/notifications',
   ADMIN_PROFILE: '/admin/profile',
+  ADMIN_LOGS_APPROVAL: '/admin/logs/approval',
+  ADMIN_LOGS_EQUIPMENT: '/admin/logs/equipment',
+  ADMIN_LOGS_ACCOUNT: '/admin/logs/account',
+  ADMIN_LOGS_STOCK: '/admin/logs/stock',
 } as const;

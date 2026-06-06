@@ -17,9 +17,14 @@ import { ResetPasswordUseCase }          from '../application/use-cases/auth/res
 import { ListEquipmentUseCase }          from '../application/use-cases/equipment/list-equipment.use-case';
 import { GetEquipmentDetailUseCase }     from '../application/use-cases/equipment/get-equipment-detail.use-case';
 import { CreateEquipmentUseCase }         from '../application/use-cases/equipment/create-equipment.use-case';
+import { CreateCategoryUseCase }          from '../application/use-cases/equipment/create-category.use-case';
 import { UpdateEquipmentUseCase }         from '../application/use-cases/equipment/update-equipment.use-case';
 import { DeleteEquipmentUseCase }         from '../application/use-cases/equipment/delete-equipment.use-case';
-import { CreateCategoryUseCase }          from '../application/use-cases/equipment/create-category.use-case';
+import {
+  StockAdjustmentUseCase,
+  ChangeEquipmentStatusUseCase,
+  DeleteEquipmentWithValidationUseCase,
+} from '../application/use-cases/equipment/equipment-management.use-cases';
 import { CreateBorrowRequestUseCase }    from '../application/use-cases/borrow-request/create-borrow-request.use-case';
 import { ApproveBorrowRequestUseCase }   from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
 import { RejectBorrowRequestUseCase }    from '../application/use-cases/borrow-request/reject-borrow-request.use-case';
@@ -67,10 +72,13 @@ export const resetPasswordUseCase  = new ResetPasswordUseCase(userRepo, password
 // Equipment use cases
 export const listEquipmentUseCase      = new ListEquipmentUseCase(equipmentRepo);
 export const getEquipmentDetailUseCase = new GetEquipmentDetailUseCase(equipmentRepo);
-export const createEquipmentUseCase    = new CreateEquipmentUseCase(equipmentRepo);
-export const updateEquipmentUseCase    = new UpdateEquipmentUseCase(equipmentRepo);
-export const deleteEquipmentUseCase    = new DeleteEquipmentUseCase(equipmentRepo);
-export const createCategoryUseCase    = new CreateCategoryUseCase(equipmentRepo);
+export const createEquipmentUseCase                = new CreateEquipmentUseCase(equipmentRepo);
+export const createCategoryUseCase                 = new CreateCategoryUseCase(equipmentRepo);
+export const updateEquipmentUseCase                = new UpdateEquipmentUseCase(equipmentRepo);
+export const deleteEquipmentUseCase                = new DeleteEquipmentUseCase(equipmentRepo);
+export const stockAdjustmentUseCase               = new StockAdjustmentUseCase(equipmentRepo, stockLogRepo, borrowRequestRepo);
+export const changeEquipmentStatusUseCase         = new ChangeEquipmentStatusUseCase(equipmentRepo, borrowRequestRepo);
+export const deleteEquipmentWithValidationUseCase = new DeleteEquipmentWithValidationUseCase(equipmentRepo, borrowRequestRepo);
 
 // Borrow request use cases
 export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo, userRepo);
