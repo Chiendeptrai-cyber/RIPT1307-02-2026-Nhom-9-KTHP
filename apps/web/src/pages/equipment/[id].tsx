@@ -119,7 +119,12 @@ export default function EquipmentDetailPage() {
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label="Tổng số lượng">{equipment.totalQuantity} chiếc</Descriptions.Item>
-          <Descriptions.Item label="Còn có thể mượn">
+          <Descriptions.Item label="Đang mượn">
+            <Text strong style={{ color: '#FA8C16' }}>
+              {equipment.totalQuantity - equipment.availableQuantity} chiếc
+            </Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Còn lại có thể mượn">
             <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>
               {equipment.availableQuantity} chiếc
             </Text>
