@@ -143,11 +143,16 @@ export class MarkReturnedUseCase {
     }
 
     const returnedAt = new Date();
-    const expectedReturnDate = new Date(request.expectedReturnDate);
-    const isOnTime = returnedAt <= expectedReturnDate;
+
+    // Tính on-time dựa trên MAX expected_return_date của tất cả items
+    const items = await this.borrowRequestRepo.getItems(requestId);
+    const maxExpectedDate = items.reduce((max, item) => {
+      const d = new Date(item.expectedReturnDate);
+      return d > max ? d : max;
+    }, new Date(0));
+    const isOnTime = returnedAt <= maxExpectedDate;
 
     // Hoàn trả số lượng thiết bị vào kho
-    const items = await this.borrowRequestRepo.getItems(requestId);
     for (const item of items) {
       await this.equipmentRepo.incrementAvailable(item.equipmentId, item.quantity);
       await this.stockLogRepo.create({

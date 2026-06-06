@@ -100,7 +100,9 @@ export default function AdminDueOverduePage() {
       dataIndex: 'equipmentName',
       key: 'equipmentName',
       ellipsis: true,
-      render: (v: string) => <Text style={{ fontSize: 13 }}>{v ?? '—'}</Text>,
+      render: (_: unknown, r: BorrowRequest) => (
+        <Text style={{ fontSize: 13 }}>{r.equipmentSummary || r.equipmentName || '—'}</Text>
+      ),
     },
     {
       title: 'Hạn trả',

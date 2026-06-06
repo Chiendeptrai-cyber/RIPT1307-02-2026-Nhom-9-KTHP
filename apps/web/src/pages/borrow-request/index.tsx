@@ -89,16 +89,13 @@ export default function BorrowRequestHistoryPage() {
       title: 'Thiết bị',
       key: 'equipment',
       render: (_, record) => {
-        if (!record.equipmentName) return <Text type="secondary">—</Text>;
+        // Prefer equipmentSummary for multi-item, fallback to single equipmentName
+        const summary = record.equipmentSummary || (record.equipmentName ? `${record.equipmentName} (x${record.quantity ?? 1})` : null);
+        if (!summary) return <Text type="secondary">—</Text>;
         return (
-          <Space direction="vertical" size={2}>
-            <Text strong style={{ color: SLINK_COLORS.textBase }}>
-              {record.equipmentName}
-            </Text>
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              Số lượng: <strong>{record.quantity ?? 1}</strong>
-            </Text>
-          </Space>
+          <Text strong style={{ color: SLINK_COLORS.textBase, fontSize: 13 }}>
+            {summary}
+          </Text>
         );
       },
     },
@@ -110,9 +107,18 @@ export default function BorrowRequestHistoryPage() {
     },
     {
       title: 'Ngày trả dự kiến',
-      dataIndex: 'expectedReturnDate',
       key: 'expectedReturnDate',
-      render: (v) => dayjs(v).format('DD/MM/YYYY'),
+      render: (_, record) => {
+        if (record.earliestReturnDate && record.latestReturnDate && record.earliestReturnDate !== record.latestReturnDate) {
+          return (
+            <Space direction="vertical" size={0}>
+              <Text style={{ fontSize: 13 }}>{dayjs(record.earliestReturnDate).format('DD/MM/YYYY')}</Text>
+              <Text type="secondary" style={{ fontSize: 13 }}>đến {dayjs(record.latestReturnDate).format('DD/MM/YYYY')}</Text>
+            </Space>
+          );
+        }
+        return <Text style={{ fontSize: 13 }}>{dayjs(record.expectedReturnDate).format('DD/MM/YYYY')}</Text>;
+      },
     },
     {
       title: 'Ghi chú',
