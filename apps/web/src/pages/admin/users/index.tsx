@@ -46,6 +46,18 @@ export default function AdminUsersPage() {
   const [statusFilter, setStatusFilter] = useState<string | undefined>();
   const [lockingId, setLockingId] = useState<number | null>(null);
 
+  const [lockModalState, setLockModalState] = useState<{
+    open: boolean;
+    user: UserDto | null;
+    reason: string;
+    loading: boolean;
+  }>({
+    open: false,
+    user: null,
+    reason: '',
+    loading: false,
+  });
+
   // Dùng ref để debounce search
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -101,37 +113,56 @@ export default function AdminUsersPage() {
 
   const handleToggleLock = (user: UserDto) => {
     const nextStatus = user.status === 'locked' ? 'active' : 'locked';
-    const actionLabel = nextStatus === 'locked' ? 'khóa' : 'mở khóa';
 
-    Modal.confirm({
-      title: `Xác nhận ${actionLabel} tài khoản`,
-      content: (
-        <span>
-          Bạn có chắc muốn <strong>{actionLabel}</strong> tài khoản của{' '}
-          <strong>{user.fullName}</strong>?
-        </span>
-      ),
-      okText: actionLabel.charAt(0).toUpperCase() + actionLabel.slice(1),
-      okButtonProps: { danger: nextStatus === 'locked' },
-      cancelText: 'Hủy',
-      onOk: async () => {
-        setLockingId(user.id);
-        try {
-          const res = await setUserStatus(user.id, nextStatus);
-          if (!res.success) throw new Error(res.message);
-          message.success(
-            nextStatus === 'locked' ? 'Đã khóa tài khoản' : 'Đã mở khóa tài khoản',
-          );
-          load(page);
-        } catch (err: any) {
-          message.error(
-            err?.response?.data?.message ?? err?.message ?? 'Thao tác thất bại',
-          );
-        } finally {
-          setLockingId(null);
-        }
-      },
-    });
+    if (nextStatus === 'locked') {
+      // Mở modal nhập lý do khóa
+      setLockModalState({ open: true, user, reason: '', loading: false });
+    } else {
+      // Mở khóa ngay lập tức
+      Modal.confirm({
+        title: 'Xác nhận mở khóa tài khoản',
+        content: (
+          <span>
+            Bạn có chắc muốn mở khóa tài khoản của <strong>{user.fullName}</strong>?
+          </span>
+        ),
+        okText: 'Mở khóa',
+        cancelText: 'Hủy',
+        onOk: async () => {
+          setLockingId(user.id);
+          try {
+            const res = await setUserStatus(user.id, nextStatus);
+            if (!res.success) throw new Error(res.message);
+            message.success('Đã mở khóa tài khoản');
+            load(page);
+          } catch (err: any) {
+            message.error(err?.response?.data?.message ?? err?.message ?? 'Thao tác thất bại');
+          } finally {
+            setLockingId(null);
+          }
+        },
+      });
+    }
+  };
+
+  const submitLock = async () => {
+    if (!lockModalState.user) return;
+    if (!lockModalState.reason.trim()) {
+      message.warning('Vui lòng nhập lý do khóa tài khoản');
+      return;
+    }
+
+    setLockModalState((prev) => ({ ...prev, loading: true }));
+    try {
+      const res = await setUserStatus(lockModalState.user.id, 'locked', lockModalState.reason.trim());
+      if (!res.success) throw new Error(res.message);
+      message.success('Đã khóa tài khoản');
+      setLockModalState({ open: false, user: null, reason: '', loading: false });
+      load(page);
+    } catch (err: any) {
+      message.error(err?.response?.data?.message ?? err?.message ?? 'Thao tác thất bại');
+      setLockModalState((prev) => ({ ...prev, loading: false }));
+    }
   };
 
   const columns: ColumnsType<UserDto> = [
@@ -293,6 +324,33 @@ export default function AdminUsersPage() {
           />
         </div>
       </Card>
+
+      <Modal
+        title="Xác nhận khóa tài khoản"
+        open={lockModalState.open}
+        onOk={submitLock}
+        onCancel={() => setLockModalState((prev) => ({ ...prev, open: false }))}
+        confirmLoading={lockModalState.loading}
+        okText="Khóa tài khoản"
+        okButtonProps={{ danger: true }}
+        cancelText="Hủy"
+      >
+        <p>
+          Bạn có chắc muốn khóa tài khoản của <strong>{lockModalState.user?.fullName}</strong>?
+        </p>
+        <div style={{ marginTop: 16 }}>
+          <Text strong>
+            Lý do khóa <span style={{ color: 'red' }}>*</span>
+          </Text>
+          <Input.TextArea
+            rows={3}
+            value={lockModalState.reason}
+            onChange={(e) => setLockModalState((prev) => ({ ...prev, reason: e.target.value }))}
+            placeholder="Nhập lý do khóa tài khoản để thông báo cho sinh viên..."
+            style={{ marginTop: 8 }}
+          />
+        </div>
+      </Modal>
     </div>
   );
 }

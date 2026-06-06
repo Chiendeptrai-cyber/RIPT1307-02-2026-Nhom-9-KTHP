@@ -57,13 +57,14 @@ export async function getProfile(req: Request, res: Response): Promise<void> {
 }
 
 export async function lockUser(req: Request, res: Response): Promise<void> {
-  const { targetUserId, newStatus } = req.body;
+  const { targetUserId, newStatus, reason } = req.body;
 
   const result = await lockUserUseCase.execute({
     adminId: req.user!.userId,
     adminRole: req.user!.role as UserRole,
     targetUserId,
     newStatus,
+    reason,
   });
 
   res.json({
