@@ -12,6 +12,14 @@ import { SLINK_COLORS } from '../../theme/tokens';
 
 const { Title, Text } = Typography;
 
+const removeAccents = (str: string) => {
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/đ/g, 'd')
+    .replace(/Đ/g, 'D');
+};
+
 export default function BorrowRequestCreatePage() {
   const navigate   = useNavigate();
   const location   = useLocation();
@@ -111,7 +119,11 @@ export default function BorrowRequestCreatePage() {
               <Select
                 placeholder="Chọn thiết bị..."
                 showSearch
-                optionFilterProp="label"
+                filterOption={(input, option) =>
+                  removeAccents(option?.label ?? '')
+                    .toLowerCase()
+                    .includes(removeAccents(input).toLowerCase())
+                }
                 options={equipmentList.map((e) => ({
                   value: e.id,
                   label: `${e.name} (còn ${e.availableQuantity} chiếc)`,

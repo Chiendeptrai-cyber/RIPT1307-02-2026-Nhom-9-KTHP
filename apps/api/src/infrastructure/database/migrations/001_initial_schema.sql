@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS unaccent;
+
 CREATE TYPE user_role AS ENUM ('student', 'admin');
 CREATE TYPE user_status AS ENUM ('active', 'borrow_blocked', 'locked');
 CREATE TYPE equipment_status AS ENUM ('active', 'under_maintenance', 'deleted');

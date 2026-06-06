@@ -32,7 +32,7 @@ export class PgEquipmentRepository implements IEquipmentRepository {
     let idx = 1;
 
     if (options?.search) {
-      conditions.push(`e.name ILIKE $${idx++}`);
+      conditions.push(`unaccent(e.name) ILIKE unaccent($${idx++})`);
       values.push(`%${options.search}%`);
     }
     if (options?.categoryId) {

@@ -13,13 +13,15 @@ import {
   Input,
   Pagination,
   Row,
+  Select,
   Skeleton,
   Tag,
   Typography,
 } from 'antd';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from '@umijs/max';
 import { useEquipmentList } from '../../hooks/useEquipmentList';
+import { equipmentService } from '../../services/equipment.service';
 import { SLINK_COLORS } from '../../theme/tokens';
 
 const { Title, Text } = Typography;
@@ -100,11 +102,26 @@ export default function EquipmentListPage() {
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const [searchTimer, setSearchTimer] = useState<ReturnType<typeof setTimeout>>();
+  const [categories, setCategories] = useState<{ id: number; name: string }[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<number | undefined>(undefined);
 
   const { items, total, page, loading, error, refetch } = useEquipmentList({
     search: debouncedSearch,
+    categoryId: selectedCategory,
     pageSize: 20,
   });
+
+  useEffect(() => {
+    equipmentService.listCategories()
+      .then((res) => {
+        if (res.success && res.data) {
+          setCategories(res.data);
+        }
+      })
+      .catch((err) => {
+        console.error('Failed to load categories', err);
+      });
+  }, []);
 
   const handleSearchChange = (val: string) => {
     setSearch(val);
@@ -139,7 +156,19 @@ export default function EquipmentListPage() {
               </Text>
             </div>
           </div>
-          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+            <Select
+              placeholder="Tất cả danh mục"
+              allowClear
+              value={selectedCategory}
+              onChange={(val) => setSelectedCategory(val)}
+              style={{ width: 180 }}
+              options={[
+                { value: undefined, label: 'Tất cả danh mục' },
+                ...categories.map((c) => ({ value: c.id, label: c.name }))
+              ]}
+              dropdownMatchSelectWidth={false}
+            />
             <Input
               placeholder="Tìm kiếm thiết bị..."
               prefix={<SearchOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
