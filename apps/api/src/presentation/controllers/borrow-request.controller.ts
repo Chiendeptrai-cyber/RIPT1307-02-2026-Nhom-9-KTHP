@@ -4,6 +4,9 @@ import {
   approveBorrowRequestUseCase,
   rejectBorrowRequestUseCase,
   cancelBorrowRequestUseCase,
+  markReceivedUseCase,
+  markNotReceivedUseCase,
+  markReturnedUseCase,
   borrowRequestRepo,
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
@@ -94,5 +97,41 @@ export async function cancelBorrowRequest(req: Request, res: Response): Promise<
     success: true,
     data: result,
     message: 'Đã hủy yêu cầu mượn',
+  } satisfies ApiResponse);
+}
+
+/** Admin: Xác nhận sinh viên đã đến nhận (approved → borrowing) */
+export async function markReceived(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await markReceivedUseCase.execute(id);
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Đã xác nhận sinh viên nhận thiết bị — phiếu chuyển sang trạng thái Đang mượn',
+  } satisfies ApiResponse);
+}
+
+/** Admin: Xác nhận sinh viên chưa đến nhận (approved → cancelled) */
+export async function markNotReceived(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await markNotReceivedUseCase.execute(id);
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Đã hủy phiếu mượn — sinh viên không đến nhận',
+  } satisfies ApiResponse);
+}
+
+/** Admin: Xác nhận sinh viên đã trả thiết bị (borrowing/overdue → returned) */
+export async function markReturned(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await markReturnedUseCase.execute(id);
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Đã xác nhận nhận lại thiết bị — phiếu chuyển sang trạng thái Đã trả',
   } satisfies ApiResponse);
 }
