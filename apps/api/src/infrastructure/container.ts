@@ -7,6 +7,7 @@ import { PgNotificationRepository }   from './database/repositories/pg-notificat
 import { PgPasswordResetTokenRepository } from './database/repositories/pg-password-reset-token.repository';
 import { PgViolationRepository }      from './database/repositories/pg-violation.repository';
 import { PgStockLogRepository }      from './database/repositories/pg-stock-log.repository';
+import { PgEmailLogRepository }       from './database/repositories/pg-email-log.repository';
 import { JwtTokenService }            from './services/jwt-token.service';
 
 import { LoginUseCase }                  from '../application/use-cases/auth/login.use-case';
@@ -16,16 +17,14 @@ import { ResetPasswordUseCase }          from '../application/use-cases/auth/res
 import { ListEquipmentUseCase }          from '../application/use-cases/equipment/list-equipment.use-case';
 import { GetEquipmentDetailUseCase }     from '../application/use-cases/equipment/get-equipment-detail.use-case';
 import { CreateEquipmentUseCase }         from '../application/use-cases/equipment/create-equipment.use-case';
+import { CreateCategoryUseCase }          from '../application/use-cases/equipment/create-category.use-case';
 import { UpdateEquipmentUseCase }         from '../application/use-cases/equipment/update-equipment.use-case';
 import { DeleteEquipmentUseCase }         from '../application/use-cases/equipment/delete-equipment.use-case';
-
 import {
   StockAdjustmentUseCase,
   ChangeEquipmentStatusUseCase,
   DeleteEquipmentWithValidationUseCase,
 } from '../application/use-cases/equipment/equipment-management.use-cases';
-
-import { CreateCategoryUseCase }          from '../application/use-cases/equipment/create-category.use-case';
 
 import { CreateBorrowRequestUseCase }    from '../application/use-cases/borrow-request/create-borrow-request.use-case';
 import { ApproveBorrowRequestUseCase }   from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
@@ -59,6 +58,7 @@ const notificationRepo   = new PgNotificationRepository(pool);
 const passwordResetTokenRepo = new PgPasswordResetTokenRepository(pool);
 const violationRepo      = new PgViolationRepository(pool);
 const stockLogRepo       = new PgStockLogRepository(pool);
+const emailLogRepo       = new PgEmailLogRepository(pool);
 
 // Services
 const tokenService = new JwtTokenService();
@@ -73,14 +73,13 @@ export const resetPasswordUseCase  = new ResetPasswordUseCase(userRepo, password
 // Equipment use cases
 export const listEquipmentUseCase      = new ListEquipmentUseCase(equipmentRepo);
 export const getEquipmentDetailUseCase = new GetEquipmentDetailUseCase(equipmentRepo);
-
 export const createEquipmentUseCase                = new CreateEquipmentUseCase(equipmentRepo);
+export const createCategoryUseCase                 = new CreateCategoryUseCase(equipmentRepo);
 export const updateEquipmentUseCase                = new UpdateEquipmentUseCase(equipmentRepo);
 export const deleteEquipmentUseCase                = new DeleteEquipmentUseCase(equipmentRepo);
 export const stockAdjustmentUseCase               = new StockAdjustmentUseCase(equipmentRepo, stockLogRepo, borrowRequestRepo);
 export const changeEquipmentStatusUseCase         = new ChangeEquipmentStatusUseCase(equipmentRepo, borrowRequestRepo);
 export const deleteEquipmentWithValidationUseCase = new DeleteEquipmentWithValidationUseCase(equipmentRepo, borrowRequestRepo);
-export const createCategoryUseCase    = new CreateCategoryUseCase(equipmentRepo);
 
 // Borrow request use cases
 export const createBorrowRequestUseCase  = new CreateBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, notificationRepo, userRepo);
@@ -113,4 +112,4 @@ export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(
 export const exportReportUseCase = new ExportReportUseCase(borrowRecordRepo);
 
 // Expose repos for controllers that need direct listAll
-export { borrowRequestRepo, userRepo, equipmentRepo };
+export { borrowRequestRepo, userRepo, equipmentRepo, emailLogRepo, notificationRepo, stockLogRepo };

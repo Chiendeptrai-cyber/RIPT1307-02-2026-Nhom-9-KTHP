@@ -3,7 +3,7 @@ import { useParams, useNavigate } from '@umijs/max';
 import {
   Alert, Badge, Button, Card, Descriptions, Result, Skeleton, Tag, Typography,
 } from 'antd';
-import { ArrowLeftOutlined, ToolOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, ToolOutlined, PictureOutlined } from '@ant-design/icons';
 import { equipmentService, type Equipment } from '../../services/equipment.service';
 import { SLINK_COLORS } from '../../theme/tokens';
 
@@ -78,14 +78,32 @@ export default function EquipmentDetailPage() {
       <Card
         style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}
       >
-        {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16, marginBottom: 24 }}>
-          <div style={{ width: 56, height: 56, borderRadius: 10, background: 'rgba(191,4,4,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <ToolOutlined style={{ fontSize: 28, color: SLINK_COLORS.primary }} />
+        <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap', marginBottom: 24 }}>
+          {/* Equipment image */}
+          <div style={{
+            width: 200, height: 200, borderRadius: 8, overflow: 'hidden',
+            background: '#f5f5f5', flexShrink: 0, display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+            border: `1px solid ${SLINK_COLORS.border}`,
+          }}>
+            {equipment.imageUrl ? (
+              <img
+                src={equipment.imageUrl}
+                alt={equipment.name}
+                style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 12, boxSizing: 'border-box' }}
+              />
+            ) : (
+              <div style={{ textAlign: 'center', color: '#bbb' }}>
+                <PictureOutlined style={{ fontSize: 48 }} />
+                <div style={{ fontSize: 12, marginTop: 6 }}>Chưa có ảnh</div>
+              </div>
+            )}
           </div>
-          <div style={{ flex: 1 }}>
+
+          {/* Header info */}
+          <div style={{ flex: 1, minWidth: 200 }}>
             <Title level={4} style={{ marginBottom: 4 }}>{equipment.name}</Title>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 12 }}>
               <Tag color={cfg.color}>{cfg.label}</Tag>
               <Badge
                 count={equipment.availableQuantity}
@@ -94,6 +112,11 @@ export default function EquipmentDetailPage() {
               />
               <Text type="secondary" style={{ fontSize: 13 }}>chiếc còn sẵn</Text>
             </div>
+            {equipment.description && (
+              <Text type="secondary" style={{ fontSize: 13, lineHeight: 1.6 }}>
+                {equipment.description}
+              </Text>
+            )}
           </div>
         </div>
 
@@ -119,7 +142,12 @@ export default function EquipmentDetailPage() {
             </Tag>
           </Descriptions.Item>
           <Descriptions.Item label="Tổng số lượng">{equipment.totalQuantity} chiếc</Descriptions.Item>
-          <Descriptions.Item label="Còn có thể mượn">
+          <Descriptions.Item label="Đang mượn">
+            <Text strong style={{ color: '#FA8C16' }}>
+              {equipment.totalQuantity - equipment.availableQuantity} chiếc
+            </Text>
+          </Descriptions.Item>
+          <Descriptions.Item label="Còn lại có thể mượn">
             <Text strong style={{ color: isAvailable ? SLINK_COLORS.success : SLINK_COLORS.primary }}>
               {equipment.availableQuantity} chiếc
             </Text>

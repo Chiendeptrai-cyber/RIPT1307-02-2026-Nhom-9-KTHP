@@ -9,6 +9,7 @@ const BASE_SELECT = `
   br.status,
   br.expected_return_date AS "expectedReturnDate",
   br.note,
+  br.rules_accepted_at AS "rulesAcceptedAt",
   br.approved_at AS "approvedAt",
   br.borrowed_at AS "borrowedAt",
   br.returned_at AS "returnedAt",
@@ -35,13 +36,14 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     data: Omit<BorrowRequestEntity, 'id' | 'createdAt' | 'updatedAt'>,
   ): Promise<BorrowRequestEntity> {
     const result = await this.pool.query<BorrowRequestEntity>(
-      `INSERT INTO borrow_requests (user_id, status, expected_return_date, note)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO borrow_requests (user_id, status, expected_return_date, note, rules_accepted_at)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING id, user_id AS "userId", status,
                  expected_return_date AS "expectedReturnDate",
-                 note, created_at AS "createdAt", updated_at AS "updatedAt",
+                 note, rules_accepted_at AS "rulesAcceptedAt",
+                 created_at AS "createdAt", updated_at AS "updatedAt",
                  FORMAT('PH-%s-%s', TO_CHAR(created_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'YYYYMMDD'), LPAD(id::TEXT, 5, '0')) AS "displayCode"`,
-      [data.userId, data.status, data.expectedReturnDate, (data as any).note ?? null],
+      [data.userId, data.status, data.expectedReturnDate, (data as any).note ?? null, (data as any).rulesAcceptedAt ?? null],
     );
     return result.rows[0];
   }
@@ -70,6 +72,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     if (data.status !== undefined)             { sets.push(`status = $${idx++}`);               values.push(data.status); }
     if (data.expectedReturnDate !== undefined) { sets.push(`expected_return_date = $${idx++}`); values.push(data.expectedReturnDate); }
     if ((data as any).note !== undefined)      { sets.push(`note = $${idx++}`);                 values.push((data as any).note); }
+    if ((data as any).rulesAcceptedAt !== undefined) { sets.push(`rules_accepted_at = $${idx++}`); values.push((data as any).rulesAcceptedAt); }
     if ((data as any).approvedAt !== undefined){ sets.push(`approved_at = $${idx++}`);          values.push((data as any).approvedAt); }
     if ((data as any).borrowedAt !== undefined){ sets.push(`borrowed_at = $${idx++}`);          values.push((data as any).borrowedAt); }
     if ((data as any).returnedAt !== undefined){ sets.push(`returned_at = $${idx++}`);          values.push((data as any).returnedAt); }
@@ -83,7 +86,8 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
       `UPDATE borrow_requests SET ${sets.join(', ')} WHERE id = $${idx}
        RETURNING id, user_id AS "userId", status,
                  expected_return_date AS "expectedReturnDate",
-                 note, approved_at AS "approvedAt", borrowed_at AS "borrowedAt",
+                 note, rules_accepted_at AS "rulesAcceptedAt",
+                 approved_at AS "approvedAt", borrowed_at AS "borrowedAt",
                  returned_at AS "returnedAt", borrow_start_date AS "borrowStartDate",
                  reject_reason AS "rejectReason",
                  created_at AS "createdAt", updated_at AS "updatedAt",
@@ -222,6 +226,90 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
        FROM borrow_requests br
        WHERE br.status = 'borrowing'
          AND br.expected_return_date < NOW()`,
+    );
+    return result.rows;
+  }
+
+  /** Tìm đơn "borrowing" sẽ đến hạn trong N ngày tới */
+  async findDueSoonRequests(daysBefore: number): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status = 'borrowing'
+         AND (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+             = (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + $1 * INTERVAL '1 day')::date`,
+      [daysBefore],
+    );
+    return result.rows;
+  }
+
+  /** Tìm đơn "borrowing" đến hạn hôm nay */
+  async findDueTodayRequests(): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status = 'borrowing'
+         AND (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+             = (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date`,
+    );
+    return result.rows;
+  }
+
+  /** Tìm đơn đã quá hạn N ngày (status = borrowing hoặc overdue) */
+  async findOverdueByDaysRequests(days: number): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status IN ('borrowing', 'overdue')
+         AND (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+             - (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date >= $1`,
+      [days],
+    );
+    return result.rows;
+  }
+
+  /** Tìm tất cả đơn sắp đến hạn (trong 3 ngày) + quá hạn — cho admin dashboard */
+  async findDueSoonAndOverdue(): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT br.id,
+              br.user_id AS "userId",
+              br.status,
+              br.expected_return_date AS "expectedReturnDate",
+              br.note,
+              br.approved_at AS "approvedAt",
+              br.borrowed_at AS "borrowedAt",
+              br.returned_at AS "returnedAt",
+              br.borrow_start_date AS "borrowStartDate",
+              br.reject_reason AS "rejectReason",
+              br.created_at AS "createdAt",
+              br.updated_at AS "updatedAt",
+              FORMAT('PH-%s-%s', TO_CHAR(br.created_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'YYYYMMDD'), LPAD(br.id::TEXT, 5, '0')) AS "displayCode",
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              STRING_AGG(DISTINCT e.name, ', ') AS "equipmentName",
+              SUM(bri.quantity) AS "quantity"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status IN ('borrowing', 'overdue')
+         AND br.expected_return_date <= (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + INTERVAL '3 days')
+       GROUP BY br.id, u.id
+       ORDER BY br.expected_return_date ASC`,
     );
     return result.rows;
   }

@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from '@umijs/max';
 import {
-  Alert, Button, Card, DatePicker, Form, Input, InputNumber,
+  Alert, Button, Card, Checkbox, Collapse, DatePicker, Form, Input, InputNumber,
   message, Select, Skeleton, Typography,
 } from 'antd';
-import { ArrowLeftOutlined, SendOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, PictureOutlined, SendOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { equipmentService, type Equipment } from '../../services/equipment.service';
 import { borrowRequestService } from '../../services/borrow-request.service';
@@ -67,6 +67,7 @@ export default function BorrowRequestCreatePage() {
         quantity: values.quantity ?? 1,
         expectedReturnDate: values.expectedReturnDate.format('YYYY-MM-DD'),
         note: values.note,
+        rulesAccepted: true,
       });
 
       if (res.success) {
@@ -132,11 +133,46 @@ export default function BorrowRequestCreatePage() {
             </Form.Item>
 
             {selectedEquipment && (
-              <Alert
-                type="info"
-                message={`Số lượng có thể mượn: ${selectedEquipment.availableQuantity} chiếc`}
-                style={{ marginBottom: 16, borderRadius: 6 }}
-              />
+              <>
+                {/* Equipment image */}
+                <Card
+                  size="small"
+                  style={{ marginBottom: 16, borderRadius: 6, overflow: 'hidden' }}
+                  styles={{ body: { padding: 0 } }}
+                >
+                  {selectedEquipment.imageUrl ? (
+                    <div style={{ position: 'relative', height: 140, background: '#f5f5f5' }}>
+                      <img
+                        src={selectedEquipment.imageUrl}
+                        alt={selectedEquipment.name}
+                        style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8, boxSizing: 'border-box' }}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        height: 80,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: '#f5f5f5',
+                        color: '#999',
+                        gap: 6,
+                      }}
+                    >
+                      <PictureOutlined style={{ fontSize: 28 }} />
+                      <span style={{ fontSize: 12 }}>Chưa có ảnh</span>
+                    </div>
+                  )}
+                </Card>
+
+                <Alert
+                  type="info"
+                  message={`Số lượng có thể mượn: ${selectedEquipment.availableQuantity} chiếc`}
+                  style={{ marginBottom: 16, borderRadius: 6 }}
+                />
+              </>
             )}
 
             <Form.Item
@@ -190,6 +226,40 @@ export default function BorrowRequestCreatePage() {
 
             <Form.Item name="note" label="Ghi chú (tùy chọn)">
               <Input.TextArea rows={3} placeholder="Mô tả mục đích sử dụng..." maxLength={200} showCount />
+            </Form.Item>
+
+            {/* Borrowing rules */}
+            <Form.Item label="Quy định mượn">
+              <Collapse
+                size="small"
+                items={[
+                  {
+                    key: 'rules',
+                    label: 'Xem quy định mượn thiết bị',
+                    children: (
+                      <ul style={{ paddingLeft: 16, margin: 0, fontSize: 13, lineHeight: 2 }}>
+                        <li>Thời gian mượn tối đa <strong>14 ngày</strong>.</li>
+                        <li>Trả thiết bị đúng hạn — quá hạn sẽ bị ghi nhận <strong>vi phạm</strong>.</li>
+                        <li>Thiết bị hư hỏng do người mượn chịu <strong>trách nhiệm</strong>.</li>
+                        <li>Không cho người khác mượn lại thiết bị.</li>
+                        <li>Báo ngay cho quản trị viên nếu thiết bị gặp sự cố.</li>
+                      </ul>
+                    ),
+                  },
+                ]}
+                style={{ borderRadius: 6 }}
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="rulesAccepted"
+              valuePropName="checked"
+              rules={[{
+                validator: (_, val) =>
+                  val ? Promise.resolve() : Promise.reject(new Error('Bạn phải đồng ý quy định trước khi gửi')),
+              }]}
+            >
+              <Checkbox>Tôi đã đọc và đồng ý với các quy định trên</Checkbox>
             </Form.Item>
 
             <Form.Item style={{ marginBottom: 0 }}>
