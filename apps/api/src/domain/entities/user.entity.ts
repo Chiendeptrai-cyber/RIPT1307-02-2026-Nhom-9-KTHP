@@ -7,11 +7,13 @@ export interface UserEntity {
   passwordHash: string;
   role: UserRole;
   status: UserStatus;
+  phoneNumber?: string | null;
+  avatarUrl?: string | null;
+
   lockReason?: string | null;
   lockedAt?: string | null;
   lockedBy?: number | null;
-  phoneNumber?: string | null;
-  avatarUrl?: string | null;
+
   createdAt: string;
   updatedAt: string;
 }
