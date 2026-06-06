@@ -70,4 +70,21 @@ export const notificationService = {
     notifyNotificationChanged();
     return response.data;
   },
+
+  /**
+   * POST /api/v1/notifications/send  (Admin only)
+   * Sends a manual notification to a target group.
+   */
+  async send(data: {
+    target: 'all_students' | 'overdue' | 'admin';
+    title: string;
+    content: string;
+  }): Promise<ApiResponse<{ sent: number }>> {
+    const response = await http.post<ApiResponse<{ sent: number }>>(
+      '/notifications/send',
+      data,
+    );
+    return response.data;
+  },
 };
+

@@ -113,4 +113,4 @@ export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(
 export const exportReportUseCase = new ExportReportUseCase(borrowRecordRepo);
 
 // Expose repos for controllers that need direct listAll
-export { borrowRequestRepo, userRepo, equipmentRepo };
+export { borrowRequestRepo, userRepo, equipmentRepo, notificationRepo };
