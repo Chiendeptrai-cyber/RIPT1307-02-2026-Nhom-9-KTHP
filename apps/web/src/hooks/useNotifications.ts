@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { notificationService, type Notification } from '../services/notification.service';
+import { notificationService, type Notification, NOTIFICATION_CHANGED_EVENT } from '../services/notification.service';
 
 /**
  * Hook để lấy thông báo của user đang đăng nhập từ backend.
@@ -25,7 +25,23 @@ export function useNotifications(_targetRole?: 'student' | 'admin') {
     }
   }, []);
 
-  useEffect(() => { fetch(); }, [fetch]);
+  useEffect(() => {
+    fetch();
+    
+    // Listen to local changes
+    const handleChanged = () => fetch();
+    window.addEventListener(NOTIFICATION_CHANGED_EVENT, handleChanged);
+
+    // Poll every 30 seconds for new notifications
+    const interval = setInterval(() => {
+      fetch();
+    }, 30000);
+
+    return () => {
+      window.removeEventListener(NOTIFICATION_CHANGED_EVENT, handleChanged);
+      clearInterval(interval);
+    };
+  }, [fetch]);
 
   const markRead = async (id: number) => {
     await notificationService.markRead(id);

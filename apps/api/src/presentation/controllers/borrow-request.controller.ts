@@ -51,11 +51,12 @@ export async function listMyRequests(req: Request, res: Response): Promise<void>
 }
 
 export async function listAllRequests(req: Request, res: Response): Promise<void> {
-  const { page = '1', pageSize = '20', status, search } = req.query as Record<string, string>;
+  const { page = '1', pageSize = '20', status, search, userId } = req.query as Record<string, string>;
 
   const result = await (borrowRequestRepo as any).listAll(Number(page), Number(pageSize), {
     status: status || undefined,
     search: search || undefined,
+    userId: userId ? Number(userId) : undefined,
   });
 
   res.json({

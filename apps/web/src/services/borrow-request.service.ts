@@ -56,6 +56,7 @@ export const borrowRequestService = {
     pageSize?: number;
     status?: string;
     search?: string;
+    userId?: number;
   }): Promise<ApiResponse<PaginatedResponse<BorrowRequest>>> {
     const res = await http.get<ApiResponse<PaginatedResponse<BorrowRequest>>>('/borrow-requests', {
       params: {
@@ -63,6 +64,7 @@ export const borrowRequestService = {
         pageSize: params?.pageSize ?? 20,
         status: params?.status || undefined,
         search: params?.search || undefined,
+        userId: params?.userId || undefined,
       },
     });
     return res.data;

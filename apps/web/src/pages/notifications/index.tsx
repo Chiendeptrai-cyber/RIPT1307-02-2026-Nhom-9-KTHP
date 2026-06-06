@@ -18,6 +18,7 @@ const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
   return_confirmed:   { label: 'Đã trả',         color: 'cyan' },
   due_reminder:       { label: 'Nhắc nhở',       color: 'orange' },
   overdue_alert:      { label: 'Quá hạn',        color: 'volcano' },
+  manual:             { label: 'Hệ thống',       color: 'blue' },
 };
 
 export default function NotificationsPage() {
