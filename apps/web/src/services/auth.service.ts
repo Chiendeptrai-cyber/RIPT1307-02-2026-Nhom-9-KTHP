@@ -11,6 +11,8 @@ export interface UserProfile {
   role: UserRole;
   fullName: string;
   email: string;
+  phoneNumber?: string | null;
+  avatarUrl?: string | null;
 }
 
 export async function login(
@@ -54,7 +56,12 @@ export async function changePassword(currentPassword: string, newPassword: strin
   return response.data;
 }
 
-export async function updateProfile(data: { fullName?: string; email?: string }): Promise<ApiResponse<UserProfile>> {
+export async function updateProfile(data: {
+  fullName?: string;
+  email?: string;
+  phoneNumber?: string | null;
+  avatar?: string;
+}): Promise<ApiResponse<UserProfile>> {
   const response = await http.patch<ApiResponse<UserProfile>>('/users/me', data);
   return response.data;
 }

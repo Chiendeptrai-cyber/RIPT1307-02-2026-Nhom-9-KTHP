@@ -163,7 +163,7 @@ export default function AdminDashboardPage() {
       setStats({
         pendingCount: apiStats?.pendingRequests ?? pendingItems.length,
         borrowingCount: apiStats?.totalBorrowed ?? 0,
-        overdueCount: apiStats?.overdueItems ?? overdueItems.length,
+        overdueCount: overdueItems.length,
         totalEquipment: apiStats?.totalEquipment ?? equip?.total ?? 0,
         availableEquipment: equip?.items?.[0] ? (equip.items as any).availableTotal ?? 0 : 0,
         totalStudents: apiStats?.totalUsers ?? 0,

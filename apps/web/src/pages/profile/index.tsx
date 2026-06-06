@@ -5,6 +5,7 @@ import {
     IdcardOutlined,
     LockOutlined,
     MailOutlined,
+    PhoneOutlined,
     SaveOutlined,
     SafetyOutlined,
     UserOutlined,
@@ -38,6 +39,7 @@ const cardStyle = {
 interface ProfileFormValues {
     fullName: string;
     email: string;
+    phoneNumber: string;
 }
 
 interface PasswordFormValues {
@@ -54,6 +56,8 @@ export default function ProfilePage() {
     const [editingProfile, setEditingProfile] = useState(false);
     const [savingProfile, setSavingProfile] = useState(false);
     const [savingPassword, setSavingPassword] = useState(false);
+    const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
+    const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
     const [profileForm] = Form.useForm<ProfileFormValues>();
     const [passwordForm] = Form.useForm<PasswordFormValues>();
@@ -65,24 +69,71 @@ export default function ProfilePage() {
         profileForm.setFieldsValue({
             fullName: user?.fullName ?? '',
             email: user?.email ?? '',
+            phoneNumber: user?.phoneNumber ?? '',
         });
+        setAvatarPreview(null);
         setEditingProfile(true);
+    };
+
+    const handleCancelEdit = () => {
+        setEditingProfile(false);
+        setAvatarPreview(null);
+        setAvatarFile(null);
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Check format
+        if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+            message.error('Chỉ chấp nhận định dạng ảnh JPG/PNG!');
+            return;
+        }
+
+        // Check size (2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            message.error('Kích thước ảnh không được vượt quá 2MB!');
+            return;
+        }
+
+        setAvatarFile(file);
+
+        // Read as data URL for preview
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setAvatarPreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
     };
 
     const handleSaveProfile = async (values: ProfileFormValues) => {
         if (!user) return;
         setSavingProfile(true);
         try {
-            const res = await apiUpdateProfile({ fullName: values.fullName, email: values.email });
+            const res = await apiUpdateProfile({
+                fullName: values.fullName,
+                email: values.email,
+                phoneNumber: values.phoneNumber,
+                avatar: avatarPreview || undefined,
+            });
             if (res.success && res.data) {
                 // Sync auth store with updated info from server
                 setAuth(
-                    { ...user, fullName: (res.data as any).fullName ?? values.fullName, email: (res.data as any).email ?? values.email },
+                    {
+                        ...user,
+                        fullName: res.data.fullName ?? values.fullName,
+                        email: res.data.email ?? values.email,
+                        phoneNumber: res.data.phoneNumber ?? values.phoneNumber,
+                        avatarUrl: res.data.avatarUrl ?? user.avatarUrl,
+                    },
                     token ?? '',
                 );
             }
             message.success('Cập nhật thông tin thành công!');
             setEditingProfile(false);
+            setAvatarPreview(null);
+            setAvatarFile(null);
         } catch (err: any) {
             const msg = err?.response?.data?.message ?? 'Có lỗi xảy ra, vui lòng thử lại.';
             message.error(msg);
@@ -142,6 +193,7 @@ export default function ProfilePage() {
                             >
                                 <Avatar
                                     size={96}
+                                    src={avatarPreview || user?.avatarUrl || undefined}
                                     style={{
                                         background: '#fff',
                                         color: SLINK_COLORS.primary,
@@ -150,9 +202,28 @@ export default function ProfilePage() {
                                         border: `3px solid ${SLINK_COLORS.background}`,
                                     }}
                                 >
-                                    {initials}
+                                    {!avatarPreview && !user?.avatarUrl ? initials : null}
                                 </Avatar>
                             </div>
+
+                            {editingProfile && (
+                                <div style={{ marginBottom: 12 }}>
+                                    <input
+                                        type="file"
+                                        id="avatar-upload-input"
+                                        accept="image/png, image/jpeg"
+                                        style={{ display: 'none' }}
+                                        onChange={handleFileChange}
+                                    />
+                                    <Button
+                                        size="small"
+                                        onClick={() => document.getElementById('avatar-upload-input')?.click()}
+                                        style={{ borderRadius: 6 }}
+                                    >
+                                        Tải ảnh lên
+                                    </Button>
+                                </div>
+                            )}
 
                             <Title level={5} style={{ marginBottom: 4 }}>
                                 {user?.fullName ?? '—'}
@@ -272,6 +343,23 @@ export default function ProfilePage() {
                                 </div>
                                 <div>
                                     <Text type="secondary" style={{ fontSize: 12 }}>
+                                        Số điện thoại
+                                    </Text>
+                                    <div
+                                        style={{
+                                            marginTop: 4,
+                                            padding: '8px 12px',
+                                            background: SLINK_COLORS.surface,
+                                            borderRadius: 6,
+                                            fontSize: 14,
+                                            fontWeight: 500,
+                                        }}
+                                    >
+                                        {user?.phoneNumber ?? '—'}
+                                    </div>
+                                </div>
+                                <div>
+                                    <Text type="secondary" style={{ fontSize: 12 }}>
                                         Vai trò
                                     </Text>
                                     <div style={{ marginTop: 6 }}>
@@ -309,8 +397,22 @@ export default function ProfilePage() {
                                         placeholder="Nhập email"
                                     />
                                 </Form.Item>
+                                <Form.Item
+                                    name="phoneNumber"
+                                    label="Số điện thoại"
+                                    rules={[
+                                        { required: true, message: 'Vui lòng nhập số điện thoại' },
+                                        { pattern: /^\d{10}$/, message: 'Số điện thoại phải bao gồm đúng 10 chữ số!' },
+                                    ]}
+                                >
+                                    <Input
+                                        type="tel"
+                                        prefix={<PhoneOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
+                                        placeholder="Nhập số điện thoại (10 chữ số)"
+                                    />
+                                </Form.Item>
                                 <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
-                                    <Button onClick={() => setEditingProfile(false)}>Hủy</Button>
+                                    <Button onClick={handleCancelEdit}>Hủy</Button>
                                     <Button
                                         type="primary"
                                         htmlType="submit"

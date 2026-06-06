@@ -133,7 +133,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     let idx = 1;
 
     if (options?.status) {
-      conditions.push(`br.status::text = $${idx++}`);
+      conditions.push(`br.status = $${idx++}`);
       values.push(options.status);
     }
     if (options?.search) {

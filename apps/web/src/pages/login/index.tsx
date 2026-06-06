@@ -35,11 +35,11 @@ export default function LoginPage() {
         throw new Error('Không lấy được thông tin tài khoản');
       }
 
-      const { userId, role, fullName, email } = meRes.data;
+      const { userId, role, fullName, email, phoneNumber, avatarUrl } = meRes.data;
 
       // 4. Lưu vào Zustand store (persist vào localStorage)
       setAuth(
-        { id: userId, fullName, email, role: role as UserRole },
+        { id: userId, fullName, email, role: role as UserRole, phoneNumber, avatarUrl },
         loginRes.data.accessToken,
       );
 

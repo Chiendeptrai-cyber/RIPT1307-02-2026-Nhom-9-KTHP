@@ -1,6 +1,8 @@
+CREATE EXTENSION IF NOT EXISTS unaccent;
+
 CREATE TYPE user_role AS ENUM ('student', 'admin');
 CREATE TYPE user_status AS ENUM ('active', 'borrow_blocked', 'locked');
-CREATE TYPE equipment_status AS ENUM ('active', 'under_maintenance', 'deleted');
+CREATE TYPE equipment_status AS ENUM ('active', 'under_maintenance', 'damaged', 'discontinued', 'deleted');
 CREATE TYPE instance_condition AS ENUM ('good', 'reserved', 'borrowed', 'damaged', 'lost', 'under_repair');
 CREATE TYPE borrow_request_status AS ENUM ('pending', 'approved', 'rejected', 'cancelled', 'borrowing', 'overdue', 'under_review', 'returned');
 CREATE TYPE borrow_record_status AS ENUM ('borrowed', 'partial_returned', 'returned', 'overdue');
@@ -17,9 +19,12 @@ CREATE TABLE users (
   password_hash TEXT NOT NULL,
   role user_role NOT NULL DEFAULT 'student',
   status user_status NOT NULL DEFAULT 'active',
+  phone_number TEXT,
+  avatar_url TEXT,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
+
 
 CREATE TABLE password_reset_tokens (
   id SERIAL PRIMARY KEY,
@@ -159,68 +164,5 @@ VALUES (
   'admin',
   'active'
 ) ON CONFLICT (email) DO NOTHING;
-
--- Seed: equipment sample
-INSERT INTO equipment (name, category_id, total_quantity, available_quantity, status, description, created_at, updated_at)
-VALUES 
-  ('Laptop Dell XPS 13', 1, 5, 3, 'active', 'Laptop del XPS siêu nhẹ, màn hình 13 inch FHD', NOW(), NOW()),
-  ('Máy chiếu Epson', 1, 3, 2, 'active', 'Máy chiếu LED 3000 lumens cho phòng học', NOW(), NOW()),
-  ('USB Hub 7 cổng', 1, 10, 8, 'active', 'Hub USB 3.0 với sạc nhanh', NOW(), NOW()),
-  ('Cáp HDMI 2.1', 1, 20, 15, 'active', 'Cáp HDMI 2.1 hỗ trợ 8K', NOW(), NOW()),
-  ('Webcam Logitech', 1, 8, 6, 'active', 'Webcam Full HD 30fps', NOW(), NOW())
-ON CONFLICT DO NOTHING;
-SELECT setval('equipment_id_seq', (SELECT COALESCE(MAX(id), 1) FROM equipment));
-
--- Seed: equipment instances
-INSERT INTO equipment_instances (equipment_id, serial_number, condition, created_at, updated_at)
-VALUES 
-  (1, 'DELL-XPS-001', 'good', NOW(), NOW()),
-  (1, 'DELL-XPS-002', 'good', NOW(), NOW()),
-  (1, 'DELL-XPS-003', 'good', NOW(), NOW()),
-  (1, 'DELL-XPS-004', 'good', NOW(), NOW()),
-  (1, 'DELL-XPS-005', 'good', NOW(), NOW()),
-  (2, 'EPSON-001', 'good', NOW(), NOW()),
-  (2, 'EPSON-002', 'good', NOW(), NOW()),
-  (2, 'EPSON-003', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-001', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-002', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-003', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-004', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-005', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-006', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-007', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-008', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-009', 'good', NOW(), NOW()),
-  (3, 'USB-HUB-010', 'good', NOW(), NOW()),
-  (4, 'HDMI-001', 'good', NOW(), NOW()),
-  (4, 'HDMI-002', 'good', NOW(), NOW()),
-  (4, 'HDMI-003', 'good', NOW(), NOW()),
-  (4, 'HDMI-004', 'good', NOW(), NOW()),
-  (4, 'HDMI-005', 'good', NOW(), NOW()),
-  (4, 'HDMI-006', 'good', NOW(), NOW()),
-  (4, 'HDMI-007', 'good', NOW(), NOW()),
-  (4, 'HDMI-008', 'good', NOW(), NOW()),
-  (4, 'HDMI-009', 'good', NOW(), NOW()),
-  (4, 'HDMI-010', 'good', NOW(), NOW()),
-  (4, 'HDMI-011', 'good', NOW(), NOW()),
-  (4, 'HDMI-012', 'good', NOW(), NOW()),
-  (4, 'HDMI-013', 'good', NOW(), NOW()),
-  (4, 'HDMI-014', 'good', NOW(), NOW()),
-  (4, 'HDMI-015', 'good', NOW(), NOW()),
-  (4, 'HDMI-016', 'good', NOW(), NOW()),
-  (4, 'HDMI-017', 'good', NOW(), NOW()),
-  (4, 'HDMI-018', 'good', NOW(), NOW()),
-  (4, 'HDMI-019', 'good', NOW(), NOW()),
-  (4, 'HDMI-020', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-001', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-002', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-003', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-004', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-005', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-006', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-007', 'good', NOW(), NOW()),
-  (5, 'WEBCAM-008', 'good', NOW(), NOW())
-ON CONFLICT DO NOTHING;
-SELECT setval('equipment_instances_id_seq', (SELECT COALESCE(MAX(id), 1) FROM equipment_instances));
 
 

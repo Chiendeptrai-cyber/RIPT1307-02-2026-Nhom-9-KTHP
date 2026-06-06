@@ -55,7 +55,14 @@ export async function getMe(req: Request, res: Response): Promise<void> {
   res.json({
     success: true,
     data: user
-      ? { userId: user.id, role: user.role, fullName: user.fullName, email: user.email }
+      ? {
+          userId: user.id,
+          role: user.role,
+          fullName: user.fullName,
+          email: user.email,
+          phoneNumber: user.phoneNumber,
+          avatarUrl: user.avatarUrl,
+        }
       : req.user,
     message: 'OK',
   } satisfies ApiResponse);

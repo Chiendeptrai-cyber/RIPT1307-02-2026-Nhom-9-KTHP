@@ -12,8 +12,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
       # Auto-run migration on first start
       - ./apps/api/src/infrastructure/database/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
+<<<<<<< HEAD
       - ./apps/api/src/infrastructure/database/migrations/002_borrow_request_enhancements.sql:/docker-entrypoint-initdb.d/001b_borrow_enhancements.sql:ro
       - ./apps/api/src/infrastructure/database/migrations/003_user_lock_details.sql:/docker-entrypoint-initdb.d/001c_user_lock_details.sql:ro
+=======
+      - ./apps/api/src/infrastructure/database/migrations/002_borrow_request_enhancements.sql:/docker-entrypoint-initdb.d/001a_borrow_request_enhancements.sql:ro
+      - ./apps/api/src/infrastructure/database/migrations/003_add_equipment_statuses.sql:/docker-entrypoint-initdb.d/001b_add_equipment_statuses.sql:ro
+>>>>>>> origin
       # Auto-run seeds on first start
       - ./apps/api/src/infrastructure/database/seeds/001_users.sql:/docker-entrypoint-initdb.d/002_seed_users.sql:ro
       - ./apps/api/src/infrastructure/database/seeds/002_equipment.sql:/docker-entrypoint-initdb.d/003_seed_equipment.sql:ro

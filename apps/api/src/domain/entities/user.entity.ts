@@ -10,6 +10,8 @@ export interface UserEntity {
   lockReason?: string | null;
   lockedAt?: string | null;
   lockedBy?: number | null;
+  phoneNumber?: string | null;
+  avatarUrl?: string | null;
   createdAt: string;
   updatedAt: string;
 }

@@ -4,13 +4,12 @@ import type { IUserRepository } from '../../../domain/repositories/user.reposito
 import type { UserEntity } from '../../../domain/entities/user.entity';
 
 export class PgUserRepository implements IUserRepository {
-  constructor(private readonly pool: Pool) {}
+  constructor(private readonly pool: Pool) { }
 
   async findById(id: number): Promise<UserEntity | null> {
     const result = await this.pool.query<UserEntity>(
       `SELECT id, full_name AS "fullName", email, password_hash AS "passwordHash",
               role, status,
-              lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
               created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users WHERE id = $1`,
       [id],
@@ -22,7 +21,6 @@ export class PgUserRepository implements IUserRepository {
     const result = await this.pool.query<UserEntity>(
       `SELECT id, full_name AS "fullName", email, password_hash AS "passwordHash",
               role, status,
-              lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
               created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users WHERE email = $1`,
       [email],
@@ -35,12 +33,10 @@ export class PgUserRepository implements IUserRepository {
   ): Promise<UserEntity> {
     const passwordHash = await bcrypt.hash(data.passwordHash, 10);
     const result = await this.pool.query<UserEntity>(
-      `INSERT INTO users (full_name, email, password_hash, role, status)
-       VALUES ($1, $2, $3, $4, $5)
+      `INSERT INTO users (full_name, email, password_hash, role, status, phone_number, avatar_url)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id, full_name AS "fullName", email, password_hash AS "passwordHash",
-                 role, status,
-                 lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
-                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+                 role, status, created_at AS "createdAt", updated_at AS "updatedAt"`,
       [data.fullName, data.email, passwordHash, data.role, data.status],
     );
     return result.rows[0];
@@ -51,14 +47,11 @@ export class PgUserRepository implements IUserRepository {
     const values: unknown[] = [];
     let idx = 1;
 
-    if (data.fullName !== undefined)     { sets.push(`full_name = $${idx++}`);    values.push(data.fullName); }
-    if (data.email !== undefined)         { sets.push(`email = $${idx++}`);        values.push(data.email); }
-    if (data.role !== undefined)          { sets.push(`role = $${idx++}`);         values.push(data.role); }
-    if (data.status !== undefined)        { sets.push(`status = $${idx++}`);       values.push(data.status); }
-    if (data.passwordHash !== undefined)  { sets.push(`password_hash = $${idx++}`); values.push(data.passwordHash); }
-    if ('lockReason' in data)  { sets.push(`lock_reason = $${idx++}`); values.push(data.lockReason ?? null); }
-    if ('lockedAt' in data)    { sets.push(`locked_at = $${idx++}`);   values.push(data.lockedAt ?? null); }
-    if ('lockedBy' in data)    { sets.push(`locked_by = $${idx++}`);   values.push(data.lockedBy ?? null); }
+    if (data.fullName !== undefined) { sets.push(`full_name = $${idx++}`); values.push(data.fullName); }
+    if (data.email !== undefined) { sets.push(`email = $${idx++}`); values.push(data.email); }
+    if (data.role !== undefined) { sets.push(`role = $${idx++}`); values.push(data.role); }
+    if (data.status !== undefined) { sets.push(`status = $${idx++}`); values.push(data.status); }
+    if (data.passwordHash !== undefined) { sets.push(`password_hash = $${idx++}`); values.push(data.passwordHash); }
 
     sets.push(`updated_at = NOW()`);
     values.push(id);
@@ -66,9 +59,7 @@ export class PgUserRepository implements IUserRepository {
     const result = await this.pool.query<UserEntity>(
       `UPDATE users SET ${sets.join(', ')} WHERE id = $${idx}
        RETURNING id, full_name AS "fullName", email, password_hash AS "passwordHash",
-                 role, status,
-                 lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
-                 created_at AS "createdAt", updated_at AS "updatedAt"`,
+                 role, status, created_at AS "createdAt", updated_at AS "updatedAt"`,
       values,
     );
     return result.rows[0];
@@ -106,9 +97,7 @@ export class PgUserRepository implements IUserRepository {
     values.push(options.pageSize, offset);
     const result = await this.pool.query<UserEntity>(
       `SELECT id, full_name AS "fullName", email, password_hash AS "passwordHash",
-              role, status,
-              lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
-              created_at AS "createdAt", updated_at AS "updatedAt"
+              role, status, created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users ${where}
        ORDER BY created_at DESC
        LIMIT $${idx} OFFSET $${idx + 1}`,
