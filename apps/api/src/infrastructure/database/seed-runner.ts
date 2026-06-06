@@ -4,6 +4,62 @@ import path from 'path';
 import { getPool } from './connection';
 
 const SEEDS_DIR = path.join(__dirname, 'seeds');
+const MIGRATIONS_DIR = path.join(__dirname, 'migrations');
+
+export async function runMigrations(): Promise<void> {
+  const pool = getPool();
+  
+  // Create a tracking table for migrations if it doesn't exist
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS _migrations (
+      filename VARCHAR(255) PRIMARY KEY,
+      executed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
+  const executedResult = await pool.query(`SELECT filename FROM _migrations`);
+  const executedFiles = new Set(executedResult.rows.map(r => r.filename));
+
+  const checkUsers = await pool.query(`
+    SELECT EXISTS (
+      SELECT FROM information_schema.tables 
+      WHERE table_schema = 'public' 
+      AND table_name = 'users'
+    );
+  `);
+  if (checkUsers.rows[0].exists && !executedFiles.has('001_initial_schema.sql')) {
+    await pool.query(`INSERT INTO _migrations (filename) VALUES ('001_initial_schema.sql') ON CONFLICT DO NOTHING`);
+    executedFiles.add('001_initial_schema.sql');
+  }
+
+  const files = fs
+    .readdirSync(MIGRATIONS_DIR)
+    .filter(f => f.endsWith('.sql'))
+    .sort();
+
+  for (const file of files) {
+    if (!executedFiles.has(file)) {
+      console.log(`Executing migration: ${file}`);
+      const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), 'utf8');
+      try {
+        // Split by ';' for ALTER TYPE commands which cannot run in multi-command string
+        if (file.includes('add_equipment_statuses') || file.includes('manual_notification_type')) {
+           const stmts = sql.split(';').filter(s => s.trim().length > 0);
+           for (const stmt of stmts) {
+             await pool.query(stmt);
+           }
+        } else {
+           await pool.query(sql);
+        }
+        await pool.query(`INSERT INTO _migrations (filename) VALUES ($1)`, [file]);
+        console.log(`✅ Migration ${file} applied`);
+      } catch (e) {
+        console.error(`❌ Migration ${file} failed:`, e);
+        throw e;
+      }
+    }
+  }
+}
 
 export async function runSeeds(): Promise<void> {
   const pool = getPool();

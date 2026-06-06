@@ -125,7 +125,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
   async listAll(
     page: number,
     pageSize: number,
-    options?: { status?: string; search?: string },
+    options?: { status?: string; search?: string; userId?: number },
   ): Promise<{ items: (BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string; quantity?: number })[]; total: number }> {
     const offset = (page - 1) * pageSize;
     const conditions: string[] = [];
@@ -139,6 +139,10 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     if (options?.search) {
       conditions.push(`u.full_name ILIKE $${idx++}`);
       values.push(`%${options.search}%`);
+    }
+    if (options?.userId) {
+      conditions.push(`br.user_id = $${idx++}`);
+      values.push(options.userId);
     }
 
     const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';

@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { createApp } from './app';
 import { startScheduler } from './infrastructure/jobs/scheduler';
 import { ensureDefaultAdminUser } from './infrastructure/database/seed-admin';
-import { runSeeds } from './infrastructure/database/seed-runner';
+import { runSeeds, runMigrations } from './infrastructure/database/seed-runner';
 
 const PORT = Number(process.env.PORT ?? 3000);
 
@@ -11,6 +11,9 @@ const app = createApp();
 // Initialize default admin user before starting server
 (async () => {
   try {
+    console.log('Running database migrations...');
+    await runMigrations();
+
     console.log('Seeding default admin user...');
     await ensureDefaultAdminUser();
     console.log('✅ Default admin user initialized');

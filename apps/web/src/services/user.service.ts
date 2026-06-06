@@ -38,10 +38,26 @@ export async function listUsers(
 export async function setUserStatus(
   userId: number,
   newStatus: string,
+  reason?: string,
 ): Promise<ApiResponse<UserDto>> {
   const response = await http.put<ApiResponse<UserDto>>(`/users/${userId}/lock`, {
     targetUserId: userId,
     newStatus,
+    reason,
   });
+  return response.data;
+}
+
+export interface ViolationDto {
+  id: number;
+  type: string;
+  description: string;
+  createdAt: string;
+  equipmentName?: string;
+  expectedReturnDate?: string;
+}
+
+export async function listViolations(userId: number): Promise<ApiResponse<ViolationDto[]>> {
+  const response = await http.get<ApiResponse<ViolationDto[]>>(`/users/${userId}/violations`);
   return response.data;
 }

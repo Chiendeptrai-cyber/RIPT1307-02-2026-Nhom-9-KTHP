@@ -90,7 +90,7 @@ export const rejectBorrowRequestUseCase  = new RejectBorrowRequestUseCase(borrow
 export const cancelBorrowRequestUseCase  = new CancelBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
 export const markReceivedUseCase         = new MarkReceivedUseCase(borrowRequestRepo, notificationRepo, userRepo, emailService);
 export const markNotReceivedUseCase      = new MarkNotReceivedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo);
-export const markReturnedUseCase         = new MarkReturnedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo, userRepo, emailService);
+export const markReturnedUseCase         = new MarkReturnedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo, userRepo, violationRepo, emailService);
 
 // Notification use cases
 export const listNotificationsUseCase    = new ListNotificationsUseCase(notificationRepo);
@@ -115,4 +115,4 @@ export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(
 export const exportReportUseCase = new ExportReportUseCase(borrowRecordRepo);
 
 // Expose repos for controllers that need direct listAll
-export { borrowRequestRepo, userRepo, equipmentRepo, notificationRepo };
+export { borrowRequestRepo, userRepo, equipmentRepo, notificationRepo, violationRepo };

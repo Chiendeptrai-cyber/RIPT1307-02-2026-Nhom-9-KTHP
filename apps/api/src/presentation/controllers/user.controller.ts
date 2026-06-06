@@ -11,6 +11,7 @@ import {
   changePasswordUseCase,
   updateProfileUseCase,
   userRepo,
+  violationRepo,
 } from '../../infrastructure/container';
 
 export async function listUsers(req: Request, res: Response): Promise<void> {
@@ -143,5 +144,16 @@ export async function updateProfile(req: Request, res: Response): Promise<void> 
     success: true,
     data: result,
     message: 'Cập nhật thông tin thành công',
+  } satisfies ApiResponse);
+}
+
+export async function listViolations(req: Request, res: Response): Promise<void> {
+  const userId = Number(req.params.id);
+  const result = await (violationRepo as any).listByUser(userId);
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Lấy danh sách vi phạm thành công',
   } satisfies ApiResponse);
 }
