@@ -58,7 +58,8 @@ export class ApproveBorrowRequestUseCase {
 
     const updated = await this.borrowRequestRepo.update(requestId, {
       status: BorrowRequestStatus.APPROVED,
-    });
+      approvedAt: new Date().toISOString(),
+    } as any);
 
     await this.notificationRepo.create({
       userId: request.userId,

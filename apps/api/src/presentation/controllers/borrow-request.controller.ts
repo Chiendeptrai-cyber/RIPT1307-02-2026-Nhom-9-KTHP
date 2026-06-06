@@ -4,6 +4,9 @@ import {
   approveBorrowRequestUseCase,
   rejectBorrowRequestUseCase,
   cancelBorrowRequestUseCase,
+  markReceivedUseCase,
+  markNotReceivedUseCase,
+  markReturnedUseCase,
   borrowRequestRepo,
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
@@ -88,7 +91,7 @@ export async function rejectBorrowRequest(req: Request, res: Response): Promise<
 
 export async function cancelBorrowRequest(req: Request, res: Response): Promise<void> {
   const requestId = Number(req.params.id);
-  const userId    = req.user!.userId;
+  const userId = req.user!.userId;
 
   const result = await cancelBorrowRequestUseCase.execute(requestId, userId);
 
@@ -98,48 +101,39 @@ export async function cancelBorrowRequest(req: Request, res: Response): Promise<
     message: 'Đã hủy yêu cầu mượn',
   } satisfies ApiResponse);
 }
-export async function handover(req: Request, res: Response, next: NextFunction): Promise<void> {
-  try {
-    const { id } = req.params;
-    // ĐỒNG BỘ: Sử dụng .userId giống các hàm phía trên
-    const adminId = req.user!.userId; 
 
-    // Gọi UseCase (Giả sử bạn đã khởi tạo nó trong container)
-    // Lưu ý: Cần thêm handoverEquipmentUseCase vào file container.ts của nhóm
-    const { handoverEquipmentUseCase } = require('../../infrastructure/container'); 
-    
-    await handoverEquipmentUseCase.execute({
-      borrowRequestId: Number(id),
-      adminId: Number(adminId) // Ép kiểu nếu UseCase yêu cầu string
-    });
+/** Admin: Xác nhận sinh viên đã đến nhận (approved → borrowing) */
+export async function markReceived(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await markReceivedUseCase.execute(id);
 
-    res.status(200).json({
-      success: true,
-      message: 'Bàn giao và xuất kho thiết bị thành công.'
-    } as ApiResponse);
-  } catch (error) {
-    next(error);
-  }
+  res.json({
+    success: true,
+    data: result,
+    message: 'Đã xác nhận sinh viên nhận thiết bị — phiếu chuyển sang trạng thái Đang mượn',
+  } satisfies ApiResponse);
 }
 
-export async function returnEquipment(req: Request, res: Response, next: NextFunction): Promise<void> {
-  try {
-    const { id } = req.params;
-    const adminId = req.user!.userId; // ĐỒNG BỘ logic ID
+/** Admin: Xác nhận sinh viên chưa đến nhận (approved → cancelled) */
+export async function markNotReceived(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await markNotReceivedUseCase.execute(id);
 
-    // Gọi UseCase
-    const { returnEquipmentUseCase } = require('../../infrastructure/container');
+  res.json({
+    success: true,
+    data: result,
+    message: 'Đã hủy phiếu mượn — sinh viên không đến nhận',
+  } satisfies ApiResponse);
+}
 
-    await returnEquipmentUseCase.execute({
-      borrowRequestId: id,
-      adminId: String(adminId)
-    });
+/** Admin: Xác nhận sinh viên đã trả thiết bị (borrowing/overdue → returned) */
+export async function markReturned(req: Request, res: Response): Promise<void> {
+  const id = Number(req.params.id);
+  const result = await markReturnedUseCase.execute(id);
 
-    res.status(200).json({
-      success: true,
-      message: 'Ghi nhận hoàn trả và cập nhật tồn kho thành công.'
-    } as ApiResponse);
-  } catch (error) {
-    next(error);
-  }
+  res.json({
+    success: true,
+    data: result,
+    message: 'Đã xác nhận nhận lại thiết bị — phiếu chuyển sang trạng thái Đã trả',
+  } satisfies ApiResponse);
 }

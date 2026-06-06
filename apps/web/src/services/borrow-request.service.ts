@@ -4,18 +4,23 @@ import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
 
 export interface BorrowRequest {
   id: number;
+  displayCode?: string;          // PH-YYYYMMDD-XXXXX
   userId: number;
-  equipmentId: number;
-  quantity: number;
+  equipmentId?: number;
+  quantity?: number;
   status: 'pending' | 'approved' | 'rejected' | 'cancelled' | 'borrowing' | 'overdue' | 'returned';
   expectedReturnDate: string;
   note?: string;
+  rejectReason?: string;
+  approvedAt?: string;
+  borrowedAt?: string;
+  borrowStartDate?: string;
+  returnedAt?: string;
   createdAt: string;
   updatedAt: string;
   userFullName?: string;
   userEmail?: string;
   equipmentName?: string;
-  rejectReason?: string;
 }
 
 export const borrowRequestService = {
@@ -54,7 +59,7 @@ export const borrowRequestService = {
     const res = await http.get<ApiResponse<PaginatedResponse<BorrowRequest>>>('/borrow-requests', {
       params: {
         page: params?.page ?? 1,
-        pageSize: params?.pageSize ?? 15,
+        pageSize: params?.pageSize ?? 20,
         status: params?.status || undefined,
         search: params?.search || undefined,
       },
@@ -74,6 +79,21 @@ export const borrowRequestService = {
 
   async reject(id: number, reason: string): Promise<ApiResponse<BorrowRequest>> {
     const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/reject`, { reason });
+    return res.data;
+  },
+
+  async markReceived(id: number): Promise<ApiResponse<BorrowRequest>> {
+    const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/mark-received`);
+    return res.data;
+  },
+
+  async markNotReceived(id: number): Promise<ApiResponse<BorrowRequest>> {
+    const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/mark-not-received`);
+    return res.data;
+  },
+
+  async markReturned(id: number): Promise<ApiResponse<BorrowRequest>> {
+    const res = await http.patch<ApiResponse<BorrowRequest>>(`/borrow-requests/${id}/mark-returned`);
     return res.data;
   },
 

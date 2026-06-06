@@ -22,6 +22,11 @@ import { CreateBorrowRequestUseCase } from '../application/use-cases/borrow-requ
 import { ApproveBorrowRequestUseCase } from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
 import { RejectBorrowRequestUseCase } from '../application/use-cases/borrow-request/reject-borrow-request.use-case';
 import { CancelBorrowRequestUseCase } from '../application/use-cases/borrow-request/cancel-borrow-request.use-case';
+import {
+  MarkReceivedUseCase,
+  MarkNotReceivedUseCase,
+  MarkReturnedUseCase,
+} from '../application/use-cases/borrow-request/borrow-lifecycle.use-cases';
 import { ListNotificationsUseCase } from '../application/use-cases/notification/list-notifications.use-case';
 import { MarkNotificationReadUseCase } from '../application/use-cases/notification/mark-notification-read.use-case';
 import { ListUsersUseCase } from '../application/use-cases/user/list-users.use-case';
@@ -68,10 +73,9 @@ export const createBorrowRequestUseCase = new CreateBorrowRequestUseCase(borrowR
 export const approveBorrowRequestUseCase = new ApproveBorrowRequestUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo, userRepo, emailService);
 export const rejectBorrowRequestUseCase = new RejectBorrowRequestUseCase(borrowRequestRepo, notificationRepo, userRepo, emailService);
 export const cancelBorrowRequestUseCase = new CancelBorrowRequestUseCase(borrowRequestRepo, notificationRepo);
-
-// THÊM MỚI: Khởi tạo 2 Use Case xuất/hoàn kho
-export const handoverEquipmentUseCase = new HandoverEquipmentUseCase(borrowRequestRepo, notificationRepo);
-export const returnEquipmentUseCase = new ReturnEquipmentUseCase(borrowRequestRepo, borrowRecordRepo, equipmentRepo, notificationRepo);
+export const markReceivedUseCase = new MarkReceivedUseCase(borrowRequestRepo, notificationRepo, userRepo, emailService);
+export const markNotReceivedUseCase = new MarkNotReceivedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo);
+export const markReturnedUseCase = new MarkReturnedUseCase(borrowRequestRepo, equipmentRepo, stockLogRepo, notificationRepo, userRepo, emailService);
 
 // Notification use cases
 export const listNotificationsUseCase = new ListNotificationsUseCase(notificationRepo);
