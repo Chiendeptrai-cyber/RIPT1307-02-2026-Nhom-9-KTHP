@@ -1,6 +1,7 @@
 import {
   AppstoreOutlined,
   BellOutlined,
+  ClockCircleOutlined,
   DashboardOutlined,
   FileTextOutlined,
   HistoryOutlined,
@@ -39,6 +40,11 @@ export const adminMenuItems: MenuProps['items'] = [
     key: ROUTES.ADMIN_REQUESTS,
     icon: <FileTextOutlined />,
     label: 'Yêu cầu mượn',
+  },
+  {
+    key: ROUTES.ADMIN_DUE_OVERDUE,
+    icon: <ClockCircleOutlined />,
+    label: 'Hạn trả thiết bị',
   },
   {
     key: ROUTES.ADMIN_EQUIPMENT,

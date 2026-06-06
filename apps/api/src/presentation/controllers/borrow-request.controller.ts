@@ -13,11 +13,12 @@ import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export async function createBorrowRequest(req: Request, res: Response): Promise<void> {
   const userId = req.user!.userId;
-  const { equipmentId, quantity, expectedReturnDate, note } = req.body as {
+  const { equipmentId, quantity, expectedReturnDate, note, rulesAccepted } = req.body as {
     equipmentId: number;
     quantity: number;
     expectedReturnDate: string;
     note?: string;
+    rulesAccepted?: boolean;
   };
 
   const result = await createBorrowRequestUseCase.execute({
@@ -26,6 +27,7 @@ export async function createBorrowRequest(req: Request, res: Response): Promise<
     quantity: quantity ?? 1,
     expectedReturnDate,
     note,
+    rulesAccepted,
   });
 
   res.status(201).json({
@@ -133,5 +135,16 @@ export async function markReturned(req: Request, res: Response): Promise<void> {
     success: true,
     data: result,
     message: 'Đã xác nhận nhận lại thiết bị — phiếu chuyển sang trạng thái Đã trả',
+  } satisfies ApiResponse);
+}
+
+/** Admin: Danh sách phiếu sắp đến hạn + quá hạn */
+export async function listDueOverdue(req: Request, res: Response): Promise<void> {
+  const result = await (borrowRequestRepo as any).findDueSoonAndOverdue();
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'OK',
   } satisfies ApiResponse);
 }

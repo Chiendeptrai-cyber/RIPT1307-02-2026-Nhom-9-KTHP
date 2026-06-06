@@ -10,6 +10,7 @@ export const ROUTES = {
   NOTIFICATIONS: '/notifications',
   ADMIN_DASHBOARD: '/admin/dashboard',
   ADMIN_REQUESTS: '/admin/requests',
+  ADMIN_DUE_OVERDUE: '/admin/due-overdue',
   ADMIN_REQUEST: (id: number | string) => `/admin/requests/${id}`,
   ADMIN_EQUIPMENT: '/admin/equipment',
   ADMIN_USERS: '/admin/users',

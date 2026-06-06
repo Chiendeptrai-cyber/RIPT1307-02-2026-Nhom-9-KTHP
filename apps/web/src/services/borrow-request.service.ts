@@ -29,6 +29,7 @@ export const borrowRequestService = {
     quantity: number;
     expectedReturnDate: string;
     note?: string;
+    rulesAccepted: boolean;
   }): Promise<ApiResponse<BorrowRequest>> {
     const res = await http.post<ApiResponse<BorrowRequest>>('/borrow-requests', payload);
     if (res.data.success) {
@@ -99,6 +100,11 @@ export const borrowRequestService = {
 
   async remove(id: number): Promise<ApiResponse<{ id: number }>> {
     const res = await http.delete<ApiResponse<{ id: number }>>(`/borrow-requests/${id}`);
+    return res.data;
+  },
+
+  async listDueOverdue(): Promise<ApiResponse<BorrowRequest[]>> {
+    const res = await http.get<ApiResponse<BorrowRequest[]>>('/borrow-requests/due-overdue');
     return res.data;
   },
 };

@@ -8,5 +8,9 @@ export interface IBorrowRequestRepository {
   listByUser(userId: number, page: number, pageSize: number): Promise<{ items: BorrowRequestEntity[]; total: number }>;
   countByStatus(status: string): Promise<number>;
   getItems(borrowRequestId: number): Promise<{ equipmentId: number; quantity: number }[]>;
+  findDueSoonRequests(daysBefore: number): Promise<(BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string })[]>;
+  findDueTodayRequests(): Promise<(BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string })[]>;
+  findOverdueByDaysRequests(days: number): Promise<(BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string })[]>;
+  findDueSoonAndOverdue(): Promise<(BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string; quantity?: number })[]>;
 }
 
