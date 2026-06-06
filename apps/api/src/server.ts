@@ -13,8 +13,10 @@ const app = createApp();
 // Run migrations → seed admin → seed sample data → start server
 (async () => {
   try {
-    console.log('Running database migrations...');
-    await runMigrations();
+    const pool = getPool();
+
+    console.log('📦 Running database migrations...');
+    await runMigrations(pool);
 
     console.log('Seeding default admin user...');
     await ensureDefaultAdminUser();
