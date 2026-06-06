@@ -11,6 +11,7 @@ import {
 import dayjs from 'dayjs';
 import { SLINK_COLORS } from '../../../theme/tokens';
 import { notificationService } from '../../../services/notification.service';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 
@@ -167,7 +168,7 @@ export default function AdminNotificationsPage() {
 
   /* ── columns ── */
   const logColumns: ColumnsType<NtfLog> = [
-    { title: 'ID',         dataIndex: 'id',        width: 90, render: v => <Text style={{ color: SLINK_COLORS.primary, fontSize: 12 }}>{v}</Text> },
+    { title: 'ID',         dataIndex: 'id',        width: 90, render: v => <span style={idBadgeStyle}>{v}</span> },
     { title: 'Thời gian',  dataIndex: 'time',       width: 110, render: v => <Text style={{ fontSize: 12 }}>{v}</Text> },
     { title: 'Sự kiện',    dataIndex: 'event',      width: 160, render: v => <Tag color="geekblue" style={{ fontSize: 11 }}>{v}</Tag> },
     { title: 'Kênh',       dataIndex: 'channel',    width: 110, render: v => <Tag color={CHANNEL_COLOR[v] ?? 'default'} style={{ fontSize: 11 }}>{v}</Tag> },
@@ -178,7 +179,7 @@ export default function AdminNotificationsPage() {
   ];
 
   const retryColumns: ColumnsType<RetryItem> = [
-    { title: 'ID',         dataIndex: 'id',        width: 90, render: v => <Text style={{ color: SLINK_COLORS.primary, fontSize: 12 }}>{v}</Text> },
+    { title: 'ID',         dataIndex: 'id',        width: 90, render: v => <span style={idBadgeStyle}>{v}</span> },
     { title: 'Thời gian',  dataIndex: 'time',       width: 110, render: v => <Text style={{ fontSize: 12 }}>{v}</Text> },
     { title: 'Sự kiện',    dataIndex: 'event',      width: 160, render: v => <Tag color="geekblue" style={{ fontSize: 11 }}>{v}</Tag> },
     { title: 'Người nhận', dataIndex: 'recipient',  width: 130, render: v => <Text style={{ fontSize: 12 }}>{v}</Text> },

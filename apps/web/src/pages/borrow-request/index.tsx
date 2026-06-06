@@ -8,6 +8,7 @@ import { ExclamationCircleOutlined, FileTextOutlined, PlusOutlined } from '@ant-
 import { useNavigate } from '@umijs/max';
 import dayjs from 'dayjs';
 import { borrowRequestService, type BorrowRequest } from '../../services/borrow-request.service';
+import { idBadgeStyle } from '@/utils/format';
 import { SLINK_COLORS } from '../../theme/tokens';
 
 const { Title, Text } = Typography;
@@ -78,17 +79,7 @@ export default function BorrowRequestHistoryPage() {
       render: (v, record) => {
         const shortCode = v ? v.replace('PH-20', 'PH-') : `PH-${String(record.id).padStart(5, '0')}`;
         return (
-          <span style={{ 
-            fontFamily: 'monospace',
-            fontWeight: 600,
-            color: SLINK_COLORS.primary,
-            background: 'rgba(191, 4, 4, 0.06)',
-            padding: '2px 6px',
-            borderRadius: 4,
-            border: '1px solid rgba(191, 4, 4, 0.12)',
-            fontSize: '11px',
-            whiteSpace: 'nowrap',
-          }}>
+          <span style={idBadgeStyle}>
             {shortCode}
           </span>
         );

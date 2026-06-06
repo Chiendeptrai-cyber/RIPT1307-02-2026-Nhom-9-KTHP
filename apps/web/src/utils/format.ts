@@ -1,4 +1,19 @@
 import dayjs from 'dayjs';
+import type { CSSProperties } from 'react';
+
+/** Style cho badge mã ID (EQ-0023, PH-xxx, LOG-xxx …) */
+export const idBadgeStyle: CSSProperties = {
+  display: 'inline-block',
+  fontSize: 13,
+  color: '#cf1322',
+  fontWeight: 700,
+  background: '#fff1f0',
+  border: '1px solid #ffa39e',
+  borderRadius: 6,
+  padding: '2px 10px',
+  whiteSpace: 'nowrap',
+  textTransform: 'uppercase',
+};
 
 export const formatDate = (d: string | Date) => dayjs(d).format('DD/MM/YYYY');
 export const formatDatetime = (d: string | Date) => dayjs(d).format('DD/MM/YYYY HH:mm');
