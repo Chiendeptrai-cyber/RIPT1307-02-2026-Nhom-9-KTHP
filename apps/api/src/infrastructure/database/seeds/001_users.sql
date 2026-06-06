@@ -22,8 +22,8 @@ INSERT INTO users (full_name, email, password_hash, role, status, created_at, up
   ('Đinh Văn Long',     'long.dinh@ptit.edu.vn',   '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'student', 'active',         NOW() - INTERVAL '55 days',  NOW()),
   ('Phan Thị Thu',      'thu.phan@ptit.edu.vn',    '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'student', 'active',         NOW() - INTERVAL '50 days',  NOW()),
 
-  -- Students - borrow_blocked / locked
-  ('Lý Văn Tài',        'tai.ly@ptit.edu.vn',      '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'student', 'borrow_blocked', NOW() - INTERVAL '40 days',  NOW()),
+  -- Students - locked
+  ('Lý Văn Tài',        'tai.ly@ptit.edu.vn',      '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'student', 'locked', NOW() - INTERVAL '40 days',  NOW()),
   ('Cao Thị Bích',      'bich.cao@ptit.edu.vn',    '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'student', 'locked',         NOW() - INTERVAL '30 days',  NOW())
 ON CONFLICT (email) DO NOTHING;
 

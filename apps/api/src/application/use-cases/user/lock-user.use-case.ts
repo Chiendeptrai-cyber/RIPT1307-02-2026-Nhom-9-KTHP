@@ -30,8 +30,8 @@ export class LockUserUseCase {
       throw new NotFoundError('User');
     }
 
-    // Only allow changing to LOCKED or BORROW_BLOCKED or ACTIVE
-    if (![UserStatus.LOCKED, UserStatus.BORROW_BLOCKED, UserStatus.ACTIVE].includes(data.newStatus)) {
+    // Only allow changing to LOCKED or ACTIVE
+    if (![UserStatus.LOCKED, UserStatus.ACTIVE].includes(data.newStatus)) {
       throw new ForbiddenError('Invalid status for this operation');
     }
 
