@@ -135,3 +135,14 @@ export async function markReturned(req: Request, res: Response): Promise<void> {
     message: 'Đã xác nhận nhận lại thiết bị — phiếu chuyển sang trạng thái Đã trả',
   } satisfies ApiResponse);
 }
+
+/** Admin: Danh sách phiếu sắp đến hạn + quá hạn */
+export async function listDueOverdue(req: Request, res: Response): Promise<void> {
+  const result = await (borrowRequestRepo as any).findDueSoonAndOverdue();
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'OK',
+  } satisfies ApiResponse);
+}

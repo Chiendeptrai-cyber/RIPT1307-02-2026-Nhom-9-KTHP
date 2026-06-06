@@ -101,4 +101,9 @@ export const borrowRequestService = {
     const res = await http.delete<ApiResponse<{ id: number }>>(`/borrow-requests/${id}`);
     return res.data;
   },
+
+  async listDueOverdue(): Promise<ApiResponse<BorrowRequest[]>> {
+    const res = await http.get<ApiResponse<BorrowRequest[]>>('/borrow-requests/due-overdue');
+    return res.data;
+  },
 };

@@ -7,6 +7,7 @@ import { PgNotificationRepository }   from './database/repositories/pg-notificat
 import { PgPasswordResetTokenRepository } from './database/repositories/pg-password-reset-token.repository';
 import { PgViolationRepository }      from './database/repositories/pg-violation.repository';
 import { PgStockLogRepository }      from './database/repositories/pg-stock-log.repository';
+import { PgEmailLogRepository }       from './database/repositories/pg-email-log.repository';
 import { JwtTokenService }            from './services/jwt-token.service';
 
 import { LoginUseCase }                  from '../application/use-cases/auth/login.use-case';
@@ -51,6 +52,7 @@ const notificationRepo   = new PgNotificationRepository(pool);
 const passwordResetTokenRepo = new PgPasswordResetTokenRepository(pool);
 const violationRepo      = new PgViolationRepository(pool);
 const stockLogRepo       = new PgStockLogRepository(pool);
+const emailLogRepo       = new PgEmailLogRepository(pool);
 
 // Services
 const tokenService = new JwtTokenService();
@@ -101,4 +103,4 @@ export const getDashboardStatsUseCase = new GetDashboardStatsUseCase(
 export const exportReportUseCase = new ExportReportUseCase(borrowRecordRepo);
 
 // Expose repos for controllers that need direct listAll
-export { borrowRequestRepo, userRepo, equipmentRepo };
+export { borrowRequestRepo, userRepo, equipmentRepo, emailLogRepo, notificationRepo, stockLogRepo };

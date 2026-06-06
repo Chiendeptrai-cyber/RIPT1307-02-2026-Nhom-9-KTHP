@@ -212,4 +212,75 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     );
     return result.rows;
   }
+
+  /** Tìm đơn "borrowing" sẽ đến hạn trong N ngày tới */
+  async findDueSoonRequests(daysBefore: number): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status = 'borrowing'
+         AND (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+             = (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + $1 * INTERVAL '1 day')::date`,
+      [daysBefore],
+    );
+    return result.rows;
+  }
+
+  /** Tìm đơn "borrowing" đến hạn hôm nay */
+  async findDueTodayRequests(): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status = 'borrowing'
+         AND (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+             = (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date`,
+    );
+    return result.rows;
+  }
+
+  /** Tìm đơn đã quá hạn N ngày (status = borrowing hoặc overdue) */
+  async findOverdueByDaysRequests(days: number): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status IN ('borrowing', 'overdue')
+         AND (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
+             - (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date >= $1`,
+      [days],
+    );
+    return result.rows;
+  }
+
+  /** Tìm tất cả đơn sắp đến hạn (trong 3 ngày) + quá hạn — cho admin dashboard */
+  async findDueSoonAndOverdue(): Promise<any[]> {
+    const result = await this.pool.query(
+      `SELECT ${BASE_SELECT},
+              u.full_name AS "userFullName", u.email AS "userEmail",
+              e.name AS "equipmentName",
+              bri.quantity AS "quantity"
+       FROM borrow_requests br
+       JOIN users u ON u.id = br.user_id
+       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN equipment e ON e.id = bri.equipment_id
+       WHERE br.status IN ('borrowing', 'overdue')
+         AND br.expected_return_date <= (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + INTERVAL '3 days')
+       ORDER BY br.expected_return_date ASC`,
+    );
+    return result.rows;
+  }
 }
