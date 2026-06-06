@@ -1,4 +1,6 @@
 export class AppError extends Error {
+  public details?: Record<string, unknown>;
+
   constructor(
     public readonly message: string,
     public readonly statusCode: number,

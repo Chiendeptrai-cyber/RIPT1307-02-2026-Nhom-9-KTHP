@@ -12,6 +12,7 @@ export class LockUserUseCase {
     adminRole: UserRole;
     targetUserId: number;
     newStatus: UserStatus;
+    reason?: string;
   }): Promise<Omit<UserEntity, 'passwordHash'>> {
     // Admin only
     if (data.adminRole !== UserRole.ADMIN) {
@@ -29,15 +30,21 @@ export class LockUserUseCase {
       throw new NotFoundError('User');
     }
 
-    // Only allow changing to LOCKED or BORROW_BLOCKED status
+    // Only allow changing to LOCKED or BORROW_BLOCKED or ACTIVE
     if (![UserStatus.LOCKED, UserStatus.BORROW_BLOCKED, UserStatus.ACTIVE].includes(data.newStatus)) {
       throw new ForbiddenError('Invalid status for this operation');
     }
 
-    // Update user status
-    const updated = await this.userRepo.update(data.targetUserId, {
+    // Build update payload — clear lock info when unlocking
+    const isLocking = data.newStatus === UserStatus.LOCKED;
+    const updatePayload: Partial<UserEntity> = {
       status: data.newStatus,
-    });
+      lockReason: isLocking ? (data.reason ?? null) : null,
+      lockedAt:   isLocking ? new Date().toISOString() : null,
+      lockedBy:   isLocking ? data.adminId : null,
+    };
+
+    const updated = await this.userRepo.update(data.targetUserId, updatePayload);
 
     // Return without passwordHash
     const { passwordHash, ...result } = updated;
