@@ -2,9 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from '@umijs/max';
 import {
   Alert, Button, Card, Checkbox, Collapse, DatePicker, Form, Input, InputNumber,
-  message, Select, Skeleton, Typography,
+  message, Select, Skeleton, Space, Typography,
 } from 'antd';
-import { ArrowLeftOutlined, PictureOutlined, SendOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, DeleteOutlined, PlusOutlined, SendOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { equipmentService, type Equipment } from '../../services/equipment.service';
 import { borrowRequestService } from '../../services/borrow-request.service';
@@ -50,22 +50,30 @@ export default function BorrowRequestCreatePage() {
 
   useEffect(() => {
     loadEquipment();
-    if (prefilledId) form.setFieldValue('equipmentId', Number(prefilledId));
+    if (prefilledId) {
+      // Pre-fill with single item from URL
+      form.setFieldsValue({
+        items: [{ equipmentId: Number(prefilledId), quantity: 1, expectedReturnDate: dayjs().add(7, 'day') }],
+      });
+    } else {
+      // Initialize with one empty item
+      form.setFieldsValue({ items: [{}] });
+    }
   }, [loadEquipment, prefilledId, form]);
 
   const onFinish = async (values: {
-    equipmentId: number;
-    quantity: number;
-    expectedReturnDate: dayjs.Dayjs;
+    items: Array<{ equipmentId: number; quantity: number; expectedReturnDate: dayjs.Dayjs }>;
     note?: string;
   }) => {
     setSubmitting(true);
     setError(null);
     try {
       const res = await borrowRequestService.create({
-        equipmentId: values.equipmentId,
-        quantity: values.quantity ?? 1,
-        expectedReturnDate: values.expectedReturnDate.format('YYYY-MM-DD'),
+        items: values.items.map((item) => ({
+          equipmentId: item.equipmentId,
+          quantity: item.quantity ?? 1,
+          expectedReturnDate: item.expectedReturnDate.format('YYYY-MM-DD'),
+        })),
         note: values.note,
         rulesAccepted: true,
       });
@@ -81,8 +89,13 @@ export default function BorrowRequestCreatePage() {
     }
   };
 
-  const selectedEquipmentId = Form.useWatch('equipmentId', form);
-  const selectedEquipment   = equipmentList.find((e) => e.id === selectedEquipmentId);
+  // Get all selected equipment IDs for validation (no duplicate)
+  const getSelectedIds = (currentFields: any[], currentIndex: number, currentId?: number) => {
+    return currentFields
+      .filter((_, idx) => idx !== currentIndex)
+      .map((f: any) => f?.equipmentId)
+      .filter(Boolean);
+  };
 
   return (
     <div style={{ padding: 24 }}>
@@ -96,12 +109,12 @@ export default function BorrowRequestCreatePage() {
       </Button>
 
       <Card
-        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow, maxWidth: 600 }}
+        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow, maxWidth: 700 }}
         styles={{ body: { padding: 24 } }}
       >
         <Title level={5} style={{ marginBottom: 4 }}>Tạo yêu cầu mượn thiết bị</Title>
         <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 20 }}>
-          Điền thông tin để gửi yêu cầu mượn đến quản trị viên
+          Điền thông tin để gửi yêu cầu mượn đến quản trị viên. Bạn có thể thêm nhiều thiết bị.
         </Text>
 
         {error && (
@@ -112,117 +125,171 @@ export default function BorrowRequestCreatePage() {
           <Skeleton active paragraph={{ rows: 4 }} />
         ) : (
           <Form form={form} layout="vertical" onFinish={onFinish} requiredMark="optional">
-            <Form.Item
-              name="equipmentId"
-              label="Thiết bị muốn mượn"
-              rules={[{ required: true, message: 'Vui lòng chọn thiết bị' }]}
-            >
-              <Select
-                placeholder="Chọn thiết bị..."
-                showSearch
-                filterOption={(input, option) =>
-                  removeAccents(option?.label ?? '')
-                    .toLowerCase()
-                    .includes(removeAccents(input).toLowerCase())
-                }
-                options={equipmentList.map((e) => ({
-                  value: e.id,
-                  label: `${e.name} (còn ${e.availableQuantity} chiếc)`,
-                }))}
-              />
-            </Form.Item>
-
-            {selectedEquipment && (
-              <>
-                {/* Equipment image */}
-                <Card
-                  size="small"
-                  style={{ marginBottom: 16, borderRadius: 6, overflow: 'hidden' }}
-                  styles={{ body: { padding: 0 } }}
-                >
-                  {selectedEquipment.imageUrl ? (
-                    <div style={{ position: 'relative', height: 140, background: '#f5f5f5' }}>
-                      <img
-                        src={selectedEquipment.imageUrl}
-                        alt={selectedEquipment.name}
-                        style={{ width: '100%', height: '100%', objectFit: 'contain', padding: 8, boxSizing: 'border-box' }}
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        height: 80,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: '#f5f5f5',
-                        color: '#999',
-                        gap: 6,
-                      }}
+            <Form.List name="items">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map((field, index) => (
+                    <Card
+                      key={field.key}
+                      size="small"
+                      style={{ marginBottom: 12, borderRadius: 6, background: '#fafafa' }}
+                      styles={{ body: { padding: '12px 16px' } }}
+                      title={
+                        <Text strong style={{ fontSize: 13 }}>
+                          Thiết bị #{index + 1}
+                        </Text>
+                      }
+                      extra={
+                        fields.length > 1 && (
+                          <Button
+                            type="text"
+                            danger
+                            size="small"
+                            icon={<DeleteOutlined />}
+                            onClick={() => remove(field.name)}
+                          >
+                            Xóa
+                          </Button>
+                        )
+                      }
                     >
-                      <PictureOutlined style={{ fontSize: 28 }} />
-                      <span style={{ fontSize: 12 }}>Chưa có ảnh</span>
-                    </div>
-                  )}
-                </Card>
+                      <Form.Item
+                        {...field}
+                        name={[field.name, 'equipmentId']}
+                        label="Thiết bị muốn mượn"
+                        rules={[
+                          { required: true, message: 'Vui lòng chọn thiết bị' },
+                          ({ getFieldsValue }) => ({
+                            validator(_, value) {
+                              if (!value) return Promise.resolve();
+                              const items = (getFieldsValue() as any).items || [];
+                              const selectedIds = getSelectedIds(items, index, value);
+                              if (selectedIds.includes(value)) {
+                                return Promise.reject('Thiết bị này đã được chọn');
+                              }
+                              return Promise.resolve();
+                            },
+                          }),
+                        ]}
+                        style={{ marginBottom: 12 }}
+                      >
+                        <Select
+                          placeholder="Chọn thiết bị..."
+                          showSearch
+                          filterOption={(input, option) =>
+                            removeAccents(option?.label ?? '')
+                              .toLowerCase()
+                              .includes(removeAccents(input).toLowerCase())
+                          }
+                          options={equipmentList.map((e) => ({
+                            value: e.id,
+                            label: `${e.name} (còn ${e.availableQuantity} chiếc)`,
+                          }))}
+                        />
+                      </Form.Item>
 
-                <Alert
-                  type="info"
-                  message={`Số lượng có thể mượn: ${selectedEquipment.availableQuantity} chiếc`}
-                  style={{ marginBottom: 16, borderRadius: 6 }}
-                />
-              </>
-            )}
+                      <Form.Item noStyle shouldUpdate={(prev, cur) => {
+                        const prevItems = (prev as any).items || [];
+                        const curItems = (cur as any).items || [];
+                        return prevItems[index]?.equipmentId !== curItems[index]?.equipmentId;
+                      }}>
+                        {({ getFieldValue }) => {
+                          const equipmentId = getFieldValue(['items', field.name, 'equipmentId']);
+                          const selectedEquipment = equipmentList.find((e) => e.id === equipmentId);
+                          if (!selectedEquipment) return null;
+                          return (
+                            <Alert
+                              type="info"
+                              message={`Số lượng có thể mượn: ${selectedEquipment.availableQuantity} chiếc`}
+                              style={{ marginBottom: 12, borderRadius: 6 }}
+                            />
+                          );
+                        }}
+                      </Form.Item>
 
-            <Form.Item
-              name="quantity"
-              label="Số lượng"
-              initialValue={1}
-              rules={[
-                { required: true, message: 'Vui lòng nhập số lượng' },
-                {
-                  validator: (_, val) => {
-                    if (!selectedEquipment) return Promise.resolve();
-                    if (val > selectedEquipment.availableQuantity) {
-                      return Promise.reject(`Chỉ còn ${selectedEquipment.availableQuantity} chiếc`);
-                    }
-                    return Promise.resolve();
-                  },
-                },
-              ]}
-            >
-              <InputNumber min={1} max={selectedEquipment?.availableQuantity ?? 99} style={{ width: '100%' }} />
-            </Form.Item>
+                      <div style={{ display: 'flex', gap: 12 }}>
+                        <Form.Item noStyle shouldUpdate={(prev, cur) => {
+                          const prevItems = (prev as any).items || [];
+                          const curItems = (cur as any).items || [];
+                          return prevItems[index]?.equipmentId !== curItems[index]?.equipmentId;
+                        }}>
+                          {({ getFieldValue }) => {
+                            const equipmentId = getFieldValue(['items', field.name, 'equipmentId']);
+                            const selectedEquipment = equipmentList.find((e) => e.id === equipmentId);
+                            return (
+                              <Form.Item
+                                {...field}
+                                name={[field.name, 'quantity']}
+                                label="Số lượng"
+                                initialValue={1}
+                                rules={[
+                                  { required: true, message: 'Nhập số lượng' },
+                                  {
+                                    validator: (_, val) => {
+                                      if (!selectedEquipment) return Promise.resolve();
+                                      if (val > selectedEquipment.availableQuantity) {
+                                        return Promise.reject(`Chỉ còn ${selectedEquipment.availableQuantity} chiếc`);
+                                      }
+                                      return Promise.resolve();
+                                    },
+                                  },
+                                ]}
+                                style={{ flex: 1, marginBottom: 12 }}
+                              >
+                                <InputNumber min={1} max={selectedEquipment?.availableQuantity ?? 99} style={{ width: '100%' }} />
+                              </Form.Item>
+                            );
+                          }}
+                        </Form.Item>
 
-            <Form.Item
-              name="expectedReturnDate"
-              label="Ngày trả dự kiến"
-              rules={[
-                { required: true, message: 'Vui lòng chọn ngày trả' },
-                {
-                  validator: (_, val: dayjs.Dayjs) => {
-                    if (!val) return Promise.resolve();
-                    const today = dayjs().startOf('day');
-                    const maxDate = today.add(14, 'day');
-                    if (val.isBefore(today.add(1, 'day'))) {
-                      return Promise.reject('Ngày trả phải từ ngày mai trở đi');
-                    }
-                    if (val.isAfter(maxDate)) {
-                      return Promise.reject('Ngày trả không được quá 14 ngày kể từ hôm nay');
-                    }
-                    return Promise.resolve();
-                  },
-                },
-              ]}
-            >
-              <DatePicker
-                style={{ width: '100%' }}
-                format="DD/MM/YYYY"
-                disabledDate={(d) => d.isBefore(dayjs().add(1, 'day').startOf('day'))}
-                placeholder="Chọn ngày trả"
-              />
-            </Form.Item>
+                        <Form.Item
+                          {...field}
+                          name={[field.name, 'expectedReturnDate']}
+                          label="Ngày trả dự kiến"
+                          rules={[
+                            { required: true, message: 'Chọn ngày trả' },
+                            {
+                              validator: (_, val: dayjs.Dayjs) => {
+                                if (!val) return Promise.resolve();
+                                const today = dayjs().startOf('day');
+                                const maxDate = today.add(14, 'day');
+                                if (val.isBefore(today.add(1, 'day'))) {
+                                  return Promise.reject('Phải từ ngày mai');
+                                }
+                                if (val.isAfter(maxDate)) {
+                                  return Promise.reject('Tối đa 14 ngày');
+                                }
+                                return Promise.resolve();
+                              },
+                            },
+                          ]}
+                          style={{ flex: 1, marginBottom: 12 }}
+                        >
+                          <DatePicker
+                            style={{ width: '100%' }}
+                            format="DD/MM/YYYY"
+                            disabledDate={(d) => d.isBefore(dayjs().add(1, 'day').startOf('day'))}
+                            placeholder="Chọn ngày trả"
+                          />
+                        </Form.Item>
+                      </div>
+                    </Card>
+                  ))}
+
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => add()}
+                      block
+                      icon={<PlusOutlined />}
+                      style={{ borderRadius: 6 }}
+                    >
+                      Thêm thiết bị
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
 
             <Form.Item name="note" label="Ghi chú (tùy chọn)">
               <Input.TextArea rows={3} placeholder="Mô tả mục đích sử dụng..." maxLength={200} showCount />

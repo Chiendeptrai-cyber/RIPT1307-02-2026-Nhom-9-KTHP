@@ -2,6 +2,13 @@ import { http } from './http';
 import { notifyNotificationChanged } from './notification.service';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
 
+export interface BorrowRequestItem {
+  equipmentId: number;
+  equipmentName: string;
+  quantity: number;
+  expectedReturnDate: string;
+}
+
 export interface BorrowRequest {
   id: number;
   displayCode?: string;          // PH-YYYYMMDD-XXXXX
@@ -21,13 +28,16 @@ export interface BorrowRequest {
   userFullName?: string;
   userEmail?: string;
   equipmentName?: string;
+  // Multi-item fields
+  items?: BorrowRequestItem[];
+  equipmentSummary?: string;
+  earliestReturnDate?: string;
+  latestReturnDate?: string;
 }
 
 export const borrowRequestService = {
   async create(payload: {
-    equipmentId: number;
-    quantity: number;
-    expectedReturnDate: string;
+    items: Array<{ equipmentId: number; quantity: number; expectedReturnDate: string }>;
     note?: string;
     rulesAccepted: boolean;
   }): Promise<ApiResponse<BorrowRequest>> {

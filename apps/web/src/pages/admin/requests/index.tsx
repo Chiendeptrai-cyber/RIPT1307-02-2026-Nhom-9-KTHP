@@ -55,10 +55,23 @@ function StudentCell({ r }: { r: BorrowRequest }) {
 }
 
 function EqCell({ r }: { r: BorrowRequest }) {
+  // Prefer equipmentSummary for multi-item
+  const summary = r.equipmentSummary || (r.equipmentName ? `${r.equipmentName} (x${r.quantity ?? 1})` : '—');
   return <div>
-    <Text style={{ fontSize: 13 }}>{r.equipmentName ?? '—'}</Text>
-    {r.quantity && <><br /><Text type="secondary" style={{ fontSize: 12 }}>SL: {r.quantity}</Text></>}
+    <Text style={{ fontSize: 13 }}>{summary}</Text>
   </div>;
+}
+
+function DateRange({ r }: { r: BorrowRequest }) {
+  if (r.earliestReturnDate && r.latestReturnDate && r.earliestReturnDate !== r.latestReturnDate) {
+    return (
+      <div>
+        <Text style={{ fontSize: 13 }}>{dayjs(r.earliestReturnDate).format('DD/MM/YYYY')}</Text><br />
+        <Text type="secondary" style={{ fontSize: 13 }}>đến {dayjs(r.latestReturnDate).format('DD/MM/YYYY')}</Text>
+      </div>
+    );
+  }
+  return <Text style={{ fontSize: 13 }}>{fmt(r.expectedReturnDate)}</Text>;
 }
 
 function CodeCell({ r }: { r: BorrowRequest }) {
@@ -190,7 +203,7 @@ export default function AdminRequestsPage() {
   const cols: Record<TabKey, ColumnsType<BorrowRequest>> = {
     pending: base([
       { title: 'Ngày gửi', key: 'c', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
       {
         title: 'Thao tác', key: 'act', width: 180,
         render: (_, r) => (
@@ -225,7 +238,7 @@ export default function AdminRequestsPage() {
 
     approved: base([
       { title: 'Ngày duyệt', key: 'ad', render: (_, r) => fmt(r.approvedAt) },
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
       {
         title: 'Hạn đến nhận', key: 'hdn',
         render: (_, r) => {
@@ -262,7 +275,7 @@ export default function AdminRequestsPage() {
 
     borrowing: base([
       { title: 'Ngày nhận', key: 'bd', render: (_, r) => fmt(r.borrowedAt) },
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
       { title: 'Còn lại', key: 'cl', render: (_, r) => <Countdown dateStr={r.expectedReturnDate} warnDays={2} /> },
       {
         title: 'Thao tác', key: 'act', width: 150,
@@ -282,7 +295,7 @@ export default function AdminRequestsPage() {
     ]),
 
     overdue: base([
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
       {
         title: 'Quá hạn', key: 'qh',
         render: (_, r) => <Tag color="error" style={{ fontWeight: 700 }}>Trễ {Math.abs(daysFromNow(r.expectedReturnDate))} ngày</Tag>,
@@ -304,7 +317,7 @@ export default function AdminRequestsPage() {
     ]),
 
     returned: base([
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
       { title: 'Ngày trả thực tế', key: 'ra', render: (_, r) => fmtFull(r.returnedAt) },
       {
         title: 'Kết quả', key: 'kq',
@@ -496,7 +509,7 @@ export default function AdminRequestsPage() {
               <div><Text type="secondary">Mã phiếu:</Text> <Text code style={{ color: SLINK_COLORS.primary }}>{displayCode(r)}</Text></div>
               <div><Text type="secondary">Sinh viên:</Text> <Text strong>{r.userFullName}</Text></div>
               <div><Text type="secondary">Email:</Text> <Text>{r.userEmail}</Text></div>
-              <div><Text type="secondary">Thiết bị:</Text> <Text>{r.equipmentName} × {r.quantity}</Text></div>
+              <div><Text type="secondary">Thiết bị:</Text> <Text>{r.equipmentSummary || (r.equipmentName ? `${r.equipmentName} × ${r.quantity ?? 1}` : '—')}</Text></div>
               <div><Text type="secondary">Ngày tạo:</Text> <Text>{fmtFull(r.createdAt)}</Text></div>
               <div><Text type="secondary">Trả dự kiến:</Text> <Text>{fmt(r.expectedReturnDate)}</Text></div>
               <div><Text type="secondary">Ngày trả thực tế:</Text> <Text>{fmtFull(r.returnedAt)}</Text></div>
