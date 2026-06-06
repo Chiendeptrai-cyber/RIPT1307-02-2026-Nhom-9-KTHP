@@ -40,7 +40,7 @@ export const equipmentService = {
     return res.data;
   },
 
-  async create(payload: { name: string; totalQuantity: number; status?: string; categoryId?: number; description?: string }): Promise<ApiResponse<Equipment>> {
+  async create(payload: { name: string; totalQuantity: number; status?: string; categoryId?: number; description?: string; imageUrl?: string | null }): Promise<ApiResponse<Equipment>> {
     const res = await http.post<ApiResponse<Equipment>>('/equipment', payload);
     return res.data;
   },
@@ -51,6 +51,7 @@ export const equipmentService = {
     status?: string;
     categoryId?: number;
     description?: string;
+    imageUrl?: string | null;
   }): Promise<ApiResponse<Equipment>> {
     const res = await http.patch<ApiResponse<Equipment>>(`/equipment/${id}`, payload);
     return res.data;
