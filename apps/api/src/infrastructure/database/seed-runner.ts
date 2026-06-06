@@ -9,12 +9,16 @@ export async function runSeeds(): Promise<void> {
   const pool = getPool();
 
   // Check if seeds have already been run (idempotency guard)
-  const checkResult = await pool.query<{ total: string }>(
+  const checkStudents = await pool.query<{ total: string }>(
     `SELECT COUNT(*) AS total FROM users WHERE role = 'student'`,
   );
-  const studentCount = Number(checkResult.rows[0].total);
+  const checkEquipment = await pool.query<{ total: string }>(
+    `SELECT COUNT(*) AS total FROM equipment`,
+  );
+  const studentCount = Number(checkStudents.rows[0].total);
+  const equipmentCount = Number(checkEquipment.rows[0].total);
 
-  if (studentCount >= 10) {
+  if (studentCount >= 10 && equipmentCount >= 20) {
     console.log('ℹ️  Seeds already applied, skipping...');
     return;
   }
