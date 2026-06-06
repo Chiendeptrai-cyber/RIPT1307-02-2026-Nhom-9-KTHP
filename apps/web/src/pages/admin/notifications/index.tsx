@@ -24,24 +24,9 @@ interface RetryItem {
   email: string; tryNum: string; error: string;
 }
 
-const MOCK_LOGS: NtfLog[] = [
-  { id: 'NTF-001', time: '20/05 09:14', event: 'Phiếu được duyệt',  channel: 'Email + App', recipient: 'Nguyễn Văn A', content: 'PH-20230520-00142 đc duyệt', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-002', time: '20/05 09:14', event: 'Yêu cầu mới',       channel: 'Trong app',   recipient: 'Admin',         content: 'Sinh viên Nguyễn Văn A tạo phiếu mới', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-003', time: '20/05 08:00', event: 'Nhắc trả sắp hạn',  channel: 'Email + App', recipient: 'Lê Minh C',     content: 'Còn 1 ngày — PH-20230515-00121', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-004', time: '20/05 08:00', event: 'Nhắc trả sắp hạn',  channel: 'Email + App', recipient: 'Phạm Thị D',    content: 'Còn 2 ngày — PH-20230512-05109', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-005', time: '20/05 09:02', event: 'Cảnh báo quá hạn',  channel: 'Email',       recipient: 'Hoàng Minh E',  content: 'PH-20230510-00098 quá hạn 2 ngày', tries: 3, status: 'Thất bại' },
-  { id: 'NTF-006', time: '19/05 15:30', event: 'Phiếu bị từ chối',  channel: 'Email + App', recipient: 'Trần Thị B',    content: 'PH-20230519-00143 từ chối', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-007', time: '19/05 15:00', event: 'Bàn giao thiết bị', channel: 'Email',       recipient: 'Phạm Quốc C',   content: 'PH-20230519-00138 đã bàn giao', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-008', time: '19/05 09:00', event: 'Cảnh báo quá hạn',  channel: 'Email + App', recipient: 'Admin',         content: '2 phiếu quá hạn hôm nay', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-009', time: '18/05 11:20', event: 'Xác nhận đã trả',   channel: 'Trong app',   recipient: 'Vũ Thanh F',    content: 'PH-20230518-00130 đã trả', tries: 1, status: 'Đã gửi' },
-  { id: 'NTF-010', time: '18/05 08:00', event: 'Nhắc trả sắp hạn',  channel: 'Email + App', recipient: 'Nguyễn Thị G',  content: 'Còn 1 ngày — PH-20230517-00125', tries: 2, status: 'Chờ retry' },
-];
+const MOCK_LOGS: NtfLog[] = [];
 
-const MOCK_RETRY: RetryItem[] = [
-  { id: 'QUE-001', time: '20/05 09:02', event: 'Cảnh báo quá hạn',  recipient: 'Hoàng Minh E', email: 'hoangminhe@sv.edu.vn', tryNum: '3/3 lần', error: 'SMTP timeout' },
-  { id: 'QUE-002', time: '18/05 08:00', event: 'Nhắc trả sắp hạn',  recipient: 'Nguyễn Thị G', email: 'nguyenthig@sv.edu.vn', tryNum: '2/3 lần', error: 'Invalid SMTP credentials' },
-  { id: 'QUE-003', time: '20/05 09:14', event: 'Phiếu được duyệt',  recipient: 'Lê Quang H',   email: 'lequangh@sv.edu.vn',  tryNum: '1/3 lần', error: 'Connection refused' },
-];
+const MOCK_RETRY: RetryItem[] = [];
 
 const EVENT_TYPES = ['Phiếu được duyệt','Phiếu bị từ chối','Nhắc trả sắp hạn','Cảnh báo quá hạn','Bàn giao thiết bị','Xác nhận đã trả'];
 
