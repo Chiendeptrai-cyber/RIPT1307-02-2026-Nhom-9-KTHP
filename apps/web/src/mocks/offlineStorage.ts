@@ -1,4 +1,5 @@
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
+import { ensureSystemLogsSeeded } from './systemLogStore';
 
 export interface MockEquipment {
   id: number;
@@ -337,6 +338,7 @@ export function ensureMockDataSeeded() {
   if (!window.localStorage.getItem(OFFLINE_STORAGE_KEYS.users)) {
     writeJson(OFFLINE_STORAGE_KEYS.users, seedUsers);
   }
+  ensureSystemLogsSeeded();
 }
 
 export function readCollection<T>(key: string, fallback: T[] = []): T[] {
