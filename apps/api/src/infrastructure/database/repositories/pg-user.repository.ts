@@ -77,12 +77,12 @@ export class PgUserRepository implements IUserRepository {
     let idx = 1;
 
     if (options.role) {
-      conditions.push(`role = $${idx++}`);
+      conditions.push(`role::text = $${idx++}`);
       values.push(options.role);
     }
 
     if (options.status) {
-      conditions.push(`status = $${idx++}`);
+      conditions.push(`status::text = $${idx++}`);
       values.push(options.status);
     }
 
@@ -100,7 +100,7 @@ export class PgUserRepository implements IUserRepository {
               role, status, created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users ${where}
        ORDER BY created_at DESC
-       LIMIT $${idx++} OFFSET $${idx}`,
+       LIMIT $${idx} OFFSET $${idx + 1}`,
       values,
     );
 
