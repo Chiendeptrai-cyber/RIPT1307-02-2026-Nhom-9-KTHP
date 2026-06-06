@@ -53,15 +53,20 @@ export default function AdminDueOverduePage() {
     load();
   }, [load]);
 
-  // Split items into due-soon (within 3 days, not overdue) and overdue
+  // Split items into due-soon (within 3 days, NOT yet past due) and overdue (past due)
   const today = dayjs().startOf('day');
   const dueSoonItems = allItems.filter((item) => {
     const due = dayjs(item.expectedReturnDate).startOf('day');
-    return due.isAfter(today.subtract(1, 'day')) && item.status !== 'overdue';
+    const daysUntilDue = due.diff(today, 'day');
+    const isOverdue = (item.status as string) === 'overdue';
+    // Chỉ hiện: đang mượn, chưa quá hạn, trong vòng 3 ngày tới (0-3 ngày)
+    return !isOverdue && daysUntilDue >= 0 && daysUntilDue <= 3;
   });
   const overdueItems = allItems.filter((item) => {
     const due = dayjs(item.expectedReturnDate).startOf('day');
-    return due.isBefore(today) || item.status === 'overdue';
+    const isOverdue = (item.status as string) === 'overdue';
+    // Đã quá hạn: status overdue HOẶC borrowing mà đã qua ngày trả
+    return isOverdue || (!isOverdue && due.isBefore(today));
   });
 
   const displayedItems = activeTab === 'due-soon' ? dueSoonItems : overdueItems;

@@ -282,16 +282,29 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
   /** Tìm tất cả đơn sắp đến hạn (trong 3 ngày) + quá hạn — cho admin dashboard */
   async findDueSoonAndOverdue(): Promise<any[]> {
     const result = await this.pool.query(
-      `SELECT ${BASE_SELECT},
+      `SELECT br.id,
+              br.user_id AS "userId",
+              br.status,
+              br.expected_return_date AS "expectedReturnDate",
+              br.note,
+              br.approved_at AS "approvedAt",
+              br.borrowed_at AS "borrowedAt",
+              br.returned_at AS "returnedAt",
+              br.borrow_start_date AS "borrowStartDate",
+              br.reject_reason AS "rejectReason",
+              br.created_at AS "createdAt",
+              br.updated_at AS "updatedAt",
+              FORMAT('PH-%s-%s', TO_CHAR(br.created_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'YYYYMMDD'), LPAD(br.id::TEXT, 5, '0')) AS "displayCode",
               u.full_name AS "userFullName", u.email AS "userEmail",
-              e.name AS "equipmentName",
-              bri.quantity AS "quantity"
+              STRING_AGG(DISTINCT e.name, ', ') AS "equipmentName",
+              SUM(bri.quantity) AS "quantity"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
        LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        WHERE br.status IN ('borrowing', 'overdue')
          AND br.expected_return_date <= (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + INTERVAL '3 days')
+       GROUP BY br.id, u.id
        ORDER BY br.expected_return_date ASC`,
     );
     return result.rows;
