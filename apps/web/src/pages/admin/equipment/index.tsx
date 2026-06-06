@@ -29,6 +29,7 @@ import { equipmentService, type Equipment, type StockAdjustType } from '../../..
 import { SLINK_COLORS } from '../../../theme/tokens';
 import { SystemLogAction } from '@equipment-mgmt/shared';
 import { createSystemLog } from '../../../mocks/systemLogStore';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -293,16 +294,7 @@ export default function AdminEquipmentPage() {
       key: 'id',
       width: 120,
       render: (id: number) => (
-        <span style={{ 
-          fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
-          fontWeight: 600,
-          color: SLINK_COLORS.primary,
-          background: 'rgba(191, 4, 4, 0.06)',
-          padding: '2px 8px',
-          borderRadius: 4,
-          border: '1px solid rgba(191, 4, 4, 0.15)',
-          fontSize: '12px'
-        }}>
+        <span style={idBadgeStyle}>
           EQ-{String(id).padStart(4, '0')}
         </span>
       ),

@@ -32,6 +32,7 @@ import dayjs from 'dayjs';
 import { listUsers, setUserStatus, listViolations, type UserDto, type ViolationDto } from '../../../services/user.service';
 import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 
@@ -475,7 +476,7 @@ export default function AdminUsersPage() {
                     rowKey="id"
                     pagination={{ pageSize: 5 }}
                     columns={[
-                      { title: 'Mã phiếu', dataIndex: 'displayCode', render: (v) => <Text strong>{v}</Text> },
+                      { title: 'Mã phiếu', dataIndex: 'displayCode', render: (v) => <span style={idBadgeStyle}>{v}</span> },
                       { title: 'Thiết bị', dataIndex: 'equipmentName' },
                       { title: 'Ngày mượn', dataIndex: 'createdAt', render: (v) => dayjs(v).format('DD/MM/YYYY') },
                       { title: 'Hạn trả', dataIndex: 'expectedReturnDate', render: (v) => dayjs(v).format('DD/MM/YYYY') },
