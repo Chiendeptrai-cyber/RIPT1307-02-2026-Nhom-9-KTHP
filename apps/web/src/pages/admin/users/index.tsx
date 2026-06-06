@@ -1,9 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Alert,
   Button,
   Card,
-  Form,
   Input,
   message,
   Modal,
@@ -17,36 +16,17 @@ import {
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import {
-  DeleteOutlined,
-  EditOutlined,
   LockOutlined,
-  PlusOutlined,
+  ReloadOutlined,
   SearchOutlined,
   TeamOutlined,
   UnlockOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import {
-  OFFLINE_STORAGE_KEYS,
-  nextId,
-  paginate,
-  readCollection,
-  writeCollection,
-  type MockUser,
-} from '../../../mocks/offlineStorage';
+import { listUsers, setUserStatus, type UserDto } from '../../../services/user.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
-import { SystemLogAction } from '@equipment-mgmt/shared';
-import { createSystemLog } from '../../../mocks/systemLogStore';
 
 const { Title, Text } = Typography;
-
-type UserRow = MockUser;
-
-interface UserFormValues {
-  fullName: string;
-  email: string;
-  status: string;
-}
 
 const PAGE_SIZE = 15;
 
@@ -56,160 +36,161 @@ const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   locked: { label: 'Bị khóa', color: 'red' },
 };
 
-function readUsers() {
-  return readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users)
-    .filter((user) => user.role === 'student')
-    .sort((a, b) => a.id - b.id);
-}
-
-function writeUsers(users: UserRow[]) {
-  writeCollection(OFFLINE_STORAGE_KEYS.users, users);
-}
-
 export default function AdminUsersPage() {
-  const [items, setItems] = useState<UserRow[]>([]);
+  const [items, setItems] = useState<UserDto[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState('');
-  const [status, setStatus] = useState<string | undefined>();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editRecord, setEditRecord] = useState<UserRow | null>(null);
-  const [form] = Form.useForm<UserFormValues>();
+  const [statusFilter, setStatusFilter] = useState<string | undefined>();
+  const [lockingId, setLockingId] = useState<number | null>(null);
 
-  const load = useCallback((nextPage = 1) => {
+  const [lockModalState, setLockModalState] = useState<{
+    open: boolean;
+    user: UserDto | null;
+    reason: string;
+    loading: boolean;
+  }>({
+    open: false,
+    user: null,
+    reason: '',
+    loading: false,
+  });
+
+  // Dùng ref để debounce search
+  const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const load = useCallback(async (nextPage = 1) => {
     setLoading(true);
     setError(null);
     try {
-      const keyword = search.trim().toLowerCase();
-      const users = readUsers().filter((user) => {
-        const matchesSearch = !keyword
-          || user.fullName.toLowerCase().includes(keyword)
-          || user.email.toLowerCase().includes(keyword);
-        const matchesStatus = !status || user.status === status;
-        return matchesSearch && matchesStatus;
+      const res = await listUsers({
+        page: nextPage,
+        pageSize: PAGE_SIZE,
+        role: 'student',
+        status: statusFilter,
       });
-      const paged = paginate(users, nextPage, PAGE_SIZE);
-      setItems(paged.items);
-      setTotal(paged.total);
-      setPage(paged.page);
+
+      if (!res.success || !res.data) {
+        throw new Error(res.message ?? 'Không thể tải danh sách sinh viên');
+      }
+
+      // Lọc thêm phía client nếu có search keyword (API chưa hỗ trợ search)
+      const keyword = search.trim().toLowerCase();
+      const filtered = keyword
+        ? res.data.items.filter(
+            (u) =>
+              u.fullName.toLowerCase().includes(keyword) ||
+              u.email.toLowerCase().includes(keyword),
+          )
+        : res.data.items;
+
+      setItems(filtered);
+      setTotal(keyword ? filtered.length : res.data.total);
+      setPage(nextPage);
     } catch (err: any) {
-      setError(err?.message ?? 'Không thể tải danh sách sinh viên');
+      const msg =
+        err?.response?.data?.message ??
+        err?.message ??
+        'Không thể tải danh sách sinh viên';
+      setError(msg);
     } finally {
       setLoading(false);
     }
-  }, [search, status]);
+  }, [search, statusFilter]);
 
+  // Tải lại khi bộ lọc thay đổi
   useEffect(() => {
-    load(1);
+    if (searchTimer.current) clearTimeout(searchTimer.current);
+    searchTimer.current = setTimeout(() => {
+      load(1);
+    }, 300);
+    return () => {
+      if (searchTimer.current) clearTimeout(searchTimer.current);
+    };
   }, [load]);
 
-  const openCreate = () => {
-    setEditRecord(null);
-    form.resetFields();
-    form.setFieldValue('status', 'active');
-    setModalOpen(true);
+  const handleToggleLock = (user: UserDto) => {
+    const nextStatus = user.status === 'locked' ? 'active' : 'locked';
+
+    if (nextStatus === 'locked') {
+      // Mở modal nhập lý do khóa
+      setLockModalState({ open: true, user, reason: '', loading: false });
+    } else {
+      // Mở khóa ngay lập tức
+      Modal.confirm({
+        title: 'Xác nhận mở khóa tài khoản',
+        content: (
+          <span>
+            Bạn có chắc muốn mở khóa tài khoản của <strong>{user.fullName}</strong>?
+          </span>
+        ),
+        okText: 'Mở khóa',
+        cancelText: 'Hủy',
+        onOk: async () => {
+          setLockingId(user.id);
+          try {
+            const res = await setUserStatus(user.id, nextStatus);
+            if (!res.success) throw new Error(res.message);
+            message.success('Đã mở khóa tài khoản');
+            load(page);
+          } catch (err: any) {
+            message.error(err?.response?.data?.message ?? err?.message ?? 'Thao tác thất bại');
+          } finally {
+            setLockingId(null);
+          }
+        },
+      });
+    }
   };
 
-  const openEdit = (record: UserRow) => {
-    setEditRecord(record);
-    form.setFieldsValue({
-      fullName: record.fullName,
-      email: record.email,
-      status: record.status,
-    });
-    setModalOpen(true);
-  };
-
-  const handleSubmit = (values: UserFormValues) => {
-    const users = readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users);
-    const email = values.email.trim().toLowerCase();
-    const duplicate = users.some((user) => user.email.toLowerCase() === email && user.id !== editRecord?.id);
-
-    if (duplicate) {
-      message.error('Email sinh viên đã tồn tại');
+  const submitLock = async () => {
+    if (!lockModalState.user) return;
+    if (!lockModalState.reason.trim()) {
+      message.warning('Vui lòng nhập lý do khóa tài khoản');
       return;
     }
 
-    if (editRecord) {
-      writeUsers(users.map((user) => (
-        user.id === editRecord.id
-          ? { ...user, ...values, email }
-          : user
-      )));
-      message.success('Cập nhật sinh viên thành công');
-    } else {
-      writeUsers([
-        ...users,
-        {
-          id: nextId(users),
-          fullName: values.fullName,
-          email,
-          role: 'student',
-          status: values.status,
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-      message.success('Thêm sinh viên thành công');
+    setLockModalState((prev) => ({ ...prev, loading: true }));
+    try {
+      const res = await setUserStatus(lockModalState.user.id, 'locked', lockModalState.reason.trim());
+      if (!res.success) throw new Error(res.message);
+      message.success('Đã khóa tài khoản');
+      setLockModalState({ open: false, user: null, reason: '', loading: false });
+      load(page);
+    } catch (err: any) {
+      message.error(err?.response?.data?.message ?? err?.message ?? 'Thao tác thất bại');
+      setLockModalState((prev) => ({ ...prev, loading: false }));
     }
-
-    setModalOpen(false);
-    load(page);
   };
 
-  const handleToggleLock = (user: UserRow) => {
-    const nextStatus = user.status === 'locked' ? 'active' : 'locked';
-    writeUsers(readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users).map((item) => (
-      item.id === user.id ? { ...item, status: nextStatus } : item
-    )));
-    createSystemLog({
-      adminId: 100, adminName: 'Admin',
-      action: nextStatus === 'locked' ? SystemLogAction.LOCK_ACCOUNT : SystemLogAction.UNLOCK_ACCOUNT,
-      category: 'account',
-      targetId: user.id, targetLabel: user.fullName,
-      details: {
-        studentName: user.fullName,
-        actionLabel: nextStatus === 'locked' ? 'Khoa' : 'Mo khoa',
-        reason: nextStatus === 'locked' ? 'Khoa tai khoan thu cong' : 'Mo khoa tai khoan',
-      },
-    });
-    message.success(nextStatus === 'locked' ? 'Đã khóa tài khoản' : 'Đã mở khóa tài khoản');
-    load(page);
-  };
-
-  const handleDelete = (user: UserRow) => {
-    Modal.confirm({
-      title: 'Xóa sinh viên',
-      content: `Bạn có chắc chắn muốn xóa "${user.fullName}"?`,
-      okText: 'Xóa',
-      okButtonProps: { danger: true },
-      cancelText: 'Hủy',
-      onOk: () => {
-        writeUsers(readCollection<UserRow>(OFFLINE_STORAGE_KEYS.users).filter((item) => item.id !== user.id));
-        message.success('Xóa sinh viên thành công');
-        load(page);
-      },
-    });
-  };
-
-  const columns: ColumnsType<UserRow> = [
-    { title: '#', dataIndex: 'id', key: 'id', width: 60 },
+  const columns: ColumnsType<UserDto> = [
+    {
+      title: '#',
+      dataIndex: 'id',
+      key: 'id',
+      width: 60,
+    },
     {
       title: 'Sinh viên',
       key: 'student',
       render: (_, record) => (
         <div>
-          <Text strong style={{ fontSize: 13 }}>{record.fullName}</Text>
+          <Text strong style={{ fontSize: 13 }}>
+            {record.fullName}
+          </Text>
           <br />
-          <Text type="secondary" style={{ fontSize: 12 }}>{record.email}</Text>
+          <Text type="secondary" style={{ fontSize: 12 }}>
+            {record.email}
+          </Text>
         </div>
       ),
     },
     {
-      title: 'Ngày tạo',
+      title: 'Ngày đăng ký',
       dataIndex: 'createdAt',
-      render: (value: string) => dayjs(value).format('DD/MM/YYYY'),
+      render: (value: string) => dayjs(value).format('DD/MM/YYYY HH:mm'),
     },
     {
       title: 'Trạng thái',
@@ -226,29 +207,13 @@ export default function AdminUsersPage() {
         <Space>
           <Button
             size="small"
-            icon={<EditOutlined />}
-            onClick={() => openEdit(record)}
-            style={{ borderRadius: 4 }}
-          >
-            Sửa
-          </Button>
-          <Button
-            size="small"
             icon={record.status === 'locked' ? <UnlockOutlined /> : <LockOutlined />}
             danger={record.status !== 'locked'}
+            loading={lockingId === record.id}
             onClick={() => handleToggleLock(record)}
             style={{ borderRadius: 4 }}
           >
             {record.status === 'locked' ? 'Mở khóa' : 'Khóa TK'}
-          </Button>
-          <Button
-            size="small"
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => handleDelete(record)}
-            style={{ borderRadius: 4 }}
-          >
-            Xóa
           </Button>
         </Space>
       ),
@@ -258,9 +223,14 @@ export default function AdminUsersPage() {
   return (
     <div style={{ padding: 24 }}>
       <Card
-        style={{ borderRadius: 8, border: `1px solid ${SLINK_COLORS.border}`, boxShadow: SLINK_COLORS.shadow }}
+        style={{
+          borderRadius: 8,
+          border: `1px solid ${SLINK_COLORS.border}`,
+          boxShadow: SLINK_COLORS.shadow,
+        }}
         styles={{ body: { padding: 0 } }}
       >
+        {/* Header */}
         <div
           style={{
             padding: '16px 20px',
@@ -273,14 +243,24 @@ export default function AdminUsersPage() {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <TeamOutlined style={{ fontSize: 18, color: SLINK_COLORS.primary }} />
-            <Title level={5} style={{ marginBottom: 0 }}>Quản lý sinh viên</Title>
+            <Title level={5} style={{ marginBottom: 0 }}>
+              Quản lý sinh viên
+            </Title>
+            {!loading && (
+              <Tag color="blue" style={{ marginLeft: 4 }}>
+                {total} tài khoản
+              </Tag>
+            )}
           </div>
+
           <Space wrap>
             <Select
               placeholder="Lọc trạng thái"
               allowClear
-              value={status}
-              onChange={setStatus}
+              value={statusFilter}
+              onChange={(val) => {
+                setStatusFilter(val);
+              }}
               style={{ width: 160 }}
               options={Object.entries(STATUS_CONFIG).map(([key, value]) => ({
                 value: key,
@@ -291,37 +271,54 @@ export default function AdminUsersPage() {
               placeholder="Tìm tên hoặc email..."
               prefix={<SearchOutlined />}
               value={search}
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(e) => setSearch(e.target.value)}
               allowClear
               style={{ width: 240, borderRadius: 6 }}
             />
             <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              onClick={openCreate}
-              style={{ background: SLINK_COLORS.primary, borderRadius: 6 }}
+              icon={<ReloadOutlined />}
+              onClick={() => load(page)}
+              loading={loading}
+              style={{ borderRadius: 6 }}
             >
-              Thêm sinh viên
+              Làm mới
             </Button>
           </Space>
         </div>
 
-        {error && <Alert type="error" message={error} style={{ margin: 16 }} />}
-
-        {loading ? (
-          <div style={{ padding: 20 }}>
-            <Skeleton active paragraph={{ rows: 6 }} />
-          </div>
-        ) : (
-          <Table dataSource={items} columns={columns} rowKey="id" pagination={false} />
+        {/* Error */}
+        {error && (
+          <Alert type="error" message={error} style={{ margin: 16 }} showIcon />
         )}
 
-        <div style={{ padding: '12px 20px', display: 'flex', justifyContent: 'flex-end' }}>
+        {/* Table */}
+        {loading ? (
+          <div style={{ padding: 20 }}>
+            <Skeleton active paragraph={{ rows: 8 }} />
+          </div>
+        ) : (
+          <Table
+            dataSource={items}
+            columns={columns}
+            rowKey="id"
+            pagination={false}
+            locale={{ emptyText: 'Không có sinh viên nào' }}
+          />
+        )}
+
+        {/* Pagination */}
+        <div
+          style={{
+            padding: '12px 20px',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
           <Pagination
             current={page}
             total={total}
             pageSize={PAGE_SIZE}
-            onChange={load}
+            onChange={(p) => load(p)}
             showTotal={(count) => `${count} sinh viên`}
             showSizeChanger={false}
           />
@@ -329,45 +326,30 @@ export default function AdminUsersPage() {
       </Card>
 
       <Modal
-        open={modalOpen}
-        title={editRecord ? 'Cập nhật sinh viên' : 'Thêm sinh viên'}
-        okText={editRecord ? 'Lưu thay đổi' : 'Thêm mới'}
+        title="Xác nhận khóa tài khoản"
+        open={lockModalState.open}
+        onOk={submitLock}
+        onCancel={() => setLockModalState((prev) => ({ ...prev, open: false }))}
+        confirmLoading={lockModalState.loading}
+        okText="Khóa tài khoản"
+        okButtonProps={{ danger: true }}
         cancelText="Hủy"
-        onOk={() => form.submit()}
-        onCancel={() => setModalOpen(false)}
       >
-        <Form form={form} layout="vertical" onFinish={handleSubmit}>
-          <Form.Item
-            name="fullName"
-            label="Họ và tên"
-            rules={[{ required: true, message: 'Vui lòng nhập họ tên sinh viên' }]}
-          >
-            <Input placeholder="Ví dụ: Nguyễn Văn An" />
-          </Form.Item>
-          <Form.Item
-            name="email"
-            label="Email"
-            rules={[
-              { required: true, message: 'Vui lòng nhập email sinh viên' },
-              { type: 'email', message: 'Email không hợp lệ' },
-            ]}
-          >
-            <Input placeholder="student@ptit.edu.vn" />
-          </Form.Item>
-          <Form.Item
-            name="status"
-            label="Trạng thái"
-            initialValue="active"
-            rules={[{ required: true, message: 'Vui lòng chọn trạng thái' }]}
-          >
-            <Select
-              options={Object.entries(STATUS_CONFIG).map(([key, value]) => ({
-                value: key,
-                label: value.label,
-              }))}
-            />
-          </Form.Item>
-        </Form>
+        <p>
+          Bạn có chắc muốn khóa tài khoản của <strong>{lockModalState.user?.fullName}</strong>?
+        </p>
+        <div style={{ marginTop: 16 }}>
+          <Text strong>
+            Lý do khóa <span style={{ color: 'red' }}>*</span>
+          </Text>
+          <Input.TextArea
+            rows={3}
+            value={lockModalState.reason}
+            onChange={(e) => setLockModalState((prev) => ({ ...prev, reason: e.target.value }))}
+            placeholder="Nhập lý do khóa tài khoản để thông báo cho sinh viên..."
+            style={{ marginTop: 8 }}
+          />
+        </div>
       </Modal>
     </div>
   );

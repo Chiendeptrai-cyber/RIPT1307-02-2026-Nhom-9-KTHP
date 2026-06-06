@@ -9,6 +9,12 @@ export interface UserEntity {
   status: UserStatus;
   phoneNumber?: string | null;
   avatarUrl?: string | null;
+
+  lockReason?: string | null;
+  lockedAt?: string | null;
+  lockedBy?: number | null;
+
   createdAt: string;
   updatedAt: string;
 }
+

@@ -13,7 +13,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const setAuth = useAuthStore((state) => state.setAuth);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<React.ReactNode | null>(null);
 
   const onFinish = async (values: { email: string; password: string }) => {
     setLoading(true);
@@ -46,10 +46,22 @@ export default function LoginPage() {
       // 5. Redirect theo role (dùng navigate để chuyển trang mượt mà không load lại trang)
       navigate(role === 'admin' ? '/admin/dashboard' : '/equipment', { replace: true });
     } catch (err: any) {
-      let msg = 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.';
+      let msg: React.ReactNode = 'Email hoặc mật khẩu không đúng. Vui lòng thử lại.';
       if (err?.response?.data) {
         const resData = err.response.data;
-        if (resData.errors) {
+        if (resData.code === 'ACCOUNT_LOCKED' && resData.data) {
+          const details = resData.data;
+          msg = (
+            <div>
+              <div style={{ fontWeight: 'bold', marginBottom: 8 }}>Tài khoản của bạn đã bị khóa</div>
+              <ul style={{ margin: 0, paddingLeft: 20 }}>
+                {details.lockedAt && <li><strong>Thời gian:</strong> {new Date(details.lockedAt).toLocaleString('vi-VN')}</li>}
+                {details.lockReason && <li><strong>Lý do:</strong> {details.lockReason}</li>}
+                {details.adminEmail && <li><strong>Liên hệ:</strong> <a href={`mailto:${details.adminEmail}`}>{details.adminEmail}</a></li>}
+              </ul>
+            </div>
+          );
+        } else if (resData.errors) {
           msg = Object.values(resData.errors)
             .flatMap((messages: any) => messages)
             .join('; ');

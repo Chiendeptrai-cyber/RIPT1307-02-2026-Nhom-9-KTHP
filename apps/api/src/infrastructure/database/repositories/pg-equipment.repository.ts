@@ -40,7 +40,7 @@ export class PgEquipmentRepository implements IEquipmentRepository {
       values.push(options.categoryId);
     }
     if (options?.status) {
-      conditions.push(`e.status = $${idx++}`);
+      conditions.push(`e.status::text = $${idx++}`);
       values.push(options.status);
     }
 

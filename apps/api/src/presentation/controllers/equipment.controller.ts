@@ -3,12 +3,14 @@ import {
   listEquipmentUseCase,
   getEquipmentDetailUseCase,
   createEquipmentUseCase,
-  createCategoryUseCase,
   updateEquipmentUseCase,
   deleteEquipmentWithValidationUseCase,
   stockAdjustmentUseCase,
   changeEquipmentStatusUseCase,
+  deleteEquipmentUseCase,
+  createCategoryUseCase,
   equipmentRepo,
+
 } from '../../infrastructure/container';
 import type { ApiResponse } from '@equipment-mgmt/shared';
 

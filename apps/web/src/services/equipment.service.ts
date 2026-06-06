@@ -45,7 +45,13 @@ export const equipmentService = {
     return res.data;
   },
 
-  async update(id: number, payload: { name?: string; description?: string }): Promise<ApiResponse<Equipment>> {
+  async update(id: number, payload: {
+    name?: string;
+    totalQuantity?: number;
+    status?: string;
+    categoryId?: number;
+    description?: string;
+  }): Promise<ApiResponse<Equipment>> {
     const res = await http.patch<ApiResponse<Equipment>>(`/equipment/${id}`, payload);
     return res.data;
   },

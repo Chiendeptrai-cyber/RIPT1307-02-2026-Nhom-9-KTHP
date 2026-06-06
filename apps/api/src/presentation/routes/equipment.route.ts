@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import {
+
   listEquipment, getEquipmentDetail, createEquipment,
-  updateEquipment, deleteEquipment, stockAdjustment, changeEquipmentStatus,
-  listCategories, createCategory,
+  updateEquipment, deleteEquipment, stockAdjustment, changeEquipmentStatus,listCategories, createCategory,
+
 } from '../controllers/equipment.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize }    from '../middlewares/authorize.middleware';

@@ -10,6 +10,7 @@ export class PgUserRepository implements IUserRepository {
     const result = await this.pool.query<UserEntity>(
       `SELECT id, full_name AS "fullName", email, password_hash AS "passwordHash",
               role, status, phone_number AS "phoneNumber", avatar_url AS "avatarUrl",
+              lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
               created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users WHERE id = $1`,
       [id],
@@ -21,6 +22,7 @@ export class PgUserRepository implements IUserRepository {
     const result = await this.pool.query<UserEntity>(
       `SELECT id, full_name AS "fullName", email, password_hash AS "passwordHash",
               role, status, phone_number AS "phoneNumber", avatar_url AS "avatarUrl",
+              lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
               created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users WHERE email = $1`,
       [email],
@@ -37,8 +39,9 @@ export class PgUserRepository implements IUserRepository {
        VALUES ($1, $2, $3, $4, $5, $6, $7)
        RETURNING id, full_name AS "fullName", email, password_hash AS "passwordHash",
                  role, status, phone_number AS "phoneNumber", avatar_url AS "avatarUrl",
+                 lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
                  created_at AS "createdAt", updated_at AS "updatedAt"`,
-      [data.fullName, data.email, passwordHash, data.role, data.status, data.phoneNumber ?? null, data.avatarUrl ?? null],
+      [data.fullName, data.email, passwordHash, data.role, data.status, (data as any).phoneNumber ?? null, (data as any).avatarUrl ?? null],
     );
     return result.rows[0];
   }
@@ -48,13 +51,16 @@ export class PgUserRepository implements IUserRepository {
     const values: unknown[] = [];
     let idx = 1;
 
-    if (data.fullName !== undefined) { sets.push(`full_name = $${idx++}`); values.push(data.fullName); }
-    if (data.email !== undefined)    { sets.push(`email = $${idx++}`);     values.push(data.email); }
-    if (data.role !== undefined)     { sets.push(`role = $${idx++}`);      values.push(data.role); }
-    if (data.status !== undefined)   { sets.push(`status = $${idx++}`);    values.push(data.status); }
-    if (data.passwordHash !== undefined) { sets.push(`password_hash = $${idx++}`); values.push(data.passwordHash); }
-    if (data.phoneNumber !== undefined) { sets.push(`phone_number = $${idx++}`); values.push(data.phoneNumber); }
-    if (data.avatarUrl !== undefined) { sets.push(`avatar_url = $${idx++}`); values.push(data.avatarUrl); }
+  if (data.fullName !== undefined)     { sets.push(`full_name = $${idx++}`);    values.push(data.fullName); }
+  if (data.email !== undefined)        { sets.push(`email = $${idx++}`);        values.push(data.email); }
+  if (data.role !== undefined)         { sets.push(`role = $${idx++}`);         values.push(data.role); }
+  if (data.status !== undefined)       { sets.push(`status = $${idx++}`);       values.push(data.status); }
+  if (data.passwordHash !== undefined) { sets.push(`password_hash = $${idx++}`); values.push(data.passwordHash); }
+  if (data.phoneNumber !== undefined)  { sets.push(`phone_number = $${idx++}`);  values.push(data.phoneNumber); }
+  if (data.avatarUrl !== undefined)    { sets.push(`avatar_url = $${idx++}`);    values.push(data.avatarUrl); }
+  if ('lockReason' in data)            { sets.push(`lock_reason = $${idx++}`);   values.push((data as any).lockReason ?? null); }
+  if ('lockedAt' in data)              { sets.push(`locked_at = $${idx++}`);     values.push((data as any).lockedAt ?? null); }
+  if ('lockedBy' in data)              { sets.push(`locked_by = $${idx++}`);     values.push((data as any).lockedBy ?? null); }
 
     sets.push(`updated_at = NOW()`);
     values.push(id);
@@ -63,6 +69,7 @@ export class PgUserRepository implements IUserRepository {
       `UPDATE users SET ${sets.join(', ')} WHERE id = $${idx}
        RETURNING id, full_name AS "fullName", email, password_hash AS "passwordHash",
                  role, status, phone_number AS "phoneNumber", avatar_url AS "avatarUrl",
+                 lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
                  created_at AS "createdAt", updated_at AS "updatedAt"`,
       values,
     );
@@ -81,12 +88,12 @@ export class PgUserRepository implements IUserRepository {
     let idx = 1;
 
     if (options.role) {
-      conditions.push(`role = $${idx++}`);
+      conditions.push(`role::text = $${idx++}`);
       values.push(options.role);
     }
 
     if (options.status) {
-      conditions.push(`status = $${idx++}`);
+      conditions.push(`status::text = $${idx++}`);
       values.push(options.status);
     }
 
@@ -102,10 +109,11 @@ export class PgUserRepository implements IUserRepository {
     const result = await this.pool.query<UserEntity>(
       `SELECT id, full_name AS "fullName", email, password_hash AS "passwordHash",
               role, status, phone_number AS "phoneNumber", avatar_url AS "avatarUrl",
+              lock_reason AS "lockReason", locked_at AS "lockedAt", locked_by AS "lockedBy",
               created_at AS "createdAt", updated_at AS "updatedAt"
        FROM users ${where}
        ORDER BY created_at DESC
-       LIMIT $${idx++} OFFSET $${idx}`,
+       LIMIT $${idx} OFFSET $${idx + 1}`,
       values,
     );
 

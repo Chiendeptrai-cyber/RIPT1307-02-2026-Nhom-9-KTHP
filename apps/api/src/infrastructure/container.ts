@@ -25,6 +25,7 @@ import {
   ChangeEquipmentStatusUseCase,
   DeleteEquipmentWithValidationUseCase,
 } from '../application/use-cases/equipment/equipment-management.use-cases';
+
 import { CreateBorrowRequestUseCase }    from '../application/use-cases/borrow-request/create-borrow-request.use-case';
 import { ApproveBorrowRequestUseCase }   from '../application/use-cases/borrow-request/approve-borrow-request.use-case';
 import { RejectBorrowRequestUseCase }    from '../application/use-cases/borrow-request/reject-borrow-request.use-case';

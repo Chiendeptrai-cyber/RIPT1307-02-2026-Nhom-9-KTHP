@@ -2,7 +2,7 @@ CREATE EXTENSION IF NOT EXISTS unaccent;
 
 CREATE TYPE user_role AS ENUM ('student', 'admin');
 CREATE TYPE user_status AS ENUM ('active', 'borrow_blocked', 'locked');
-CREATE TYPE equipment_status AS ENUM ('active', 'under_maintenance', 'deleted');
+CREATE TYPE equipment_status AS ENUM ('active', 'under_maintenance', 'damaged', 'discontinued', 'deleted');
 CREATE TYPE instance_condition AS ENUM ('good', 'reserved', 'borrowed', 'damaged', 'lost', 'under_repair');
 CREATE TYPE borrow_request_status AS ENUM ('pending', 'approved', 'rejected', 'cancelled', 'borrowing', 'overdue', 'under_review', 'returned');
 CREATE TYPE borrow_record_status AS ENUM ('borrowed', 'partial_returned', 'returned', 'overdue');

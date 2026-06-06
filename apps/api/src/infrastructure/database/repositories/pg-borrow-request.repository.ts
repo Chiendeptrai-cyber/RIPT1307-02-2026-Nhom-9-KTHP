@@ -133,13 +133,8 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     let idx = 1;
 
     if (options?.status) {
-      if (options.status === 'overdue') {
-        // Dynamically detect overdue: explicit 'overdue' status OR 'borrowing' past due date
-        conditions.push(`(br.status = 'overdue' OR (br.status = 'borrowing' AND br.expected_return_date < NOW()))`);
-      } else {
-        conditions.push(`br.status = $${idx++}`);
-        values.push(options.status);
-      }
+      conditions.push(`br.status = $${idx++}`);
+      values.push(options.status);
     }
     if (options?.search) {
       conditions.push(`u.full_name ILIKE $${idx++}`);
@@ -169,7 +164,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        ${where}
        ORDER BY br.created_at DESC
-       LIMIT $${idx++} OFFSET $${idx}`,
+       LIMIT $${idx} OFFSET $${idx + 1}`,
       values,
     );
 
@@ -179,7 +174,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
 
   async countByStatus(status: string): Promise<number> {
     const result = await this.pool.query<{ total: string }>(
-      `SELECT COUNT(*) AS total FROM borrow_requests WHERE status = $1`,
+      `SELECT COUNT(*) AS total FROM borrow_requests WHERE status::text = $1`,
       [status],
     );
     return Number(result.rows[0].total);

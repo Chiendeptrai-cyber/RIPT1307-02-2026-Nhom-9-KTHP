@@ -11,17 +11,17 @@ export function errorHandler(
   if (err instanceof AppError) {
     res.status(err.statusCode).json({
       success: false,
-      data: null,
+      data: err.details ?? null,
       message: err.message,
       code: err.code,
     } satisfies ApiResponse);
     return;
   }
 
-  console.error('[Unhandled Error]', err);
+  console.error('[Unhandled Error]', err.message, err.stack);
   res.status(500).json({
     success: false,
     data: null,
-    message: 'Internal server error',
+    message: process.env.NODE_ENV === 'production' ? 'Internal server error' : err.message,
   } satisfies ApiResponse);
 }
