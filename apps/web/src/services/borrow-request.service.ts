@@ -6,7 +6,6 @@ export interface BorrowRequestItem {
   equipmentId: number;
   equipmentName: string;
   quantity: number;
-  expectedReturnDate: string;
 }
 
 export interface BorrowRequest {
@@ -31,13 +30,12 @@ export interface BorrowRequest {
   // Multi-item fields
   items?: BorrowRequestItem[];
   equipmentSummary?: string;
-  earliestReturnDate?: string;
-  latestReturnDate?: string;
 }
 
 export const borrowRequestService = {
   async create(payload: {
-    items: Array<{ equipmentId: number; quantity: number; expectedReturnDate: string }>;
+    items: Array<{ equipmentId: number; quantity: number }>;
+    expectedReturnDate: string;
     note?: string;
     rulesAccepted: boolean;
   }): Promise<ApiResponse<BorrowRequest>> {

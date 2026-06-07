@@ -51,9 +51,10 @@ export default function BorrowRequestCreatePage() {
   useEffect(() => {
     loadEquipment();
     if (prefilledId) {
-      // Pre-fill with single item from URL
+      // Pre-fill with single item from URL (date is now at request level)
       form.setFieldsValue({
-        items: [{ equipmentId: Number(prefilledId), quantity: 1, expectedReturnDate: dayjs().add(7, 'day') }],
+        items: [{ equipmentId: Number(prefilledId), quantity: 1 }],
+        expectedReturnDate: dayjs().add(7, 'day'),
       });
     } else {
       // Initialize with one empty item
@@ -62,7 +63,8 @@ export default function BorrowRequestCreatePage() {
   }, [loadEquipment, prefilledId, form]);
 
   const onFinish = async (values: {
-    items: Array<{ equipmentId: number; quantity: number; expectedReturnDate: dayjs.Dayjs }>;
+    items: Array<{ equipmentId: number; quantity: number }>;
+    expectedReturnDate: dayjs.Dayjs;
     note?: string;
   }) => {
     setSubmitting(true);
@@ -72,8 +74,8 @@ export default function BorrowRequestCreatePage() {
         items: values.items.map((item) => ({
           equipmentId: item.equipmentId,
           quantity: item.quantity ?? 1,
-          expectedReturnDate: item.expectedReturnDate.format('YYYY-MM-DD'),
         })),
+        expectedReturnDate: values.expectedReturnDate.format('YYYY-MM-DD'),
         note: values.note,
         rulesAccepted: true,
       });
@@ -115,6 +117,7 @@ export default function BorrowRequestCreatePage() {
         <Title level={5} style={{ marginBottom: 4 }}>Tạo yêu cầu mượn thiết bị</Title>
         <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 20 }}>
           Điền thông tin để gửi yêu cầu mượn đến quản trị viên. Bạn có thể thêm nhiều thiết bị.
+          <br />Tất cả thiết bị trong cùng phiếu sẽ có chung một ngày trả. Muốn trả ngày khác, vui lòng tạo phiếu mới.
         </Text>
 
         {error && (
@@ -125,6 +128,38 @@ export default function BorrowRequestCreatePage() {
           <Skeleton active paragraph={{ rows: 4 }} />
         ) : (
           <Form form={form} layout="vertical" onFinish={onFinish} requiredMark="optional">
+
+            {/* Single return date for the entire request */}
+            <Form.Item
+              name="expectedReturnDate"
+              label="Ngày trả dự kiến (chung cho tất cả thiết bị)"
+              rules={[
+                { required: true, message: 'Chọn ngày trả' },
+                {
+                  validator: (_, val: dayjs.Dayjs) => {
+                    if (!val) return Promise.resolve();
+                    const today = dayjs().startOf('day');
+                    const maxDate = today.add(14, 'day');
+                    if (val.isBefore(today.add(1, 'day'))) {
+                      return Promise.reject('Phải từ ngày mai');
+                    }
+                    if (val.isAfter(maxDate)) {
+                      return Promise.reject('Tối đa 14 ngày');
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+              style={{ marginBottom: 20 }}
+            >
+              <DatePicker
+                style={{ width: '100%' }}
+                format="DD/MM/YYYY"
+                disabledDate={(d) => d.isBefore(dayjs().add(1, 'day').startOf('day'))}
+                placeholder="Chọn ngày trả cho tất cả thiết bị"
+              />
+            </Form.Item>
+
             <Form.List name="items">
               {(fields, { add, remove }) => (
                 <>
@@ -207,72 +242,39 @@ export default function BorrowRequestCreatePage() {
                         }}
                       </Form.Item>
 
-                      <div style={{ display: 'flex', gap: 12 }}>
-                        <Form.Item noStyle shouldUpdate={(prev, cur) => {
-                          const prevItems = (prev as any).items || [];
-                          const curItems = (cur as any).items || [];
-                          return prevItems[index]?.equipmentId !== curItems[index]?.equipmentId;
-                        }}>
-                          {({ getFieldValue }) => {
-                            const equipmentId = getFieldValue(['items', field.name, 'equipmentId']);
-                            const selectedEquipment = equipmentList.find((e) => e.id === equipmentId);
-                            return (
-                              <Form.Item
-                                {...field}
-                                name={[field.name, 'quantity']}
-                                label="Số lượng"
-                                initialValue={1}
-                                rules={[
-                                  { required: true, message: 'Nhập số lượng' },
-                                  {
-                                    validator: (_, val) => {
-                                      if (!selectedEquipment) return Promise.resolve();
-                                      if (val > selectedEquipment.availableQuantity) {
-                                        return Promise.reject(`Chỉ còn ${selectedEquipment.availableQuantity} chiếc`);
-                                      }
-                                      return Promise.resolve();
-                                    },
+                      <Form.Item noStyle shouldUpdate={(prev, cur) => {
+                        const prevItems = (prev as any).items || [];
+                        const curItems = (cur as any).items || [];
+                        return prevItems[index]?.equipmentId !== curItems[index]?.equipmentId;
+                      }}>
+                        {({ getFieldValue }) => {
+                          const equipmentId = getFieldValue(['items', field.name, 'equipmentId']);
+                          const selectedEquipment = equipmentList.find((e) => e.id === equipmentId);
+                          return (
+                            <Form.Item
+                              {...field}
+                              name={[field.name, 'quantity']}
+                              label="Số lượng"
+                              initialValue={1}
+                              rules={[
+                                { required: true, message: 'Nhập số lượng' },
+                                {
+                                  validator: (_, val) => {
+                                    if (!selectedEquipment) return Promise.resolve();
+                                    if (val > selectedEquipment.availableQuantity) {
+                                      return Promise.reject(`Chỉ còn ${selectedEquipment.availableQuantity} chiếc`);
+                                    }
+                                    return Promise.resolve();
                                   },
-                                ]}
-                                style={{ flex: 1, marginBottom: 12 }}
-                              >
-                                <InputNumber min={1} max={selectedEquipment?.availableQuantity ?? 99} style={{ width: '100%' }} />
-                              </Form.Item>
-                            );
-                          }}
-                        </Form.Item>
-
-                        <Form.Item
-                          {...field}
-                          name={[field.name, 'expectedReturnDate']}
-                          label="Ngày trả dự kiến"
-                          rules={[
-                            { required: true, message: 'Chọn ngày trả' },
-                            {
-                              validator: (_, val: dayjs.Dayjs) => {
-                                if (!val) return Promise.resolve();
-                                const today = dayjs().startOf('day');
-                                const maxDate = today.add(14, 'day');
-                                if (val.isBefore(today.add(1, 'day'))) {
-                                  return Promise.reject('Phải từ ngày mai');
-                                }
-                                if (val.isAfter(maxDate)) {
-                                  return Promise.reject('Tối đa 14 ngày');
-                                }
-                                return Promise.resolve();
-                              },
-                            },
-                          ]}
-                          style={{ flex: 1, marginBottom: 12 }}
-                        >
-                          <DatePicker
-                            style={{ width: '100%' }}
-                            format="DD/MM/YYYY"
-                            disabledDate={(d) => d.isBefore(dayjs().add(1, 'day').startOf('day'))}
-                            placeholder="Chọn ngày trả"
-                          />
-                        </Form.Item>
-                      </div>
+                                },
+                              ]}
+                              style={{ marginBottom: 0 }}
+                            >
+                              <InputNumber min={1} max={selectedEquipment?.availableQuantity ?? 99} style={{ width: '100%' }} />
+                            </Form.Item>
+                          );
+                        }}
+                      </Form.Item>
                     </Card>
                   ))}
 
@@ -306,6 +308,7 @@ export default function BorrowRequestCreatePage() {
                     children: (
                       <ul style={{ paddingLeft: 16, margin: 0, fontSize: 13, lineHeight: 2 }}>
                         <li>Thời gian mượn tối đa <strong>14 ngày</strong>.</li>
+                        <li>Tất cả thiết bị trong cùng phiếu phải trả cùng ngày.</li>
                         <li>Trả thiết bị đúng hạn — quá hạn sẽ bị ghi nhận <strong>vi phạm</strong>.</li>
                         <li>Thiết bị hư hỏng do người mượn chịu <strong>trách nhiệm</strong>.</li>
                         <li>Không cho người khác mượn lại thiết bị.</li>

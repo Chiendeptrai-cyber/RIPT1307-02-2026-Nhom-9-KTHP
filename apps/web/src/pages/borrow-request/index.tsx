@@ -112,28 +112,18 @@ export default function BorrowRequestHistoryPage() {
       title: 'Ngày gửi',
       dataIndex: 'createdAt',
       key: 'createdAt',
-      render: (v) => dayjs(v).format('DD/MM/YYYY HH:mm'),
+      render: (v) => <Text style={{ fontSize: 13 }}>{dayjs(v).format('DD/MM/YYYY HH:mm')}</Text>,
     },
     {
       title: 'Ngày trả dự kiến',
       key: 'expectedReturnDate',
-      render: (_, record) => {
-        if (record.earliestReturnDate && record.latestReturnDate && record.earliestReturnDate !== record.latestReturnDate) {
-          return (
-            <Space direction="vertical" size={0}>
-              <Text style={{ fontSize: 13 }}>{dayjs(record.earliestReturnDate).format('DD/MM/YYYY')}</Text>
-              <Text type="secondary" style={{ fontSize: 13 }}>đến {dayjs(record.latestReturnDate).format('DD/MM/YYYY')}</Text>
-            </Space>
-          );
-        }
-        return <Text style={{ fontSize: 13 }}>{dayjs(record.expectedReturnDate).format('DD/MM/YYYY')}</Text>;
-      },
+      render: (_, record) => <Text style={{ fontSize: 13 }}>{dayjs(record.expectedReturnDate).format('DD/MM/YYYY')}</Text>,
     },
     {
       title: 'Ghi chú',
       dataIndex: 'note',
       key: 'note',
-      render: (v) => v ?? <Text type="secondary">—</Text>,
+      render: (v) => <Text style={{ fontSize: 13 }}>{v ?? '—'}</Text>,
     },
     {
       title: 'Trạng thái',

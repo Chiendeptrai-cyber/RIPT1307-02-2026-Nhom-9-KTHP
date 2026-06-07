@@ -13,8 +13,9 @@ import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export async function createBorrowRequest(req: Request, res: Response): Promise<void> {
   const userId = req.user!.userId;
-  const { items, note, rulesAccepted } = req.body as {
-    items: Array<{ equipmentId: number; quantity: number; expectedReturnDate: string }>;
+  const { items, expectedReturnDate, note, rulesAccepted } = req.body as {
+    items: Array<{ equipmentId: number; quantity: number }>;
+    expectedReturnDate: string;
     note?: string;
     rulesAccepted?: boolean;
   };
@@ -22,6 +23,7 @@ export async function createBorrowRequest(req: Request, res: Response): Promise<
   const result = await createBorrowRequestUseCase.execute({
     userId,
     items,
+    expectedReturnDate,
     note,
     rulesAccepted,
   });

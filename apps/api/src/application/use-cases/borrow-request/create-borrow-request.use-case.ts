@@ -15,7 +15,8 @@ export class CreateBorrowRequestUseCase {
 
   async execute(data: {
     userId: number;
-    items: Array<{ equipmentId: number; quantity: number; expectedReturnDate: string }>;
+    items: Array<{ equipmentId: number; quantity: number }>;
+    expectedReturnDate: string;
     note?: string;
     rulesAccepted?: boolean;
   }) {
@@ -23,12 +24,21 @@ export class CreateBorrowRequestUseCase {
       throw new AppError('Phải có ít nhất 1 thiết bị', 400, 'INVALID_INPUT');
     }
 
-    // 1. Validate từng item: thiết bị tồn tại + đủ hàng + ngày hợp lệ
+    // 1. Validate ngày trả dự kiến (chung cho cả phiếu)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const maxDate = new Date(today);
     maxDate.setDate(maxDate.getDate() + 14);
 
+    const returnDate = new Date(data.expectedReturnDate);
+    if (returnDate <= today) {
+      throw new AppError('Ngày trả dự kiến phải sau ngày hôm nay', 400, 'INVALID_DATE');
+    }
+    if (returnDate > maxDate) {
+      throw new AppError('Ngày trả dự kiến không được quá 14 ngày kể từ hôm nay', 400, 'INVALID_DATE');
+    }
+
+    // 2. Validate từng item: thiết bị tồn tại + đủ hàng
     const equipmentNames: string[] = [];
 
     for (const item of data.items) {
@@ -44,38 +54,23 @@ export class CreateBorrowRequestUseCase {
         );
       }
       equipmentNames.push(equipment.name);
-
-      const returnDate = new Date(item.expectedReturnDate);
-      if (returnDate <= today) {
-        throw new AppError(`Ngày trả của "${equipment.name}" phải sau ngày hôm nay`, 400, 'INVALID_DATE');
-      }
-      if (returnDate > maxDate) {
-        throw new AppError(`Ngày trả của "${equipment.name}" không được quá 14 ngày kể từ hôm nay`, 400, 'INVALID_DATE');
-      }
     }
 
-    // 2. Tính expected_return_date cho phiếu = MAX của tất cả items
-    const requestExpectedReturnDate = data.items.reduce((max, item) => {
-      const d = new Date(item.expectedReturnDate);
-      return d > max ? d : max;
-    }, new Date(0));
-
-    // 3. Tạo borrow request
+    // 3. Tạo borrow request với ngày trả chung
     const request = await this.borrowRequestRepo.create({
       userId: data.userId,
       status: BorrowRequestStatus.PENDING,
-      expectedReturnDate: requestExpectedReturnDate.toISOString(),
+      expectedReturnDate: returnDate.toISOString(),
       note: data.note,
       rulesAcceptedAt: new Date().toISOString(),
     } as any);
 
-    // 3b. Lưu từng item vào borrow_request_items (kèm expectedReturnDate riêng)
+    // 3b. Lưu từng item vào borrow_request_items (không kèm ngày — ngày nằm ở phiếu)
     for (const item of data.items) {
       await this.borrowRequestRepo.createItem({
         borrowRequestId: request.id,
         equipmentId: item.equipmentId,
         quantity: item.quantity,
-        expectedReturnDate: item.expectedReturnDate,
       });
     }
 

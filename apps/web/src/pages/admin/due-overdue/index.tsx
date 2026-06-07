@@ -53,9 +53,9 @@ export default function AdminDueOverduePage() {
     load();
   }, [load]);
 
-  // Helper: lấy ngày trả sớm nhất (item-level) để tính ngày nhất quán
+  // Helper: lấy ngày trả dự kiến (ở cấp phiếu) để tính ngày nhất quán
   const getDueDate = (item: BorrowRequest) =>
-    dayjs(item.earliestReturnDate || item.expectedReturnDate).startOf('day');
+    dayjs(item.expectedReturnDate).startOf('day');
 
   // Split items into due-soon (within 3 days, NOT yet past due) and overdue (past due)
   const today = dayjs().startOf('day');
