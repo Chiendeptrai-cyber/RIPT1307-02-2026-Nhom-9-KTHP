@@ -1,5 +1,6 @@
-export * from './user.enum.ts';
-export * from './equipment.enum.ts';
-export * from './borrow-request.enum.ts';
-export * from './notification.enum.ts';
-export * from './system-log.enum.ts';
+export * from './user.enum.js';
+export * from './equipment.enum.js';
+export * from './borrow-request.enum.js';
+export * from './notification.enum.js';
+export * from './system-log.enum.js';
+

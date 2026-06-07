@@ -112,10 +112,19 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
 
     const result = await this.pool.query<BorrowRequestEntity>(
       `SELECT ${BASE_SELECT},
+              (SELECT STRING_AGG(e.name || ' (x' || bri.quantity || ')', ', ')
+               FROM borrow_request_items bri
+               JOIN equipment e ON e.id = bri.equipment_id
+               WHERE bri.borrow_request_id = br.id) AS "equipmentSummary",
               e.name AS "equipmentName",
               bri.quantity AS "quantity"
        FROM borrow_requests br
-       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN LATERAL (
+         SELECT bri2.borrow_request_id, bri2.equipment_id, bri2.quantity
+         FROM borrow_request_items bri2
+         WHERE bri2.borrow_request_id = br.id
+         LIMIT 1
+       ) bri ON bri.borrow_request_id = br.id
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        WHERE br.user_id = $1
        ORDER BY br.created_at DESC
@@ -129,7 +138,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
   async listAll(
     page: number,
     pageSize: number,
-    options?: { status?: string; search?: string },
+    options?: { status?: string; search?: string; userId?: number },
   ): Promise<{ items: (BorrowRequestEntity & { userFullName: string; userEmail: string; equipmentName?: string; quantity?: number })[]; total: number }> {
     const offset = (page - 1) * pageSize;
     const conditions: string[] = [];
@@ -143,6 +152,10 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     if (options?.search) {
       conditions.push(`u.full_name ILIKE $${idx++}`);
       values.push(`%${options.search}%`);
+    }
+    if (options?.userId) {
+      conditions.push(`br.user_id = $${idx++}`);
+      values.push(options.userId);
     }
 
     const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
@@ -160,11 +173,20 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     const result = await this.pool.query(
       `SELECT ${BASE_SELECT},
               u.full_name AS "userFullName", u.email AS "userEmail",
+              (SELECT STRING_AGG(e2.name || ' (x' || bri2.quantity || ')', ', ')
+               FROM borrow_request_items bri2
+               JOIN equipment e2 ON e2.id = bri2.equipment_id
+               WHERE bri2.borrow_request_id = br.id) AS "equipmentSummary",
               e.name AS "equipmentName",
               bri.quantity AS "quantity"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
-       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN LATERAL (
+         SELECT bri5.borrow_request_id, bri5.equipment_id, bri5.quantity
+         FROM borrow_request_items bri5
+         WHERE bri5.borrow_request_id = br.id
+         LIMIT 1
+       ) bri ON bri.borrow_request_id = br.id
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        ${where}
        ORDER BY br.created_at DESC
@@ -189,6 +211,21 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
       `SELECT equipment_id AS "equipmentId", quantity
        FROM borrow_request_items
        WHERE borrow_request_id = $1`,
+      [borrowRequestId],
+    );
+    return result.rows;
+  }
+
+  async getItemsWithDetail(borrowRequestId: number): Promise<{
+    equipmentId: number; equipmentName: string; quantity: number;
+  }[]> {
+    const result = await this.pool.query(
+      `SELECT bri.equipment_id AS "equipmentId",
+              e.name AS "equipmentName",
+              bri.quantity
+       FROM borrow_request_items bri
+       JOIN equipment e ON e.id = bri.equipment_id
+       WHERE bri.borrow_request_id = $1`,
       [borrowRequestId],
     );
     return result.rows;
@@ -219,7 +256,7 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     return result.rows;
   }
 
-  /** Tìm tất cả đơn "borrowing" đã quá hạn trả (để auto-overdue) */
+  /** Tìm tất cả đơn "borrowing" đã quá hạn trả — check theo request-level date */
   async findOverdueBorrowingRequests(): Promise<BorrowRequestEntity[]> {
     const result = await this.pool.query<BorrowRequestEntity>(
       `SELECT ${BASE_SELECT}
@@ -230,15 +267,24 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     return result.rows;
   }
 
-  /** Tìm đơn "borrowing" sẽ đến hạn trong N ngày tới */
+  /** Tìm đơn "borrowing" sẽ đến hạn trong N ngày tới — check theo request-level date */
   async findDueSoonRequests(daysBefore: number): Promise<any[]> {
     const result = await this.pool.query(
       `SELECT ${BASE_SELECT},
               u.full_name AS "userFullName", u.email AS "userEmail",
+              (SELECT STRING_AGG(e2.name || ' (x' || bri2.quantity || ')', ', ')
+               FROM borrow_request_items bri2
+               JOIN equipment e2 ON e2.id = bri2.equipment_id
+               WHERE bri2.borrow_request_id = br.id) AS "equipmentSummary",
               e.name AS "equipmentName"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
-       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN LATERAL (
+         SELECT bri3.borrow_request_id, bri3.equipment_id
+         FROM borrow_request_items bri3
+         WHERE bri3.borrow_request_id = br.id
+         LIMIT 1
+       ) bri ON bri.borrow_request_id = br.id
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        WHERE br.status = 'borrowing'
          AND (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
@@ -248,15 +294,24 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     return result.rows;
   }
 
-  /** Tìm đơn "borrowing" đến hạn hôm nay */
+  /** Tìm đơn "borrowing" đến hạn hôm nay — check theo request-level date */
   async findDueTodayRequests(): Promise<any[]> {
     const result = await this.pool.query(
       `SELECT ${BASE_SELECT},
               u.full_name AS "userFullName", u.email AS "userEmail",
+              (SELECT STRING_AGG(e2.name || ' (x' || bri2.quantity || ')', ', ')
+               FROM borrow_request_items bri2
+               JOIN equipment e2 ON e2.id = bri2.equipment_id
+               WHERE bri2.borrow_request_id = br.id) AS "equipmentSummary",
               e.name AS "equipmentName"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
-       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN LATERAL (
+         SELECT bri3.borrow_request_id, bri3.equipment_id
+         FROM borrow_request_items bri3
+         WHERE bri3.borrow_request_id = br.id
+         LIMIT 1
+       ) bri ON bri.borrow_request_id = br.id
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        WHERE br.status = 'borrowing'
          AND (br.expected_return_date AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
@@ -265,15 +320,24 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
     return result.rows;
   }
 
-  /** Tìm đơn đã quá hạn N ngày (status = borrowing hoặc overdue) */
+  /** Tìm đơn đã quá hạn N ngày (status = borrowing hoặc overdue) — check theo request-level date */
   async findOverdueByDaysRequests(days: number): Promise<any[]> {
     const result = await this.pool.query(
       `SELECT ${BASE_SELECT},
               u.full_name AS "userFullName", u.email AS "userEmail",
+              (SELECT STRING_AGG(e2.name || ' (x' || bri2.quantity || ')', ', ')
+               FROM borrow_request_items bri2
+               JOIN equipment e2 ON e2.id = bri2.equipment_id
+               WHERE bri2.borrow_request_id = br.id) AS "equipmentSummary",
               e.name AS "equipmentName"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
-       LEFT JOIN borrow_request_items bri ON bri.borrow_request_id = br.id
+       LEFT JOIN LATERAL (
+         SELECT bri3.borrow_request_id, bri3.equipment_id
+         FROM borrow_request_items bri3
+         WHERE bri3.borrow_request_id = br.id
+         LIMIT 1
+       ) bri ON bri.borrow_request_id = br.id
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        WHERE br.status IN ('borrowing', 'overdue')
          AND (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh')::date
@@ -301,6 +365,10 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
               FORMAT('PH-%s-%s', TO_CHAR(br.created_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'YYYYMMDD'), LPAD(br.id::TEXT, 5, '0')) AS "displayCode",
               u.full_name AS "userFullName", u.email AS "userEmail",
               STRING_AGG(DISTINCT e.name, ', ') AS "equipmentName",
+              (SELECT STRING_AGG(e2.name || ' (x' || bri4.quantity || ')', ', ')
+               FROM borrow_request_items bri4
+               JOIN equipment e2 ON e2.id = bri4.equipment_id
+               WHERE bri4.borrow_request_id = br.id) AS "equipmentSummary",
               SUM(bri.quantity) AS "quantity"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id

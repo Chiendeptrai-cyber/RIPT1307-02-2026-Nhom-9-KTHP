@@ -23,6 +23,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/vi';
 import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { idBadgeStyle } from '@/utils/format';
 
 dayjs.extend(relativeTime);
 dayjs.locale('vi');
@@ -53,17 +54,20 @@ export default function AdminDueOverduePage() {
     load();
   }, [load]);
 
+  // Helper: lấy ngày trả dự kiến (ở cấp phiếu) để tính ngày nhất quán
+  const getDueDate = (item: BorrowRequest) =>
+    dayjs(item.expectedReturnDate).startOf('day');
+
   // Split items into due-soon (within 3 days, NOT yet past due) and overdue (past due)
   const today = dayjs().startOf('day');
   const dueSoonItems = allItems.filter((item) => {
-    const due = dayjs(item.expectedReturnDate).startOf('day');
-    const daysUntilDue = due.diff(today, 'day');
+    const daysUntilDue = getDueDate(item).diff(today, 'day');
     const isOverdue = (item.status as string) === 'overdue';
     // Chỉ hiện: đang mượn, chưa quá hạn, trong vòng 3 ngày tới (0-3 ngày)
     return !isOverdue && daysUntilDue >= 0 && daysUntilDue <= 3;
   });
   const overdueItems = allItems.filter((item) => {
-    const due = dayjs(item.expectedReturnDate).startOf('day');
+    const due = getDueDate(item);
     const isOverdue = (item.status as string) === 'overdue';
     // Đã quá hạn: status overdue HOẶC borrowing mà đã qua ngày trả
     return isOverdue || (!isOverdue && due.isBefore(today));
@@ -76,11 +80,11 @@ export default function AdminDueOverduePage() {
       title: 'Phiếu',
       dataIndex: 'displayCode',
       key: 'displayCode',
-      width: 130,
+      width: 200,
       render: (v: string, r: BorrowRequest) => (
-        <Text strong style={{ fontSize: 12, color: SLINK_COLORS.info }}>
+        <span style={idBadgeStyle}>
           {v ?? `#${r.id}`}
-        </Text>
+        </span>
       ),
     },
     {
@@ -99,15 +103,16 @@ export default function AdminDueOverduePage() {
       dataIndex: 'equipmentName',
       key: 'equipmentName',
       ellipsis: true,
-      render: (v: string) => <Text style={{ fontSize: 13 }}>{v ?? '—'}</Text>,
+      render: (_: unknown, r: BorrowRequest) => (
+        <Text style={{ fontSize: 13 }}>{r.equipmentSummary || r.equipmentName || '—'}</Text>
+      ),
     },
     {
       title: 'Hạn trả',
-      dataIndex: 'expectedReturnDate',
       key: 'expectedReturnDate',
       width: 110,
-      render: (v: string) => {
-        const due = dayjs(v);
+      render: (_: unknown, r: BorrowRequest) => {
+        const due = getDueDate(r);
         const isOverdue = due.isBefore(today);
         return (
           <Text
@@ -145,18 +150,18 @@ export default function AdminDueOverduePage() {
       width: 90,
       align: 'center',
       render: (_: unknown, r: BorrowRequest) => {
-        const due = dayjs(r.expectedReturnDate).startOf('day');
+        const due = getDueDate(r);
         const diff = due.diff(today, 'day');
         if (diff >= 0) {
           return (
             <Tag color="orange" style={{ fontSize: 11 }}>
-              {diff === 0 ? 'Hôm nay' : `-${diff}N`}
+              {diff === 0 ? 'Hôm nay' : `+${diff}N`}
             </Tag>
           );
         }
         return (
           <Tag color="volcano" style={{ fontSize: 11, fontWeight: 700 }}>
-            +{Math.abs(diff)}N
+            -{Math.abs(diff)}N
           </Tag>
         );
       },
@@ -168,31 +173,20 @@ export default function AdminDueOverduePage() {
       {contextHolder}
 
       {/* Header */}
-      <div
-        style={{
-          marginBottom: 20,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          gap: 12,
-          flexWrap: 'wrap',
-        }}
-      >
-        <div>
-          <Title level={4} style={{ marginBottom: 4 }}>
-            Hạn Trả Thiết Bị
-          </Title>
-          <Text type="secondary" style={{ fontSize: 13 }}>
-            Theo dõi phiếu sắp đến hạn và quá hạn —{' '}
-            <span style={{ color: SLINK_COLORS.textBase }}>
-              {dayjs().format('dddd, DD/MM/YYYY')}
-            </span>
-          </Text>
-        </div>
+      <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+        <ClockCircleOutlined style={{ fontSize: 22, color: SLINK_COLORS.primary }} />
+        <Title level={4} style={{ margin: 0 }}>Hạn Trả Thiết Bị</Title>
+        <div style={{ flex: 1 }} />
         <Button icon={<ReloadOutlined />} onClick={load} loading={loading}>
           Làm mới
         </Button>
       </div>
+      <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 16, paddingLeft: 32 }}>
+        Theo dõi phiếu sắp đến hạn và quá hạn —{' '}
+        <span style={{ color: SLINK_COLORS.textBase }}>
+          {dayjs().format('dddd, DD/MM/YYYY')}
+        </span>
+      </Text>
 
       {/* Alert summary */}
       {overdueItems.length > 0 && (

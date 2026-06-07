@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { listUsers, getProfile, lockUser, changePassword, updateProfile } from '../controllers/user.controller';
+import { listUsers, getProfile, lockUser, changePassword, updateProfile, listViolations } from '../controllers/user.controller';
 import { authenticate } from '../middlewares/authenticate.middleware';
 import { authorize } from '../middlewares/authorize.middleware';
 import { validate } from '../middlewares/validate.middleware';
@@ -23,5 +23,8 @@ router.get('/', authorize(UserRole.ADMIN), listUsers);
 
 // Lock/unlock user (admin only)
 router.put('/:id/lock', authorize(UserRole.ADMIN), validate(lockUserSchema), lockUser);
+
+// List user violations (admin only)
+router.get('/:id/violations', authorize(UserRole.ADMIN), listViolations);
 
 export default router;

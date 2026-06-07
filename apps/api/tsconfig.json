@@ -1,14 +1,15 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "noEmit": true,
     "module": "NodeNext",
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
       "@equipment-mgmt/shared": ["../../packages/shared/src"]
-    }
+    },
+    "outDir": "./dist"
   },
   "include": ["src"],
   "references": []
 }
+

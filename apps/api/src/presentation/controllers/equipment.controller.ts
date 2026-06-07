@@ -51,22 +51,24 @@ export async function getEquipmentDetail(req: Request, res: Response): Promise<v
 }
 
 export async function createEquipment(req: Request, res: Response): Promise<void> {
-  const { name, totalQuantity, categoryId, status, description } = req.body;
+  const { name, totalQuantity, categoryId, status, description, imageUrl } = req.body;
   const result = await createEquipmentUseCase.execute({
     name, totalQuantity: Number(totalQuantity),
     categoryId: Number(categoryId) || 1,
     status: status || 'active', description,
+    imageUrl: imageUrl || null,
   });
   res.status(201).json({ success: true, data: result, message: 'Tạo thiết bị thành công' } satisfies ApiResponse);
 }
 
 export async function updateEquipment(req: Request, res: Response): Promise<void> {
   const id = Number(req.params.id);
-  const { name, totalQuantity, categoryId, status, description } = req.body;
+  const { name, totalQuantity, categoryId, status, description, imageUrl } = req.body;
   const result = await updateEquipmentUseCase.execute(id, {
     name, description, status,
     totalQuantity: totalQuantity !== undefined ? Number(totalQuantity) : undefined,
     categoryId: categoryId !== undefined ? Number(categoryId) : undefined,
+    imageUrl: imageUrl !== undefined ? (imageUrl || null) : undefined,
   });
   res.json({ success: true, data: result, message: 'Cập nhật thiết bị thành công' } satisfies ApiResponse);
 }

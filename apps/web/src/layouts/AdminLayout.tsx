@@ -18,7 +18,13 @@ export default function AdminLayout() {
   }, []);
 
   useEffect(() => {
-    if (!token || !user) {
+    // Kiểm tra token thực tế trong localStorage để tránh state stale
+    const actualToken = localStorage.getItem('access_token');
+    if (!actualToken || !token || !user) {
+      // Đồng bộ: xóa state nếu localStorage không còn token
+      if (!actualToken && token) {
+        useAuthStore.getState().logout();
+      }
       navigate('/login', { replace: true });
     } else if (user.role !== 'admin') {
       navigate('/equipment', { replace: true });
@@ -34,7 +40,7 @@ export default function AdminLayout() {
       <AppSidebar items={adminMenuItems} title="Quản trị hệ thống" />
       <Layout style={{ background: '#F2F2F2', minWidth: 0, overflow: 'hidden' }}>
         <AppHeader title="Cổng quản trị" />
-        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>
+        <Content style={{ margin: 0, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>
           <Outlet />
         </Content>
       </Layout>

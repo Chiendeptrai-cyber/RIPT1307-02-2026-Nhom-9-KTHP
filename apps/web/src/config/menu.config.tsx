@@ -1,5 +1,6 @@
 import {
   AppstoreOutlined,
+  BarChartOutlined,
   BellOutlined,
   ClockCircleOutlined,
   DashboardOutlined,
@@ -33,8 +34,8 @@ export const studentMenuItems: MenuProps['items'] = [
 export const adminMenuItems: MenuProps['items'] = [
   {
     key: ROUTES.ADMIN_DASHBOARD,
-    icon: <DashboardOutlined />,
-    label: 'Dashboard',
+    icon: <BarChartOutlined />,
+    label: 'Dashboard & Thống kê',
   },
   {
     key: ROUTES.ADMIN_REQUESTS,
@@ -68,14 +69,9 @@ export const adminMenuItems: MenuProps['items'] = [
     ],
   },
   {
-    key: ROUTES.ADMIN_REPORTS,
-    icon: <AppstoreOutlined />,
-    label: 'Báo cáo',
-  },
-  {
     key: ROUTES.ADMIN_NOTIFICATIONS,
     icon: <BellOutlined />,
-    label: 'Thông báo',
+    label: 'Quản lý thông báo',
   },
 ];
 

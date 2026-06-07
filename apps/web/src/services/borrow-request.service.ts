@@ -2,6 +2,12 @@ import { http } from './http';
 import { notifyNotificationChanged } from './notification.service';
 import type { ApiResponse, PaginatedResponse } from '@equipment-mgmt/shared';
 
+export interface BorrowRequestItem {
+  equipmentId: number;
+  equipmentName: string;
+  quantity: number;
+}
+
 export interface BorrowRequest {
   id: number;
   displayCode?: string;          // PH-YYYYMMDD-XXXXX
@@ -21,12 +27,14 @@ export interface BorrowRequest {
   userFullName?: string;
   userEmail?: string;
   equipmentName?: string;
+  // Multi-item fields
+  items?: BorrowRequestItem[];
+  equipmentSummary?: string;
 }
 
 export const borrowRequestService = {
   async create(payload: {
-    equipmentId: number;
-    quantity: number;
+    items: Array<{ equipmentId: number; quantity: number }>;
     expectedReturnDate: string;
     note?: string;
     rulesAccepted: boolean;
@@ -56,6 +64,7 @@ export const borrowRequestService = {
     pageSize?: number;
     status?: string;
     search?: string;
+    userId?: number;
   }): Promise<ApiResponse<PaginatedResponse<BorrowRequest>>> {
     const res = await http.get<ApiResponse<PaginatedResponse<BorrowRequest>>>('/borrow-requests', {
       params: {
@@ -63,6 +72,7 @@ export const borrowRequestService = {
         pageSize: params?.pageSize ?? 20,
         status: params?.status || undefined,
         search: params?.search || undefined,
+        userId: params?.userId || undefined,
       },
     });
     return res.data;

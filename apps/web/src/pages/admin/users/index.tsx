@@ -13,6 +13,12 @@ import {
   Table,
   Tag,
   Typography,
+  Drawer,
+  Tabs,
+  Avatar,
+  Row,
+  Col,
+  Statistic,
 } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import {
@@ -23,8 +29,10 @@ import {
   UnlockOutlined,
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import { listUsers, setUserStatus, type UserDto } from '../../../services/user.service';
+import { listUsers, setUserStatus, listViolations, type UserDto, type ViolationDto } from '../../../services/user.service';
+import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 
@@ -56,6 +64,12 @@ export default function AdminUsersPage() {
     reason: '',
     loading: false,
   });
+
+  const [drawerVisible, setDrawerVisible] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserDto | null>(null);
+  const [userRequests, setUserRequests] = useState<BorrowRequest[]>([]);
+  const [userViolations, setUserViolations] = useState<ViolationDto[]>([]);
+  const [loadingRequests, setLoadingRequests] = useState(false);
 
   // Dùng ref để debounce search
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -144,6 +158,32 @@ export default function AdminUsersPage() {
     }
   };
 
+  const fetchUserData = async (userId: number) => {
+    setLoadingRequests(true);
+    try {
+      const [reqRes, violRes] = await Promise.all([
+        borrowRequestService.listAll({ userId, pageSize: 100 }),
+        listViolations(userId)
+      ]);
+      if (reqRes.success) {
+        setUserRequests(reqRes.data.items);
+      }
+      if (violRes.success) {
+        setUserViolations(violRes.data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingRequests(false);
+    }
+  };
+
+  const handleRowClick = (record: UserDto) => {
+    setSelectedUser(record);
+    setDrawerVisible(true);
+    fetchUserData(record.id);
+  };
+
   const submitLock = async () => {
     if (!lockModalState.user) return;
     if (!lockModalState.reason.trim()) {
@@ -175,14 +215,19 @@ export default function AdminUsersPage() {
       title: 'Sinh viên',
       key: 'student',
       render: (_, record) => (
-        <div>
-          <Text strong style={{ fontSize: 13 }}>
-            {record.fullName}
-          </Text>
-          <br />
-          <Text type="secondary" style={{ fontSize: 12 }}>
-            {record.email}
-          </Text>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <Avatar size="large" style={{ backgroundColor: SLINK_COLORS.primary, color: '#fff' }}>
+            {record.fullName.charAt(0).toUpperCase()}
+          </Avatar>
+          <div>
+            <Text strong style={{ fontSize: 13, color: SLINK_COLORS.primary }}>
+              {record.fullName}
+            </Text>
+            <br />
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              {record.email}
+            </Text>
+          </div>
         </div>
       ),
     },
@@ -203,7 +248,7 @@ export default function AdminUsersPage() {
       title: 'Thao tác',
       key: 'actions',
       render: (_, record) => (
-        <Space>
+        <Space onClick={(e) => e.stopPropagation()}>
           <Button
             size="small"
             icon={record.status === 'locked' ? <UnlockOutlined /> : <LockOutlined />}
@@ -304,6 +349,10 @@ export default function AdminUsersPage() {
             rowKey="id"
             pagination={false}
             locale={{ emptyText: 'Không có sinh viên nào' }}
+            onRow={(record) => ({
+              onClick: () => handleRowClick(record),
+              style: { cursor: 'pointer' }
+            })}
           />
         )}
 
@@ -352,6 +401,137 @@ export default function AdminUsersPage() {
           />
         </div>
       </Modal>
+
+      <Drawer
+        title="Chi tiết sinh viên"
+        width={720}
+        onClose={() => setDrawerVisible(false)}
+        open={drawerVisible}
+        styles={{ body: { padding: 0 } }}
+      >
+        {selectedUser && (
+          <div style={{ padding: 24 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 24 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <Avatar size={64} style={{ backgroundColor: '#e6f7ff', color: '#1890ff', fontSize: 24 }}>
+                  {selectedUser.fullName.charAt(0).toUpperCase()}
+                </Avatar>
+                <div>
+                  <Title level={4} style={{ margin: 0 }}>{selectedUser.fullName}</Title>
+                  <Text type="secondary">{selectedUser.email}</Text>
+                  <div style={{ marginTop: 4, display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <Text type="secondary" style={{ fontSize: 12 }}>MSSV: SV2021{selectedUser.id}</Text>
+                    <Text type="secondary" style={{ fontSize: 12 }}>·</Text>
+                    <Text type="secondary" style={{ fontSize: 12 }}>Đăng ký: {dayjs(selectedUser.createdAt).format('DD/MM/YYYY HH:mm')}</Text>
+                  </div>
+                </div>
+              </div>
+              <div style={{ textAlign: 'right' }}>
+                <Tag color={STATUS_CONFIG[selectedUser.status]?.color || 'default'} style={{ marginBottom: 8, display: 'block', width: 'max-content', marginLeft: 'auto' }}>
+                  {STATUS_CONFIG[selectedUser.status]?.label || selectedUser.status}
+                </Tag>
+                <Button
+                  size="small"
+                  icon={selectedUser.status === 'locked' ? <UnlockOutlined /> : <LockOutlined />}
+                  danger={selectedUser.status !== 'locked'}
+                  onClick={() => handleToggleLock(selectedUser)}
+                >
+                  {selectedUser.status === 'locked' ? 'Mở khóa TK' : 'Khóa TK'}
+                </Button>
+              </div>
+            </div>
+
+            <Row gutter={16} style={{ marginBottom: 24 }}>
+              <Col span={6}>
+                <Card size="small" style={{ background: '#f5f5f5', textAlign: 'center', border: 'none', borderRadius: 8 }}>
+                  <Statistic title="Tổng phiếu" value={userRequests.length} valueStyle={{ fontSize: 20, fontWeight: 600 }} />
+                </Card>
+              </Col>
+              <Col span={6}>
+                <Card size="small" style={{ background: '#f5f5f5', textAlign: 'center', border: 'none', borderRadius: 8 }}>
+                  <Statistic title="Đang mượn/QH" value={userRequests.filter(r => r.status === 'borrowing' || r.status === 'overdue').length} valueStyle={{ fontSize: 20, fontWeight: 600 }} />
+                </Card>
+              </Col>
+              <Col span={6}>
+                <Card size="small" style={{ background: '#f5f5f5', textAlign: 'center', border: 'none', borderRadius: 8 }}>
+                  <Statistic title="Vi phạm chưa XL" value={userViolations.filter(v => v.type !== 'resolved').length} valueStyle={{ fontSize: 20, fontWeight: 600 }} />
+                </Card>
+              </Col>
+              <Col span={6}>
+                <Card size="small" style={{ background: '#f5f5f5', textAlign: 'center', border: 'none', borderRadius: 8 }}>
+                  <Statistic title="Tổng vi phạm" value={userViolations.length} valueStyle={{ fontSize: 20, fontWeight: 600 }} />
+                </Card>
+              </Col>
+            </Row>
+
+            <Tabs defaultActiveKey="1" items={[
+              {
+                key: '1',
+                label: 'Tất cả phiếu',
+                children: (
+                  <Table
+                    size="small"
+                    loading={loadingRequests}
+                    dataSource={userRequests}
+                    rowKey="id"
+                    pagination={{ pageSize: 5 }}
+                    columns={[
+                      { title: 'Mã phiếu', dataIndex: 'displayCode', render: (v) => <span style={idBadgeStyle}>{v}</span> },
+                      { title: 'Thiết bị', dataIndex: 'equipmentName' },
+                      { title: 'Ngày mượn', dataIndex: 'createdAt', render: (v) => dayjs(v).format('DD/MM/YYYY') },
+                      { title: 'Hạn trả', dataIndex: 'expectedReturnDate', render: (v) => dayjs(v).format('DD/MM/YYYY') },
+                      { title: 'Ngày trả TT', dataIndex: 'returnedAt', render: (v) => v ? dayjs(v).format('DD/MM/YYYY') : '-' },
+                      { title: 'TT', dataIndex: 'status', render: (v) => {
+                        const statusMap: any = {
+                          pending: { label: 'Chờ duyệt', color: 'blue' },
+                          approved: { label: 'Đã duyệt', color: 'green' },
+                          rejected: { label: 'Từ chối', color: 'red' },
+                          cancelled: { label: 'Đã hủy', color: 'default' },
+                          borrowing: { label: 'Đang mượn', color: 'orange' },
+                          overdue: { label: 'Quá hạn', color: 'volcano' },
+                          returned: { label: 'Đã trả', color: 'cyan' },
+                        };
+                        const s = statusMap[v] || { label: v, color: 'default' };
+                        return <Tag color={s.color}>{s.label}</Tag>;
+                      } },
+                    ]}
+                  />
+                )
+              },
+              {
+                key: '2',
+                label: 'Vi phạm',
+                children: userViolations.length > 0 ? (
+                  <Table
+                    size="small"
+                    loading={loadingRequests}
+                    dataSource={userViolations}
+                    rowKey="id"
+                    pagination={{ pageSize: 5 }}
+                    columns={[
+                      { title: 'Ngày VP', dataIndex: 'createdAt', render: (v) => dayjs(v).format('DD/MM/YYYY') },
+                      { title: 'Loại vi phạm', dataIndex: 'type', render: (v) => {
+                        const typeMap: any = {
+                          late_return: { label: 'Trả muộn', color: 'orange' },
+                          damage: { label: 'Làm hỏng', color: 'red' },
+                          loss: { label: 'Làm mất', color: 'volcano' },
+                          other: { label: 'Khác', color: 'default' },
+                        };
+                        const t = typeMap[v] || { label: v, color: 'default' };
+                        return <Tag color={t.color}>{t.label}</Tag>;
+                      } },
+                      { title: 'Thiết bị liên quan', dataIndex: 'equipmentName', render: (v) => v || '-' },
+                      { title: 'Chi tiết', dataIndex: 'description' },
+                    ]}
+                  />
+                ) : (
+                  <Alert message="Chưa có vi phạm nào" type="success" showIcon />
+                )
+              }
+            ]} />
+          </div>
+        )}
+      </Drawer>
     </div>
   );
 }

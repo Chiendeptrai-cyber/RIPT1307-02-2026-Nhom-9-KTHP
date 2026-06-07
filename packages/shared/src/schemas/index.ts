@@ -1,5 +1,6 @@
-export * from './auth.schema.ts';
-export * from './equipment.schema.ts';
-export * from './borrow-request.schema.ts';
-export * from './user.schema.ts';
-export * from './report.schema.ts';
+export * from './auth.schema.js';
+export * from './equipment.schema.js';
+export * from './borrow-request.schema.js';
+export * from './user.schema.js';
+export * from './report.schema.js';
+

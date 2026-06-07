@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UserStatus } from '../enums/index.ts';
+import { UserStatus } from '../enums/index.js';
 
 export const lockUserSchema = z.object({
   targetUserId: z.number().int().positive('User ID must be a positive integer'),
@@ -8,3 +8,4 @@ export const lockUserSchema = z.object({
 });
 
 export type LockUserDto = z.infer<typeof lockUserSchema>;
+

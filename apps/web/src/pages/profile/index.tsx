@@ -114,7 +114,7 @@ export default function ProfilePage() {
             const res = await apiUpdateProfile({
                 fullName: values.fullName,
                 email: values.email,
-                phoneNumber: values.phoneNumber,
+                phoneNumber: values.phoneNumber || undefined,
                 avatar: avatarPreview || undefined,
             });
             if (res.success && res.data) {
@@ -122,10 +122,10 @@ export default function ProfilePage() {
                 setAuth(
                     {
                         ...user,
-                        fullName: res.data.fullName ?? values.fullName,
-                        email: res.data.email ?? values.email,
-                        phoneNumber: res.data.phoneNumber ?? values.phoneNumber,
-                        avatarUrl: res.data.avatarUrl ?? user.avatarUrl,
+                        fullName: res.data.fullName || values.fullName,
+                        email: res.data.email || values.email,
+                        phoneNumber: res.data.phoneNumber || user.phoneNumber || null,
+                        avatarUrl: res.data.avatarUrl || user.avatarUrl,
                     },
                     token ?? '',
                 );
@@ -355,7 +355,7 @@ export default function ProfilePage() {
                                             fontWeight: 500,
                                         }}
                                     >
-                                        {user?.phoneNumber ?? '—'}
+                                        {user?.phoneNumber || '—'}
                                     </div>
                                 </div>
                                 <div>
@@ -401,14 +401,16 @@ export default function ProfilePage() {
                                     name="phoneNumber"
                                     label="Số điện thoại"
                                     rules={[
-                                        { required: true, message: 'Vui lòng nhập số điện thoại' },
-                                        { pattern: /^\d{10}$/, message: 'Số điện thoại phải bao gồm đúng 10 chữ số!' },
+                                        {
+                                            pattern: /^\d{10}$/,
+                                            message: 'Số điện thoại phải bao gồm đúng 10 chữ số!',
+                                        },
                                     ]}
                                 >
                                     <Input
                                         type="tel"
                                         prefix={<PhoneOutlined style={{ color: SLINK_COLORS.textSecondary }} />}
-                                        placeholder="Nhập số điện thoại (10 chữ số)"
+                                        placeholder="Nhập số điện thoại (10 chữ số) — không bắt buộc"
                                     />
                                 </Form.Item>
                                 <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
