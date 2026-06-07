@@ -36,6 +36,7 @@ export class CreateEquipmentUseCase {
     categoryId: number;
     status: string;
     description?: string;
+    imageUrl?: string | null;
   }): Promise<EquipmentEntity> {
     const categoryId = autoClassify(data.name, data.categoryId);
     return this.equipmentRepo.create({
@@ -45,6 +46,7 @@ export class CreateEquipmentUseCase {
       categoryId,
       status: data.status as any,
       description: data.description,
+      imageUrl: data.imageUrl ?? null,
     } as any);
   }
 }

@@ -1,6 +1,6 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { ForbiddenError } from '../../domain/errors/forbidden.error';
+import { UnauthorizedError } from '../../domain/errors/unauthorized.error';
 
 export interface AuthPayload {
   userId: number;
@@ -17,7 +17,7 @@ declare global {
 
 export function authenticate(req: Request, _res: Response, next: NextFunction): void {
   const header = req.headers.authorization;
-  if (!header?.startsWith('Bearer ')) throw new ForbiddenError('No token provided');
+  if (!header?.startsWith('Bearer ')) throw new UnauthorizedError('No token provided');
 
   try {
     const token = header.split(' ')[1];
@@ -25,6 +25,6 @@ export function authenticate(req: Request, _res: Response, next: NextFunction): 
     req.user = payload;
     next();
   } catch {
-    throw new ForbiddenError('Invalid or expired token');
+    throw new UnauthorizedError('Invalid or expired token');
   }
 }
