@@ -5,7 +5,7 @@
 
 [build.environment]
   # pnpm version must match pnpm-lock.yaml
-  PNPM_VERSION = "11.2.2"
+  PNPM_VERSION = "10.30.3"
   NODE_VERSION = "20"
   # UMI_APP_API_URL is set in Netlify Dashboard → Environment Variables
   # so that the real API URL is baked into the build
