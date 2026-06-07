@@ -170,7 +170,7 @@ export class MarkReturnedUseCase {
         userId: request.userId,
         borrowRequestId: requestId,
         type: ViolationType.LATE_RETURN,
-        description: `Trả thiết bị muộn. Hạn trả: ${expectedReturnDate.toLocaleDateString('vi-VN')}, Ngày trả thực tế: ${returnedAt.toLocaleDateString('vi-VN')}`,
+        description: `Trả thiết bị muộn. Hạn trả: ${expectedDate.toLocaleDateString('vi-VN')}, Ngày trả thực tế: ${returnedAt.toLocaleDateString('vi-VN')}`,
       });
     }
 
