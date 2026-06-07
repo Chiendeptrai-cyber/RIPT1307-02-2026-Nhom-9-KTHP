@@ -53,17 +53,20 @@ export default function AdminDueOverduePage() {
     load();
   }, [load]);
 
+  // Helper: lấy ngày trả sớm nhất (item-level) để tính ngày nhất quán
+  const getDueDate = (item: BorrowRequest) =>
+    dayjs(item.earliestReturnDate || item.expectedReturnDate).startOf('day');
+
   // Split items into due-soon (within 3 days, NOT yet past due) and overdue (past due)
   const today = dayjs().startOf('day');
   const dueSoonItems = allItems.filter((item) => {
-    const due = dayjs(item.expectedReturnDate).startOf('day');
-    const daysUntilDue = due.diff(today, 'day');
+    const daysUntilDue = getDueDate(item).diff(today, 'day');
     const isOverdue = (item.status as string) === 'overdue';
     // Chỉ hiện: đang mượn, chưa quá hạn, trong vòng 3 ngày tới (0-3 ngày)
     return !isOverdue && daysUntilDue >= 0 && daysUntilDue <= 3;
   });
   const overdueItems = allItems.filter((item) => {
-    const due = dayjs(item.expectedReturnDate).startOf('day');
+    const due = getDueDate(item);
     const isOverdue = (item.status as string) === 'overdue';
     // Đã quá hạn: status overdue HOẶC borrowing mà đã qua ngày trả
     return isOverdue || (!isOverdue && due.isBefore(today));
@@ -105,11 +108,10 @@ export default function AdminDueOverduePage() {
     },
     {
       title: 'Hạn trả',
-      dataIndex: 'expectedReturnDate',
       key: 'expectedReturnDate',
       width: 110,
-      render: (v: string) => {
-        const due = dayjs(v);
+      render: (_: unknown, r: BorrowRequest) => {
+        const due = getDueDate(r);
         const isOverdue = due.isBefore(today);
         return (
           <Text
@@ -147,18 +149,18 @@ export default function AdminDueOverduePage() {
       width: 90,
       align: 'center',
       render: (_: unknown, r: BorrowRequest) => {
-        const due = dayjs(r.expectedReturnDate).startOf('day');
+        const due = getDueDate(r);
         const diff = due.diff(today, 'day');
         if (diff >= 0) {
           return (
             <Tag color="orange" style={{ fontSize: 11 }}>
-              {diff === 0 ? 'Hôm nay' : `-${diff}N`}
+              {diff === 0 ? 'Hôm nay' : `+${diff}N`}
             </Tag>
           );
         }
         return (
           <Tag color="volcano" style={{ fontSize: 11, fontWeight: 700 }}>
-            +{Math.abs(diff)}N
+            -{Math.abs(diff)}N
           </Tag>
         );
       },

@@ -331,6 +331,8 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
               br.user_id AS "userId",
               br.status,
               br.expected_return_date AS "expectedReturnDate",
+              (SELECT MIN(bri2.expected_return_date) FROM borrow_request_items bri2 WHERE bri2.borrow_request_id = br.id) AS "earliestReturnDate",
+              (SELECT MAX(bri3.expected_return_date) FROM borrow_request_items bri3 WHERE bri3.borrow_request_id = br.id) AS "latestReturnDate",
               br.note,
               br.approved_at AS "approvedAt",
               br.borrowed_at AS "borrowedAt",
@@ -342,6 +344,10 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
               FORMAT('PH-%s-%s', TO_CHAR(br.created_at AT TIME ZONE 'Asia/Ho_Chi_Minh', 'YYYYMMDD'), LPAD(br.id::TEXT, 5, '0')) AS "displayCode",
               u.full_name AS "userFullName", u.email AS "userEmail",
               STRING_AGG(DISTINCT e.name, ', ') AS "equipmentName",
+              (SELECT STRING_AGG(e2.name || ' (x' || bri4.quantity || ')', ', ')
+               FROM borrow_request_items bri4
+               JOIN equipment e2 ON e2.id = bri4.equipment_id
+               WHERE bri4.borrow_request_id = br.id) AS "equipmentSummary",
               SUM(bri.quantity) AS "quantity"
        FROM borrow_requests br
        JOIN users u ON u.id = br.user_id
@@ -349,9 +355,9 @@ export class PgBorrowRequestRepository implements IBorrowRequestRepository {
        LEFT JOIN equipment e ON e.id = bri.equipment_id
        WHERE br.status IN ('borrowing', 'overdue')
          AND EXISTS (
-           SELECT 1 FROM borrow_request_items bri2
-           WHERE bri2.borrow_request_id = br.id
-             AND bri2.expected_return_date <= (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + INTERVAL '3 days')
+           SELECT 1 FROM borrow_request_items bri5
+           WHERE bri5.borrow_request_id = br.id
+             AND bri5.expected_return_date <= (NOW() AT TIME ZONE 'Asia/Ho_Chi_Minh' + INTERVAL '3 days')
          )
        GROUP BY br.id, u.id
        ORDER BY br.expected_return_date ASC`,

@@ -35,7 +35,7 @@ const TABS: TabDef[] = [
 /* ─── Helpers ─────────────────────────────────────────────── */
 const fmt = (v?: string | null) => v ? dayjs(v).format('DD/MM/YYYY') : '—';
 const fmtFull = (v?: string | null) => v ? dayjs(v).format('DD/MM/YYYY HH:mm') : '—';
-const daysFromNow = (d?: string | null) => d ? dayjs(d).diff(dayjs().startOf('day'), 'day') : 0;
+const daysFromNow = (d?: string | null) => d ? dayjs(d).startOf('day').diff(dayjs().startOf('day'), 'day') : 0;
 const displayCode = (r: BorrowRequest) =>
   r.displayCode ?? `PH-${dayjs(r.createdAt).format('YYYYMMDD')}-${String(r.id).padStart(5, '0')}`;
 
@@ -276,7 +276,7 @@ export default function AdminRequestsPage() {
     borrowing: base([
       { title: 'Ngày nhận', key: 'bd', render: (_, r) => fmt(r.borrowedAt) },
       { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
-      { title: 'Còn lại', key: 'cl', render: (_, r) => <Countdown dateStr={r.expectedReturnDate} warnDays={2} /> },
+      { title: 'Còn lại', key: 'cl', render: (_, r) => <Countdown dateStr={r.earliestReturnDate || r.expectedReturnDate} warnDays={2} /> },
       {
         title: 'Thao tác', key: 'act', width: 150,
         render: (_, r) => (
@@ -298,7 +298,7 @@ export default function AdminRequestsPage() {
       { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateRange r={r} /> },
       {
         title: 'Quá hạn', key: 'qh',
-        render: (_, r) => <Tag color="error" style={{ fontWeight: 700 }}>Trễ {Math.abs(daysFromNow(r.expectedReturnDate))} ngày</Tag>,
+        render: (_, r) => <Tag color="error" style={{ fontWeight: 700 }}>Trễ {Math.abs(daysFromNow(r.earliestReturnDate || r.expectedReturnDate))} ngày</Tag>,
       },
       {
         title: 'Thao tác', key: 'act', width: 150,
