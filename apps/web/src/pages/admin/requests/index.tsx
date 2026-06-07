@@ -368,6 +368,9 @@ export default function AdminRequestsPage() {
       <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
         <FileTextOutlined style={{ fontSize: 22, color: SLINK_COLORS.primary }} />
         <Title level={4} style={{ margin: 0 }}>Quản lý phiếu mượn</Title>
+        <Tag color="blue" style={{ marginLeft: 8, fontSize: 14, padding: '2px 8px', borderRadius: 6 }}>
+          Tổng số: {Object.values(cache).reduce((sum, c) => sum + (c?.total ?? 0), 0)} phiếu
+        </Tag>
         <Button
           size="small" icon={<ReloadOutlined spin={refreshing} />}
           onClick={handleManualRefresh} loading={refreshing}
