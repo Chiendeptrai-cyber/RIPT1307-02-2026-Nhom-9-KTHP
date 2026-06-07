@@ -1,3 +1,9 @@
+Tai khoan admin : Admin@ptit.edu.vn / password : password
+Tai khoan user: user@ptit.edu.vn / password: 12345678
+
+
+
+
 # Equipment Borrowing & Return Management System - Monorepo Boilerplate
 
 Production-grade monorepo boilerplate for an Equipment Borrowing & Return Management System built with **Node.js 24**, **TypeScript 5.5**, **Express 4**, **UmiJS 4**, **React 18**, **PostgreSQL**, **Zod**, and **pnpm workspaces**.
