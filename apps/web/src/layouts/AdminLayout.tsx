@@ -34,7 +34,7 @@ export default function AdminLayout() {
       <AppSidebar items={adminMenuItems} title="Quản trị hệ thống" />
       <Layout style={{ background: '#F2F2F2', minWidth: 0, overflow: 'hidden' }}>
         <AppHeader title="Cổng quản trị" />
-        <Content style={{ margin: 16, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>
+        <Content style={{ margin: 0, padding: 0, background: '#F2F2F2', overflowX: 'hidden', overflowY: 'auto' }}>
           <Outlet />
         </Content>
       </Layout>
