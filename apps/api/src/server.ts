@@ -4,7 +4,7 @@ import { startScheduler } from './infrastructure/jobs/scheduler';
 import { getPool } from './infrastructure/database/connection';
 import { runMigrations } from './infrastructure/database/migration-runner';
 import { ensureDefaultAdminUser } from './infrastructure/database/seed-admin';
-import { runSeeds, runMigrations } from './infrastructure/database/seed-runner';
+import { runSeeds } from './infrastructure/database/seed-runner';
 
 const PORT = Number(process.env.PORT ?? 3000);
 
