@@ -1,4 +1,9 @@
-import 'dotenv/config';
+// NOTE: Do NOT use dotenv.config() here.
+// container.ts calls getPool() at module-init time (before any top-level code runs).
+// Env vars MUST be pre-set before this process starts:
+//   Local dev:  tsx --env-file=apps/api/.env apps/api/src/server.ts
+//   Render:     set vars in the Render dashboard (injected before process start)
+
 import { createApp } from './app';
 import { startScheduler } from './infrastructure/jobs/scheduler';
 import { getPool } from './infrastructure/database/connection';
