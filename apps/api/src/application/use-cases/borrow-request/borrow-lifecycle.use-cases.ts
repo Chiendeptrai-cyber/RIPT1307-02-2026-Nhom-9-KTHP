@@ -3,9 +3,10 @@ import type { IEquipmentRepository } from '../../../domain/repositories/equipmen
 import type { INotificationRepository } from '../../../domain/repositories/notification.repository';
 import type { IUserRepository } from '../../../domain/repositories/user.repository';
 import type { IStockLogRepository } from '../../../domain/repositories/stock-log.repository';
+import type { IViolationRepository } from '../../../domain/repositories/violation.repository';
 import type { NodemailerEmailService } from '../../../infrastructure/services/nodemailer-email.service';
 import { AppError } from '../../../domain/errors/app.error';
-import { BorrowRequestStatus, NotificationType, StockActionType } from '@equipment-mgmt/shared';
+import { BorrowRequestStatus, NotificationType, StockActionType, ViolationType } from '@equipment-mgmt/shared';
 
 /**
  * MarkReceived: Admin xác nhận sinh viên đã đến nhận thiết bị.
@@ -127,6 +128,7 @@ export class MarkReturnedUseCase {
     private readonly stockLogRepo: IStockLogRepository,
     private readonly notificationRepo: INotificationRepository,
     private readonly userRepo: IUserRepository,
+    private readonly violationRepo: IViolationRepository,
     private readonly emailService: NodemailerEmailService,
   ) {}
 
@@ -141,8 +143,10 @@ export class MarkReturnedUseCase {
     }
 
     const returnedAt = new Date();
-    const expectedReturnDate = new Date(request.expectedReturnDate);
-    const isOnTime = returnedAt <= expectedReturnDate;
+
+    // Tính on-time dựa trên expectedReturnDate của phiếu
+    const expectedDate = new Date(request.expectedReturnDate);
+    const isOnTime = returnedAt <= expectedDate;
 
     // Hoàn trả số lượng thiết bị vào kho
     const items = await this.borrowRequestRepo.getItems(requestId);
@@ -160,6 +164,15 @@ export class MarkReturnedUseCase {
       status: BorrowRequestStatus.RETURNED,
       returnedAt: returnedAt.toISOString(),
     } as any);
+
+    if (!isOnTime) {
+      await this.violationRepo.create({
+        userId: request.userId,
+        borrowRequestId: requestId,
+        type: ViolationType.LATE_RETURN,
+        description: `Trả thiết bị muộn. Hạn trả: ${expectedReturnDate.toLocaleDateString('vi-VN')}, Ngày trả thực tế: ${returnedAt.toLocaleDateString('vi-VN')}`,
+      });
+    }
 
     await this.notificationRepo.create({
       userId: request.userId,

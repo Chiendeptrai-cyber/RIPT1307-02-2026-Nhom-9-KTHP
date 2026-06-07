@@ -13,9 +13,8 @@ import type { ApiResponse } from '@equipment-mgmt/shared';
 
 export async function createBorrowRequest(req: Request, res: Response): Promise<void> {
   const userId = req.user!.userId;
-  const { equipmentId, quantity, expectedReturnDate, note, rulesAccepted } = req.body as {
-    equipmentId: number;
-    quantity: number;
+  const { items, expectedReturnDate, note, rulesAccepted } = req.body as {
+    items: Array<{ equipmentId: number; quantity: number }>;
     expectedReturnDate: string;
     note?: string;
     rulesAccepted?: boolean;
@@ -23,8 +22,7 @@ export async function createBorrowRequest(req: Request, res: Response): Promise<
 
   const result = await createBorrowRequestUseCase.execute({
     userId,
-    equipmentId,
-    quantity: quantity ?? 1,
+    items,
     expectedReturnDate,
     note,
     rulesAccepted,
@@ -51,11 +49,12 @@ export async function listMyRequests(req: Request, res: Response): Promise<void>
 }
 
 export async function listAllRequests(req: Request, res: Response): Promise<void> {
-  const { page = '1', pageSize = '20', status, search } = req.query as Record<string, string>;
+  const { page = '1', pageSize = '20', status, search, userId } = req.query as Record<string, string>;
 
   const result = await (borrowRequestRepo as any).listAll(Number(page), Number(pageSize), {
     status: status || undefined,
     search: search || undefined,
+    userId: userId ? Number(userId) : undefined,
   });
 
   res.json({

@@ -3,4 +3,5 @@ export interface BorrowRequestItemEntity {
   borrowRequestId: number;
   equipmentId: number;
   quantity: number;
+  expectedReturnDate: string;
 }

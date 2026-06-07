@@ -18,7 +18,13 @@ export default function AdminLayout() {
   }, []);
 
   useEffect(() => {
-    if (!token || !user) {
+    // Kiểm tra token thực tế trong localStorage để tránh state stale
+    const actualToken = localStorage.getItem('access_token');
+    if (!actualToken || !token || !user) {
+      // Đồng bộ: xóa state nếu localStorage không còn token
+      if (!actualToken && token) {
+        useAuthStore.getState().logout();
+      }
       navigate('/login', { replace: true });
     } else if (user.role !== 'admin') {
       navigate('/equipment', { replace: true });

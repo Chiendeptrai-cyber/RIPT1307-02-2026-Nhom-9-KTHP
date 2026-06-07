@@ -6,4 +6,5 @@ export interface INotificationRepository {
   markAllRead(userId: number): Promise<void>;
   countUnread(userId: number): Promise<number>;
   create(data: Omit<NotificationEntity, 'id' | 'createdAt' | 'updatedAt'>): Promise<NotificationEntity>;
+  listAll(page: number, pageSize: number): Promise<{ items: any[]; total: number }>;
 }

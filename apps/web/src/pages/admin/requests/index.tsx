@@ -14,6 +14,7 @@ import { borrowRequestService, type BorrowRequest } from '../../../services/borr
 import { SLINK_COLORS } from '../../../theme/tokens';
 import { SystemLogAction } from '@equipment-mgmt/shared';
 import { createSystemLog } from '../../../mocks/systemLogStore';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -35,7 +36,7 @@ const TABS: TabDef[] = [
 /* ─── Helpers ─────────────────────────────────────────────── */
 const fmt = (v?: string | null) => v ? dayjs(v).format('DD/MM/YYYY') : '—';
 const fmtFull = (v?: string | null) => v ? dayjs(v).format('DD/MM/YYYY HH:mm') : '—';
-const daysFromNow = (d?: string | null) => d ? dayjs(d).diff(dayjs().startOf('day'), 'day') : 0;
+const daysFromNow = (d?: string | null) => d ? dayjs(d).startOf('day').diff(dayjs().startOf('day'), 'day') : 0;
 const displayCode = (r: BorrowRequest) =>
   r.displayCode ?? `PH-${dayjs(r.createdAt).format('YYYYMMDD')}-${String(r.id).padStart(5, '0')}`;
 
@@ -55,16 +56,29 @@ function StudentCell({ r }: { r: BorrowRequest }) {
 }
 
 function EqCell({ r }: { r: BorrowRequest }) {
+  // Prefer equipmentSummary for multi-item
+  const summary = r.equipmentSummary || (r.equipmentName ? `${r.equipmentName} (x${r.quantity ?? 1})` : '—');
   return <div>
-    <Text style={{ fontSize: 13 }}>{r.equipmentName ?? '—'}</Text>
-    {r.quantity && <><br /><Text type="secondary" style={{ fontSize: 12 }}>SL: {r.quantity}</Text></>}
+    <Text style={{ fontSize: 13 }}>{summary}</Text>
   </div>;
 }
 
+function DateFmt({ value }: { value?: string | null }) {
+  return <Text style={{ fontSize: 13 }}>{fmt(value)}</Text>;
+}
+
+function DateFullFmt({ value }: { value?: string | null }) {
+  return <Text style={{ fontSize: 13 }}>{fmtFull(value)}</Text>;
+}
+
+function DateCell({ r }: { r: BorrowRequest }) {
+  return <DateFmt value={r.expectedReturnDate} />;
+}
+
 function CodeCell({ r }: { r: BorrowRequest }) {
-  return <Text code style={{ fontSize: 12, color: SLINK_COLORS.primary, fontWeight: 600 }}>
+  return <span style={idBadgeStyle}>
     {displayCode(r)}
-  </Text>;
+  </span>;
 }
 
 /* ─── Cache type ──────────────────────────────────────────── */
@@ -189,8 +203,8 @@ export default function AdminRequestsPage() {
 
   const cols: Record<TabKey, ColumnsType<BorrowRequest>> = {
     pending: base([
-      { title: 'Ngày gửi', key: 'c', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Ngày gửi', key: 'c', render: (_, r) => <DateFmt value={r.createdAt} /> },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateCell r={r} /> },
       {
         title: 'Thao tác', key: 'act', width: 180,
         render: (_, r) => (
@@ -224,8 +238,8 @@ export default function AdminRequestsPage() {
     ]),
 
     approved: base([
-      { title: 'Ngày duyệt', key: 'ad', render: (_, r) => fmt(r.approvedAt) },
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Ngày duyệt', key: 'ad', render: (_, r) => <DateFmt value={r.approvedAt} /> },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateCell r={r} /> },
       {
         title: 'Hạn đến nhận', key: 'hdn',
         render: (_, r) => {
@@ -261,8 +275,8 @@ export default function AdminRequestsPage() {
     ]),
 
     borrowing: base([
-      { title: 'Ngày nhận', key: 'bd', render: (_, r) => fmt(r.borrowedAt) },
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Ngày nhận', key: 'bd', render: (_, r) => <DateFmt value={r.borrowedAt} /> },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateCell r={r} /> },
       { title: 'Còn lại', key: 'cl', render: (_, r) => <Countdown dateStr={r.expectedReturnDate} warnDays={2} /> },
       {
         title: 'Thao tác', key: 'act', width: 150,
@@ -282,7 +296,7 @@ export default function AdminRequestsPage() {
     ]),
 
     overdue: base([
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateCell r={r} /> },
       {
         title: 'Quá hạn', key: 'qh',
         render: (_, r) => <Tag color="error" style={{ fontWeight: 700 }}>Trễ {Math.abs(daysFromNow(r.expectedReturnDate))} ngày</Tag>,
@@ -304,8 +318,8 @@ export default function AdminRequestsPage() {
     ]),
 
     returned: base([
-      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => fmt(r.expectedReturnDate) },
-      { title: 'Ngày trả thực tế', key: 'ra', render: (_, r) => fmtFull(r.returnedAt) },
+      { title: 'Trả dự kiến', key: 'rd', render: (_, r) => <DateCell r={r} /> },
+      { title: 'Ngày trả thực tế', key: 'ra', render: (_, r) => <DateFullFmt value={r.returnedAt} /> },
       {
         title: 'Kết quả', key: 'kq',
         render: (_, r) => {
@@ -325,14 +339,14 @@ export default function AdminRequestsPage() {
     ]),
 
     cancelled: base([
-      { title: 'Ngày tạo', key: 'c', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Ngày hủy', key: 'u', render: (_, r) => fmt(r.updatedAt) },
+      { title: 'Ngày tạo', key: 'c', render: (_, r) => <DateFmt value={r.createdAt} /> },
+      { title: 'Ngày hủy', key: 'u', render: (_, r) => <DateFmt value={r.updatedAt} /> },
       { title: 'Lý do', key: 'lr', render: (_, r) => <Text type="secondary" style={{ fontSize: 12 }}>{r.rejectReason ?? r.note ?? '—'}</Text> },
     ]),
 
     rejected: base([
-      { title: 'Ngày gửi', key: 'c', render: (_, r) => fmt(r.createdAt) },
-      { title: 'Ngày từ chối', key: 'u', render: (_, r) => fmt(r.updatedAt) },
+      { title: 'Ngày gửi', key: 'c', render: (_, r) => <DateFmt value={r.createdAt} /> },
+      { title: 'Ngày từ chối', key: 'u', render: (_, r) => <DateFmt value={r.updatedAt} /> },
       { title: 'Lý do', key: 'lr', render: (_, r) => <Text type="secondary" style={{ fontSize: 12 }}>{r.rejectReason ?? r.note ?? '—'}</Text> },
     ]),
   };
@@ -496,10 +510,10 @@ export default function AdminRequestsPage() {
           const onTime = r.returnedAt ? dayjs(r.returnedAt) <= dayjs(r.expectedReturnDate) : null;
           return (
             <div style={{ lineHeight: 2.2 }}>
-              <div><Text type="secondary">Mã phiếu:</Text> <Text code style={{ color: SLINK_COLORS.primary }}>{displayCode(r)}</Text></div>
+              <div><Text type="secondary">Mã phiếu:</Text> <span style={idBadgeStyle}>{displayCode(r)}</span></div>
               <div><Text type="secondary">Sinh viên:</Text> <Text strong>{r.userFullName}</Text></div>
               <div><Text type="secondary">Email:</Text> <Text>{r.userEmail}</Text></div>
-              <div><Text type="secondary">Thiết bị:</Text> <Text>{r.equipmentName} × {r.quantity}</Text></div>
+              <div><Text type="secondary">Thiết bị:</Text> <Text>{r.equipmentSummary || (r.equipmentName ? `${r.equipmentName} × ${r.quantity ?? 1}` : '—')}</Text></div>
               <div><Text type="secondary">Ngày tạo:</Text> <Text>{fmtFull(r.createdAt)}</Text></div>
               <div><Text type="secondary">Trả dự kiến:</Text> <Text>{fmt(r.expectedReturnDate)}</Text></div>
               <div><Text type="secondary">Ngày trả thực tế:</Text> <Text>{fmtFull(r.returnedAt)}</Text></div>
