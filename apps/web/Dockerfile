@@ -32,8 +32,11 @@ COPY tsconfig.base.json ./
 COPY packages/shared ./packages/shared
 COPY apps/web ./apps/web
 
-# Dùng đường dẫn tương đối → browser gọi /api/v1/... → Nginx proxy đến http://api:3000/api/v1/...
-ENV UMI_APP_API_URL=/api/v1
+# Accept the API base URL as a build argument.
+# Local Docker: docker build --build-arg API_URL=/api/v1 ...
+# Cloud (Netlify/Render): set API_URL env var in dashboard.
+ARG API_URL=/api/v1
+ENV UMI_APP_API_URL=${API_URL}
 
 RUN cd apps/web && pnpm build
 
