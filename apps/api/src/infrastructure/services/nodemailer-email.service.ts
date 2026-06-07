@@ -21,6 +21,12 @@ export class NodemailerEmailService {
             pass: process.env.SMTP_PASS,
           },
         });
+        try {
+          await this.transporter.verify();
+          console.log('[EMAIL] SMTP connection verified');
+        } catch (err) {
+          console.error('[EMAIL] SMTP verification failed', err);
+        }
       } else {
         console.log('[EMAIL] No SMTP host configured. Creating temporary Ethereal test account...');
         const testAccount = await nodemailer.createTestAccount();
@@ -36,6 +42,12 @@ export class NodemailerEmailService {
             pass: testAccount.pass,
           },
         });
+        try {
+          await this.transporter.verify();
+          console.log('[EMAIL] Ethereal SMTP connection verified');
+        } catch (err) {
+          console.error('[EMAIL] Ethereal SMTP verification failed', err);
+        }
       }
       return this.transporter;
     })();
@@ -46,16 +58,23 @@ export class NodemailerEmailService {
   async sendMail(options: nodemailer.SendMailOptions): Promise<nodemailer.SentMessageInfo> {
     const transporter = await this.getTransporter();
     const fromAddress = process.env.SMTP_FROM || 'PTIT Equipment Management <noreply@ptit.edu.vn>';
-    const info = await transporter.sendMail({
-      from: fromAddress,
-      ...options,
-    });
+    try {
+      const info = await transporter.sendMail({ from: fromAddress, ...options });
 
-    const previewUrl = nodemailer.getTestMessageUrl(info);
-    if (previewUrl) {
-      console.log(`[EMAIL SENT] Preview URL: ${previewUrl}`);
-      (info as any).previewUrl = previewUrl;
+      // Log detailed send result for debugging
+      const anyInfo = info as any;
+      console.log('[EMAIL SENT] messageId=%s accepted=%o rejected=%o response=%s', anyInfo.messageId, anyInfo.accepted, anyInfo.rejected, anyInfo.response);
+
+      const previewUrl = nodemailer.getTestMessageUrl(info);
+      if (previewUrl) {
+        console.log(`[EMAIL SENT] Preview URL: ${previewUrl}`);
+        (info as any).previewUrl = previewUrl;
+      }
+
+      return info;
+    } catch (err) {
+      console.error('[EMAIL] sendMail failed', err);
+      throw err;
     }
-    return info;
   }
 }
