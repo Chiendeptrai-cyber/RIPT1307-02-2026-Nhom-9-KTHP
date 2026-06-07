@@ -39,6 +39,7 @@ export class UpdateEquipmentUseCase {
       categoryId?: number;
       status?: string;
       description?: string;
+      imageUrl?: string | null;
     },
   ): Promise<EquipmentEntity> {
     const existing = await this.equipmentRepo.findById(id);

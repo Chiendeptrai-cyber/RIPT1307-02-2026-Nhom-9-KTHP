@@ -23,6 +23,7 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/vi';
 import { borrowRequestService, type BorrowRequest } from '../../../services/borrow-request.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
+import { idBadgeStyle } from '@/utils/format';
 
 dayjs.extend(relativeTime);
 dayjs.locale('vi');
@@ -79,11 +80,11 @@ export default function AdminDueOverduePage() {
       title: 'Phiếu',
       dataIndex: 'displayCode',
       key: 'displayCode',
-      width: 130,
+      width: 200,
       render: (v: string, r: BorrowRequest) => (
-        <Text strong style={{ fontSize: 12, color: SLINK_COLORS.info }}>
+        <span style={idBadgeStyle}>
           {v ?? `#${r.id}`}
-        </Text>
+        </span>
       ),
     },
     {

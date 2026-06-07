@@ -7,6 +7,7 @@ import { HistoryOutlined, SearchOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import { readSystemLogs, type MockSystemLog } from '@/mocks/systemLogStore';
 import { SLINK_COLORS } from '@/theme/tokens';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 
@@ -60,7 +61,7 @@ export default function EquipmentLogsPage() {
     {
       title: 'ID Log', dataIndex: 'code', width: 120,
       render: (code: string) => (
-        <Text code style={{ fontSize: 12, color: SLINK_COLORS.primary, fontWeight: 600 }}>{code}</Text>
+        <span style={idBadgeStyle}>{code}</span>
       ),
     },
     {
@@ -86,9 +87,9 @@ export default function EquipmentLogsPage() {
     {
       title: 'Mã thiết bị', width: 110,
       render: (_, r) => (
-        <Text code style={{ fontSize: 12, fontWeight: 600 }}>
+        <span style={idBadgeStyle}>
           {(r.details.equipmentCode as string) ?? '—'}
-        </Text>
+        </span>
       ),
     },
     {

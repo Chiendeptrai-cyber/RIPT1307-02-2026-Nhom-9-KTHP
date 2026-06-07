@@ -14,6 +14,7 @@ import { borrowRequestService, type BorrowRequest } from '../../../services/borr
 import { SLINK_COLORS } from '../../../theme/tokens';
 import { SystemLogAction } from '@equipment-mgmt/shared';
 import { createSystemLog } from '../../../mocks/systemLogStore';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -75,9 +76,9 @@ function DateCell({ r }: { r: BorrowRequest }) {
 }
 
 function CodeCell({ r }: { r: BorrowRequest }) {
-  return <Text code style={{ fontSize: 12, color: SLINK_COLORS.primary, fontWeight: 600 }}>
+  return <span style={idBadgeStyle}>
     {displayCode(r)}
-  </Text>;
+  </span>;
 }
 
 /* ─── Cache type ──────────────────────────────────────────── */
@@ -506,7 +507,7 @@ export default function AdminRequestsPage() {
           const onTime = r.returnedAt ? dayjs(r.returnedAt) <= dayjs(r.expectedReturnDate) : null;
           return (
             <div style={{ lineHeight: 2.2 }}>
-              <div><Text type="secondary">Mã phiếu:</Text> <Text code style={{ color: SLINK_COLORS.primary }}>{displayCode(r)}</Text></div>
+              <div><Text type="secondary">Mã phiếu:</Text> <span style={idBadgeStyle}>{displayCode(r)}</span></div>
               <div><Text type="secondary">Sinh viên:</Text> <Text strong>{r.userFullName}</Text></div>
               <div><Text type="secondary">Email:</Text> <Text>{r.userEmail}</Text></div>
               <div><Text type="secondary">Thiết bị:</Text> <Text>{r.equipmentSummary || (r.equipmentName ? `${r.equipmentName} × ${r.quantity ?? 1}` : '—')}</Text></div>

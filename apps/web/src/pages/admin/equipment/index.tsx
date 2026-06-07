@@ -23,12 +23,13 @@ import type { ColumnsType } from 'antd/es/table';
 import {
   DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined,
   ToolOutlined, ImportOutlined, WarningOutlined, QuestionCircleOutlined,
-  SwapOutlined, ApartmentOutlined, ReloadOutlined,
+  SwapOutlined, ApartmentOutlined, ReloadOutlined, PictureOutlined, LinkOutlined,
 } from '@ant-design/icons';
 import { equipmentService, type Equipment, type StockAdjustType } from '../../../services/equipment.service';
 import { SLINK_COLORS } from '../../../theme/tokens';
 import { SystemLogAction } from '@equipment-mgmt/shared';
 import { createSystemLog } from '../../../mocks/systemLogStore';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -47,6 +48,7 @@ interface EquipmentFormValues {
   totalQuantity: number;
   status?: string;
   description?: string;
+  imageUrl?: string;
 }
 
 const TRANSITIONS: Record<string, { value: string; label: string; danger?: boolean }[]> = {
@@ -76,6 +78,7 @@ export default function AdminEquipmentPage() {
   const [formModal, setFormModal] = useState<{ open: boolean; record?: Equipment }>({ open: false });
   const [formLoading, setFormLoading] = useState(false);
   const [infoForm] = Form.useForm();
+  const [imagePreview, setImagePreview] = useState<string>('');
 
   const [newCategoryName, setNewCategoryName] = useState('');
   const [addingCategory, setAddingCategory] = useState(false);
@@ -130,15 +133,17 @@ export default function AdminEquipmentPage() {
     } finally { setAddingCategory(false); }
   };
 
-  const openCreate = () => { setFormModal({ open: true }); infoForm.resetFields(); };
+  const openCreate = () => { setFormModal({ open: true }); infoForm.resetFields(); setImagePreview(''); };
   const openEdit = (r: Equipment) => {
     setFormModal({ open: true, record: r });
+    setImagePreview(r.imageUrl || '');
     infoForm.setFieldsValue({
       name: r.name,
       description: r.description,
       totalQuantity: r.totalQuantity,
       categoryId: (r as any).categoryId ?? undefined,
       status: r.status,
+      imageUrl: r.imageUrl || '',
     });
   };
 
@@ -147,7 +152,11 @@ export default function AdminEquipmentPage() {
     try {
       if (formModal.record) {
         const old = formModal.record;
-        await equipmentService.update(old.id, { name: values.name, description: values.description });
+        await equipmentService.update(old.id, {
+          name: values.name,
+          description: values.description,
+          imageUrl: values.imageUrl || null,
+        });
         const changedFields: string[] = [];
         if (values.name !== old.name) changedFields.push('name');
         if (values.description !== old.description) changedFields.push('description');
@@ -173,6 +182,7 @@ export default function AdminEquipmentPage() {
           description: values.description,
           categoryId: values.categoryId,
           status: values.status ?? 'active',
+          imageUrl: values.imageUrl || null,
         });
         message.success('Thêm thiết bị thành công');
       }
@@ -293,18 +303,24 @@ export default function AdminEquipmentPage() {
       key: 'id',
       width: 120,
       render: (id: number) => (
-        <span style={{ 
-          fontFamily: 'SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace',
-          fontWeight: 600,
-          color: SLINK_COLORS.primary,
-          background: 'rgba(191, 4, 4, 0.06)',
-          padding: '2px 8px',
-          borderRadius: 4,
-          border: '1px solid rgba(191, 4, 4, 0.15)',
-          fontSize: '12px'
-        }}>
+        <span style={idBadgeStyle}>
           EQ-{String(id).padStart(4, '0')}
         </span>
+      ),
+    },
+    {
+      title: 'Ảnh',
+      dataIndex: 'imageUrl',
+      key: 'imageUrl',
+      width: 72,
+      render: (imageUrl?: string) => (
+        <div style={{ width: 48, height: 48, borderRadius: 6, overflow: 'hidden', background: '#f5f5f5', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid #e8e8e8' }}>
+          {imageUrl ? (
+            <img src={imageUrl} alt="thumb" style={{ width: '100%', height: '100%', objectFit: 'contain' }} onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+          ) : (
+            <PictureOutlined style={{ fontSize: 18, color: '#bbb' }} />
+          )}
+        </div>
       ),
     },
     {
@@ -474,6 +490,32 @@ export default function AdminEquipmentPage() {
           <Form.Item name="description" label="Mô tả">
             <Input.TextArea rows={3} maxLength={200} showCount />
           </Form.Item>
+          <Form.Item
+            name="imageUrl"
+            label={<span><LinkOutlined style={{ marginRight: 4 }} />Link ảnh thiết bị</span>}
+            extra="Dán link ảnh từ internet (Google Images, Wikipedia, ...). Ảnh sẽ hiển thị trên trang danh sách thiết bị."
+          >
+            <Input
+              prefix={<PictureOutlined style={{ color: '#bbb' }} />}
+              placeholder="https://example.com/image.jpg"
+              allowClear
+              onChange={(e) => setImagePreview(e.target.value)}
+            />
+          </Form.Item>
+          {imagePreview && (
+            <div style={{
+              marginBottom: 16, padding: 10, border: '1px dashed #d9d9d9',
+              borderRadius: 8, background: '#fafafa', textAlign: 'center',
+            }}>
+              <Text type="secondary" style={{ fontSize: 11, display: 'block', marginBottom: 6 }}>Xem trước ảnh:</Text>
+              <img
+                src={imagePreview}
+                alt="preview"
+                style={{ maxWidth: '100%', maxHeight: 160, objectFit: 'contain', borderRadius: 4 }}
+                onError={(e) => { (e.target as HTMLImageElement).src = ''; (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            </div>
+          )}
         </Form>
       </Modal>
 

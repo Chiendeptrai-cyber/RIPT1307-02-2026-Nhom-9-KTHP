@@ -11,7 +11,10 @@ INSERT INTO schema_migrations (filename) VALUES
   ('002_borrow_request_enhancements.sql'),
   ('003_add_equipment_statuses.sql'),
   ('003_user_lock_details.sql'),
+  ('004_add_user_profile_columns.sql'),
   ('004_equipment_image_and_rules.sql'),
+  ('005_add_manual_notification_type.sql'),
   ('005_multi_item_borrow_request.sql'),
+  ('006_modify_violations_table.sql'),
   ('006_single_return_date.sql')
 ON CONFLICT DO NOTHING;

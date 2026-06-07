@@ -75,7 +75,7 @@ export const adminMenuItems: MenuProps['items'] = [
   {
     key: ROUTES.ADMIN_NOTIFICATIONS,
     icon: <BellOutlined />,
-    label: 'Thông báo',
+    label: 'Quản lý thông báo',
   },
 ];
 

@@ -11,6 +11,7 @@ import dayjs from 'dayjs';
 import { SystemLogAction } from '@equipment-mgmt/shared';
 import { readSystemLogs, type MockSystemLog } from '@/mocks/systemLogStore';
 import { SLINK_COLORS } from '@/theme/tokens';
+import { idBadgeStyle } from '@/utils/format';
 
 const { Title, Text } = Typography;
 
@@ -69,9 +70,9 @@ export default function ApprovalLogsPage() {
       dataIndex: 'code',
       width: 120,
       render: (code: string) => (
-        <Text code style={{ fontSize: 12, color: SLINK_COLORS.primary, fontWeight: 600 }}>
+        <span style={idBadgeStyle}>
           {code}
-        </Text>
+        </span>
       ),
     },
     {
@@ -107,7 +108,7 @@ export default function ApprovalLogsPage() {
       dataIndex: 'targetLabel',
       width: 180,
       render: (label: string) => (
-        <Text code style={{ fontSize: 12, fontWeight: 600 }}>{label}</Text>
+        <span style={idBadgeStyle}>{label}</span>
       ),
     },
     {
