@@ -1,0 +1,17 @@
+[build]
+  # Run from monorepo root
+  command = "cd apps/web && pnpm build"
+  publish = "apps/web/dist"
+
+[build.environment]
+  # pnpm version must match pnpm-lock.yaml
+  PNPM_VERSION = "10.30.3"
+  NODE_VERSION = "20"
+  # UMI_APP_API_URL is set in Netlify Dashboard → Environment Variables
+  # so that the real API URL is baked into the build
+
+[[redirects]]
+  # SPA fallback: all routes → index.html (required for UmiJS client-side routing)
+  from = "/*"
+  to = "/index.html"
+  status = 200
