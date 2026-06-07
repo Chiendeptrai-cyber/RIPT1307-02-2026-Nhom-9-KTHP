@@ -1,7 +1,6 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "allowImportingTsExtensions": false,
     "module": "NodeNext",
     "jsx": "preserve",
     "baseUrl": "./",
@@ -13,3 +12,4 @@
   "include": ["src"],
   "references": []
 }
+
