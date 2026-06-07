@@ -173,31 +173,20 @@ export default function AdminDueOverduePage() {
       {contextHolder}
 
       {/* Header */}
-      <div
-        style={{
-          marginBottom: 20,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-          gap: 12,
-          flexWrap: 'wrap',
-        }}
-      >
-        <div>
-          <Title level={4} style={{ marginBottom: 4 }}>
-            Hạn Trả Thiết Bị
-          </Title>
-          <Text type="secondary" style={{ fontSize: 13 }}>
-            Theo dõi phiếu sắp đến hạn và quá hạn —{' '}
-            <span style={{ color: SLINK_COLORS.textBase }}>
-              {dayjs().format('dddd, DD/MM/YYYY')}
-            </span>
-          </Text>
-        </div>
+      <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 10 }}>
+        <ClockCircleOutlined style={{ fontSize: 22, color: SLINK_COLORS.primary }} />
+        <Title level={4} style={{ margin: 0 }}>Hạn Trả Thiết Bị</Title>
+        <div style={{ flex: 1 }} />
         <Button icon={<ReloadOutlined />} onClick={load} loading={loading}>
           Làm mới
         </Button>
       </div>
+      <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 16, paddingLeft: 32 }}>
+        Theo dõi phiếu sắp đến hạn và quá hạn —{' '}
+        <span style={{ color: SLINK_COLORS.textBase }}>
+          {dayjs().format('dddd, DD/MM/YYYY')}
+        </span>
+      </Text>
 
       {/* Alert summary */}
       {overdueItems.length > 0 && (
