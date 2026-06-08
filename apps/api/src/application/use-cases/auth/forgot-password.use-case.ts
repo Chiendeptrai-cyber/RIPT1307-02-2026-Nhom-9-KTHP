@@ -32,7 +32,7 @@ export class ForgotPasswordUseCase {
     let emailPreviewUrl: string | undefined;
     try {
       // Send real/mock email
-      const resetLink = `http://localhost:8080/reset-password?token=${token}`;
+      const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;;
       const mailInfo = await this.emailService.sendMail({
         to: data.email,
         subject: '[PTIT Equipment Management] Yêu cầu đặt lại mật khẩu',
