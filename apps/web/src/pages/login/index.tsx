@@ -14,6 +14,7 @@ export default function LoginPage() {
   const setAuth = useAuthStore((state) => state.setAuth);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<React.ReactNode | null>(null);
+  const [showColdStartNotice, setShowColdStartNotice] = useState(true);
 
   const onFinish = async (values: { email: string; password: string }) => {
     setLoading(true);
@@ -103,6 +104,18 @@ export default function LoginPage() {
         </Title>
         <Text type="secondary">Đăng nhập vào hệ thống quản lý thiết bị</Text>
       </div>
+
+      {showColdStartNotice && (
+        <Alert
+          message="Lưu ý: Server có thể mất đến 3 phút để khởi động (cold start)."
+          description="Nếu đây là lần đầu dịch vụ khởi động, hãy kiên nhẫn — không cần tải lại trang. Bạn có thể đóng thông báo này."
+          type="info"
+          showIcon
+          closable
+          onClose={() => setShowColdStartNotice(false)}
+          style={{ marginBottom: 20, borderRadius: 6 }}
+        />
+      )}
 
       {error && (
         <Alert message={error} type="error" showIcon style={{ marginBottom: 20, borderRadius: 6 }} />
