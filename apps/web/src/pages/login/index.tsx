@@ -151,7 +151,7 @@ export default function LoginPage() {
         </Form.Item>
 
         <div style={{ textAlign: 'right', marginBottom: 20 }}>
-          <Link href="/forgot-password" style={{ color: SLINK_COLORS.info, fontSize: 13 }}>
+          <Link href="/forgot-password?from=login" style={{ color: SLINK_COLORS.info, fontSize: 13 }}>
             Quên mật khẩu?
           </Link>
         </div>

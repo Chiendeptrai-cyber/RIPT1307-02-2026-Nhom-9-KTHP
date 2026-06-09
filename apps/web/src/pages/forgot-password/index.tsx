@@ -14,6 +14,13 @@ export default function ForgotPasswordPage() {
   const [successToken, setSuccessToken] = useState<string | null>(null);
   const [emailPreviewUrl, setEmailPreviewUrl] = useState<string | null>(null);
   const [isSent, setIsSent] = useState(false);
+  const [showForgotNotice, setShowForgotNotice] = useState(() => {
+    try {
+      return typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('from') === 'login';
+    } catch {
+      return false;
+    }
+  });
 
   const onFinish = async (values: { email: string }) => {
     setLoading(true);
@@ -81,6 +88,20 @@ export default function ForgotPasswordPage() {
         </Title>
         <Text type="secondary">Nhập email của bạn để nhận mã đặt lại mật khẩu</Text>
       </div>
+
+      {showForgotNotice && (
+        <Alert
+          message="Lưu ý về gửi email"
+          description={
+            "Tính năng 'Quên mật khẩu' hoạt động tốt trên môi trường local (email gửi tới hộp thư thử nghiệm). Khi deploy, nhà cung cấp hạ tầng có thể chặn cổng SMTP nên email có thể không đến người dùng. Nếu không nhận được email, vui lòng liên hệ quản trị viên."
+          }
+          type="info"
+          showIcon
+          closable
+          onClose={() => setShowForgotNotice(false)}
+          style={{ marginBottom: 20, borderRadius: 6 }}
+        />
+      )}
 
       {error && (
         <Alert message={error} type="error" showIcon style={{ marginBottom: 20, borderRadius: 6 }} />
